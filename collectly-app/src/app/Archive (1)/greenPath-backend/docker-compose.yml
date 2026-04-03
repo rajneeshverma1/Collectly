@@ -1,0 +1,46 @@
+services:
+  backend-2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: greenpath-backend-2
+    ports:
+      - "8000:8000"
+    environment:
+      MAPBOX_ACCESS_TOKEN: ${MAPBOX_ACCESS_TOKEN:-}
+      OPENWEATHER_API_KEY: ${OPENWEATHER_API_KEY:-}
+      MONGODB_URL: mongodb://mongo:27017/greenpath
+      HOST: ${HOST:-0.0.0.0}
+      PORT: ${PORT:-8000}
+    depends_on:
+      mongo:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - greenpath-network
+
+  mongo:
+    image: mongo:7
+    container_name: greenpath-mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: greenpath
+    volumes:
+      - mongo_data:/data/db
+      - ./mongo-init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/greenpath --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - greenpath-network
+
+volumes:
+  mongo_data:
+
+networks:
+  greenpath-network:
+    driver: bridge

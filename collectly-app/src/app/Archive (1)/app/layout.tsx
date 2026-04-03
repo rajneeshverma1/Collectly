@@ -1,0 +1,39 @@
+import type { Metadata } from 'next';
+import { ThemeProvider } from 'next-themes';
+import { Inter, Nunito } from 'next/font/google';
+import './globals.css';
+
+const inter = Inter({ subsets: ['latin'] });
+const nunito = Nunito({ 
+  subsets: ['latin'],
+  variable: '--font-nunito',
+  display: 'swap',
+});
+
+export const metadata: Metadata = {
+  title: 'Vayu — Pollution-Aware Navigation',
+  description: 'Find the cleanest route to your destination. Vayu uses real-time air quality data to recommend routes with the lowest pollution exposure.',
+  keywords: ['air quality', 'pollution', 'routing', 'navigation', 'health', 'PM2.5', 'AQI'],
+  authors: [{ name: 'Vayu Team' }],
+  openGraph: {
+    title: 'Vayu — Breathe Cleaner Air on Every Journey',
+    description: 'Pollution-aware routing powered by real-time AQI data.',
+    type: 'website',
+  },
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className} ${nunito.variable} bg-gray-50 dark:bg-gray-900 transition-colors`}>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}
