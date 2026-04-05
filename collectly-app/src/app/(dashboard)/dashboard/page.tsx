@@ -5,6 +5,7 @@ import { LayoutDashboard, Users, FileText, Settings, LogOut, Bell, Search, Comma
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/context/AuthContext';
+import { DashboardSummary } from '@/components/DashboardSummary';
 
 const SidebarItem = ({ icon: Icon, label, active = false }: { icon: any, label: string, active?: boolean }) => (
   <button className={cn(
@@ -108,30 +109,7 @@ export default function DashboardPage() {
             </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-             {[
-               { label: "Total Revenue", value: "$42,500.00", trend: "+12.5%", color: "text-emerald-400" },
-               { label: "Active Invoices", value: "24", trend: "+2", color: "text-blue-400" },
-               { label: "Unpaid Balance", value: "$8,200.00", trend: "-4.2%", color: "text-amber-400" },
-               { label: "Retention Rate", value: "98.2%", trend: "+1.2%", color: "text-purple-400" }
-             ].map((stat, i) => (
-                <motion.div 
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  key={stat.label} 
-                  className="p-6 bg-[#111] border border-white/5 rounded-3xl hover:border-white/10 transition-all group"
-                >
-                  <p className="text-xs font-bold text-white/30 uppercase tracking-widest mb-4 group-hover:text-white/50 transition-colors">{stat.label}</p>
-                  <div className="flex items-end justify-between">
-                    <h3 className="text-2xl font-bold tracking-tight">{stat.value}</h3>
-                    <span className={cn("text-[11px] font-bold px-2 py-1 rounded-lg", stat.color, `bg-white/5 border border-white/5`)}>
-                      {stat.trend}
-                    </span>
-                  </div>
-                </motion.div>
-             ))}
-          </div>
+          <DashboardSummary />
 
           <div className="h-96 bg-[#111] border border-white/5 rounded-[2rem] flex flex-col items-center justify-center p-12 text-center">
             <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6">

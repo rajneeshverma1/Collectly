@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const Organization = require("../models/Organization");
+const AppError = require("../utils/appError");
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -33,6 +34,12 @@ const createSendToken = (user, statusCode, res) => {
 
 exports.signup = async (req, res, next) => {
   try {
+    // Check if user already exists
+    const existingUser = await User.findOne({ where: { email: req.body.email } });
+    if (existingUser) {
+      return next(new AppError('Email already registered. Please use a different email or login.', 409));
+    }
+
     const newUser = await User.create({
       name: req.body.name,
       email: req.body.email,
@@ -41,10 +48,7 @@ exports.signup = async (req, res, next) => {
 
     createSendToken(newUser, 201, res);
   } catch (err) {
-    res.status(400).json({
-      status: "fail",
-      message: err.message,
-    });
+    next(err);
   }
 };
 
@@ -53,27 +57,18 @@ exports.login = async (req, res, next) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res.status(400).json({
-        status: "fail",
-        message: "Please provide email and password!",
-      });
+      return next(new AppError('Please provide email and password!', 400));
     }
 
     const user = await User.findOne({ where: { email } });
 
     if (!user || !(await user.correctPassword(password, user.password))) {
-      return res.status(401).json({
-        status: "fail",
-        message: "Incorrect email or password",
-      });
+      return next(new AppError('Incorrect email or password', 401));
     }
 
     createSendToken(user, 200, res);
   } catch (err) {
-    res.status(400).json({
-      status: "fail",
-      message: err.message,
-    });
+    next(err);
   }
 };
 
@@ -99,34 +94,30 @@ exports.protect = async (req, res, next) => {
     }
 
     if (!token) {
-      return res.status(401).json({
-        status: "fail",
-        message: "You are not logged in! Please log in to get access.",
-      });
+      return next(new AppError('You are not logged in! Please log in to get access.', 401));
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const currentUser = await User.findByPk(decoded.id);
 
     if (!currentUser) {
-      return res.status(401).json({
-        status: "fail",
-        message: "The user belonging to this token no longer exists.",
-      });
+      return next(new AppError('The user belonging to this token no longer exists.', 401));
     }
 
     req.user = currentUser;
     next();
   } catch (err) {
-    res.status(401).json({
-      status: "fail",
-      message: "Invalid token or session expired",
-    });
+    next(err);
   }
 };
 
 exports.createOrganization = async (req, res, next) => {
   try {
+    // Check if user already has an organization
+    if (req.user.organizationId) {
+      return next(new AppError('You already have an organization.', 400));
+    }
+
     const newOrg = await Organization.create({
       name: req.body.name,
       type: req.body.type,
@@ -145,10 +136,7 @@ exports.createOrganization = async (req, res, next) => {
       },
     });
   } catch (err) {
-    res.status(400).json({
-      status: "fail",
-      message: err.message,
-    });
+    next(err);
   }
 };
 
