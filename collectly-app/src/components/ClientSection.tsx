@@ -29,6 +29,7 @@ export function ClientSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [sendInvite, setSendInvite] = useState(false);
+  const [editingClient, setEditingClient] = useState<Client | null>(null);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -67,6 +68,19 @@ export function ClientSection() {
     }
   }, [searchParams]);
 
+  useEffect(() => {
+    if (editingClient) {
+      setFormData({
+        name: editingClient.name,
+        email: editingClient.email,
+        phone: editingClient.phone || '',
+        company: editingClient.company || '',
+        address: editingClient.address || '',
+      });
+      setIsModalOpen(true);
+    }
+  }, [editingClient]);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -78,10 +92,11 @@ export function ClientSection() {
       setIsSubmitting(true);
       const token = await getToken();
       
-      let endpoint = '/clients';
+      let endpoint = editingClient ? `/clients/${editingClient.id}` : '/clients';
+      let method = editingClient ? 'PUT' : 'POST';
       let body: any = { ...formData };
 
-      if (sendInvite) {
+      if (!editingClient && sendInvite) {
         // Generate PDF
         const doc = new jsPDF();
         doc.setFontSize(20);
@@ -101,7 +116,7 @@ export function ClientSection() {
       }
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api/v1'}${endpoint}`, {
-        method: 'POST',
+        method: method,
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
@@ -112,12 +127,13 @@ export function ClientSection() {
       const data = await response.json();
       if (data.status === 'success') {
         setIsModalOpen(false);
+        setEditingClient(null);
         setFormData({ name: '', email: '', phone: '', company: '', address: '' });
         setSendInvite(false);
         fetchClients(); // Refresh list
       }
     } catch (err) {
-      console.error('Failed to add client:', err);
+      console.error('Failed to add/update client:', err);
     } finally {
       setIsSubmitting(false);
     }
@@ -253,7 +269,10 @@ export function ClientSection() {
                     )}>
                       {client.status}
                     </span>
-                    <button className="p-2 text-white/20 hover:text-white transition-colors">
+                    <button 
+                      onClick={() => setEditingClient(client)}
+                      className="p-2 text-white/20 hover:text-white transition-colors"
+                    >
                       <MoreHorizontal size={20} />
                     </button>
                   </div>
@@ -312,11 +331,16 @@ export function ClientSection() {
             >
               <div className="p-8 border-b border-white/5 flex items-center justify-between">
                 <div>
-                  <h3 className="text-2xl font-bold mb-1">Add New Client</h3>
-                  <p className="text-sm text-white/40">Enter the details of your new client.</p>
+                  <h3 className="text-2xl font-bold mb-1">{editingClient ? 'Edit Client' : 'Add New Client'}</h3>
+                  <p className="text-sm text-white/40">
+                    {editingClient ? 'Update the details for this client.' : 'Enter the details of your new client.'}
+                  </p>
                 </div>
                 <button 
-                  onClick={() => setIsModalOpen(false)}
+                  onClick={() => {
+                    setIsModalOpen(false);
+                    setEditingClient(null);
+                  }}
                   className="p-2 hover:bg-white/5 rounded-xl transition-colors"
                 >
                   <X size={20} />
@@ -403,7 +427,10 @@ export function ClientSection() {
                 <div className="pt-4 flex gap-4">
                   <button 
                     type="button"
-                    onClick={() => setIsModalOpen(false)}
+                    onClick={() => {
+                      setIsModalOpen(false);
+                      setEditingClient(null);
+                    }}
                     className="flex-1 py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-[20px] font-bold text-sm transition-all"
                   >
                     Cancel
@@ -413,7 +440,7 @@ export function ClientSection() {
                     disabled={isSubmitting}
                     className="flex-1 py-4 bg-white text-black hover:bg-neutral-200 rounded-[20px] font-black text-sm transition-all flex items-center justify-center gap-2"
                   >
-                    {isSubmitting ? <Loader2 className="animate-spin" size={18} /> : 'Save Client'}
+                    {isSubmitting ? <Loader2 className="animate-spin" size={18} /> : (editingClient ? 'Update Client' : 'Save Client')}
                   </button>
                 </div>
               </form>
