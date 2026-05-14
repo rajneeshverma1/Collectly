@@ -6,125 +6,112 @@ import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/context/AuthContext';
 import { DashboardSummary } from '@/components/DashboardSummary';
-
-const SidebarItem = ({ icon: Icon, label, active = false }: { icon: any, label: string, active?: boolean }) => (
-  <button className={cn(
-    "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all group w-full",
-    active ? "bg-white/10 text-white shadow-sm ring-1 ring-white/10" : "text-white/40 hover:text-white hover:bg-white/5"
-  )}>
-    <Icon size={18} className={cn("transition-colors", active ? "text-white" : "group-hover:text-white")} />
-    {label}
-  </button>
-);
+import { DashboardHeader } from '@/components/DashboardHeader';
+import Link from 'next/link';
 
 export default function DashboardPage() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
 
   if (!user) return null;
 
   return (
-    <div className="flex h-screen bg-black text-white font-sans selection:bg-white/20 overflow-hidden">
-      {/* Sidebar */}
-      <aside className="w-64 border-r border-white/5 bg-[#0a0a0a] flex flex-col p-4">
-        <div className="flex items-center gap-2 px-2 mb-10">
-          <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center">
-            <div className="w-4 h-4 rounded-[3px] border-2 border-black"></div>
-          </div>
-          <span className="text-sm font-bold tracking-tight uppercase">COLLECTLY</span>
-        </div>
+    <div className="h-full overflow-y-auto custom-scrollbar flex flex-col">
+      {/* Background Gradients */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 blur-[120px] rounded-full -mr-64 -mt-64 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-purple-600/5 blur-[100px] rounded-full -ml-32 -mb-32 pointer-events-none" />
 
-        <div className="space-y-1 flex-grow">
-          <p className="px-3 text-[10px] font-bold text-white/20 uppercase tracking-widest mb-3">Main</p>
-          <SidebarItem icon={LayoutDashboard} label="Overview" active />
-          <SidebarItem icon={FileText} label="Invoices" />
-          <SidebarItem icon={Users} label="Clients" />
-          <SidebarItem icon={Bell} label="Notifications" />
-          
-          <div className="mt-8">
-            <p className="px-3 text-[10px] font-bold text-white/20 uppercase tracking-widest mb-3">Account</p>
-            <SidebarItem icon={Settings} label="Settings" />
-            <button 
-              onClick={logout}
-              className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-red-500 hover:bg-red-500/10 transition-all w-full mt-2 group"
-            >
-              <LogOut size={18} />
-              Logout
-            </button>
-          </div>
-        </div>
+      {/* Header */}
+      <DashboardHeader />
 
-        <div className="mt-auto p-3 bg-white/5 rounded-2xl border border-white/5">
-          <div className="flex items-center gap-3 mb-3">
-            <img
-              src={user.imageUrl || `https://api.dicebear.com/7.x/initials/svg?seed=${user.firstName || 'User'}`}
-              alt="Avatar"
-              className="w-8 h-8 rounded-full flex-shrink-0"
-            />
-            <div className="overflow-hidden">
-              <p className="text-xs font-bold truncate">{user.firstName} {user.lastName}</p>
-              <p className="text-[10px] text-white/40 font-medium truncate">{user.emailAddresses?.[0]?.emailAddress}</p>
-            </div>
-          </div>
-          <button className="w-full flex items-center justify-center gap-1.5 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-colors">
-            Upgrade <Plus size={10} />
-          </button>
-        </div>
-      </aside>
-
-      {/* Main Content */}
-      <main className="flex-grow flex flex-col bg-[#050505]">
-        {/* Header */}
-        <header className="h-16 border-b border-white/5 flex items-center justify-between px-8 bg-black/50 backdrop-blur-xl sticky top-0 z-20">
-          <div className="relative w-96 group">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-white transition-colors" size={16} />
-            <input 
-              type="text" 
-              placeholder="Search..." 
-              className="w-full bg-white/5 border border-white/10 rounded-xl py-2 pl-10 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-white/20 transition-all placeholder:text-white/20"
-            />
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1 px-1.5 py-0.5 rounded border border-white/10 bg-white/5 text-[10px] text-white/40 font-bold">
-              <Command size={10} /> K
-            </div>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors cursor-pointer">
-              <Bell size={20} className="text-white/60" />
-            </div>
-            <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 overflow-hidden cursor-pointer hover:border-white/30 transition-all">
-              <img src={user.imageUrl} alt="Avatar" />
-            </div>
-          </div>
-        </header>
-
-        {/* Dashboard Grid */}
-        <div className="p-8 overflow-y-auto w-full">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <h2 className="text-3xl font-semibold tracking-tight">Overview</h2>
-              <p className="text-white/40 text-sm mt-1 font-medium italic">Welcome back, {user.firstName || 'User'}.</p>
-            </div>
-            <button className="bg-white text-black px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-neutral-200 transition-colors flex items-center gap-2 shadow-lg shadow-white/5">
-              <Plus size={16} /> Create Invoice
-            </button>
-          </div>
-
-          <DashboardSummary />
-
-          <div className="h-96 bg-[#111] border border-white/5 rounded-[2rem] flex flex-col items-center justify-center p-12 text-center">
-            <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6">
-              <FileText size={32} className="text-white/20" />
-            </div>
-            <h4 className="text-xl font-semibold mb-2 tracking-tight">No active invoices</h4>
-            <p className="text-white/40 max-w-sm mb-8 leading-relaxed font-medium">
-              Start by creating your first invoice to track your revenue and manage your clients.
+      {/* Dashboard Grid */}
+      <div className="p-10 flex-grow">
+        <div className="flex items-end justify-between mb-10">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+          >
+            <h2 className="text-4xl font-bold tracking-tight mb-2">Overview</h2>
+            <p className="text-white/40 text-base font-medium">
+              Welcome back, <span className="text-white">{user.firstName || 'User'}</span>. Here's what's happening.
             </p>
-            <button className="bg-white/5 border border-white/10 hover:bg-white/10 px-6 py-2.5 rounded-xl font-bold text-sm transition-all">
-              Learn more about invoicing
-            </button>
-          </div>
+          </motion.div>
+          <motion.button 
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="bg-white text-black px-8 py-3.5 rounded-[18px] font-black text-sm hover:bg-neutral-200 transition-all flex items-center gap-2.5 shadow-[0_20px_40px_rgba(255,255,255,0.1)]"
+          >
+            <Plus size={18} strokeWidth={3} /> Create New Invoice
+          </motion.button>
         </div>
-      </main>
+
+        <DashboardSummary />
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-4">
+          {/* Revenue Chart Section */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="lg:col-span-2 p-8 bg-white/[0.02] border border-white/5 rounded-[40px] relative overflow-hidden"
+          >
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h4 className="text-xl font-bold mb-1">Revenue Stream</h4>
+                <p className="text-xs text-white/30 font-bold uppercase tracking-widest">Monthly Growth</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="px-3 py-1.5 rounded-lg bg-white/5 text-[10px] font-bold text-white/60">Weekly</div>
+                <div className="px-3 py-1.5 rounded-lg bg-white text-black text-[10px] font-bold">Monthly</div>
+              </div>
+            </div>
+            
+            {/* Mock Chart Visualization */}
+            <div className="h-64 w-full flex items-end gap-3 px-2">
+              {[40, 70, 45, 90, 65, 80, 50, 95, 75, 85, 60, 100].map((height, i) => (
+                <motion.div 
+                  key={i}
+                  initial={{ height: 0 }}
+                  animate={{ height: `${height}%` }}
+                  transition={{ delay: 0.6 + i * 0.05, duration: 1.5, ease: "easeOut" }}
+                  className="flex-grow bg-gradient-to-t from-blue-600/20 to-blue-500/60 rounded-t-lg relative group"
+                >
+                  <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-white text-black text-[10px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                    ${height * 120}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+            <div className="flex justify-between mt-4 px-2 text-[10px] font-bold text-white/20 uppercase tracking-widest">
+              <span>Jan</span><span>Mar</span><span>May</span><span>Jul</span><span>Sep</span><span>Nov</span>
+            </div>
+          </motion.div>
+
+          {/* Empty State / Quick Actions */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="bg-gradient-to-b from-[#111] to-black border border-white/5 rounded-[40px] flex flex-col p-8"
+          >
+            <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6">
+              <FileText size={28} className="text-white/40" />
+            </div>
+            <h4 className="text-xl font-bold mb-3 tracking-tight">No active invoices</h4>
+            <p className="text-white/40 text-sm mb-10 leading-relaxed font-medium">
+              You haven't created any invoices recently. Start managing your revenue today.
+            </p>
+            
+            <div className="space-y-3 mt-auto">
+              <Link href="/dashboard/invoices" className="w-full py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-[20px] font-bold text-xs transition-all flex items-center justify-center gap-2">
+                View Templates <Search size={14} />
+              </Link>
+              <Link href="/dashboard/clients" className="w-full py-4 bg-white text-black hover:bg-neutral-200 rounded-[20px] font-bold text-xs transition-all flex items-center justify-center gap-2">
+                 Add Client <Plus size={14} />
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </div>
     </div>
   );
 }
