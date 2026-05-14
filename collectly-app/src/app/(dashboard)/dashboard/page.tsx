@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { useAuth } from '@/context/AuthContext';
 import { DashboardSummary } from '@/components/DashboardSummary';
 import { DashboardHeader } from '@/components/DashboardHeader';
+import { RecentActivity } from '@/components/RecentActivity';
 import Link from 'next/link';
 
 export default function DashboardPage() {
@@ -86,7 +87,7 @@ export default function DashboardPage() {
             </div>
           </motion.div>
 
-          {/* Empty State / Quick Actions */}
+          {/* Quick Actions */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -96,9 +97,9 @@ export default function DashboardPage() {
             <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6">
               <FileText size={28} className="text-white/40" />
             </div>
-            <h4 className="text-xl font-bold mb-3 tracking-tight">No active invoices</h4>
+            <h4 className="text-xl font-bold mb-3 tracking-tight">Quick Actions</h4>
             <p className="text-white/40 text-sm mb-10 leading-relaxed font-medium">
-              You haven't created any invoices recently. Start managing your revenue today.
+              Easily manage your invoices and clients from one place.
             </p>
             
             <div className="space-y-3 mt-auto">
@@ -111,7 +112,14 @@ export default function DashboardPage() {
             </div>
           </motion.div>
         </div>
+
+        {/* Recent Activity Section */}
+        <div className="mt-8">
+          <RecentActivity />
+        </div>
       </div>
     </div>
+  );
+}
   );
 }
