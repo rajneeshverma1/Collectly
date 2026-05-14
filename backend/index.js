@@ -18,6 +18,7 @@ const Organization = require("./models/Organization");
 const Invoice = require("./models/Invoice");
 const Payment = require("./models/Payment");
 const Client = require("./models/Client");
+const EmailLog = require("./models/EmailLog");
 
 // Database connection & Server start
 
