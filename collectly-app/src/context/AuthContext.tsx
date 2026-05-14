@@ -29,7 +29,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const createOrg = async (orgData: any) => {
     try {
       const token = await getToken();
-      const response = await fetch('http://localhost:5000/api/v1/users/create-org', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api/v1'}/users/create-org`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
