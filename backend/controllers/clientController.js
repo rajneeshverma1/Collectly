@@ -2,7 +2,8 @@ const Client = require("../models/Client");
 const Organization = require("../models/Organization");
 const AppError = require("../utils/appError");
 const crypto = require("crypto");
-const transporter = require("../config/mail");
+const emailService = require("../services/emailService");
+const firebaseService = require("../services/firebaseService");
 
 /**
  * Add a new client
@@ -25,6 +26,12 @@ exports.addClient = async (req, res, next) => {
       organizationId,
       createdBy: req.user.id,
     });
+
+    // Automated Client Notification (Welcome)
+    emailService.sendClientNotification(client, "welcome");
+    
+    // Sync to Firebase for real-time management
+    firebaseService.syncClientToFirebase(client);
 
     res.status(201).json({
       status: "success",
@@ -117,9 +124,47 @@ exports.approveClient = async (req, res, next) => {
     client.invitationToken = null;
     await client.save();
 
+    // Notify client that their account is now active
+    emailService.sendClientNotification(client, "welcome");
+    firebaseService.syncClientToFirebase(client);
+
     res.status(200).json({
       status: "success",
       message: "Agreement approved successfully! You are now added as a client.",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * Update a client
+ */
+exports.updateClient = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { name, email, phone, company, address, status } = req.body;
+    const organizationId = req.user.organizationId;
+
+    const client = await Client.findOne({
+      where: { id, organizationId }
+    });
+
+    if (!client) {
+      return next(new AppError("Client not found", 404));
+    }
+
+    await client.update({ name, email, phone, company, address, status });
+
+    // Trigger update notification
+    emailService.sendClientNotification(client, "update");
+    firebaseService.syncClientToFirebase(client);
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        client,
+      },
     });
   } catch (error) {
     next(error);
