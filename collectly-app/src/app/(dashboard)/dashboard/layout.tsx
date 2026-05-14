@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 
+import { Sidebar } from '@/components/Sidebar';
+
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
   const router = useRouter();
@@ -26,5 +28,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   // Don't render until user is confirmed
   if (!user) return null;
 
-  return <>{children}</>;
+  return (
+    <div className="flex h-screen bg-[#050505] overflow-hidden">
+      <Sidebar />
+      <main className="flex-grow overflow-hidden relative">
+        {children}
+      </main>
+    </div>
+  );
 }
