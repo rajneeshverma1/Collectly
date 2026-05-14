@@ -3,9 +3,9 @@
 import React, { useEffect, useState } from 'react';
 import { SummaryCard } from './SummaryCard';
 import { AlertCircle, RefreshCw } from 'lucide-react';
-import axios from 'axios';
+import { useAuth } from '@/context/AuthContext';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api/v1';
 
 interface SummaryData {
   totalOutstanding: {
@@ -29,29 +29,39 @@ interface SummaryData {
     label: string;
     trend: number;
   };
+  totalClients?: {
+    count: number;
+    label: string;
+  };
 }
 
 export function DashboardSummary() {
   const [summary, setSummary] = useState<SummaryData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { getToken } = useAuth();
 
   const fetchSummary = async () => {
     try {
       setLoading(true);
       setError(null);
 
-      const token = localStorage.getItem('collectly_token');
-      const response = await axios.get(`${API_URL}/dashboard/summary`, {
+      const token = await getToken();
+      const response = await fetch(`${API_URL}/dashboard/summary`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`,
         },
       });
-
-      setSummary(response.data.data.summary);
+      
+      const data = await response.json();
+      if (data.status === 'success') {
+        setSummary(data.data.summary);
+      } else {
+        setError(data.message || 'Failed to load dashboard data');
+      }
     } catch (err: any) {
       console.error('Failed to fetch dashboard summary:', err);
-      setError(err.response?.data?.message || 'Failed to load dashboard data');
+      setError('Failed to load dashboard data');
     } finally {
       setLoading(false);
     }
@@ -80,7 +90,7 @@ export function DashboardSummary() {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-6 mb-8">
       <SummaryCard
         title="Total Outstanding"
         amount={summary?.totalOutstanding.amount || 0}
@@ -112,6 +122,14 @@ export function DashboardSummary() {
         trend={summary?.collectedThisMonth.trend}
         type="collected"
         index={3}
+        isLoading={loading}
+      />
+      <SummaryCard
+        title="Total Clients"
+        amount={0}
+        count={summary?.totalClients?.count || 0}
+        type="clients"
+        index={4}
         isLoading={loading}
       />
     </div>
