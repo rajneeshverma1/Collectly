@@ -7,6 +7,8 @@ const morgan = require("morgan");
 const sequelize = require("./config/database");
 const authRoutes = require("./routes/authRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
+const invoiceRoutes = require("./routes/invoiceRoutes");
+const clientRoutes = require("./routes/clientRoutes");
 const errorHandler = require("./middleware/errorHandler");
 const { apiLimiter } = require("./utils/rateLimiter");
 
@@ -15,6 +17,7 @@ const User = require("./models/User");
 const Organization = require("./models/Organization");
 const Invoice = require("./models/Invoice");
 const Payment = require("./models/Payment");
+const Client = require("./models/Client");
 
 // Database connection & Server start
 
@@ -61,6 +64,8 @@ app.get("/health", (req, res) => {
 // API routes
 app.use("/api/v1/users", authRoutes);
 app.use("/api/v1/dashboard", dashboardRoutes);
+app.use("/api/v1/invoices", invoiceRoutes);
+app.use("/api/v1/clients", clientRoutes);
 
 // 404 handler
 app.use((req, res, next) => {

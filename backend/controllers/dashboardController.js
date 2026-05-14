@@ -1,6 +1,7 @@
 const { Op, Sequelize } = require("sequelize");
 const Invoice = require("../models/Invoice");
 const Payment = require("../models/Payment");
+const Client = require("../models/Client");
 const AppError = require("../utils/appError");
 
 // Get dashboard summary data
@@ -140,6 +141,10 @@ exports.getDashboardSummary = async (req, res, next) => {
             label: "Collected This Month",
             trend: collectionTrend,
           },
+          totalClients: {
+            count: await Client.count({ where: { organizationId } }),
+            label: "Total Clients",
+          }
         },
         asOf: new Date().toISOString(),
       },
