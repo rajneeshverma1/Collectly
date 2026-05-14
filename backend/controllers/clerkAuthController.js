@@ -19,6 +19,8 @@ exports.createOrg = async (req, res) => {
       });
     }
 
+
+
     // Create organization in our DB
     const newOrg = await Organization.create({
       name,
@@ -36,6 +38,10 @@ exports.createOrg = async (req, res) => {
         role: 'owner',
       },
     });
+
+    // res.send(newOrg);
+    // return;
+
 
     res.status(201).json({
       status: 'success',
