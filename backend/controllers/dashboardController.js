@@ -186,11 +186,20 @@ exports.getRecentActivity = async (req, res, next) => {
       ],
     });
 
+    // Get recent clients
+    const recentClients = await Client.findAll({
+      where: { organizationId },
+      order: [["createdAt", "DESC"]],
+      limit: 5,
+      attributes: ["id", "name", "email", "company", "status", "createdAt"],
+    });
+
     res.status(200).json({
       status: "success",
       data: {
         recentInvoices,
         recentPayments,
+        recentClients,
       },
     });
   } catch (err) {
