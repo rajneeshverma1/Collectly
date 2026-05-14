@@ -15,6 +15,8 @@ router
   .get(clientController.getAllClients)
   .post(clientController.addClient);
 
+router.put("/:id", clientController.updateClient);
+
 router.post("/send-invitation", clientController.sendInvitation);
 
 router.get("/count", clientController.getClientCount);
