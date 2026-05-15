@@ -77,7 +77,7 @@ export default function DashboardPage() {
                   initial={{ height: 0 }}
                   animate={{ height: `${height}%` }}
                   transition={{ delay: 0.6 + i * 0.05, duration: 1.5, ease: "easeOut" }}
-                  className="flex-grow bg-gradient-to-t from-blue-600/20 to-blue-500/60 rounded-t-lg relative group"
+                  className="flex-grow bg-gradient-to-t from-blue-600/40 to-blue-400/80 rounded-t-xl relative group shadow-[0_0_20px_rgba(37,99,235,0.2)] hover:shadow-[0_0_30px_rgba(37,99,235,0.4)] transition-shadow"
                 >
                   <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-white text-black text-[10px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
                     ${height * 120}
