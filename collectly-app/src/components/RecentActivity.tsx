@@ -86,7 +86,7 @@ export function RecentActivity() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.7 + index * 0.1 }}
-              className="flex items-center justify-between p-4 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/[0.08] transition-all group"
+              className="flex items-center justify-between p-4 bg-white/[0.03] backdrop-blur-md border border-white/5 rounded-2xl hover:bg-white/[0.08] hover:border-white/10 transition-all group shadow-sm hover:shadow-md"
             >
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center text-sm font-black border border-white/5">
