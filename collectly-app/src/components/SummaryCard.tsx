@@ -138,11 +138,11 @@ export function SummaryCard({ title, amount, count, trend, type, index, isLoadin
 
       {/* Amount & Label */}
       <div className="relative z-10">
-        <p className="text-xs font-bold text-white/30 uppercase tracking-[0.2em] mb-2">
+        <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.25em] mb-2 group-hover:text-white/60 transition-colors">
           {title}
         </p>
         <div className="flex items-baseline gap-2">
-          <h3 className="text-3xl font-bold tracking-tight text-white">
+          <h3 className="text-3xl font-black tracking-tight text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.1)] group-hover:drop-shadow-[0_0_25px_rgba(255,255,255,0.2)] transition-all">
             {type === 'clients' ? count : formatCurrency(amount)}
           </h3>
           {trend !== undefined && (
