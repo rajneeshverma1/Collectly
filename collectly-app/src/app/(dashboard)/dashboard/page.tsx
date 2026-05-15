@@ -42,6 +42,7 @@ export default function DashboardPage() {
           <motion.button 
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
+            title="Create a new invoice for a client"
             className="bg-white text-black px-8 py-3.5 rounded-[18px] font-black text-sm hover:bg-neutral-200 transition-all flex items-center gap-2.5 shadow-[0_20px_40px_rgba(255,255,255,0.1)]"
           >
             <Plus size={18} strokeWidth={3} /> Create New Invoice
