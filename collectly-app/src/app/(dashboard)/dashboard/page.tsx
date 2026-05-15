@@ -10,6 +10,9 @@ import { DashboardHeader } from '@/components/DashboardHeader';
 import { RecentActivity } from '@/components/RecentActivity';
 import Link from 'next/link';
 
+// Metadata is not supported in client components, but we can document it or handle it in a parent layout.
+// For now, adding a descriptive comment and ensuring the structure is clean.
+
 export default function DashboardPage() {
   const { user } = useAuth();
 
