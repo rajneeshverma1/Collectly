@@ -31,9 +31,9 @@ export default function DashboardPage() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
           >
-            <h2 className="text-4xl font-bold tracking-tight mb-2">Overview</h2>
-            <p className="text-white/40 text-base font-medium">
-              Welcome back, <span className="text-white">{user.firstName || 'User'}</span>. Here's what's happening.
+            <h2 className="text-5xl font-extrabold tracking-tight mb-3">Overview</h2>
+            <p className="text-white/50 text-lg font-medium leading-relaxed">
+              Welcome back, <span className="text-white font-bold">{user.firstName || 'User'}</span>. Here's what's happening today.
             </p>
           </motion.div>
           <motion.button 
