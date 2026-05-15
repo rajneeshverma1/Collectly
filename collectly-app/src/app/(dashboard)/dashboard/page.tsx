@@ -106,11 +106,11 @@ export default function DashboardPage() {
             </p>
             
             <div className="space-y-3 mt-auto">
-              <Link href="/dashboard/invoices" className="w-full py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-[20px] font-bold text-xs transition-all flex items-center justify-center gap-2">
-                View Templates <Search size={14} />
+              <Link href="/dashboard/invoices" className="w-full py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-[20px] font-bold text-xs transition-all flex items-center justify-center gap-2 group">
+                View Templates <Search size={14} className="group-hover:scale-110 transition-transform" />
               </Link>
-              <Link href="/dashboard/clients" className="w-full py-4 bg-white text-black hover:bg-neutral-200 rounded-[20px] font-bold text-xs transition-all flex items-center justify-center gap-2">
-                 Add Client <Plus size={14} />
+              <Link href="/dashboard/clients" className="w-full py-4 bg-white text-black hover:bg-neutral-200 rounded-[20px] font-bold text-xs transition-all flex items-center justify-center gap-2 group">
+                 Add Client <Plus size={14} className="group-hover:rotate-90 transition-transform" />
               </Link>
             </div>
           </motion.div>
