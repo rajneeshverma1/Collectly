@@ -10,6 +10,7 @@ interface SummaryCardProps {
   amount: number;
   count: number;
   trend?: number;
+  newestItem?: string;
   type: 'outstanding' | 'overdue' | 'due' | 'collected' | 'clients';
   index: number;
   isLoading?: boolean;
@@ -53,7 +54,7 @@ const cardConfig = {
   },
 };
 
-export function SummaryCard({ title, amount, count, trend, type, index, isLoading }: SummaryCardProps) {
+export function SummaryCard({ title, amount, count, trend, newestItem, type, index, isLoading }: SummaryCardProps) {
   const config = cardConfig[type];
   const Icon = config.icon;
 
@@ -117,7 +118,15 @@ export function SummaryCard({ title, amount, count, trend, type, index, isLoadin
           <Icon size={24} className={config.color} />
         </div>
         
-        {trend !== undefined ? (
+        {newestItem ? (
+          <span className={cn(
+            "inline-block text-[11px] font-bold px-3 py-1.5 rounded-full backdrop-blur-md border border-white/5 truncate max-w-[130px]",
+            config.bgColor,
+            config.color
+          )}>
+            New: {newestItem}
+          </span>
+        ) : trend !== undefined ? (
           <div className={cn(
             "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold tracking-tight backdrop-blur-md border border-white/5",
             trend >= 0 ? "bg-emerald-500/10 text-emerald-400" : "bg-red-500/10 text-red-400"
