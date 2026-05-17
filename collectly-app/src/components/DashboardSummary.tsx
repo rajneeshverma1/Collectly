@@ -32,6 +32,7 @@ interface SummaryData {
   totalClients?: {
     count: number;
     label: string;
+    newestClient?: string;
   };
 }
 
@@ -128,6 +129,7 @@ export function DashboardSummary() {
         title="Total Clients"
         amount={0}
         count={summary?.totalClients?.count || 0}
+        newestItem={summary?.totalClients?.newestClient}
         type="clients"
         index={4}
         isLoading={loading}
