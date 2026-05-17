@@ -28,7 +28,7 @@ exports.createOrg = async (req, res) => {
       experienceLevel,
       location,
       projectsCompleted,
-      ownerId: userId, // Using Clerk userId as ownerId
+      ownerId: userId, //Using Clerk userId as ownerId
     });
 
     // Update Clerk user metadata with the new organizationId
