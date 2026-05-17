@@ -116,6 +116,13 @@ exports.getDashboardSummary = async (req, res, next) => {
       collectionTrend = ((currentMonthTotal - prevMonthTotal) / prevMonthTotal) * 100;
     }
 
+    // Get the newest client
+    const latestClient = await Client.findOne({
+      where: { organizationId },
+      order: [["createdAt", "DESC"]],
+      attributes: ["name"],
+    });
+
     res.status(200).json({
       status: "success",
       data: {
@@ -144,6 +151,7 @@ exports.getDashboardSummary = async (req, res, next) => {
           totalClients: {
             count: await Client.count({ where: { organizationId } }),
             label: "Total Clients",
+            newestClient: latestClient ? latestClient.name : null,
           }
         },
         asOf: new Date().toISOString(),
