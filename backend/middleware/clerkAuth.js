@@ -1,4 +1,5 @@
-const clerkClient = require('../config/clerk');
+const { verifyToken } = require('@clerk/backend');
+const Organization = require('../models/Organization');
 
 /**
  * Middleware to protect routes and verify Clerk authentication
@@ -17,7 +18,9 @@ const requireAuth = async (req, res, next) => {
     const token = authHeader.split(' ')[1];
 
     // Verify the session token with Clerk
-    const sessionClaims = await clerkClient.verifyToken(token);
+    const sessionClaims = await verifyToken(token, {
+      secretKey: process.env.CLERK_SECRET_KEY,
+    });
 
     if (!sessionClaims) {
       return res.status(401).json({
@@ -37,6 +40,17 @@ const requireAuth = async (req, res, next) => {
       id: sessionClaims.sub,
       organizationId: sessionClaims.metadata?.organizationId || null,
     };
+
+    // Fallback: If organizationId is not found in Clerk session claims metadata,
+    // lookup the organization owned by this user in the local database
+    if (!req.user.organizationId) {
+      const org = await Organization.findOne({
+        where: { ownerId: sessionClaims.sub }
+      });
+      if (org) {
+        req.user.organizationId = org.id;
+      }
+    }
 
     next();
   } catch (error) {

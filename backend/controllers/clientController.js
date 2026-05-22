@@ -4,6 +4,7 @@ const AppError = require("../utils/appError");
 const crypto = require("crypto");
 const emailService = require("../services/emailService");
 const firebaseService = require("../services/firebaseService");
+const transporter = require("../config/mail");
 
 /**
  * Add a new client
