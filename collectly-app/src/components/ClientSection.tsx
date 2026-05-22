@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, Users, Mail, Phone, Building, MapPin, Search, Loader2, X, MoreHorizontal, UserPlus } from 'lucide-react';
+import { Plus, Users, Mail, Phone, Building, MapPin, Search, Loader2, X, MoreHorizontal, UserPlus, CheckCircle } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { DashboardHeader } from './DashboardHeader';
 import { cn } from '@/lib/utils';
