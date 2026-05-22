@@ -5,6 +5,7 @@ const crypto = require("crypto");
 const emailService = require("../services/emailService");
 const firebaseService = require("../services/firebaseService");
 const transporter = require("../config/mail");
+const clerkClient = require("../config/clerk");
 
 /**
  * Add a new client
@@ -28,8 +29,20 @@ exports.addClient = async (req, res, next) => {
       createdBy: req.user.id,
     });
 
+    // Fetch freelancer details from Clerk
+    let freelancer = { name: "A Freelancer", email: "" };
+    try {
+      const clerkUser = await clerkClient.users.getUser(req.user.id);
+      if (clerkUser) {
+        freelancer.name = `${clerkUser.firstName || ''} ${clerkUser.lastName || ''}`.trim() || clerkUser.username || "Freelancer";
+        freelancer.email = clerkUser.emailAddresses[0]?.emailAddress || "";
+      }
+    } catch (err) {
+      console.error("Failed to fetch Clerk user details:", err.message);
+    }
+
     // Automated Client Notification (Welcome)
-    emailService.sendClientNotification(client, "welcome");
+    await emailService.sendClientNotification(client, "welcome", freelancer);
     
     // Sync to Firebase for real-time management
     firebaseService.syncClientToFirebase(client);
@@ -71,16 +84,28 @@ exports.sendInvitation = async (req, res, next) => {
       invitationToken: token,
     });
 
+    // Fetch freelancer details from Clerk
+    let freelancer = { name: "A Freelancer", email: "" };
+    try {
+      const clerkUser = await clerkClient.users.getUser(req.user.id);
+      if (clerkUser) {
+        freelancer.name = `${clerkUser.firstName || ''} ${clerkUser.lastName || ''}`.trim() || clerkUser.username || "Freelancer";
+        freelancer.email = clerkUser.emailAddresses[0]?.emailAddress || "";
+      }
+    } catch (err) {
+      console.error("Failed to fetch Clerk user details:", err.message);
+    }
+
     const approvalUrl = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/agreement/${token}`;
 
     const mailOptions = {
-      from: '"Collectly" <no-reply@collectly.com>',
+      from: `"${freelancer.name} via Collectly" <no-reply@collectly.com>`,
       to: email,
-      subject: 'New Business Agreement from Collectly',
+      subject: `New Business Agreement from ${freelancer.name}`,
       html: `
         <div style="font-family: sans-serif; padding: 20px;">
           <h2>Hello ${name},</h2>
-          <p>A freelancer has sent you a new business agreement and bill receipt.</p>
+          <p><strong>${freelancer.name}</strong> (${freelancer.email}) has sent you a new business agreement and bill receipt.</p>
           <p>Please review the attached PDF and click the button below to agree and finalize the partnership.</p>
           <a href="${approvalUrl}" style="background: black; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; display: inline-block; margin: 20px 0;">Review & Agree</a>
           <p>Best regards,<br/>The Collectly Team</p>
@@ -125,8 +150,20 @@ exports.approveClient = async (req, res, next) => {
     client.invitationToken = null;
     await client.save();
 
+    // Fetch freelancer details from Clerk
+    let freelancer = { name: "A Freelancer", email: "" };
+    try {
+      const clerkUser = await clerkClient.users.getUser(client.createdBy);
+      if (clerkUser) {
+        freelancer.name = `${clerkUser.firstName || ''} ${clerkUser.lastName || ''}`.trim() || clerkUser.username || "Freelancer";
+        freelancer.email = clerkUser.emailAddresses[0]?.emailAddress || "";
+      }
+    } catch (err) {
+      console.error("Failed to fetch Clerk user details:", err.message);
+    }
+
     // Notify client that their account is now active
-    emailService.sendClientNotification(client, "welcome");
+    await emailService.sendClientNotification(client, "welcome", freelancer);
     firebaseService.syncClientToFirebase(client);
 
     res.status(200).json({
@@ -157,8 +194,20 @@ exports.updateClient = async (req, res, next) => {
 
     await client.update({ name, email, phone, company, address, status });
 
+    // Fetch freelancer details from Clerk
+    let freelancer = { name: "A Freelancer", email: "" };
+    try {
+      const clerkUser = await clerkClient.users.getUser(req.user.id);
+      if (clerkUser) {
+        freelancer.name = `${clerkUser.firstName || ''} ${clerkUser.lastName || ''}`.trim() || clerkUser.username || "Freelancer";
+        freelancer.email = clerkUser.emailAddresses[0]?.emailAddress || "";
+      }
+    } catch (err) {
+      console.error("Failed to fetch Clerk user details:", err.message);
+    }
+
     // Trigger update notification
-    emailService.sendClientNotification(client, "update");
+    await emailService.sendClientNotification(client, "update", freelancer);
     firebaseService.syncClientToFirebase(client);
 
     res.status(200).json({

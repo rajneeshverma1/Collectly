@@ -41,39 +41,51 @@ const getEmailTemplate = (clientName, content, actionUrl = "http://localhost:300
 /**
  * Send Automated Client Notification
  */
-exports.sendClientNotification = async (client, type, metadata = {}) => {
+exports.sendClientNotification = async (client, type, freelancer = {}, metadata = {}) => {
   const log = await EmailLog.create({
     clientId: client.id,
     emailType: type,
     recipientEmail: client.email,
     status: "pending",
-    metadata
+    metadata: { ...metadata, freelancer }
   });
+
+  const freelancerName = freelancer.name || "A Freelancer";
+  const freelancerEmail = freelancer.email || "";
 
   let subject = "";
   let content = "";
 
   switch (type) {
     case "welcome":
-      subject = "Welcome to your Collectly project";
-      content = "We have shared the latest updates and details regarding your project. Please check the dashboard for complete information and work progress.";
+      subject = `${freelancerName} has added you on Collectly`;
+      content = `
+        <p><strong>${freelancerName}</strong> (${freelancerEmail}) has added you to their secure client workspace on Collectly.</p>
+        <p>You can now manage your projects, view agreement terms, track milestones, and pay invoices instantly.</p>
+      `;
       break;
     case "update":
-      subject = "Project Update: New progress shared";
-      content = "There have been new updates shared on your project dashboard. Please review the latest changes and progress reports.";
+      subject = `New project update from ${freelancerName}`;
+      content = `
+        <p><strong>${freelancerName}</strong> has posted a new update on your project dashboard.</p>
+        <p>Please review the latest files, milestones, and details to ensure everything is aligned.</p>
+      `;
       break;
     case "agreement":
-      subject = "New Business Agreement to Review";
-      content = "A new business agreement and bill receipt have been shared with you. Please review the details and confirm to proceed.";
+      subject = `Business Agreement & Receipt from ${freelancerName}`;
+      content = `
+        <p><strong>${freelancerName}</strong> has sent you a new business agreement and bill receipt for review.</p>
+        <p>Please check the details and sign the agreement to finalize your contract.</p>
+      `;
       break;
     default:
-      subject = "Notification from Collectly";
-      content = "You have a new update regarding your project details.";
+      subject = `Notification from ${freelancerName} via Collectly`;
+      content = `You have a new update regarding your project details from ${freelancerName}.`;
   }
 
   try {
     const mailOptions = {
-      from: '"Collectly" <no-reply@collectly.com>',
+      from: `"${freelancerName} via Collectly" <no-reply@collectly.com>`,
       to: client.email,
       subject: subject,
       html: getEmailTemplate(client.name, content),
