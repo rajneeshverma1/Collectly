@@ -10,7 +10,7 @@ const Footer = () => {
                     <div className="col-span-2 lg:col-span-2">
                         <Link href="/" className="inline-block mb-10">
                             <div className="flex items-center gap-2">
-                                <span className="text-3xl md:text-4xl font-bold tracking-tight text-white">Collectly.ai</span>
+                                <span className="text-3xl md:text-4xl font-bold tracking-wide text-white">Collectly.ai</span>
                                 <div className="w-3 h-3 bg-green-500 rounded-full mt-2.5" />
                             </div>
                         </Link>
