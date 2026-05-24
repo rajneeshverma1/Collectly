@@ -29,9 +29,10 @@ const Navbar = () => {
   const navPy = useTransform(smoothScrollY, [0, 250], ["20px", "12px"]);
 
   const navLinks = [
-    { name: "Problem", href: "#problem" },
-    { name: "How It Works", href: "#how-it-works" },
-    { name: "Integrations", href: "#integrations" },
+    { name: "Problem", href: "/#problem" },
+    { name: "How It Works", href: "/#how-it-works" },
+    { name: "Integrations", href: "/#integrations" },
+    { name: "Pricing", href: "/pricing" },
   ];
 
   return (
