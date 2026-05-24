@@ -270,3 +270,25 @@ exports.razorpayWebhook = async (req, res, next) => {
     res.status(400).send(`Webhook Error: ${error.message}`);
   }
 };
+
+/**
+ * Retrieve successful transaction history for the organization
+ */
+exports.getTransactions = async (req, res, next) => {
+  try {
+    const { organizationId } = req.user;
+
+    const payments = await Payment.findAll({
+      where: { organizationId },
+      order: [["paidAt", "DESC"]],
+    });
+
+    res.status(200).json({
+      status: "success",
+      results: payments.length,
+      data: payments,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
