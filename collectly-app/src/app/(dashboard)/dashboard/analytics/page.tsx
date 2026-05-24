@@ -285,7 +285,7 @@ export default function AnalyticsPage() {
                         boxShadow: '0 8px 32px rgba(0,0,0,0.5)'
                       }}
                       itemStyle={{ color: '#818cf8' }}
-                      formatter={(value) => [`$${parseFloat(value.toString()).toLocaleString()}`, 'Revenue']}
+                      formatter={(value) => [`$${parseFloat((value ?? 0).toString()).toLocaleString()}`, 'Revenue']}
                     />
                     <Area 
                       type="monotone" 
