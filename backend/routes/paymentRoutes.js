@@ -13,6 +13,8 @@ router.post("/create-intent", paymentController.createPaymentIntent);
 // Protected Merchant Routes
 router.use(requireAuth);
 
+router.get("/transactions", paymentController.getTransactions);
+
 router.route("/credentials")
   .get(paymentController.getCredentials)
   .post(paymentController.saveCredentials);
