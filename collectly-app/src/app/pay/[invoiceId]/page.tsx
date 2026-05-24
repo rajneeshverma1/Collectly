@@ -83,6 +83,18 @@ export default function ClientPayPortal() {
     if (invoiceId) {
       fetchInvoiceDetails();
     }
+
+    // Dynamically append Razorpay SDK checkout script
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    document.body.appendChild(script);
+    
+    return () => {
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
   }, [invoiceId]);
 
   const handlePay = async (gateway: 'stripe' | 'razorpay') => {
