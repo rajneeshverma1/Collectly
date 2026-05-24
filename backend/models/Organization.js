@@ -44,6 +44,22 @@ const Organization = sequelize.define(
       type: DataTypes.UUID,
       allowNull: false,
     },
+    stripePublishableKey: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    stripeSecretKey: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    razorpayKeyId: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    razorpayKeySecret: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   },
   {
     tableName: "organizations",

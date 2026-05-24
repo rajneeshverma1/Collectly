@@ -1,5 +1,7 @@
 const { verifyToken } = require('@clerk/backend');
 const Organization = require('../models/Organization');
+const User = require('../models/User');
+const clerkClient = require('../config/clerk');
 
 /**
  * Middleware to protect routes and verify Clerk authentication
@@ -35,22 +37,50 @@ const requireAuth = async (req, res, next) => {
       sessionClaims,
     };
 
+    // Ensure local User exists in our SQLite/PostgreSQL database
+    let localUser = await User.findByPk(sessionClaims.sub);
+    if (!localUser) {
+      let name = "Freelancer";
+      let email = "freelancer@collectly.com";
+      try {
+        const clerkUser = await clerkClient.users.getUser(sessionClaims.sub);
+        if (clerkUser) {
+          name = `${clerkUser.firstName || ''} ${clerkUser.lastName || ''}`.trim() || clerkUser.username || "Freelancer";
+          email = clerkUser.emailAddresses[0]?.emailAddress || email;
+        }
+      } catch (err) {
+        console.error("Failed to fetch Clerk details during auto-sync:", err.message);
+      }
+
+      localUser = await User.create({
+        id: sessionClaims.sub,
+        name,
+        email,
+      });
+    }
+
+    // Ensure local Organization exists in our database
+    let org = await Organization.findOne({
+      where: { ownerId: sessionClaims.sub }
+    });
+
+    if (!org) {
+      org = await Organization.create({
+        name: "My Workspace",
+        type: "Freelancer",
+        ownerId: sessionClaims.sub,
+      });
+
+      // Update local user's organizationId
+      localUser.organizationId = org.id;
+      await localUser.save();
+    }
+
     // Maintain compatibility with existing controllers expecting req.user.organizationId
     req.user = {
       id: sessionClaims.sub,
-      organizationId: sessionClaims.metadata?.organizationId || null,
+      organizationId: org.id,
     };
-
-    // Fallback: If organizationId is not found in Clerk session claims metadata,
-    // lookup the organization owned by this user in the local database
-    if (!req.user.organizationId) {
-      const org = await Organization.findOne({
-        where: { ownerId: sessionClaims.sub }
-      });
-      if (org) {
-        req.user.organizationId = org.id;
-      }
-    }
 
     next();
   } catch (error) {
