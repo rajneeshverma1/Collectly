@@ -283,10 +283,23 @@ exports.getTransactions = async (req, res, next) => {
       order: [["paidAt", "DESC"]],
     });
 
+    // Enriched with invoice details
+    const enrichedPayments = await Promise.all(
+      payments.map(async (payment) => {
+        const invoice = await Invoice.findByPk(payment.invoiceId, {
+          attributes: ["invoiceNumber", "clientName", "clientEmail", "status"],
+        });
+        return {
+          ...payment.toJSON(),
+          Invoice: invoice ? invoice.toJSON() : null,
+        };
+      })
+    );
+
     res.status(200).json({
       status: "success",
-      results: payments.length,
-      data: payments,
+      results: enrichedPayments.length,
+      data: enrichedPayments,
     });
   } catch (error) {
     next(error);
