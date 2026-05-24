@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "framer-motion";
 
-import { Show, UserButton } from "@clerk/nextjs";
+import { Show, UserButton } from "@/lib/auth-wrapper";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);

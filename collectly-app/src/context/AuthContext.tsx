@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { useUser, useAuth as useClerkAuth } from '@clerk/nextjs';
+import { useUser, useAuth as useClerkAuth } from '@/lib/auth-wrapper';
 import { useRouter } from 'next/navigation';
 
 const AuthContext = createContext<any>(null);

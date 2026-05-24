@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description: "Stop chasing invoices. Simplify your complex workflows with AI billing from start to finish.",
 };
 
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkProvider } from "@/lib/auth-wrapper";
 import { AuthProvider } from "@/context/AuthContext";
 
 export default function RootLayout({

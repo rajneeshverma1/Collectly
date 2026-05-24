@@ -11,7 +11,7 @@ import {
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { Show } from '@clerk/nextjs';
+import { Show } from '@/lib/auth-wrapper';
 
 export default function PricingPage() {
   const plans = [
