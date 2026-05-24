@@ -1,4 +1,5 @@
 'use client';
+
 /** Invoices Management Page */
 import React, { useEffect, useState } from 'react';
 import { 
@@ -13,7 +14,11 @@ import {
   Clock,
   AlertCircle,
   Calendar,
-  DollarSign
+  DollarSign,
+  X,
+  CreditCard,
+  Briefcase,
+  ArrowUpDown
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
@@ -23,7 +28,7 @@ import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 import Link from 'next/link';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api/v1';
 
 interface Invoice {
   id: string;
@@ -32,23 +37,57 @@ interface Invoice {
   clientEmail: string;
   amount: number;
   dueDate: string;
-  status: 'draft' | 'sent' | 'paid' | 'overdue' | 'cancelled';
+  status: 'draft' | 'sent' | 'paid' | 'overdue' | 'cancelled' | 'partially_paid';
   createdAt: string;
   description: string;
 }
 
 export default function InvoicesPage() {
-  const { user } = useAuth();
+  const { getToken } = useAuth();
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [loading, setLoading] = useState(true);
+  
+  // Search, Filter, Sort State
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
+  const [sortBy, setSortBy] = useState('createdAt');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+
+  // Create Invoice Modal State
+  const [isCreateOpen, setIsCreateOpen] = useState(false);
+  const [createForm, setCreateForm] = useState({
+    clientName: '',
+    clientEmail: '',
+    amount: '',
+    dueDate: '',
+    description: '',
+    status: 'sent'
+  });
+  const [createSubmitting, setCreateSubmitting] = useState(false);
+
+  // Record Payment Modal State
+  const [isPaymentOpen, setIsPaymentOpen] = useState(false);
+  const [selectedInvoice, setSelectedInvoice] = useState<Invoice | null>(null);
+  const [paymentForm, setPaymentForm] = useState({
+    amount: '',
+    paymentMethod: 'credit_card',
+    notes: ''
+  });
+  const [paymentSubmitting, setPaymentSubmitting] = useState(false);
 
   const fetchInvoices = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('collectly_token');
+      const token = await getToken();
+      
+      const params: any = {};
+      if (searchTerm) params.search = searchTerm;
+      if (filterStatus !== 'all') params.status = filterStatus;
+      params.sortBy = sortBy;
+      params.sortOrder = sortOrder;
+
       const response = await axios.get(`${API_URL}/invoices`, {
+        params,
         headers: { Authorization: `Bearer ${token}` }
       });
       setInvoices(response.data.data.invoices);
@@ -61,7 +100,67 @@ export default function InvoicesPage() {
 
   useEffect(() => {
     fetchInvoices();
-  }, []);
+  }, [searchTerm, filterStatus, sortBy, sortOrder]);
+
+  const handleCreateInvoice = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      setCreateSubmitting(true);
+      const token = await getToken();
+      await axios.post(`${API_URL}/invoices`, createForm, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      
+      setIsCreateOpen(false);
+      setCreateForm({
+        clientName: '',
+        clientEmail: '',
+        amount: '',
+        dueDate: '',
+        description: '',
+        status: 'sent'
+      });
+      fetchInvoices();
+    } catch (error) {
+      console.error('Failed to create invoice:', error);
+    } finally {
+      setCreateSubmitting(false);
+    }
+  };
+
+  const handleRecordPayment = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedInvoice) return;
+    try {
+      setPaymentSubmitting(true);
+      const token = await getToken();
+      await axios.post(`${API_URL}/invoices/${selectedInvoice.id}/payments`, paymentForm, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      
+      setIsPaymentOpen(false);
+      setSelectedInvoice(null);
+      setPaymentForm({
+        amount: '',
+        paymentMethod: 'credit_card',
+        notes: ''
+      });
+      fetchInvoices();
+    } catch (error) {
+      console.error('Failed to record payment:', error);
+    } finally {
+      setPaymentSubmitting(false);
+    }
+  };
+
+  const handleSort = (field: string) => {
+    if (sortBy === field) {
+      setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortBy(field);
+      setSortOrder('desc');
+    }
+  };
 
   const generatePDF = (invoice: Invoice) => {
     const doc = new jsPDF() as any;
@@ -113,7 +212,7 @@ export default function InvoicesPage() {
 
   const generateRevenueReport = async () => {
     try {
-      const token = localStorage.getItem('collectly_token');
+      const token = await getToken();
       const response = await axios.get(`${API_URL}/invoices/revenue-summary`, {
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -146,16 +245,10 @@ export default function InvoicesPage() {
     }
   };
 
-  const filteredInvoices = invoices.filter(inv => {
-    const matchesSearch = inv.clientName.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                         inv.invoiceNumber.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesFilter = filterStatus === 'all' || inv.status === filterStatus;
-    return matchesSearch && matchesFilter;
-  });
-
   const getStatusStyle = (status: string) => {
     switch (status) {
       case 'paid': return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
+      case 'partially_paid': return 'bg-teal-500/10 text-teal-400 border-teal-500/20';
       case 'overdue': return 'bg-red-500/10 text-red-400 border-red-500/20';
       case 'sent': return 'bg-blue-500/10 text-blue-400 border-blue-500/20';
       default: return 'bg-white/5 text-white/40 border-white/10';
@@ -165,6 +258,7 @@ export default function InvoicesPage() {
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'paid': return <CheckCircle size={14} />;
+      case 'partially_paid': return <DollarSign size={14} />;
       case 'overdue': return <AlertCircle size={14} />;
       case 'sent': return <Clock size={14} />;
       default: return <Calendar size={14} />;
@@ -175,14 +269,14 @@ export default function InvoicesPage() {
     <div className="min-h-screen bg-[#050505] text-white p-10 font-sans">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-between mb-12">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-12">
           <div>
             <Link href="/dashboard" className="flex items-center gap-2 text-white/40 hover:text-white transition-colors mb-4 group">
               <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
               <span className="text-sm font-bold uppercase tracking-widest">Back to Dashboard</span>
             </Link>
             <h1 className="text-4xl font-black tracking-tight">Invoices</h1>
-            <p className="text-white/40 mt-2 font-medium">Manage, track and download your professional invoices.</p>
+            <p className="text-white/40 mt-2 font-medium">Manage, track, and record client transactions easily.</p>
           </div>
           
           <div className="flex items-center gap-4">
@@ -197,6 +291,7 @@ export default function InvoicesPage() {
             <motion.button 
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              onClick={() => setIsCreateOpen(true)}
               className="bg-white text-black px-8 py-4 rounded-2xl font-black text-sm flex items-center gap-3 shadow-[0_20px_40px_rgba(255,255,255,0.1)]"
             >
               <Plus size={18} strokeWidth={3} /> Create New Invoice
@@ -224,10 +319,12 @@ export default function InvoicesPage() {
               className="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all appearance-none cursor-pointer"
             >
               <option value="all">All Statuses</option>
-              <option value="paid">Paid</option>
-              <option value="sent">Sent</option>
-              <option value="overdue">Overdue</option>
               <option value="draft">Draft</option>
+              <option value="sent">Sent</option>
+              <option value="partially_paid">Partially Paid</option>
+              <option value="paid">Paid</option>
+              <option value="overdue">Overdue</option>
+              <option value="cancelled">Cancelled</option>
             </select>
           </div>
         </div>
@@ -237,12 +334,40 @@ export default function InvoicesPage() {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b border-white/5">
-                <th className="px-8 py-6 text-[10px] font-black text-white/20 uppercase tracking-[0.2em]">Invoice</th>
-                <th className="px-8 py-6 text-[10px] font-black text-white/20 uppercase tracking-[0.2em]">Client</th>
-                <th className="px-8 py-6 text-[10px] font-black text-white/20 uppercase tracking-[0.2em]">Amount</th>
-                <th className="px-8 py-6 text-[10px] font-black text-white/20 uppercase tracking-[0.2em]">Due Date</th>
+                <th 
+                  onClick={() => handleSort('invoiceNumber')}
+                  className="px-8 py-6 text-[10px] font-black text-white/20 uppercase tracking-[0.2em] cursor-pointer hover:text-white transition-colors"
+                >
+                  <div className="flex items-center gap-1.5">
+                    Invoice <ArrowUpDown size={12} />
+                  </div>
+                </th>
+                <th 
+                  onClick={() => handleSort('clientName')}
+                  className="px-8 py-6 text-[10px] font-black text-white/20 uppercase tracking-[0.2em] cursor-pointer hover:text-white transition-colors"
+                >
+                  <div className="flex items-center gap-1.5">
+                    Client <ArrowUpDown size={12} />
+                  </div>
+                </th>
+                <th 
+                  onClick={() => handleSort('amount')}
+                  className="px-8 py-6 text-[10px] font-black text-white/20 uppercase tracking-[0.2em] cursor-pointer hover:text-white transition-colors"
+                >
+                  <div className="flex items-center gap-1.5">
+                    Amount <ArrowUpDown size={12} />
+                  </div>
+                </th>
+                <th 
+                  onClick={() => handleSort('dueDate')}
+                  className="px-8 py-6 text-[10px] font-black text-white/20 uppercase tracking-[0.2em] cursor-pointer hover:text-white transition-colors"
+                >
+                  <div className="flex items-center gap-1.5">
+                    Due Date <ArrowUpDown size={12} />
+                  </div>
+                </th>
                 <th className="px-8 py-6 text-[10px] font-black text-white/20 uppercase tracking-[0.2em]">Status</th>
-                <th className="px-8 py-6 text-[10px] font-black text-white/20 uppercase tracking-[0.2em]">Actions</th>
+                <th className="px-8 py-6 text-[10px] font-black text-white/20 uppercase tracking-[0.2em] text-right">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -255,8 +380,8 @@ export default function InvoicesPage() {
                       </td>
                     </tr>
                   ))
-                ) : filteredInvoices.length > 0 ? (
-                  filteredInvoices.map((invoice, idx) => (
+                ) : invoices.length > 0 ? (
+                  invoices.map((invoice, idx) => (
                     <motion.tr 
                       key={invoice.id}
                       initial={{ opacity: 0, y: 10 }}
@@ -293,11 +418,25 @@ export default function InvoicesPage() {
                           getStatusStyle(invoice.status)
                         )}>
                           {getStatusIcon(invoice.status)}
-                          {invoice.status}
+                          {invoice.status.replace('_', ' ')}
                         </div>
                       </td>
                       <td className="px-8 py-6 text-right">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center justify-end gap-2">
+                          {invoice.status !== 'paid' && (
+                            <motion.button 
+                              whileHover={{ scale: 1.05 }}
+                              whileTap={{ scale: 0.95 }}
+                              onClick={() => {
+                                setSelectedInvoice(invoice);
+                                setPaymentForm(prev => ({ ...prev, amount: invoice.amount.toString() }));
+                                setIsPaymentOpen(true);
+                              }}
+                              className="px-4 py-2 text-xs font-bold bg-white text-black rounded-xl hover:bg-neutral-200 transition-all flex items-center gap-1.5"
+                            >
+                              <DollarSign size={12} /> Pay
+                            </motion.button>
+                          )}
                           <motion.button 
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.9 }}
@@ -307,9 +446,6 @@ export default function InvoicesPage() {
                           >
                             <Download size={16} />
                           </motion.button>
-                          <button className="p-3 rounded-xl bg-white/[0.05] border border-white/10 hover:bg-white/10 transition-all">
-                            <MoreVertical size={16} className="text-white/40" />
-                          </button>
                         </div>
                       </td>
                     </motion.tr>
@@ -331,6 +467,244 @@ export default function InvoicesPage() {
           </table>
         </div>
       </div>
+
+      {/* --- Create Invoice Modal --- */}
+      <AnimatePresence>
+        {isCreateOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsCreateOpen(false)}
+              className="absolute inset-0 bg-black/60 backdrop-blur-md"
+            />
+            
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="bg-[#0c0c0c] border border-white/10 w-full max-w-xl rounded-[32px] overflow-hidden shadow-[0_24px_64px_rgba(0,0,0,0.8)] relative z-10"
+            >
+              <div className="p-8 border-b border-white/5 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-white/60">
+                    <FileText size={20} />
+                  </div>
+                  <h3 className="text-xl font-bold">Create Invoice</h3>
+                </div>
+                <button 
+                  onClick={() => setIsCreateOpen(false)}
+                  className="p-2 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-colors"
+                >
+                  <X size={16} />
+                </button>
+              </div>
+
+              <form onSubmit={handleCreateInvoice} className="p-8 space-y-6">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black text-white/40 uppercase tracking-widest">Client Name</label>
+                    <input 
+                      type="text" 
+                      required
+                      placeholder="e.g. John Doe"
+                      value={createForm.clientName}
+                      onChange={(e) => setCreateForm(prev => ({ ...prev, clientName: e.target.value }))}
+                      className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all placeholder:text-white/10"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black text-white/40 uppercase tracking-widest">Client Email</label>
+                    <input 
+                      type="email" 
+                      required
+                      placeholder="e.g. john@company.com"
+                      value={createForm.clientEmail}
+                      onChange={(e) => setCreateForm(prev => ({ ...prev, clientEmail: e.target.value }))}
+                      className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all placeholder:text-white/10"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black text-white/40 uppercase tracking-widest">Amount ($)</label>
+                    <input 
+                      type="number" 
+                      required
+                      min="1"
+                      placeholder="e.g. 1500"
+                      value={createForm.amount}
+                      onChange={(e) => setCreateForm(prev => ({ ...prev, amount: e.target.value }))}
+                      className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all placeholder:text-white/10"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black text-white/40 uppercase tracking-widest">Due Date</label>
+                    <input 
+                      type="date" 
+                      required
+                      value={createForm.dueDate}
+                      onChange={(e) => setCreateForm(prev => ({ ...prev, dueDate: e.target.value }))}
+                      className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all text-white/80"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-white/40 uppercase tracking-widest">Description</label>
+                  <textarea 
+                    rows={3}
+                    placeholder="Describe professional services or items sold..."
+                    value={createForm.description}
+                    onChange={(e) => setCreateForm(prev => ({ ...prev, description: e.target.value }))}
+                    className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all placeholder:text-white/10 resize-none"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-white/40 uppercase tracking-widest">Status</label>
+                  <select 
+                    value={createForm.status}
+                    onChange={(e) => setCreateForm(prev => ({ ...prev, status: e.target.value }))}
+                    className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all appearance-none cursor-pointer text-white/80"
+                  >
+                    <option value="draft">Draft</option>
+                    <option value="sent">Sent</option>
+                  </select>
+                </div>
+
+                <div className="pt-4 flex items-center justify-end gap-4 border-t border-white/5">
+                  <button 
+                    type="button"
+                    onClick={() => setIsCreateOpen(false)}
+                    className="bg-white/5 border border-white/10 hover:bg-white/10 text-white px-6 py-3.5 rounded-2xl text-xs font-bold transition-all"
+                  >
+                    Cancel
+                  </button>
+                  <button 
+                    type="submit"
+                    disabled={createSubmitting}
+                    className="bg-white text-black hover:bg-neutral-200 disabled:opacity-50 px-8 py-3.5 rounded-2xl text-xs font-black transition-all flex items-center gap-2"
+                  >
+                    {createSubmitting ? 'Creating...' : 'Create Invoice'}
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* --- Record Payment Modal --- */}
+      <AnimatePresence>
+        {isPaymentOpen && selectedInvoice && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => {
+                setIsPaymentOpen(false);
+                setSelectedInvoice(null);
+              }}
+              className="absolute inset-0 bg-black/60 backdrop-blur-md"
+            />
+            
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="bg-[#0c0c0c] border border-white/10 w-full max-w-md rounded-[32px] overflow-hidden shadow-[0_24px_64px_rgba(0,0,0,0.8)] relative z-10"
+            >
+              <div className="p-8 border-b border-white/5 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-emerald-400">
+                    <DollarSign size={20} />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold">Record Payment</h3>
+                    <p className="text-[10px] text-white/40 font-medium">For Invoice #{selectedInvoice.invoiceNumber}</p>
+                  </div>
+                </div>
+                <button 
+                  onClick={() => {
+                    setIsPaymentOpen(false);
+                    setSelectedInvoice(null);
+                  }}
+                  className="p-2 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-colors"
+                >
+                  <X size={16} />
+                </button>
+              </div>
+
+              <form onSubmit={handleRecordPayment} className="p-8 space-y-6">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-white/40 uppercase tracking-widest">Amount Paid ($)</label>
+                  <input 
+                    type="number" 
+                    required
+                    max={selectedInvoice.amount}
+                    min="1"
+                    placeholder="e.g. 500"
+                    value={paymentForm.amount}
+                    onChange={(e) => setPaymentForm(prev => ({ ...prev, amount: e.target.value }))}
+                    className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all placeholder:text-white/10"
+                  />
+                  <p className="text-[10px] text-white/30 font-medium">Invoice Total: ${selectedInvoice.amount}</p>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-white/40 uppercase tracking-widest">Payment Method</label>
+                  <select 
+                    value={paymentForm.paymentMethod}
+                    onChange={(e) => setPaymentForm(prev => ({ ...prev, paymentMethod: e.target.value }))}
+                    className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all appearance-none cursor-pointer text-white/80"
+                  >
+                    <option value="credit_card">Credit/Debit Card</option>
+                    <option value="bank_transfer">Bank Transfer (Wire)</option>
+                    <option value="paypal">PayPal</option>
+                    <option value="cash">Cash</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-white/40 uppercase tracking-widest">Notes (Optional)</label>
+                  <textarea 
+                    rows={2}
+                    placeholder="e.g. Paid first milestone tranche"
+                    value={paymentForm.notes}
+                    onChange={(e) => setPaymentForm(prev => ({ ...prev, notes: e.target.value }))}
+                    className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all placeholder:text-white/10 resize-none"
+                  />
+                </div>
+
+                <div className="pt-4 flex items-center justify-end gap-4 border-t border-white/5">
+                  <button 
+                    type="button"
+                    onClick={() => {
+                      setIsPaymentOpen(false);
+                      setSelectedInvoice(null);
+                    }}
+                    className="bg-white/5 border border-white/10 hover:bg-white/10 text-white px-6 py-3.5 rounded-2xl text-xs font-bold transition-all"
+                  >
+                    Cancel
+                  </button>
+                  <button 
+                    type="submit"
+                    disabled={paymentSubmitting}
+                    className="bg-white text-black hover:bg-neutral-200 disabled:opacity-50 px-8 py-3.5 rounded-2xl text-xs font-black transition-all flex items-center gap-2"
+                  >
+                    {paymentSubmitting ? 'Recording...' : 'Record Payment'}
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

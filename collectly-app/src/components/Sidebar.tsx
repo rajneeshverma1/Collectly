@@ -12,7 +12,8 @@ import {
   Settings, 
   LogOut, 
   Bell, 
-  Plus 
+  Plus,
+  BarChart3 
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
@@ -65,6 +66,12 @@ export function Sidebar() {
           label="Invoices" 
           href="/dashboard/invoices" 
           active={pathname.startsWith('/dashboard/invoices')} 
+        />
+        <SidebarItem 
+          icon={BarChart3} 
+          label="Analytics" 
+          href="/dashboard/analytics" 
+          active={pathname.startsWith('/dashboard/analytics')} 
         />
         <SidebarItem 
           icon={Users} 
