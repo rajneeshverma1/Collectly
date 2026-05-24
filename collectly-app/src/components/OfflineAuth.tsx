@@ -1,5 +1,14 @@
 'use client';
 
+/**
+ * OFFLINE AUTH SANDBOX MODULE
+ * 
+ * Provides mock context, authentication providers, user hooks, and matching UI state
+ * elements. This mimics the Clerk React SDK interface entirely, allowing local 
+ * development, navigation, onboarding, and dashboard operations to run perfectly 
+ * offline and isolated from external authentication network requirements.
+ */
+
 import React, { createContext, useContext, useState } from 'react';
 
 const MockAuthContext = createContext<any>(null);
