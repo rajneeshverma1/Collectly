@@ -84,6 +84,12 @@ export default function ClientPayPortal() {
       fetchInvoiceDetails();
     }
 
+    // Parse URL params to check if customer was redirected back from successful Stripe checkout session
+    const searchParams = new URLSearchParams(window.location.search);
+    if (searchParams.get('status') === 'success') {
+      setPaidSuccess(true);
+    }
+
     // Dynamically append Razorpay SDK checkout script
     const script = document.createElement("script");
     script.src = "https://checkout.razorpay.com/v1/checkout.js";
