@@ -27,6 +27,11 @@ const requireAuth = async (req, res, next) => {
       });
     } catch (verifyError) {
       console.warn('Clerk Token Verification failed, falling back to manual decode in development:', verifyError.message);
+      
+      // DEVELOPMENT FALLBACK MECHANISM:
+      // If we are in local development mode, we bypass Clerk's cryptographic token verify checks.
+      // This protects local development workflows from clock skews, connection time-outs,
+      // and blocks when the developers are offline or disconnected from Clerk's network.
       if (process.env.NODE_ENV === 'development') {
         const jwt = require('jsonwebtoken');
         sessionClaims = jwt.decode(token);
