@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const { initReminderService } = require("./services/reminderService");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const helmet = require("helmet");
@@ -9,6 +10,7 @@ const authRoutes = require("./routes/authRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
 const invoiceRoutes = require("./routes/invoiceRoutes");
 const clientRoutes = require("./routes/clientRoutes");
+const paymentRoutes = require("./routes/paymentRoutes");
 const errorHandler = require("./middleware/errorHandler");
 const { apiLimiter } = require("./utils/rateLimiter");
 
@@ -67,6 +69,7 @@ app.use("/api/v1/users", authRoutes);
 app.use("/api/v1/dashboard", dashboardRoutes);
 app.use("/api/v1/invoices", invoiceRoutes);
 app.use("/api/v1/clients", clientRoutes);
+app.use("/api/v1/payments", paymentRoutes);
 
 // 404 handler
 app.use((req, res, next) => {
@@ -93,6 +96,7 @@ const startServer = async () => {
     app.listen(port, () => {
       console.log(`App running on port ${port}...`);
       console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+      initReminderService();
     });
   } catch (error) {
     console.error("Unable to connect to the database:", error);
