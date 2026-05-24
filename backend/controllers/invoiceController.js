@@ -232,3 +232,51 @@ exports.getMonthlyRevenue = async (req, res, next) => {
     next(error);
   }
 };
+
+/**
+ * Get read-only public invoice details for public client checkout
+ */
+exports.getPublicInvoice = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const invoice = await Invoice.findByPk(id);
+    if (!invoice) {
+      return res.status(404).json({
+        status: "fail",
+        message: "Invoice not found",
+      });
+    }
+
+    const org = await Organization.findByPk(invoice.organizationId);
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        invoice: {
+          id: invoice.id,
+          invoiceNumber: invoice.invoiceNumber,
+          clientName: invoice.clientName,
+          clientEmail: invoice.clientEmail,
+          amount: invoice.amount,
+          dueDate: invoice.dueDate,
+          status: invoice.status,
+          description: invoice.description,
+          createdAt: invoice.createdAt,
+        },
+        paymentGateways: {
+          stripe: {
+            connected: !!(org && org.stripeSecretKey),
+            publishableKey: org ? org.stripePublishableKey : null,
+          },
+          razorpay: {
+            connected: !!(org && org.razorpayKeySecret),
+            keyId: org ? org.razorpayKeyId : null,
+          }
+        }
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};

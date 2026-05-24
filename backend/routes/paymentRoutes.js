@@ -5,9 +5,10 @@ const { requireAuth } = require("../middleware/clerkAuth");
 
 const router = express.Router();
 
-// Public Webhook endpoints (Stripe & Razorpay call these without Auth headers)
+// Public Webhook and Checkout endpoints
 router.post("/webhooks/stripe", paymentController.stripeWebhook);
 router.post("/webhooks/razorpay", paymentController.razorpayWebhook);
+router.post("/create-intent", paymentController.createPaymentIntent);
 
 // Protected Merchant Routes
 router.use(requireAuth);
@@ -15,7 +16,5 @@ router.use(requireAuth);
 router.route("/credentials")
   .get(paymentController.getCredentials)
   .post(paymentController.saveCredentials);
-
-router.post("/create-intent", paymentController.createPaymentIntent);
 
 module.exports = router;

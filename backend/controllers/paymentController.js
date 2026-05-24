@@ -79,16 +79,14 @@ exports.getCredentials = async (req, res, next) => {
 exports.createPaymentIntent = async (req, res, next) => {
   try {
     const { invoiceId, gateway } = req.body;
-    const organizationId = req.user.organizationId;
 
-    const invoice = await Invoice.findOne({
-      where: { id: invoiceId, organizationId }
-    });
+    const invoice = await Invoice.findByPk(invoiceId);
 
     if (!invoice) {
       return next(new AppError("Invoice not found", 404));
     }
 
+    const organizationId = invoice.organizationId;
     const org = await Organization.findByPk(organizationId);
 
     let sessionData = {};
