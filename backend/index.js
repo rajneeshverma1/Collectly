@@ -89,7 +89,7 @@ const startServer = async () => {
     console.log("PostgreSQL connection has been established successfully.");
 
     // Sync models
-    await sequelize.sync({ force: false });
+    await sequelize.sync({ alter: true });
     console.log("Database models synchronized.");
 
     const port = process.env.PORT || 5000;
