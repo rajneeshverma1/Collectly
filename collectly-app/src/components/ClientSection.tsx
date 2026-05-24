@@ -28,7 +28,6 @@ export function ClientSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [sendInvite, setSendInvite] = useState(false);
   const [editingClient, setEditingClient] = useState<Client | null>(null);
 
   const [formData, setFormData] = useState({
@@ -96,25 +95,6 @@ export function ClientSection() {
       let method = editingClient ? 'PUT' : 'POST';
       let body: any = { ...formData };
 
-      if (!editingClient && sendInvite) {
-        // Generate PDF
-        const doc = new jsPDF();
-        doc.setFontSize(20);
-        doc.text('BILL RECEIPT & AGREEMENT', 20, 20);
-        doc.setFontSize(12);
-        doc.text(`Client Name: ${formData.name}`, 20, 40);
-        doc.text(`Email: ${formData.email}`, 20, 50);
-        doc.text(`Company: ${formData.company || 'N/A'}`, 20, 60);
-        doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 70);
-        
-        doc.text('This document serves as a formal agreement between the freelancer and the client.', 20, 90);
-        doc.text('By accepting this, you agree to the terms of service provided by Collectly.', 20, 100);
-        
-        const pdfBase64 = doc.output('datauristring');
-        endpoint = '/clients/send-invitation';
-        body.pdfBase64 = pdfBase64;
-      }
-
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api/v1'}${endpoint}`, {
         method: method,
         headers: {
@@ -129,7 +109,6 @@ export function ClientSection() {
         setIsModalOpen(false);
         setEditingClient(null);
         setFormData({ name: '', email: '', phone: '', company: '', address: '' });
-        setSendInvite(false);
         fetchClients(); // Refresh list
       }
     } catch (err) {
@@ -254,21 +233,8 @@ export function ClientSection() {
                 <div className="flex justify-between items-start mb-6">
                   <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center text-xl font-black border border-white/5 relative">
                     {client.name.charAt(0)}
-                    {client.status === 'pending' && (
-                      <div className="absolute -top-1 -right-1 w-4 h-4 bg-amber-500 rounded-full border-2 border-black flex items-center justify-center">
-                        <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
-                      </div>
-                    )}
                   </div>
                   <div className="flex flex-col items-end gap-2">
-                    <span className={cn(
-                      "text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-lg border",
-                      client.status === 'active' 
-                        ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" 
-                        : "bg-amber-500/10 text-amber-400 border-amber-500/20"
-                    )}>
-                      {client.status}
-                    </span>
                     <button 
                       onClick={() => setEditingClient(client)}
                       className="p-2 text-white/20 hover:text-white transition-colors"
@@ -409,20 +375,7 @@ export function ClientSection() {
                   />
                 </div>
 
-                <div className="flex items-center gap-3 p-4 bg-white/[0.03] border border-white/5 rounded-2xl cursor-pointer hover:bg-white/[0.05] transition-all"
-                  onClick={() => setSendInvite(!sendInvite)}
-                >
-                  <div className={cn(
-                    "w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all",
-                    sendInvite ? "bg-blue-500 border-blue-500" : "border-white/10"
-                  )}>
-                    {sendInvite && <CheckCircle size={14} className="text-white" />}
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold">Send Agreement & Bill Receipt</p>
-                    <p className="text-[10px] text-white/30 font-medium uppercase tracking-widest">Via Email (Requires Client Approval)</p>
-                  </div>
-                </div>
+
 
                 <div className="pt-4 flex gap-4">
                   <button 
