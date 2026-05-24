@@ -78,6 +78,14 @@ exports.sendClientNotification = async (client, type, freelancer = {}, metadata 
         <p>Please check the details and sign the agreement to finalize your contract.</p>
       `;
       break;
+    case "reminder":
+      subject = `Payment Reminder: Invoice ${metadata.invoiceNumber || ""} from ${freelancerName}`;
+      content = `
+        <p>This is a friendly reminder that invoice <strong>${metadata.invoiceNumber || ""}</strong> from <strong>${freelancerName}</strong> is due on <strong>${metadata.dueDate || ""}</strong>.</p>
+        <p><strong>Amount Due:</strong> $${metadata.amount || "0"}</p>
+        <p>Please log in to your secure client portal or use the checkout link to settle this balance. If you have already made this payment, please disregard this reminder.</p>
+      `;
+      break;
     default:
       subject = `Notification from ${freelancerName} via Collectly`;
       content = `You have a new update regarding your project details from ${freelancerName}.`;
