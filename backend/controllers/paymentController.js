@@ -89,6 +89,10 @@ exports.createPaymentIntent = async (req, res, next) => {
     const organizationId = invoice.organizationId;
     const org = await Organization.findByPk(organizationId);
 
+    if (!org) {
+      return next(new AppError("Merchant organization not found", 404));
+    }
+
     let sessionData = {};
     if (gateway === "stripe") {
       if (!org.stripeSecretKey) {
