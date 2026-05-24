@@ -8,7 +8,9 @@ const transporter = require("../config/mail");
 const clerkClient = require("../config/clerk");
 
 /**
- * Add a new client
+ * Add a new client directly to the database.
+ * The client is instantly created in the "active" status, bypassing
+ * any external invitation, agreement receipt, or customer approval blocks.
  */
 exports.addClient = async (req, res, next) => {
   try {
