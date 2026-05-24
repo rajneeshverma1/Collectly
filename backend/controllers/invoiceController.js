@@ -4,24 +4,52 @@
  */
 const Invoice = require("../models/Invoice");
 const Organization = require("../models/Organization");
+const Payment = require("../models/Payment");
 const { Op } = require("sequelize");
 
+/**
+ * Get all invoices with advanced search, status filters, and sorting
+ */
 exports.getAllInvoices = async (req, res, next) => {
   try {
-    const organization = await Organization.findOne({
-      where: { clerkId: req.user.id },
-    });
+    const organizationId = req.user.organizationId;
 
-    if (!organization) {
-      return res.status(404).json({
+    if (!organizationId) {
+      return res.status(400).json({
         status: "fail",
-        message: "Organization not found for this user",
+        message: "User must belong to an organization",
       });
     }
 
+    const { search, status, sortBy, sortOrder } = req.query;
+
+    const whereClause = { organizationId };
+
+    // Advanced search: Client Name, Invoice ID (Number), or Description
+    if (search) {
+      whereClause[Op.or] = [
+        { clientName: { [Op.like]: `%${search}%` } },
+        { invoiceNumber: { [Op.like]: `%${search}%` } },
+        { description: { [Op.like]: `%${search}%` } },
+      ];
+    }
+
+    // Status filtering
+    if (status) {
+      whereClause.status = status;
+    }
+
+    // Advanced sorting options
+    const order = [];
+    if (sortBy) {
+      order.push([sortBy, sortOrder === "desc" ? "DESC" : "ASC"]);
+    } else {
+      order.push(["createdAt", "DESC"]);
+    }
+
     const invoices = await Invoice.findAll({
-      where: { organizationId: organization.id },
-      order: [["createdAt", "DESC"]],
+      where: whereClause,
+      order,
     });
 
     res.status(200).json({
@@ -36,6 +64,9 @@ exports.getAllInvoices = async (req, res, next) => {
   }
 };
 
+/**
+ * Get single invoice
+ */
 exports.getInvoice = async (req, res, next) => {
   try {
     const invoice = await Invoice.findByPk(req.params.id);
@@ -47,10 +78,17 @@ exports.getInvoice = async (req, res, next) => {
       });
     }
 
+    // Fetch associated payments
+    const payments = await Payment.findAll({
+      where: { invoiceId: invoice.id },
+      order: [["paidAt", "DESC"]],
+    });
+
     res.status(200).json({
       status: "success",
       data: {
         invoice,
+        payments,
       },
     });
   } catch (error) {
@@ -58,23 +96,33 @@ exports.getInvoice = async (req, res, next) => {
   }
 };
 
+/**
+ * Create a new invoice
+ */
 exports.createInvoice = async (req, res, next) => {
   try {
-    const organization = await Organization.findOne({
-      where: { clerkId: req.user.id },
-    });
+    const organizationId = req.user.organizationId;
 
-    if (!organization) {
-      return res.status(404).json({
+    if (!organizationId) {
+      return res.status(400).json({
         status: "fail",
-        message: "Organization not found for this user",
+        message: "User must belong to an organization",
       });
+    }
+
+    // Generate consecutive invoice number if none provided
+    let invoiceNumber = req.body.invoiceNumber;
+    if (!invoiceNumber) {
+      const count = await Invoice.count({ where: { organizationId } });
+      invoiceNumber = `INV-${new Date().getFullYear()}-${String(count + 1).padStart(4, '0')}`;
     }
 
     const invoice = await Invoice.create({
       ...req.body,
-      organizationId: organization.id,
-      createdBy: organization.ownerId || organization.id, // Fallback if ownerId not set
+      invoiceNumber,
+      organizationId,
+      createdBy: req.user.id,
+      status: req.body.status || "draft",
     });
 
     res.status(201).json({
@@ -88,28 +136,80 @@ exports.createInvoice = async (req, res, next) => {
   }
 };
 
-exports.getMonthlyRevenue = async (req, res, next) => {
+/**
+ * Record a manual payment against an invoice with automatic status progression
+ */
+exports.recordPayment = async (req, res, next) => {
   try {
-    const organization = await Organization.findOne({
-      where: { clerkId: req.user.id },
-    });
+    const { amount, paymentMethod, notes } = req.body;
+    const organizationId = req.user.organizationId;
 
-    if (!organization) {
+    const invoice = await Invoice.findByPk(req.params.id);
+    if (!invoice) {
       return res.status(404).json({
         status: "fail",
-        message: "Organization not found for this user",
+        message: "Invoice not found",
       });
     }
 
-    // Simple revenue summary by month and client
+    // Record the payment
+    const payment = await Payment.create({
+      invoiceId: invoice.id,
+      amount: parseFloat(amount),
+      paymentMethod: paymentMethod || "other",
+      notes: notes || null,
+      organizationId,
+      recordedBy: req.user.id,
+      paidAt: new Date(),
+    });
+
+    // Calculate total payments recorded for this invoice
+    const totalPayments = await Payment.sum("amount", {
+      where: { invoiceId: invoice.id },
+    }) || 0;
+
+    // Update invoice status dynamically
+    if (totalPayments >= parseFloat(invoice.amount)) {
+      invoice.status = "paid";
+      invoice.paidAt = new Date();
+    } else if (totalPayments > 0) {
+      invoice.status = "partially_paid";
+    }
+    await invoice.save();
+
+    res.status(201).json({
+      status: "success",
+      data: {
+        payment,
+        invoice,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * Get monthly revenue grouping by month and client
+ */
+exports.getMonthlyRevenue = async (req, res, next) => {
+  try {
+    const organizationId = req.user.organizationId;
+
+    if (!organizationId) {
+      return res.status(400).json({
+        status: "fail",
+        message: "User must belong to an organization",
+      });
+    }
+
     const invoices = await Invoice.findAll({
       where: { 
-        organizationId: organization.id,
+        organizationId,
         status: 'paid'
       },
     });
 
-    // Grouping by month and client
     const summary = invoices.reduce((acc, inv) => {
       const date = new Date(inv.paidAt || inv.createdAt);
       const monthYear = `${date.getMonth() + 1}/${date.getFullYear()}`;
