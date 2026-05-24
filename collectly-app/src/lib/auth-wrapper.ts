@@ -1,9 +1,16 @@
 'use client';
 
+/**
+ * AUTHENTICATION WRAPPER INTERACTION LAYER
+ * 
+ * Conditionally bridges the application imports to either Clerk's official Next.js 
+ * SDK or the local Offline Sandbox Mock Provider. This ensures compiling and 
+ * static prerendering remain robust without external dependencies.
+ */
+
 import * as ClerkReal from "@clerk/nextjs";
 import * as ClerkMock from "@/components/OfflineAuth";
 
-console.log("DIAGNOSTIC - NEXT_PUBLIC_MOCK_AUTH value is:", process.env.NEXT_PUBLIC_MOCK_AUTH);
 const useMock = process.env.NEXT_PUBLIC_MOCK_AUTH === 'true';
 
 export const ClerkProvider = useMock ? ClerkMock.MockClerkProvider : ClerkReal.ClerkProvider;
