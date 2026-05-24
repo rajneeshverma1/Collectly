@@ -122,43 +122,57 @@ export default function ClientPayPortal() {
           return;
         }
 
-        setCheckoutUrl(session.url);
-        
-        // Simulating the secure gateway checkout redirect
-        setTimeout(async () => {
-          // Send checkout success capture trigger to webhook
-          if (gateway === 'stripe') {
-            await axios.post(`${API_URL}/payments/webhooks/stripe`, {
-              type: 'checkout.session.completed',
-              data: {
-                object: {
-                  id: session.id,
-                  amount_total: invoice!.amount * 100,
-                  metadata: { invoiceId }
-                }
-              }
-            });
-          } else {
-            await axios.post(`${API_URL}/payments/webhooks/razorpay`, {
-              event: 'payment.captured',
-              payload: {
-                payment: {
-                  entity: {
-                    id: session.id,
-                    amount: invoice!.amount * 100,
-                    notes: { invoiceId }
+        // If Razorpay, trigger Razorpay Checkout modal popup dynamically
+        if (gateway === 'razorpay' && session.id) {
+          const options = {
+            key: session.keyId,
+            amount: Math.round(invoice!.amount * 100),
+            currency: session.currency || 'INR',
+            name: "Collectly Payments",
+            description: `Invoice Ref #${invoice!.invoiceNumber}`,
+            order_id: session.id,
+            handler: async function (paymentResponse: any) {
+              setProcessing(true);
+              try {
+                // Post confirmation transaction capture callback payload to webhook
+                const confirmResponse = await axios.post(`${API_URL}/payments/webhooks/razorpay`, {
+                  event: 'payment.captured',
+                  payload: {
+                    payment: {
+                      entity: {
+                        id: paymentResponse.razorpay_payment_id,
+                        amount: invoice!.amount * 100,
+                        notes: { invoiceId }
+                      }
+                    }
+                  }
+                });
+                if (confirmResponse.status === 200) {
+                  setPaidSuccess(true);
+                  if (invoice) {
+                    setInvoice({ ...invoice, status: 'paid' });
                   }
                 }
+              } catch (webhookErr) {
+                console.error("Razorpay webhook capture callback failed:", webhookErr);
+              } finally {
+                setProcessing(false);
               }
-            });
-          }
+            },
+            prefill: {
+              name: session.clientName || '',
+              email: session.clientEmail || '',
+            },
+            theme: {
+              color: "#6366f1",
+            }
+          };
           
+          const rzp = new (window as any).Razorpay(options);
+          rzp.open();
           setProcessing(false);
-          setPaidSuccess(true);
-          if (invoice) {
-            setInvoice({ ...invoice, status: 'paid' });
-          }
-        }, 3000);
+          return;
+        }
       }
     } catch (err) {
       console.error('Gateway processing failed:', err);
