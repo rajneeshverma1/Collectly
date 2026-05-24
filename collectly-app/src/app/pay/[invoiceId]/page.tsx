@@ -115,6 +115,13 @@ export default function ClientPayPortal() {
 
       if (response.data.status === 'success') {
         const session = response.data.data;
+        
+        // If Stripe, redirect to secure checkout session URL
+        if (gateway === 'stripe' && session.url) {
+          window.location.href = session.url;
+          return;
+        }
+
         setCheckoutUrl(session.url);
         
         // Simulating the secure gateway checkout redirect
