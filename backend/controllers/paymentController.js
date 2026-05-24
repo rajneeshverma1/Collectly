@@ -131,14 +131,34 @@ exports.createPaymentIntent = async (req, res, next) => {
         amount: invoice.amount,
       };
     } else if (gateway === "razorpay") {
-      if (!org.razorpayKeySecret) {
+      if (!org.razorpayKeySecret || !org.razorpayKeyId) {
         return next(new AppError("Razorpay gateway is not configured by the merchant", 400));
       }
+
+      const Razorpay = require("razorpay");
+      const rzpInstance = new Razorpay({
+        key_id: org.razorpayKeyId,
+        key_secret: org.razorpayKeySecret,
+      });
+
+      // Generate dynamic Razorpay Order
+      const order = await rzpInstance.orders.create({
+        amount: Math.round(invoice.amount * 100), // convert to paise
+        currency: "INR",
+        receipt: `invoice_${invoice.id.substring(0, 10)}`,
+        notes: {
+          invoiceId: invoice.id,
+        },
+      });
+
       sessionData = {
-        id: `order_razor_${Math.random().toString(36).substr(2, 9)}`,
-        url: `https://checkout.razorpay.com/pay/${invoice.id}?merchant=${org.id}`,
+        id: order.id,
         gateway: "razorpay",
         amount: invoice.amount,
+        currency: "INR",
+        keyId: org.razorpayKeyId,
+        clientName: invoice.clientName || "Valued Client",
+        clientEmail: invoice.clientEmail || "",
       };
     } else {
       return next(new AppError("Unsupported gateway selected", 400));
