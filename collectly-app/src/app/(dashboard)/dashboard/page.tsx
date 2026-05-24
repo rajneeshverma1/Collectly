@@ -8,6 +8,7 @@ import { useAuth } from '@/context/AuthContext';
 import { DashboardSummary } from '@/components/DashboardSummary';
 import { DashboardHeader } from '@/components/DashboardHeader';
 import { RecentActivity } from '@/components/RecentActivity';
+import { PaymentTracker } from '@/components/PaymentTracker';
 import Link from 'next/link';
 
 // Metadata is not supported in client components, but we can document it or handle it in a parent layout.
@@ -117,9 +118,10 @@ export default function DashboardPage() {
           </motion.div>
         </div>
 
-        {/* Recent Activity Section */}
-        <div className="mt-8">
+        {/* Recent Activity & Live Gateway Payment Logs */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
           <RecentActivity />
+          <PaymentTracker />
         </div>
       </div>
     </div>
