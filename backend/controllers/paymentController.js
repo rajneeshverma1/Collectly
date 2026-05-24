@@ -98,10 +98,35 @@ exports.createPaymentIntent = async (req, res, next) => {
       if (!org.stripeSecretKey) {
         return next(new AppError("Stripe gateway is not configured by the merchant", 400));
       }
-      // Production-grade integration mockup (or dynamic Stripe checkout links)
+      const stripeInstance = require("stripe")(org.stripeSecretKey);
+      
+      // Generate standard Stripe Checkout Session dynamically using merchant's connected credentials
+      const session = await stripeInstance.checkout.sessions.create({
+        payment_method_types: ["card"],
+        line_items: [
+          {
+            price_data: {
+              currency: "usd",
+              product_data: {
+                name: `Invoice ${invoice.invoiceNumber}`,
+                description: `Services rendered - Collectly billing portal`,
+              },
+              unit_amount: Math.round(invoice.amount * 100), // convert to cents
+            },
+            quantity: 1,
+          },
+        ],
+        mode: "payment",
+        success_url: `${process.env.FRONTEND_URL || "http://localhost:3000"}/pay/${invoice.id}?status=success&session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${process.env.FRONTEND_URL || "http://localhost:3000"}/pay/${invoice.id}?status=cancelled`,
+        metadata: {
+          invoiceId: invoice.id,
+        },
+      });
+
       sessionData = {
-        id: `cs_stripe_${Math.random().toString(36).substr(2, 9)}`,
-        url: `https://checkout.stripe.com/pay/${invoice.id}?merchant=${org.id}`,
+        id: session.id,
+        url: session.url,
         gateway: "stripe",
         amount: invoice.amount,
       };
