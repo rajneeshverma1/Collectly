@@ -111,6 +111,10 @@ exports.createInvoice = async (req, res, next) => {
     }
 
     // Generate consecutive invoice number if none provided
+    // CONCURRENCY & UNIQUENESS PROTECTION LOOP:
+    // To prevent SequelizeUniqueConstraintError on SQLite/PostgreSQL, we run a dynamic check
+    // loop that increments the count sequence globally and guarantees an invoiceNumber is
+    // completely unique in the system before calling create.
     let invoiceNumber = req.body.invoiceNumber;
     if (!invoiceNumber) {
       let isUnique = false;
