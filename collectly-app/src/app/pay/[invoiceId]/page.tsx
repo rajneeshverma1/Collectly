@@ -45,6 +45,16 @@ interface GatewayConfig {
   };
 }
 
+/**
+ * ClientPayPortal Component
+ * 
+ * Provides an elegant, glassmorphic client checkout gateway page.
+ * Features:
+ * - Real-time Stripe checkout redirection tunnels.
+ * - Interactive, local-overlay dynamic Razorpay Checkout Modals.
+ * - Auto-capture confirmation status parses for callback URLs.
+ * - Seamless fallback offline simulator triggers for sandbox testing environments.
+ */
 export default function ClientPayPortal() {
   const { invoiceId } = useParams();
   const [loading, setLoading] = useState(true);
