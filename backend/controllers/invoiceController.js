@@ -113,8 +113,16 @@ exports.createInvoice = async (req, res, next) => {
     // Generate consecutive invoice number if none provided
     let invoiceNumber = req.body.invoiceNumber;
     if (!invoiceNumber) {
-      const count = await Invoice.count({ where: { organizationId } });
-      invoiceNumber = `INV-${new Date().getFullYear()}-${String(count + 1).padStart(4, '0')}`;
+      let isUnique = false;
+      let count = await Invoice.count();
+      while (!isUnique) {
+        count++;
+        invoiceNumber = `INV-${new Date().getFullYear()}-${String(count).padStart(4, '0')}`;
+        const existing = await Invoice.findOne({ where: { invoiceNumber } });
+        if (!existing) {
+          isUnique = true;
+        }
+      }
     }
 
     const invoice = await Invoice.create({

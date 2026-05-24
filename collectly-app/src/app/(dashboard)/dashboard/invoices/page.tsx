@@ -64,6 +64,7 @@ export default function InvoicesPage() {
     status: 'sent'
   });
   const [createSubmitting, setCreateSubmitting] = useState(false);
+  const [createError, setCreateError] = useState<string | null>(null);
 
   // Record Payment Modal State
   const [isPaymentOpen, setIsPaymentOpen] = useState(false);
@@ -106,6 +107,7 @@ export default function InvoicesPage() {
     e.preventDefault();
     try {
       setCreateSubmitting(true);
+      setCreateError(null);
       const token = await getToken();
       await axios.post(`${API_URL}/invoices`, createForm, {
         headers: { Authorization: `Bearer ${token}` }
@@ -121,8 +123,10 @@ export default function InvoicesPage() {
         status: 'sent'
       });
       fetchInvoices();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to create invoice:', error);
+      const msg = error.response?.data?.message || 'Failed to create invoice. Please check the input and try again.';
+      setCreateError(msg);
     } finally {
       setCreateSubmitting(false);
     }
@@ -291,7 +295,7 @@ export default function InvoicesPage() {
             <motion.button 
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              onClick={() => setIsCreateOpen(true)}
+              onClick={() => { setCreateError(null); setIsCreateOpen(true); }}
               className="bg-white text-black px-8 py-4 rounded-2xl font-black text-sm flex items-center gap-3 shadow-[0_20px_40px_rgba(255,255,255,0.1)]"
             >
               <Plus size={18} strokeWidth={3} /> Create New Invoice
@@ -502,6 +506,16 @@ export default function InvoicesPage() {
               </div>
 
               <form onSubmit={handleCreateInvoice} className="p-8 space-y-6">
+                {createError && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="p-4 bg-red-500/10 border border-red-500/20 text-red-400 rounded-2xl flex items-center gap-2 text-xs font-semibold"
+                  >
+                    <AlertCircle size={14} />
+                    {createError}
+                  </motion.div>
+                )}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <label className="text-[10px] font-black text-white/40 uppercase tracking-widest">Client Name</label>
