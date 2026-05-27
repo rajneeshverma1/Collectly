@@ -249,7 +249,7 @@ exports.stripeWebhook = async (req, res, next) => {
             transactionId: object.id,
             organizationId: invoice.organizationId,
             recordedBy: invoice.createdBy,
-            notes: "Automatic payment processed securely via Stripe Connect Webhook",
+            notes: `Stripe automated payment processed securely. Transaction Ref: ${object.id}. Amount: $${amountPaid.toFixed(2)}. Status: Settled.`,
           });
 
           // Transition invoice status
@@ -334,7 +334,7 @@ exports.razorpayWebhook = async (req, res, next) => {
             transactionId: paymentEntity.id,
             organizationId: invoice.organizationId,
             recordedBy: invoice.createdBy,
-            notes: "Automatic payment captured securely via Razorpay Connect Webhook",
+            notes: `Razorpay automated payment captured securely. Order Ref: ${paymentEntity.order_id || 'N/A'}. Transaction Ref: ${paymentEntity.id}. Amount: ₹${amountPaid.toFixed(2)}. Status: Captured.`,
           });
 
           invoice.status = "paid";
