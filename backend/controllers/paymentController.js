@@ -277,6 +277,21 @@ exports.razorpayWebhook = async (req, res, next) => {
       if (invoiceId) {
         const invoice = await Invoice.findByPk(invoiceId);
         if (invoice) {
+          // Guard: Avoid duplicate payment processing for the same transaction ID
+          const existingPayment = await Payment.findOne({
+            where: { transactionId: paymentEntity.id }
+          });
+          if (existingPayment) {
+            console.log(`[Razorpay Webhook] Payment already recorded for transaction ID: ${paymentEntity.id}`);
+            return res.status(200).json({ received: true, message: "Already processed" });
+          }
+
+          // Guard: If invoice is already paid, return early to prevent duplicate records
+          if (invoice.status === "paid") {
+            console.log(`[Razorpay Webhook] Invoice ${invoiceId} is already marked as paid.`);
+            return res.status(200).json({ received: true, message: "Invoice already paid" });
+          }
+
           await Payment.create({
             invoiceId: invoice.id,
             amount: amountPaid,
