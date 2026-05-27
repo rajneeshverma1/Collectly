@@ -112,13 +112,16 @@ exports.createPaymentIntent = async (req, res, next) => {
       }
       const stripeInstance = require("stripe")(org.stripeSecretKey);
       
+      // Resolve billing currency dynamically from invoice/organization context (fallback to USD)
+      const billingCurrency = (invoice.currency || org.currency || "usd").toLowerCase();
+
       // Generate standard Stripe Checkout Session dynamically using merchant's connected credentials
       const session = await stripeInstance.checkout.sessions.create({
         payment_method_types: ["card"],
         line_items: [
           {
             price_data: {
-              currency: "usd",
+              currency: billingCurrency,
               product_data: {
                 name: `Invoice ${invoice.invoiceNumber}`,
                 description: `Services rendered - Collectly billing portal`,
