@@ -90,6 +90,10 @@ const requireAuth = async (req, res, next) => {
       // Update local user's organizationId
       localUser.organizationId = org.id;
       await localUser.save();
+    } else if (localUser.organizationId !== org.id) {
+      // Auto-repair association if user has an org but their profile references null
+      localUser.organizationId = org.id;
+      await localUser.save();
     }
 
     // Maintain compatibility with existing controllers expecting req.user.organizationId
