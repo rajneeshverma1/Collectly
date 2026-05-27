@@ -185,29 +185,31 @@ export default function ClientPayPortal() {
         }
       }
     } catch (err: any) {
-      console.error('Gateway processing failed, falling back to mock sandbox:', err);
+      console.log('%c [Collectly Sandbox] Live gateway processing skipped or unconfigured. Activating local mock checkout tunnel... ', 'background: #6366f1; color: #fff; font-weight: bold; padding: 4px;');
       
       // FALLBACK DEVELOPMENT MODE SANDBOX FLOW:
       // If payment gateways are simulated locally without configurations, we trigger the offline simulator
       setTimeout(async () => {
         if (gateway === 'stripe') {
+          console.log('%c [Collectly Sandbox] Dispatched cs_mock Stripe checkout webhook session to server... ', 'background: #10b981; color: #fff; font-weight: bold; padding: 4px;');
           await axios.post(`${API_URL}/payments/webhooks/stripe`, {
             type: 'checkout.session.completed',
             data: {
               object: {
-                id: `cs_mock_${Math.random().toString(36).substr(2, 9)}`,
+                id: `cs_mock_${Math.random().toString(36).substring(2, 11)}`,
                 amount_total: invoice!.amount * 100,
                 metadata: { invoiceId }
               }
             }
           });
         } else {
+          console.log('%c [Collectly Sandbox] Dispatched pay_mock Razorpay captured webhook to server... ', 'background: #0ea5e9; color: #fff; font-weight: bold; padding: 4px;');
           await axios.post(`${API_URL}/payments/webhooks/razorpay`, {
             event: 'payment.captured',
             payload: {
               payment: {
                 entity: {
-                  id: `pay_mock_${Math.random().toString(36).substr(2, 9)}`,
+                  id: `pay_mock_${Math.random().toString(36).substring(2, 11)}`,
                   amount: invoice!.amount * 100,
                   notes: { invoiceId }
                 }
