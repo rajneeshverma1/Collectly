@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   CreditCard, 
@@ -42,7 +42,7 @@ export function PaymentTracker() {
   const [syncing, setSyncing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchTransactions = async (isManual = false) => {
+  const fetchTransactions = useCallback(async (isManual = false) => {
     try {
       if (isManual) setSyncing(true);
       else setLoading(true);
@@ -63,7 +63,7 @@ export function PaymentTracker() {
       setLoading(false);
       setSyncing(false);
     }
-  };
+  }, [getToken]);
 
   useEffect(() => {
     fetchTransactions();
@@ -74,7 +74,7 @@ export function PaymentTracker() {
     }, 15000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [fetchTransactions]);
 
   const totalCaptured = transactions.reduce((sum, tx) => sum + Number(tx.amount), 0);
 
