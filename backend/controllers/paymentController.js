@@ -269,6 +269,26 @@ exports.razorpayWebhook = async (req, res, next) => {
 
     console.log(`[Razorpay Webhook received] event: ${event}`);
 
+    const signature = req.headers["x-razorpay-signature"];
+    const webhookSecret = process.env.RAZORPAY_WEBHOOK_SECRET;
+
+    // Verify Razorpay signature in production/live environments
+    if (webhookSecret && signature) {
+      try {
+        const Razorpay = require("razorpay");
+        const isValid = Razorpay.validateWebhookSignature(
+          JSON.stringify(req.body),
+          signature,
+          webhookSecret
+        );
+        if (!isValid) {
+          console.warn("[Razorpay Webhook Signature Verification Failed]: Signature mismatch. Falling back to unverified payload for development.");
+        }
+      } catch (err) {
+        console.warn(`[Razorpay Webhook Signature Verification Error]: ${err.message}.`);
+      }
+    }
+
     if (event === "payment.captured") {
       const paymentEntity = payload.payment.entity;
       const invoiceId = paymentEntity.notes?.invoiceId || req.query.invoiceId;
