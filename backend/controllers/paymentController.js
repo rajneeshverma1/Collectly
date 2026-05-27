@@ -67,6 +67,7 @@ exports.getCredentials = async (req, res, next) => {
 
     const maskKey = (key) => {
       if (!key) return null;
+      if (key.length <= 11) return `${key.substring(0, Math.min(3, key.length))}...`;
       return `${key.substring(0, 7)}...${key.substring(key.length - 4)}`;
     };
 
