@@ -43,6 +43,9 @@ const requireAuth = async (req, res, next) => {
       if (process.env.NODE_ENV === 'development') {
         const jwt = require('jsonwebtoken');
         sessionClaims = jwt.decode(token);
+        if (sessionClaims) {
+          console.log('\x1b[43m\x1b[30m [Collectly Sandbox] Bypassed cryptographic validation for sub: ' + sessionClaims.sub + ' \x1b[0m');
+        }
       }
       
       if (!sessionClaims) {
