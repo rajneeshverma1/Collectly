@@ -191,6 +191,21 @@ exports.stripeWebhook = async (req, res, next) => {
       if (invoiceId) {
         const invoice = await Invoice.findByPk(invoiceId);
         if (invoice) {
+          // Guard: Avoid duplicate payment processing for the same transaction ID
+          const existingPayment = await Payment.findOne({
+            where: { transactionId: object.id }
+          });
+          if (existingPayment) {
+            console.log(`[Stripe Webhook] Payment already recorded for transaction ID: ${object.id}`);
+            return res.status(200).json({ received: true, message: "Already processed" });
+          }
+
+          // Guard: If invoice is already paid, return early to prevent duplicate records
+          if (invoice.status === "paid") {
+            console.log(`[Stripe Webhook] Invoice ${invoiceId} is already marked as paid.`);
+            return res.status(200).json({ received: true, message: "Invoice already paid" });
+          }
+
           // Record successful payment transaction
           await Payment.create({
             invoiceId: invoice.id,
