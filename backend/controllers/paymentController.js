@@ -22,6 +22,17 @@ exports.saveCredentials = async (req, res, next) => {
       return next(new AppError("Organization not found", 404));
     }
 
+    // Validate key prefixes to prevent malformed values from disrupting future checkout calls
+    if (stripePublishableKey && !stripePublishableKey.startsWith("pk_")) {
+      return next(new AppError("Invalid Stripe Publishable Key format. Must start with 'pk_'.", 400));
+    }
+    if (stripeSecretKey && !stripeSecretKey.startsWith("sk_")) {
+      return next(new AppError("Invalid Stripe Secret Key format. Must start with 'sk_'.", 400));
+    }
+    if (razorpayKeyId && !razorpayKeyId.startsWith("rzp_")) {
+      return next(new AppError("Invalid Razorpay Key ID format. Must start with 'rzp_'.", 400));
+    }
+
     await org.update({
       stripePublishableKey: stripePublishableKey || null,
       stripeSecretKey: stripeSecretKey || null,
