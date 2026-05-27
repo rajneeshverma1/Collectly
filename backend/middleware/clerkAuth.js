@@ -40,8 +40,9 @@ const requireAuth = async (req, res, next) => {
       if (!sessionClaims) {
         return res.status(401).json({
           status: 'fail',
-          message: 'Invalid or expired session',
-          error: verifyError.message,
+          message: 'Invalid or expired session credentials',
+          errorCategory: 'TOKEN_INVALID_OR_EXPIRED',
+          error: process.env.NODE_ENV === 'development' ? verifyError.message : undefined,
         });
       }
     }
