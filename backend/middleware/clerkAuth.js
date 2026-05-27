@@ -4,7 +4,15 @@ const User = require('../models/User');
 const clerkClient = require('../config/clerk');
 
 /**
- * Middleware to protect routes and verify Clerk authentication
+ * Middleware to protect routes and verify Clerk authentication tokens.
+ * 
+ * DESIGN PATHWAY & FALLBACK BEHAVIORS:
+ * 1. Cryptographic Token Verification: Attempts live validation using `@clerk/backend` and CLERK_SECRET_KEY.
+ * 2. Developer Offline Fallback: If verification fails and NODE_ENV === 'development', bypasses cryptographic signature
+ *    checks and manually decodes the JWT using jsonwebtoken. This enables seamless offline sandbox development.
+ * 3. Automatic Account Provisioning: Resolves local user record matching the sub claim, and auto-syncs name/email.
+ * 4. Workspace Onboarding Sync: Auto-creates a default freelancer workspace if one does not exist, and maintains
+ *    consistent organization relationship associations.
  */
 const requireAuth = async (req, res, next) => {
   try {
