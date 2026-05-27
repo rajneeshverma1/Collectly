@@ -24,3 +24,45 @@ If the Next.js frontend is offline, it generates unsigned mock tokens.
    ```
 2. Restart the Next.js dev server.
 3. Open [http://localhost:3000](http://localhost:3000). You will be instantly logged in as the mock developer profile.
+
+### 3. Payment Gateway Webhook Testing 💳
+
+During offline sandbox development, you can trigger, mock, and test the secure Stripe and Razorpay webhook capture endpoints directly using the following standard terminal `curl` requests (replacing `<INVOICE_UUID>` with a valid ID from your local SQLite instance):
+
+#### Trigger Stripe Simulated Payment:
+```bash
+curl -X POST http://localhost:5001/api/v1/payments/webhooks/stripe \
+  -H "Content-Type: application/json" \
+  -d '{
+    "type": "checkout.session.completed",
+    "data": {
+      "object": {
+        "id": "cs_test_simulated_webhook_'$(date +%s)'",
+        "amount_total": 45000,
+        "metadata": {
+          "invoiceId": "<INVOICE_UUID>"
+        }
+      }
+    }
+  }'
+```
+
+#### Trigger Razorpay Simulated Payment:
+```bash
+curl -X POST http://localhost:5001/api/v1/payments/webhooks/razorpay \
+  -H "Content-Type: application/json" \
+  -d '{
+    "event": "payment.captured",
+    "payload": {
+      "payment": {
+        "entity": {
+          "id": "pay_test_simulated_webhook_'$(date +%s)'",
+          "amount": 45000,
+          "notes": {
+            "invoiceId": "<INVOICE_UUID>"
+          }
+        }
+      }
+    }
+  }'
+```
