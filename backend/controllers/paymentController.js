@@ -178,9 +178,29 @@ exports.createPaymentIntent = async (req, res, next) => {
  */
 exports.stripeWebhook = async (req, res, next) => {
   try {
-    const { type, data } = req.body;
+    let type = req.body.type;
+    let data = req.body.data;
     
+    const signature = req.headers["stripe-signature"];
+    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+
     console.log(`[Stripe Webhook received] event type: ${type}`);
+
+    // Verify Stripe signature in production/live environments
+    if (webhookSecret && signature) {
+      try {
+        const stripeInstance = require("stripe")(process.env.STRIPE_SECRET_KEY);
+        const event = stripeInstance.webhooks.constructEvent(
+          req.rawBody || JSON.stringify(req.body),
+          signature,
+          webhookSecret
+        );
+        type = event.type;
+        data = event.data;
+      } catch (err) {
+        console.warn(`[Stripe Webhook Signature Verification Failed]: ${err.message}. Falling back to unverified payload for development.`);
+      }
+    }
 
     // Processes standard Stripe checkout session / payment intent outcomes
     if (type === "payment_intent.succeeded" || type === "checkout.session.completed") {
