@@ -292,3 +292,79 @@ exports.getPublicInvoice = async (req, res, next) => {
     next(error);
   }
 };
+
+/**
+ * Send manual email reminder for an invoice
+ */
+exports.sendManualReminder = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const organizationId = req.user.organizationId;
+
+    const invoice = await Invoice.findOne({
+      where: { id, organizationId }
+    });
+
+    if (!invoice) {
+      return res.status(404).json({
+        status: "fail",
+        message: "Invoice not found",
+      });
+    }
+
+    if (invoice.status === "paid" || invoice.status === "cancelled") {
+      return res.status(400).json({
+        status: "fail",
+        message: "Reminders can only be sent for unpaid invoices",
+      });
+    }
+
+    // Find or create associated client record
+    const Client = require("../models/Client");
+    let client = await Client.findOne({
+      where: { email: invoice.clientEmail, organizationId }
+    });
+
+    if (!client) {
+      // Create a temporary client record for log tracking
+      client = await Client.create({
+        name: invoice.clientName,
+        email: invoice.clientEmail,
+        organizationId,
+        createdBy: req.user.id,
+        status: "active"
+      });
+    }
+
+    // Get freelancer details
+    const User = require("../models/User");
+    const freelancer = await User.findByPk(req.user.id);
+
+    // Send email notification
+    const emailService = require("../services/emailService");
+    const success = await emailService.sendClientNotification(
+      client,
+      "reminder",
+      freelancer || { name: "A Freelancer" },
+      {
+        invoiceNumber: invoice.invoiceNumber,
+        dueDate: new Date(invoice.dueDate).toLocaleDateString(),
+        amount: invoice.amount
+      }
+    );
+
+    if (!success) {
+      return res.status(500).json({
+        status: "fail",
+        message: "Failed to dispatch manual email reminder",
+      });
+    }
+
+    res.status(200).json({
+      status: "success",
+      message: `Manual reminder successfully sent to ${invoice.clientEmail} for Invoice ${invoice.invoiceNumber}`,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
