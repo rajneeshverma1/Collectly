@@ -150,7 +150,7 @@ export default function ClientsPage() {
           >
             <h2 className="text-4xl lg:text-5xl font-black tracking-tight mb-2 text-white">Clients</h2>
             <p className="text-white/40 text-base font-medium">
-              Manage your global client workspaces, contact metadata, and billing histories.
+              Manage your global client workspaces, contact metadata, outstanding dues, and active email reminders in one premium workspace.
             </p>
           </motion.div>
           
