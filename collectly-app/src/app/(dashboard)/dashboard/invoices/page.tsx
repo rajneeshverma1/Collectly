@@ -431,6 +431,13 @@ export default function InvoicesPage() {
                           <div>
                             <p className="text-sm font-bold">#{invoice.invoiceNumber}</p>
                             <p className="text-[11px] text-white/20 font-medium">{new Date(invoice.createdAt).toLocaleDateString()}</p>
+                            {invoice.lastReminderSent && (
+                              <div className="mt-1.5">
+                                <span className="inline-block text-[9px] font-black uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                                  Last Sent: {new Date(invoice.lastReminderSent).toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                                </span>
+                              </div>
+                            )}
                           </div>
                         </div>
                       </td>
@@ -457,6 +464,22 @@ export default function InvoicesPage() {
                       </td>
                       <td className="px-8 py-6 text-right">
                         <div className="flex items-center justify-end gap-2">
+                          {invoice.status !== 'paid' && invoice.status !== 'cancelled' && (
+                            <motion.button 
+                              whileHover={{ scale: 1.1 }}
+                              whileTap={{ scale: 0.9 }}
+                              disabled={remindingId === invoice.id}
+                              onClick={() => handleSendReminder(invoice.id)}
+                              className="p-3 rounded-xl bg-white/[0.05] border border-white/10 hover:bg-blue-500 hover:text-white transition-all text-white/60 disabled:opacity-50"
+                              title="Send Email Reminder"
+                            >
+                              {remindingId === invoice.id ? (
+                                <Loader2 size={16} className="animate-spin" />
+                              ) : (
+                                <Send size={16} />
+                              )}
+                            </motion.button>
+                          )}
                           {invoice.status !== 'paid' && (
                             <motion.button 
                               whileHover={{ scale: 1.05 }}
@@ -747,6 +770,26 @@ export default function InvoicesPage() {
               </form>
             </motion.div>
           </div>
+        )}
+      </AnimatePresence>
+
+      {/* Toast Notification Alert */}
+      <AnimatePresence>
+        {toast && (
+          <motion.div 
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.9 }}
+            className={cn(
+              "fixed bottom-8 right-8 z-50 px-6 py-4 rounded-2xl border backdrop-blur-xl shadow-2xl flex items-center gap-3 font-bold text-xs transition-all uppercase tracking-wider",
+              toast.type === 'success' 
+                ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" 
+                : "bg-red-500/10 text-red-400 border-red-500/20"
+            )}
+          >
+            {toast.type === 'success' ? <CheckCircle size={16} /> : <AlertCircle size={16} />}
+            {toast.message}
+          </motion.div>
         )}
       </AnimatePresence>
     </div>
