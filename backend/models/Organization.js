@@ -60,6 +60,26 @@ const Organization = sequelize.define(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    reminderBeforeDueDays: {
+      type: DataTypes.INTEGER,
+      defaultValue: 3,
+      allowNull: false,
+    },
+    reminderOnDueDate: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+      allowNull: false,
+    },
+    reminderAfterDueDays: {
+      type: DataTypes.INTEGER,
+      defaultValue: 3,
+      allowNull: false,
+    },
+    automatedRemindersEnabled: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+      allowNull: false,
+    },
   },
   {
     tableName: "organizations",
