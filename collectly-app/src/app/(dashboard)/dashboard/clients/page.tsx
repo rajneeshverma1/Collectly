@@ -1,5 +1,9 @@
 'use client';
 
+/**
+ * @file clients/page.tsx
+ * @description Premium client deck directory displaying onboarded client profiles with modular modal form registers.
+ */
 import React, { useEffect, useState, useCallback } from 'react';
 import { 
   Users, 
