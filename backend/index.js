@@ -22,6 +22,22 @@ const Payment = require("./models/Payment");
 const Client = require("./models/Client");
 const EmailLog = require("./models/EmailLog");
 
+// Define Database Associations
+Payment.belongsTo(Invoice, { foreignKey: "invoiceId", as: "invoice" });
+Invoice.hasMany(Payment, { foreignKey: "invoiceId", as: "payments" });
+
+Invoice.belongsTo(Organization, { foreignKey: "organizationId", as: "organization" });
+Organization.hasMany(Invoice, { foreignKey: "organizationId", as: "invoices" });
+
+Payment.belongsTo(Organization, { foreignKey: "organizationId", as: "organization" });
+Organization.hasMany(Payment, { foreignKey: "organizationId", as: "payments" });
+
+Client.belongsTo(Organization, { foreignKey: "organizationId", as: "organization" });
+Organization.hasMany(Client, { foreignKey: "organizationId", as: "clients" });
+
+EmailLog.belongsTo(Client, { foreignKey: "clientId", as: "client" });
+Client.hasMany(EmailLog, { foreignKey: "clientId", as: "emailLogs" });
+
 // Database connection & Server start
 
 dotenv.config();
@@ -88,8 +104,12 @@ const startServer = async () => {
     await sequelize.authenticate();
     console.log("PostgreSQL connection has been established successfully.");
 
-    // Sync models
-    await sequelize.sync({ alter: true });
+    // Sync models safely depending on environment
+    if (process.env.NODE_ENV === 'development' || !process.env.DATABASE_URL) {
+      await sequelize.sync();
+    } else {
+      await sequelize.sync({ alter: true });
+    }
     console.log("Database models synchronized.");
 
     const port = process.env.PORT || 5000;
