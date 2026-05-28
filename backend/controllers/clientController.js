@@ -314,7 +314,7 @@ exports.getClientProfile = async (req, res, next) => {
       inv => inv.status !== "paid" && inv.status !== "cancelled"
     );
     const totalOutstanding = outstandingInvoices.reduce(
-      (sum, inv) => sum + parseFloat(inv.amount), 
+      (sum, inv) => sum + parseFloat(inv.amount || 0), 
       0
     );
 
