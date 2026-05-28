@@ -340,6 +340,19 @@ exports.sendManualReminder = async (req, res, next) => {
     const User = require("../models/User");
     const freelancer = await User.findByPk(req.user.id);
 
+    // Determine reminder type dynamically based on due date proximity
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const dueDate = new Date(invoice.dueDate);
+    dueDate.setHours(0, 0, 0, 0);
+    
+    let reminderType = "upcoming";
+    if (today.getTime() === dueDate.getTime()) {
+      reminderType = "due-today";
+    } else if (today.getTime() > dueDate.getTime()) {
+      reminderType = "overdue";
+    }
+
     // Send email notification
     const emailService = require("../services/emailService");
     const success = await emailService.sendClientNotification(
@@ -349,7 +362,8 @@ exports.sendManualReminder = async (req, res, next) => {
       {
         invoiceNumber: invoice.invoiceNumber,
         dueDate: new Date(invoice.dueDate).toLocaleDateString(),
-        amount: invoice.amount
+        amount: invoice.amount,
+        reminderType
       }
     );
 
@@ -360,9 +374,15 @@ exports.sendManualReminder = async (req, res, next) => {
       });
     }
 
+    // Update last reminder sent timestamp on invoice record
+    await invoice.update({ lastReminderSent: new Date() });
+
     res.status(200).json({
       status: "success",
-      message: `Manual reminder successfully sent to ${invoice.clientEmail} for Invoice ${invoice.invoiceNumber}`,
+      message: `Manual reminder (${reminderType}) successfully sent to ${invoice.clientEmail} for Invoice ${invoice.invoiceNumber}`,
+      data: {
+        lastReminderSent: invoice.lastReminderSent
+      }
     });
   } catch (error) {
     next(error);
