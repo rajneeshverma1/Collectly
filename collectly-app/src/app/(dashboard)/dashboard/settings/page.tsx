@@ -40,6 +40,10 @@ export default function SettingsPage() {
     stripeSecretKey: '',
     razorpayKeyId: '',
     razorpayKeySecret: '',
+    reminderBeforeDueDays: 3,
+    reminderOnDueDate: true,
+    reminderAfterDueDays: 3,
+    automatedRemindersEnabled: true,
   });
 
   // Eye toggles for secret keys
@@ -56,12 +60,21 @@ export default function SettingsPage() {
       });
       if (response.data.status === 'success') {
         const data = response.data.data;
-        setCredentials(data);
+        setCredentials({
+          stripePublishableKey: data.stripePublishableKey,
+          stripeConnected: data.stripeConnected,
+          razorpayKeyId: data.razorpayKeyId,
+          razorpayConnected: data.razorpayConnected,
+        });
         setForm({
           stripePublishableKey: data.stripePublishableKey || '',
           stripeSecretKey: '',
           razorpayKeyId: data.razorpayKeyId || '',
           razorpayKeySecret: '',
+          reminderBeforeDueDays: data.reminderBeforeDueDays ?? 3,
+          reminderOnDueDate: data.reminderOnDueDate ?? true,
+          reminderAfterDueDays: data.reminderAfterDueDays ?? 3,
+          automatedRemindersEnabled: data.automatedRemindersEnabled ?? true,
         });
       }
     } catch (err: any) {
@@ -84,7 +97,12 @@ export default function SettingsPage() {
       setErrorMsg(null);
       const token = await getToken();
 
-      const body: any = {};
+      const body: any = {
+        reminderBeforeDueDays: parseInt(form.reminderBeforeDueDays.toString(), 10),
+        reminderOnDueDate: !!form.reminderOnDueDate,
+        reminderAfterDueDays: parseInt(form.reminderAfterDueDays.toString(), 10),
+        automatedRemindersEnabled: !!form.automatedRemindersEnabled,
+      };
       if (form.stripePublishableKey) body.stripePublishableKey = form.stripePublishableKey;
       if (form.stripeSecretKey) body.stripeSecretKey = form.stripeSecretKey;
       if (form.razorpayKeyId) body.razorpayKeyId = form.razorpayKeyId;
@@ -95,12 +113,12 @@ export default function SettingsPage() {
       });
 
       if (response.data.status === 'success') {
-        setSuccessMsg('Payment gateway configuration securely updated.');
+        setSuccessMsg('Payment gateway and reminder settings updated successfully.');
         fetchCredentials();
       }
     } catch (err: any) {
       console.error('Failed to save settings:', err);
-      setErrorMsg('Failed to update credentials. Please verify your inputs.');
+      setErrorMsg(err.response?.data?.message || 'Failed to update settings. Please check your inputs.');
     } finally {
       setSaving(false);
     }
@@ -262,6 +280,114 @@ export default function SettingsPage() {
                   </div>
                 </div>
               </div>
+            </div>
+
+            {/* Automated Reminder Settings Card */}
+            <div className="p-8 bg-white/[0.02] border border-white/5 rounded-[40px] relative overflow-hidden backdrop-blur-3xl shadow-[0_24px_48px_rgba(0,0,0,0.4)]">
+              <div className="absolute top-0 right-0 -mr-8 -mt-8 w-48 h-48 bg-blue-500/[0.02] blur-[80px] rounded-full pointer-events-none" />
+              
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 pb-6 border-b border-white/5">
+                <div>
+                  <h3 className="text-xl font-bold tracking-tight text-white mb-1">Automated Reminders Policy</h3>
+                  <p className="text-xs text-white/40 font-medium">Configure rules to automatically remind clients of upcoming or overdue invoices.</p>
+                </div>
+                
+                <label className="flex items-center gap-3 cursor-pointer self-start md:self-auto bg-white/5 border border-white/10 px-5 py-3 rounded-2xl hover:bg-white/10 transition-colors">
+                  <input 
+                    type="checkbox"
+                    checked={form.automatedRemindersEnabled}
+                    onChange={(e) => setForm(prev => ({ ...prev, automatedRemindersEnabled: e.target.checked }))}
+                    className="w-4 h-4 rounded border-white/10 bg-black text-white focus:ring-0 cursor-pointer"
+                  />
+                  <span className="text-xs font-black uppercase tracking-wider text-white">Enable Automated Schedule</span>
+                </label>
+              </div>
+
+              {form.automatedRemindersEnabled ? (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  
+                  {/* Before Due Date Rule */}
+                  <div className="p-6 bg-white/[0.02] border border-white/5 rounded-3xl flex flex-col justify-between">
+                    <div>
+                      <span className="text-[9px] font-black uppercase tracking-widest text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-full border border-blue-500/20 mb-3 inline-block">
+                        Rule 1: Upcoming Reminders
+                      </span>
+                      <p className="text-xs text-white/40 font-medium leading-relaxed mb-4">
+                        Send an automated email notification before the invoice becomes due.
+                      </p>
+                    </div>
+                    <div className="space-y-1.5 pt-4 border-t border-white/5">
+                      <label className="text-[9px] font-black text-white/40 uppercase tracking-widest block">Days Before Due Date</label>
+                      <input 
+                        type="number" 
+                        min="0"
+                        max="30"
+                        value={form.reminderBeforeDueDays}
+                        onChange={(e) => setForm(prev => ({ ...prev, reminderBeforeDueDays: parseInt(e.target.value, 10) || 0 }))}
+                        className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-4 py-3 text-xs focus:outline-none focus:ring-1 focus:ring-white/10 transition-all text-white font-bold"
+                      />
+                      <span className="text-[10px] text-white/20 font-bold block mt-1">Set to 0 to disable this check.</span>
+                    </div>
+                  </div>
+
+                  {/* On Due Date Rule */}
+                  <div className="p-6 bg-white/[0.02] border border-white/5 rounded-3xl flex flex-col justify-between">
+                    <div>
+                      <span className="text-[9px] font-black uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20 mb-3 inline-block">
+                        Rule 2: On Due Date
+                      </span>
+                      <p className="text-xs text-white/40 font-medium leading-relaxed mb-4">
+                        Send a reminder notification on the exact morning of the invoice due date.
+                      </p>
+                    </div>
+                    <div className="pt-4 border-t border-white/5 flex items-center justify-between gap-4">
+                      <div className="flex flex-col">
+                        <span className="text-[9px] font-black text-white/40 uppercase tracking-widest">Active Schedule</span>
+                        <span className="text-[10px] text-white/20 font-bold mt-1">Send email on due day</span>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input 
+                          type="checkbox"
+                          checked={form.reminderOnDueDate}
+                          onChange={(e) => setForm(prev => ({ ...prev, reminderOnDueDate: e.target.checked }))}
+                          className="sr-only peer"
+                        />
+                        <div className="w-11 h-6 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
+                      </label>
+                    </div>
+                  </div>
+
+                  {/* Overdue Rule */}
+                  <div className="p-6 bg-white/[0.02] border border-white/5 rounded-3xl flex flex-col justify-between">
+                    <div>
+                      <span className="text-[9px] font-black uppercase tracking-widest text-red-400 bg-red-500/10 px-2.5 py-1 rounded-full border border-red-500/20 mb-3 inline-block">
+                        Rule 3: Overdue Warnings
+                      </span>
+                      <p className="text-xs text-white/40 font-medium leading-relaxed mb-4">
+                        Send an urgent automated overdue notification after the due date has elapsed.
+                      </p>
+                    </div>
+                    <div className="space-y-1.5 pt-4 border-t border-white/5">
+                      <label className="text-[9px] font-black text-white/40 uppercase tracking-widest block">Days After Due Date</label>
+                      <input 
+                        type="number" 
+                        min="0"
+                        max="30"
+                        value={form.reminderAfterDueDays}
+                        onChange={(e) => setForm(prev => ({ ...prev, reminderAfterDueDays: parseInt(e.target.value, 10) || 0 }))}
+                        className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-4 py-3 text-xs focus:outline-none focus:ring-1 focus:ring-white/10 transition-all text-white font-bold"
+                      />
+                      <span className="text-[10px] text-white/20 font-bold block mt-1">Set to 0 to disable overdue check.</span>
+                    </div>
+                  </div>
+
+                </div>
+              ) : (
+                <div className="p-12 text-center border border-dashed border-white/5 rounded-3xl bg-black/20 text-white/20">
+                  <p className="font-semibold text-xs uppercase tracking-widest">Automated schedule scanning is currently suspended.</p>
+                  <p className="text-[10px] mt-1 text-white/10">Invoices will not receive automated reminders. Manual dispatches are still fully functional.</p>
+                </div>
+              )}
             </div>
 
             {/* Save Buttons */}
