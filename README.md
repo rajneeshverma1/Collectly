@@ -1,36 +1,132 @@
-# Collectly 🚀
+# Collectly 🚀 — Premium SaaS Billing & Automated Reminders
 
-Collectly is a premium full-stack AI-assisted invoicing and payment collection platform designed to streamline billing, client onboarding, and automated payment reminders for freelancers and agencies.
+Collectly is a high-fidelity, premium SaaS billing, invoicing, and payment collection platform built for modern freelancers and agencies. It features sleek glassmorphic dashboards, robust dual-gateway checkouts, custom automated reminder policies, and unified client directory profiles.
 
-## 📂 Repository Structure
+---
 
-- `collectly-app/`: Next.js 16.1.6 (Turbopack) frontend styled with custom responsive CSS.
-- `backend/`: Node.js Express server using Sequelize (SQLite/PostgreSQL) and automated reminder schedules.
+## 🎨 Premium Features & Architecture
 
-## 🔒 Offline Sandbox Development Mode
+### 1. Interactive Freelancer Workspace
+- **Glassmorphic KPI Cards**: Live outstanding dues, paid this month, upcoming balances, and overdue count.
+- **Client Search & Directory**: Dynamic fuzzy search, responsive directory list, and floating onboarding modals.
+- **Client Profiles**: Instant ledger aggregation tracking unpaid/paid invoices, visual SMTP communication timelines, and payment histories.
+- **Casflow Analytics**: Visual cash flow charts and real-time activity streams of notifications.
 
-To allow rapid development during external service or CDN outages, Collectly features a robust **Offline Mock Authentication Sandbox**. When enabled:
-- The Next.js frontend skips Clerk JS remote CDN script injection entirely.
-- The app automatically signs in using a mock local developer profile.
-- All backend JWT authentications gracefully resolve through a development decoder fallback.
+### 2. Dual-Reminders Synchronization Tunnel
+- **Automated Policies**: Custom schedule parameters (`reminderBeforeDueDays`, `reminderOnDueDate`, `reminderAfterDueDays`) managed directly in settings. A background daily scheduler worker evaluates unpaid balances, translates states to overdue, and dispatches proximity email notifications.
+- **Manual Reminders**: Direct inline checkouts instantly matching templates (upcoming, due-today, overdue) based on due date proximity, writing communication logs, and rendering visual duplicate indicators.
+- **Payment Hooks Sync**: Automatically silences scheduled notifications the instant a checkout succeeds.
 
-### Enabling Offline Mode
-1. Open `.env.local` in `collectly-app/`.
-2. Add:
-   ```env
-   NEXT_PUBLIC_MOCK_AUTH=true
-   ```
-3. Restart the Next.js dev server.
+### 3. Multi-Gateway Payment Checkouts
+- Unified checkout forms utilizing **Stripe Connect** and **Razorpay Secure**.
+- Webhook signature validation (`constructEvent` & `validateWebhookSignature`) hardens endpoints against spoofing.
+- Strict double-payment guards check transaction IDs before persisting ledgers, eliminating duplicate logs or credits.
+- Dynamic offline mock checkout simulator for frictionless development.
 
-## 💳 Payment Gateway System Architecture
+### 4. Zero-Dependency Developer Offline Sandbox
+- High-fidelity **Mock Authentication Sandbox** completely skips Clerk CDN scripts during outages.
+- Local SQLite database pre-seeded with mockup parameters enables offline sandbox runs immediately.
 
-Collectly integrates a robust, dual-gateway payment checkout tunnel supporting both **Stripe Connect** and **Razorpay Secure**.
+---
 
-### Key Security & Reliability Features:
-1. **Double-Payment Prevention**: Webhook handlers for both Stripe and Razorpay perform atomic checks on the `transactionId` against our database before processing and logging payments. This completely prevents duplicate credits or ledger records caused by network retries or overlapping webhook triggers.
-2. **Paid Status Guards**: Transitioning invoice states is guarded dynamically. If an invoice has already been fully paid, webhook events exit early without redundant database writes or logs.
-3. **Webhook Signature Validation**: Security-hardened checks verify webhook authenticity in production/live environments.
-   - **Stripe**: Utilizes `stripe.webhooks.constructEvent` to validate headers using the `STRIPE_WEBHOOK_SECRET` key.
-   - **Razorpay**: Utilizes `Razorpay.validateWebhookSignature` to authenticate payloads using the `RAZORPAY_WEBHOOK_SECRET` key.
-   - **Development Fallback**: Gracefully falls back to unverified payload processing if secrets are omitted in development/sandbox environments, keeping development cycles frictionless.
-4. **Mock Offline Checkout**: Features a fully-interactive development mode sandbox that simulates secure redirects and webhook callbacks locally when gateways are unconfigured.
+## 🏗️ Architectural Associations
+
+The database associations map Sequelize SQLite/PostgreSQL tables seamlessly:
+
+```mermaid
+erDiagram
+    Organization ||--o{ User : contains
+    Organization ||--o{ Client : manages
+    Organization ||--o{ Invoice : issues
+    Organization ||--o{ Payment : records
+    Client ||--o{ EmailLog : logs
+    Invoice ||--o{ Payment : clears
+    Invoice ||--o{ EmailLog : registers
+```
+
+---
+
+## 📂 Project Directory Structure
+
+```
+Collectly/
+├── collectly-app/        # Premium Next.js 16 (Turbopack) Frontend
+│   ├── src/
+│   │   ├── app/          # App Router (Dashboard, Invoices, Settings, Pay)
+│   │   ├── context/      # Authentication & State wrappers
+│   │   └── lib/          # API Clients & Utility configurations
+└── backend/              # Robust Node.js Express Backend API
+    ├── config/           # Database, Mailer, and Clerk integrations
+    ├── controllers/      # Request handlers & Business logics
+    ├── models/           # Sequelize Model Schema Definitions
+    ├── routes/           # REST Route Directories
+    └── services/         # Automated Scheduler & Mail Dispatches
+```
+
+---
+
+## 📡 REST API Endpoint Directory
+
+### 🔒 Authentication Guards
+All endpoints are secured via JWT tokens decoded via Clerk keys or Offline Mock decryption.
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| **GET** | `/api/v1/health` | Service status, database connectivity & server uptime. |
+| **GET** | `/api/v1/dashboard/summary` | Live outstanding KPI counters, chart analytics & activity logs. |
+| **GET** | `/api/v1/clients` | Retrieve all managed organization clients & total outstanding sums. |
+| **POST** | `/api/v1/clients` | Onboard a new client & issue localized credentials. |
+| **GET** | `/api/v1/clients/:id/profile` | Aggregate individual client profiles, unpaid invoice logs & SMTP histories. |
+| **GET** | `/api/v1/invoices` | List and filter invoices by payment status, client, or date. |
+| **POST** | `/api/v1/invoices` | Draft/Create a new client invoice. |
+| **POST** | `/api/v1/invoices/:id/payments` | Manually record client transaction receipts. |
+| **POST** | `/api/v1/invoices/:id/remind` | Trigger a manual client reminder email based on due date proximity. |
+| **GET** | `/api/v1/payments/credentials` | Retrieve Connection statuses & masked API keys. |
+| **POST** | `/api/v1/payments/credentials` | Securely update Stripe/Razorpay keys and automated reminder rules. |
+
+---
+
+## ⚙️ Fast-Track Developer Setup
+
+### Prerequisites
+- Node.js (v18+)
+- npm (v9+)
+
+### 1. Configure Environments
+Create a `.env` in the `backend/` directory:
+```env
+PORT=5001
+NODE_ENV=development
+FRONTEND_URL=http://localhost:3000
+CLERK_SECRET_KEY=sk_test_...
+DATABASE_URL= # Omit to automatically default to Sandbox SQLite
+```
+
+Create a `.env.local` in `collectly-app/`:
+```env
+NEXT_PUBLIC_API_URL=http://localhost:5001/api/v1
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
+NEXT_PUBLIC_MOCK_AUTH=true # Toggle to TRUE to skip external CDN dependency and login offline!
+```
+
+### 2. Start the Backend API
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+### 3. Start the Next.js Frontend
+```bash
+cd collectly-app
+npm install
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) to view the SaaS Workspace!
+
+---
+
+## 🛡️ Premium UI Aesthetics
+- Vibrant Dark Mode layout with harmonious glassmorphism and subtle CSS gradients.
+- Micro-interactions powered by `framer-motion` for buttery smooth transitions.
+- Descriptive error panels, responsive form states, and premium visual communication timelines.
