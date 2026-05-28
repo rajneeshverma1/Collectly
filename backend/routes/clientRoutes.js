@@ -16,6 +16,7 @@ router
   .post(clientController.addClient);
 
 router.put("/:id", clientController.updateClient);
+router.get("/:id/profile", clientController.getClientProfile);
 
 router.post("/send-invitation", clientController.sendInvitation);
 
