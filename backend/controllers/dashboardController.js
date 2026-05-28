@@ -2,6 +2,7 @@ const { Op, Sequelize } = require("sequelize");
 const Invoice = require("../models/Invoice");
 const Payment = require("../models/Payment");
 const Client = require("../models/Client");
+const EmailLog = require("../models/EmailLog");
 const AppError = require("../utils/appError");
 
 // Get dashboard summary data
@@ -202,8 +203,10 @@ exports.getRecentActivity = async (req, res, next) => {
       attributes: ["id", "name", "email", "company", "status", "createdAt"],
     });
 
-    // Get recent reminders sent to clients in this organization
-    const recentReminders = await EmailLog.findAll({
+    // AUDIT LOG INTEGRATION PIPELINE:
+    // Query and fetch the 5 most recent automated/manual email reminder logs sent to clients in this org.
+    // Joins dynamically with the Client table to resolve workspace name and brand properties.
+    const recentReminders = (await EmailLog.findAll({
       order: [["createdAt", "DESC"]],
       limit: 5,
       attributes: ["id", "recipientEmail", "emailType", "status", "sentAt", "metadata"],
@@ -215,7 +218,7 @@ exports.getRecentActivity = async (req, res, next) => {
           attributes: ["name", "company"],
         }
       ]
-    });
+    })) || [];
 
     res.status(200).json({
       status: "success",
