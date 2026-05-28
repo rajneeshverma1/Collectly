@@ -278,7 +278,9 @@ exports.getClientCount = async (req, res, next) => {
 };
 
 /**
- * Get unified client profile details with outstanding invoices, payment history, and email logs.
+ * UNIFIED CLIENT WORKSPACE LEDGER:
+ * Fetches dynamic client profile attributes alongside aggregated billing metrics, outstanding balances,
+ * related invoice checklists, complete payment receipts, and automated reminder/follow-up logs.
  */
 exports.getClientProfile = async (req, res, next) => {
   try {
