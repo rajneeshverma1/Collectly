@@ -16,6 +16,8 @@ router
   .post(clientController.addClient);
 
 router.put("/:id", clientController.updateClient);
+
+// Unified Client Profile Route (Aggregates stats, invoices, payments, and reminders)
 router.get("/:id/profile", clientController.getClientProfile);
 
 router.post("/send-invitation", clientController.sendInvitation);
