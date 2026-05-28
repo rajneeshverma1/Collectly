@@ -79,12 +79,40 @@ exports.sendClientNotification = async (client, type, freelancer = {}, metadata 
       `;
       break;
     case "reminder":
-      subject = `Payment Reminder: Invoice ${metadata.invoiceNumber || ""} from ${freelancerName}`;
-      content = `
-        <p>This is a friendly reminder that invoice <strong>${metadata.invoiceNumber || ""}</strong> from <strong>${freelancerName}</strong> is due on <strong>${metadata.dueDate || ""}</strong>.</p>
-        <p><strong>Amount Due:</strong> $${metadata.amount || "0"}</p>
-        <p>Please log in to your secure client portal or use the checkout link to settle this balance. If you have already made this payment, please disregard this reminder.</p>
-      `;
+      {
+        const reminderType = metadata.reminderType || "default";
+        const amt = parseFloat(metadata.amount || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        if (reminderType === "upcoming") {
+          subject = `Upcoming Payment Reminder: Invoice ${metadata.invoiceNumber || ""} from ${freelancerName}`;
+          content = `
+            <p>This is a friendly reminder that invoice <strong>${metadata.invoiceNumber || ""}</strong> from <strong>${freelancerName}</strong> is due soon on <strong>${metadata.dueDate || ""}</strong>.</p>
+            <p><strong>Amount Due:</strong> $${amt}</p>
+            <p>To ensure smooth operations, please review the invoice details and complete payment at your earliest convenience.</p>
+          `;
+        } else if (reminderType === "due-today") {
+          subject = `Invoice ${metadata.invoiceNumber || ""} is Due Today from ${freelancerName}`;
+          content = `
+            <p>This is a reminder that invoice <strong>${metadata.invoiceNumber || ""}</strong> from <strong>${freelancerName}</strong> is due today, <strong>${metadata.dueDate || ""}</strong>.</p>
+            <p><strong>Amount Due:</strong> $${amt}</p>
+            <p>Please use the direct link below to settle this balance today. If you have already made the transfer, thank you!</p>
+          `;
+        } else if (reminderType === "overdue") {
+          subject = `Action Required: Invoice ${metadata.invoiceNumber || ""} is OVERDUE from ${freelancerName}`;
+          content = `
+            <p style="color: #ef4444; font-weight: 700; margin-bottom: 12px; font-size: 14px; text-transform: uppercase; tracking: 0.05em;">Urgent: Overdue Account Balance</p>
+            <p>Our records show that invoice <strong>${metadata.invoiceNumber || ""}</strong> from <strong>${freelancerName}</strong> is now overdue. It was due on <strong>${metadata.dueDate || ""}</strong>.</p>
+            <p><strong>Outstanding Balance:</strong> $${amt}</p>
+            <p>Please finalize your payment immediately to keep your account in good standing and avoid service disruptions.</p>
+          `;
+        } else {
+          subject = `Payment Reminder: Invoice ${metadata.invoiceNumber || ""} from ${freelancerName}`;
+          content = `
+            <p>This is a friendly reminder that invoice <strong>${metadata.invoiceNumber || ""}</strong> from <strong>${freelancerName}</strong> is due on <strong>${metadata.dueDate || ""}</strong>.</p>
+            <p><strong>Amount Due:</strong> $${amt}</p>
+            <p>Please log in to your secure client portal or use the checkout link to settle this balance.</p>
+          `;
+        }
+      }
       break;
     default:
       subject = `Notification from ${freelancerName} via Collectly`;
