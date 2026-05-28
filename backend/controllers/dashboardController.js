@@ -5,7 +5,10 @@ const Client = require("../models/Client");
 const EmailLog = require("../models/EmailLog");
 const AppError = require("../utils/appError");
 
-// Get dashboard summary data
+/**
+ * Retrieve comprehensive KPI metrics for the user organization's billing dashboard
+ * Calculates outstanding, overdue, upcoming, collected balances, and total client stats
+ */
 exports.getDashboardSummary = async (req, res, next) => {
   try {
     const organizationId = req.user.organizationId;
