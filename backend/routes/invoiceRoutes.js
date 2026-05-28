@@ -20,5 +20,6 @@ router.get("/revenue-summary", invoiceController.getMonthlyRevenue);
 
 router.route("/:id").get(invoiceController.getInvoice);
 router.post("/:id/payments", invoiceController.recordPayment);
+router.post("/:id/remind", invoiceController.sendManualReminder);
 
 module.exports = router;
