@@ -202,12 +202,28 @@ exports.getRecentActivity = async (req, res, next) => {
       attributes: ["id", "name", "email", "company", "status", "createdAt"],
     });
 
+    // Get recent reminders sent to clients in this organization
+    const recentReminders = await EmailLog.findAll({
+      order: [["createdAt", "DESC"]],
+      limit: 5,
+      attributes: ["id", "recipientEmail", "emailType", "status", "sentAt", "metadata"],
+      include: [
+        {
+          model: Client,
+          as: "client",
+          where: { organizationId },
+          attributes: ["name", "company"],
+        }
+      ]
+    });
+
     res.status(200).json({
       status: "success",
       data: {
         recentInvoices,
         recentPayments,
         recentClients,
+        recentReminders,
       },
     });
   } catch (err) {
