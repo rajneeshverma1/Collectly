@@ -200,10 +200,10 @@ export default function ClientProfilePage() {
             {/* Left Box: Client Identity Card */}
             <div className="xl:col-span-2 p-8 bg-gradient-to-br from-white/[0.04] to-white/[0.01] border border-white/10 rounded-[32px] backdrop-blur-3xl shadow-[0_16px_48px_rgba(0,0,0,0.3)]">
               <span className={cn(
-                "inline-block text-[9px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full mb-4 border",
+                "inline-block text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-xl mb-4 border shadow-sm",
                 client.status === 'active' ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" : "bg-blue-500/10 text-blue-400 border-blue-500/20"
               )}>
-                {client.status} Client
+                {client.status} Client Workspace
               </span>
               <h2 className="text-3xl lg:text-4xl font-black text-white tracking-tight mb-2">{client.name}</h2>
               {client.company && (
