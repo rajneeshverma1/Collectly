@@ -195,7 +195,8 @@ exports.getRecentActivity = async (req, res, next) => {
       ],
     });
 
-    // Get recent clients
+    // CLIENT DECK INTEGRATION:
+    // Query and fetch the 5 most recently created clients inside the workspace.
     const recentClients = await Client.findAll({
       where: { organizationId },
       order: [["createdAt", "DESC"]],
