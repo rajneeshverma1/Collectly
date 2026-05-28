@@ -69,6 +69,10 @@ const Invoice = sequelize.define(
       type: DataTypes.DATE,
       allowNull: true,
     },
+    lastReminderSent: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
   },
   {
     tableName: "invoices",
