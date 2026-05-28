@@ -276,3 +276,93 @@ exports.getClientCount = async (req, res, next) => {
     next(error);
   }
 };
+
+/**
+ * Get unified client profile details with outstanding invoices, payment history, and email logs.
+ */
+exports.getClientProfile = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const organizationId = req.user.organizationId;
+
+    if (!organizationId) {
+      return next(new AppError("User must belong to an organization", 400));
+    }
+
+    const client = await Client.findOne({
+      where: { id, organizationId }
+    });
+
+    if (!client) {
+      return next(new AppError("Client not found", 404));
+    }
+
+    // Fetch all invoices for this client email
+    const Invoice = require("../models/Invoice");
+    const invoices = await Invoice.findAll({
+      where: { 
+        clientEmail: client.email,
+        organizationId 
+      },
+      order: [["createdAt", "DESC"]]
+    });
+
+    // Calculate total outstanding balance
+    const outstandingInvoices = invoices.filter(
+      inv => inv.status !== "paid" && inv.status !== "cancelled"
+    );
+    const totalOutstanding = outstandingInvoices.reduce(
+      (sum, inv) => sum + parseFloat(inv.amount), 
+      0
+    );
+
+    // Fetch payment history for all invoices linked to this client
+    const Payment = require("../models/Payment");
+    const invoiceIds = invoices.map(inv => inv.id);
+    const { Op } = require("sequelize");
+    
+    let payments = [];
+    if (invoiceIds.length > 0) {
+      payments = await Payment.findAll({
+        where: {
+          invoiceId: {
+            [Op.in]: invoiceIds
+          },
+          organizationId
+        },
+        order: [["paidAt", "DESC"]],
+        include: [
+          {
+            model: Invoice,
+            as: "invoice",
+            attributes: ["invoiceNumber", "clientName"]
+          }
+        ]
+      });
+    }
+
+    // Fetch email logs (reminders / welcomes) sent to this client
+    const EmailLog = require("../models/EmailLog");
+    const emailLogs = await EmailLog.findAll({
+      where: { clientId: client.id },
+      order: [["createdAt", "DESC"]]
+    });
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        client,
+        stats: {
+          totalInvoices: invoices.length,
+          totalOutstanding,
+          paidInvoicesCount: invoices.length - outstandingInvoices.length
+        },
+        invoices,
+        payments,
+        reminders: emailLogs
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+};
