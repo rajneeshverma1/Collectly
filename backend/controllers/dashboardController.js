@@ -172,7 +172,8 @@ exports.getRecentActivity = async (req, res, next) => {
       return next(new AppError("User must belong to an organization", 400));
     }
 
-    // Get recent invoices
+    // BILLING & INVOICES PIPELINE:
+    // Fetch the 5 most recent invoices created in the organization workspace.
     const recentInvoices = await Invoice.findAll({
       where: { organizationId },
       order: [["createdAt", "DESC"]],
@@ -180,7 +181,8 @@ exports.getRecentActivity = async (req, res, next) => {
       attributes: ["id", "invoiceNumber", "clientName", "amount", "status", "dueDate", "createdAt"],
     });
 
-    // Get recent payments
+    // TRANSACTIONS & PAYMENTS PIPELINE:
+    // Fetch the 5 most recent transactions/payments completed in the workspace.
     const recentPayments = await Payment.findAll({
       where: { organizationId },
       order: [["paidAt", "DESC"]],
