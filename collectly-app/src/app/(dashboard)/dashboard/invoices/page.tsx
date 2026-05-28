@@ -79,6 +79,33 @@ export default function InvoicesPage() {
   });
   const [paymentSubmitting, setPaymentSubmitting] = useState(false);
 
+  // Manual Reminders Dispatch State
+  const [remindingId, setRemindingId] = useState<string | null>(null);
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+
+  const handleSendReminder = async (invoiceId: string) => {
+    try {
+      setRemindingId(invoiceId);
+      const token = await getToken();
+      const response = await axios.post(`${API_URL}/invoices/${invoiceId}/remind`, {}, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (response.data.status === 'success') {
+        setToast({ message: response.data.message || 'Manual reminder dispatched!', type: 'success' });
+        fetchInvoices();
+      }
+    } catch (err: any) {
+      console.error('Failed to send reminder:', err);
+      setToast({ 
+        message: err.response?.data?.message || 'Failed to dispatch manual reminder.', 
+        type: 'error' 
+      });
+    } finally {
+      setRemindingId(null);
+      setTimeout(() => setToast(null), 4000);
+    }
+  };
+
   const fetchInvoices = async () => {
     try {
       setLoading(true);
