@@ -15,7 +15,16 @@ const AppError = require("../utils/appError");
 exports.saveCredentials = async (req, res, next) => {
   try {
     const organizationId = req.user.organizationId;
-    const { stripePublishableKey, stripeSecretKey, razorpayKeyId, razorpayKeySecret } = req.body;
+    const { 
+      stripePublishableKey, 
+      stripeSecretKey, 
+      razorpayKeyId, 
+      razorpayKeySecret,
+      reminderBeforeDueDays,
+      reminderOnDueDate,
+      reminderAfterDueDays,
+      automatedRemindersEnabled
+    } = req.body;
 
     const org = await Organization.findByPk(organizationId);
     if (!org) {
@@ -23,29 +32,39 @@ exports.saveCredentials = async (req, res, next) => {
     }
 
     // Validate key prefixes to prevent malformed values from disrupting future checkout calls
-    if (stripePublishableKey && !stripePublishableKey.startsWith("pk_")) {
+    if (stripePublishableKey && !stripePublishableKey.startsWith("pk_") && !stripePublishableKey.includes("...")) {
       return next(new AppError("Invalid Stripe Publishable Key format. Must start with 'pk_'.", 400));
     }
     if (stripeSecretKey && !stripeSecretKey.startsWith("sk_")) {
       return next(new AppError("Invalid Stripe Secret Key format. Must start with 'sk_'.", 400));
     }
-    if (razorpayKeyId && !razorpayKeyId.startsWith("rzp_")) {
+    if (razorpayKeyId && !razorpayKeyId.startsWith("rzp_") && !razorpayKeyId.includes("...")) {
       return next(new AppError("Invalid Razorpay Key ID format. Must start with 'rzp_'.", 400));
     }
 
-    await org.update({
-      stripePublishableKey: stripePublishableKey || null,
-      stripeSecretKey: stripeSecretKey || null,
-      razorpayKeyId: razorpayKeyId || null,
-      razorpayKeySecret: razorpayKeySecret || null,
-    });
+    const updates = {};
+    if (stripePublishableKey !== undefined && !stripePublishableKey.includes("...")) updates.stripePublishableKey = stripePublishableKey || null;
+    if (stripeSecretKey !== undefined) updates.stripeSecretKey = stripeSecretKey || null;
+    if (razorpayKeyId !== undefined && !razorpayKeyId.includes("...")) updates.razorpayKeyId = razorpayKeyId || null;
+    if (razorpayKeySecret !== undefined) updates.razorpayKeySecret = razorpayKeySecret || null;
+    
+    if (reminderBeforeDueDays !== undefined) updates.reminderBeforeDueDays = parseInt(reminderBeforeDueDays, 10);
+    if (reminderOnDueDate !== undefined) updates.reminderOnDueDate = !!reminderOnDueDate;
+    if (reminderAfterDueDays !== undefined) updates.reminderAfterDueDays = parseInt(reminderAfterDueDays, 10);
+    if (automatedRemindersEnabled !== undefined) updates.automatedRemindersEnabled = !!automatedRemindersEnabled;
+
+    await org.update(updates);
 
     res.status(200).json({
       status: "success",
-      message: "Payment settings saved successfully",
+      message: "Credentials and reminder rules updated successfully",
       data: {
         stripeConnected: !!org.stripeSecretKey,
         razorpayConnected: !!org.razorpayKeySecret,
+        reminderBeforeDueDays: org.reminderBeforeDueDays,
+        reminderOnDueDate: org.reminderOnDueDate,
+        reminderAfterDueDays: org.reminderAfterDueDays,
+        automatedRemindersEnabled: org.automatedRemindersEnabled,
       }
     });
   } catch (error) {
@@ -78,6 +97,10 @@ exports.getCredentials = async (req, res, next) => {
         stripeConnected: !!org.stripeSecretKey,
         razorpayKeyId: maskKey(org.razorpayKeyId),
         razorpayConnected: !!org.razorpayKeySecret,
+        reminderBeforeDueDays: org.reminderBeforeDueDays,
+        reminderOnDueDate: org.reminderOnDueDate,
+        reminderAfterDueDays: org.reminderAfterDueDays,
+        automatedRemindersEnabled: org.automatedRemindersEnabled,
       }
     });
   } catch (error) {
