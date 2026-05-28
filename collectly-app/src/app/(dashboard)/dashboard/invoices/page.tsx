@@ -18,7 +18,9 @@ import {
   X,
   CreditCard,
   Briefcase,
-  ArrowUpDown
+  ArrowUpDown,
+  Send,
+  Loader2
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
@@ -40,6 +42,7 @@ interface Invoice {
   status: 'draft' | 'sent' | 'paid' | 'overdue' | 'cancelled' | 'partially_paid';
   createdAt: string;
   description: string;
+  lastReminderSent?: string;
 }
 
 export default function InvoicesPage() {
