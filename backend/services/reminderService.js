@@ -16,11 +16,9 @@ const processInvoiceReminders = async () => {
   try {
     console.log("[Reminder Service] Scanning database for near-due or overdue invoices...");
 
-    const today = new Date();
-    const threeDaysFromNow = new Date();
-    threeDaysFromNow.setDate(today.getDate() + 3);
+    const Organization = require("../models/Organization");
 
-    // Fetch invoices that are unpaid (sent or partially_paid)
+    // Fetch invoices that are unpaid (sent, partially_paid, or overdue)
     const activeInvoices = await Invoice.findAll({
       where: {
         status: {
@@ -31,25 +29,63 @@ const processInvoiceReminders = async () => {
 
     console.log(`[Reminder Service] Found ${activeInvoices.length} active unpaid invoices to check.`);
 
-    for (const invoice of activeInvoices) {
-      const dueDate = new Date(invoice.dueDate);
-      let needsReminder = false;
+    const today = new Date();
+    const todayMs = new Date(today).setHours(0, 0, 0, 0);
 
-      // 1. Auto-transition sent/partially_paid invoices to overdue if past due date
-      if (dueDate < today && invoice.status !== "overdue") {
-        console.log(`[Reminder Service] Invoice ${invoice.invoiceNumber} is past due date (${invoice.dueDate}). Updating status to 'overdue'.`);
+    for (const invoice of activeInvoices) {
+      // Load organization custom reminder settings
+      const org = await Organization.findByPk(invoice.organizationId);
+      
+      // Defaults if organization does not have custom config
+      const automatedEnabled = org ? org.automatedRemindersEnabled : true;
+      const beforeDays = org ? org.reminderBeforeDueDays : 3;
+      const onDueEnabled = org ? org.reminderOnDueDate : true;
+      const afterDays = org ? org.reminderAfterDueDays : 3;
+
+      if (!automatedEnabled) {
+        console.log(`[Reminder Service] Automated reminders disabled for Org ${invoice.organizationId}. Skipping Invoice ${invoice.invoiceNumber}.`);
+        continue;
+      }
+
+      // Check if we already sent a reminder today to avoid duplicates
+      if (invoice.lastReminderSent) {
+        const lastSentMs = new Date(invoice.lastReminderSent).setHours(0, 0, 0, 0);
+        if (lastSentMs === todayMs) {
+          console.log(`[Reminder Service] Reminder already sent today for Invoice ${invoice.invoiceNumber}. Skipping.`);
+          continue;
+        }
+      }
+
+      const dueDate = new Date(invoice.dueDate);
+      const dueDateMs = new Date(dueDate).setHours(0, 0, 0, 0);
+      const diffDays = Math.round((dueDateMs - todayMs) / (1000 * 60 * 60 * 24));
+
+      let needsReminder = false;
+      let reminderType = "default";
+
+      // 1. Check Auto-transition to overdue if past due date
+      if (dueDateMs < todayMs && invoice.status !== "overdue") {
+        console.log(`[Reminder Service] Invoice ${invoice.invoiceNumber} is past due date. Updating status to 'overdue'.`);
         invoice.status = "overdue";
         await invoice.save();
-        needsReminder = true;
       }
-      // 2. Trigger reminder for invoices due in next 3 days
-      else if (dueDate >= today && dueDate <= threeDaysFromNow) {
-        console.log(`[Reminder Service] Invoice ${invoice.invoiceNumber} is due soon (${invoice.dueDate}). Triggering near-due reminder.`);
+
+      // 2. Evaluate Policy Rules
+      if (diffDays === beforeDays && beforeDays > 0) {
+        // A. Upcoming Reminder Rule
+        console.log(`[Reminder Service] Invoice ${invoice.invoiceNumber} is exactly ${beforeDays} days before due. Triggering upcoming reminder.`);
         needsReminder = true;
-      }
-      // 3. Keep sending occasional reminders for already overdue invoices
-      else if (invoice.status === "overdue") {
+        reminderType = "upcoming";
+      } else if (diffDays === 0 && onDueEnabled) {
+        // B. On Due Date Reminder Rule
+        console.log(`[Reminder Service] Invoice ${invoice.invoiceNumber} is due today. Triggering due-today reminder.`);
         needsReminder = true;
+        reminderType = "due-today";
+      } else if (diffDays === -afterDays && afterDays > 0) {
+        // C. Overdue Reminder Rule (X days past due date)
+        console.log(`[Reminder Service] Invoice ${invoice.invoiceNumber} is exactly ${afterDays} days overdue. Triggering overdue reminder.`);
+        needsReminder = true;
+        reminderType = "overdue";
       }
 
       if (needsReminder) {
@@ -65,7 +101,7 @@ const processInvoiceReminders = async () => {
           console.error(`[Reminder Service] Failed to retrieve Clerk details for freelancer ${invoice.createdBy}:`, err.message);
         }
 
-        // Find associated client record to feed to sendClientNotification
+        // Find associated client record
         let client = await Client.findOne({
           where: {
             email: invoice.clientEmail,
@@ -91,9 +127,13 @@ const processInvoiceReminders = async () => {
             invoiceNumber: invoice.invoiceNumber,
             amount: invoice.amount,
             dueDate: new Date(invoice.dueDate).toLocaleDateString(),
+            reminderType
           }
         );
-        console.log(`[Reminder Service] Successfully dispatched reminder email for Invoice ${invoice.invoiceNumber} to ${invoice.clientEmail}.`);
+
+        // Update lastReminderSent timestamp
+        await invoice.update({ lastReminderSent: new Date() });
+        console.log(`[Reminder Service] Successfully dispatched ${reminderType} reminder email for Invoice ${invoice.invoiceNumber} to ${invoice.clientEmail}.`);
       }
     }
     console.log("[Reminder Service] Database scan and reminder dispatches successfully completed.");
