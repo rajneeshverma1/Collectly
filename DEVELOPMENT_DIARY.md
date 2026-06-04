@@ -41,3 +41,6 @@ Utilizes checkout.session.completed webhook structures to credit client invoices
 ## Razorpay API Schema
 Processes razorpayKeyId signatures and webhook body payloads to confirm local transactions.
 
+## Automated Email Reminders
+Integrates NodeMailer (or mock fallbacks) to send payment reminder emails on schedule.
+
