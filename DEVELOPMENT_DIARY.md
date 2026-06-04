@@ -47,3 +47,6 @@ Integrates NodeMailer (or mock fallbacks) to send payment reminder emails on sch
 ## Framer Motion Animations
 Integrates exit and entry animations for modal displays and list updates using AnimatePresence.
 
+## Reminder Schedule Worker
+Starts a background worker interval running every 12 hours to flag overdue invoices.
+
