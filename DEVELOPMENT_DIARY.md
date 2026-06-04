@@ -26,3 +26,6 @@ Employs high-contrast dark color palettes with border-white/10 and backdrop-blur
 ## PDF Generation Hook
 Uses jsPDF and jspdf-autotable to compile transaction rows into printable layout documents dynamically.
 
+## Offline Sandbox Strategy
+Uses a NEXT_PUBLIC_MOCK_AUTH flag to bypass Clerk CDN loads and execute dashboard tasks offline.
+
