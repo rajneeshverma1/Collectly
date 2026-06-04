@@ -53,3 +53,6 @@ Starts a background worker interval running every 12 hours to flag overdue invoi
 ## Testing & Verification
 Ensures type safety across the application using npx tsc compiler before commit.
 
+## Production Target Environment
+Configured for deployment with environment variable injection and secure SSL redirects.
+
