@@ -44,3 +44,6 @@ Processes razorpayKeyId signatures and webhook body payloads to confirm local tr
 ## Automated Email Reminders
 Integrates NodeMailer (or mock fallbacks) to send payment reminder emails on schedule.
 
+## Framer Motion Animations
+Integrates exit and entry animations for modal displays and list updates using AnimatePresence.
+
