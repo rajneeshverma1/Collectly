@@ -14,3 +14,6 @@ Defines primary entities including Users, Organizations, Clients, and Invoices w
 ## Middleware Pipeline
 Includes rate limiters, CORS handlers, unified error interceptors, and JWT token validators.
 
+## Invoice Automation Logic
+Invoices are created in sent status and transition to paid or overdue based on transaction callbacks.
+
