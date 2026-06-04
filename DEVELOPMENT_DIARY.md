@@ -29,3 +29,6 @@ Uses jsPDF and jspdf-autotable to compile transaction rows into printable layout
 ## Offline Sandbox Strategy
 Uses a NEXT_PUBLIC_MOCK_AUTH flag to bypass Clerk CDN loads and execute dashboard tasks offline.
 
+## Mock Authentication Provider
+MockClerkProvider mimics UserButton and useUser hooks, maintaining login state in localStorage.
+
