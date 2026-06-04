@@ -17,3 +17,6 @@ Includes rate limiters, CORS handlers, unified error interceptors, and JWT token
 ## Invoice Automation Logic
 Invoices are created in sent status and transition to paid or overdue based on transaction callbacks.
 
+## Client-Side Next.js Architecture
+Uses Next.js App Router with layout segmentation for public pay-portals vs protected dashboard screens.
+
