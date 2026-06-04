@@ -11,3 +11,6 @@ Sequelize ORM connects to a local SQLite database file in development to allow z
 ## Models & DB Relationships
 Defines primary entities including Users, Organizations, Clients, and Invoices with fully mapped constraints.
 
+## Middleware Pipeline
+Includes rate limiters, CORS handlers, unified error interceptors, and JWT token validators.
+
