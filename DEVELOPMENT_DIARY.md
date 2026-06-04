@@ -38,3 +38,6 @@ Documented local curl triggers simulating Stripe and Razorpay payment capture ev
 ## Stripe Integration API
 Utilizes checkout.session.completed webhook structures to credit client invoices upon payment.
 
+## Razorpay API Schema
+Processes razorpayKeyId signatures and webhook body payloads to confirm local transactions.
+
