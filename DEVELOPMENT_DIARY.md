@@ -50,3 +50,6 @@ Integrates exit and entry animations for modal displays and list updates using A
 ## Reminder Schedule Worker
 Starts a background worker interval running every 12 hours to flag overdue invoices.
 
+## Testing & Verification
+Ensures type safety across the application using npx tsc compiler before commit.
+
