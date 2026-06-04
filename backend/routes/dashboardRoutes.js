@@ -1,11 +1,11 @@
 const express = require("express");
 const dashboardController = require("../controllers/dashboardController");
-const authController = require("../controllers/authController");
+const { requireAuth } = require("../middleware/clerkAuth");
 
 const router = express.Router();
 
 // Protect all dashboard routes
-router.use(authController.protect);
+router.use(requireAuth);
 
 // Dashboard summary endpoint
 router.get("/summary", dashboardController.getDashboardSummary);

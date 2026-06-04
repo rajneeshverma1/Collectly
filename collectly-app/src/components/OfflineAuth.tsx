@@ -24,8 +24,24 @@ export function MockClerkProvider({ children }: { children: React.ReactNode }) {
     emailAddresses: [{ emailAddress: "curiousrajneesh2024@gmail.com" }]
   });
 
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const persisted = localStorage.getItem('mock_is_signed_in');
+      if (persisted === 'false') {
+        setIsSignedIn(false);
+      }
+    }
+  }, []);
+
+  const handleSetIsSignedIn = (val: boolean) => {
+    setIsSignedIn(val);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('mock_is_signed_in', String(val));
+    }
+  };
+
   return (
-    <MockAuthContext.Provider value={{ isSignedIn, setIsSignedIn, user, setUser }}>
+    <MockAuthContext.Provider value={{ isSignedIn, setIsSignedIn: handleSetIsSignedIn, user, setUser }}>
       {children}
     </MockAuthContext.Provider>
   );

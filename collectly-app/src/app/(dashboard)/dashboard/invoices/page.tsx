@@ -27,7 +27,7 @@ import { cn } from '@/lib/utils';
 import { useAuth } from '@/context/AuthContext';
 import axios from 'axios';
 import { jsPDF } from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 import Link from 'next/link';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api/v1';
@@ -223,12 +223,12 @@ export default function InvoicesPage() {
       [invoice.description || 'Professional Services', `$${parseFloat(invoice.amount.toString()).toFixed(2)}`]
     ];
 
-    doc.autoTable({
+    autoTable(doc, {
       startY: 80,
       head: [tableData[0]],
       body: [tableData[1]],
       theme: 'grid',
-      headStyles: { fillStyle: [10, 10, 10], textColor: [255, 255, 255] },
+      headStyles: { fillColor: [10, 10, 10], textColor: [255, 255, 255] },
     });
 
     // Total
@@ -265,12 +265,12 @@ export default function InvoicesPage() {
         });
       });
 
-      doc.autoTable({
+      autoTable(doc, {
         startY: 40,
         head: [['Month/Year', 'Client', 'Revenue']],
         body: tableRows,
         theme: 'striped',
-        headStyles: { fillStyle: [10, 10, 10] },
+        headStyles: { fillColor: [10, 10, 10] },
       });
 
       doc.save(`Revenue_Report_${new Date().getMonth() + 1}_${new Date().getFullYear()}.pdf`);
