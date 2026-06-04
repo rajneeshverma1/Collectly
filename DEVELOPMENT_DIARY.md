@@ -23,3 +23,6 @@ Uses Next.js App Router with layout segmentation for public pay-portals vs prote
 ## Glassmorphic Styling System
 Employs high-contrast dark color palettes with border-white/10 and backdrop-blur styling classes.
 
+## PDF Generation Hook
+Uses jsPDF and jspdf-autotable to compile transaction rows into printable layout documents dynamically.
+
