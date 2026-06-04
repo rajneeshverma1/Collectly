@@ -20,3 +20,6 @@ Invoices are created in sent status and transition to paid or overdue based on t
 ## Client-Side Next.js Architecture
 Uses Next.js App Router with layout segmentation for public pay-portals vs protected dashboard screens.
 
+## Glassmorphic Styling System
+Employs high-contrast dark color palettes with border-white/10 and backdrop-blur styling classes.
+
