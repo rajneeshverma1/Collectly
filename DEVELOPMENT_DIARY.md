@@ -35,3 +35,6 @@ MockClerkProvider mimics UserButton and useUser hooks, maintaining login state i
 ## Local Webhook Simulations
 Documented local curl triggers simulating Stripe and Razorpay payment capture events.
 
+## Stripe Integration API
+Utilizes checkout.session.completed webhook structures to credit client invoices upon payment.
+
