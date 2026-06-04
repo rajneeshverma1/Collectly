@@ -32,3 +32,6 @@ Uses a NEXT_PUBLIC_MOCK_AUTH flag to bypass Clerk CDN loads and execute dashboar
 ## Mock Authentication Provider
 MockClerkProvider mimics UserButton and useUser hooks, maintaining login state in localStorage.
 
+## Local Webhook Simulations
+Documented local curl triggers simulating Stripe and Razorpay payment capture events.
+
