@@ -101,3 +101,65 @@ All endpoints are secured via JWT tokens decoded via Clerk keys or Offline Mock 
   "description": "Software Development Services"
 }
 ```
+
+## ⚙️ Fast-Track Developer Setup
+
+### Prerequisites
+- Node.js (v18+)
+- npm (v9+)
+
+### 1. Configure Environments
+Create a `.env` in the `backend/` directory:
+```env
+PORT=5001
+NODE_ENV=development
+FRONTEND_URL=http://localhost:3000
+CLERK_SECRET_KEY=sk_test_...
+DATABASE_URL= # Omit to automatically default to Sandbox SQLite
+```
+
+Create a `.env.local` in `collectly-app/`:
+```env
+NEXT_PUBLIC_API_URL=http://localhost:5001/api/v1
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
+NEXT_PUBLIC_MOCK_AUTH=true # Toggle to TRUE to skip external CDN dependency and login offline!
+```
+
+### 2. Start the Backend API
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+### 3. Start the Next.js Frontend
+```bash
+cd collectly-app
+npm install
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) to view the SaaS Workspace!
+
+### 4. Local Webhook Simulations
+You can mock webhook payment capture notifications directly using `curl`:
+```bash
+# Stripe Webhook
+curl -X POST http://localhost:5001/api/v1/payments/webhooks/stripe \
+  -H "Content-Type: application/json" \
+  -d '{"type": "checkout.session.completed", "data": {"object": {"id": "cs_test_123", "amount_total": 45000, "metadata": {"invoiceId": "<INVOICE_ID>"}}}}'
+```
+
+---
+
+## 🛡️ Premium UI Aesthetics
+- Vibrant Dark Mode layout with harmonious glassmorphism and subtle CSS gradients.
+- Micro-interactions powered by `framer-motion` for buttery smooth transitions.
+- Descriptive error panels, responsive form states, and premium visual communication timelines.
+
+---
+
+## 🤝 Contributing
+Contributions are welcome! Please open an issue or submit a pull request with details of your proposed improvements.
+
+## 📄 License
+This project is licensed under the MIT License - see the LICENSE file for details.
