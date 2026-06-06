@@ -59,3 +59,6 @@ Configured for deployment with environment variable injection and secure SSL red
 ## Security Best Practices
 Implements strict HTTP headers, CORS configurations, rate-limiting on sensitive endpoints, and encrypted mock JWT signatures in development.
 
+## Data Validation & Sanitization
+Leverages Sequelize schema constraints (e.g. isEmail, allowNull) and express-level check pipelines to ensure incoming request data is sanitized before database insertions.
+
