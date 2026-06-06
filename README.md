@@ -39,3 +39,35 @@ Collectly is a high-fidelity, premium SaaS billing, invoicing, and payment colle
 ### 4. Zero-Dependency Developer Offline Sandbox
 - High-fidelity **Mock Authentication Sandbox** completely skips Clerk CDN scripts during outages.
 - Local SQLite database pre-seeded with mockup parameters enables offline sandbox runs immediately.
+
+## 🏗️ Architectural Associations
+
+The database associations map Sequelize SQLite/PostgreSQL tables seamlessly:
+
+```mermaid
+erDiagram
+    Organization ||--o{ User : contains
+    Organization ||--o{ Client : manages
+    Organization ||--o{ Invoice : issues
+    Organization ||--o{ Payment : records
+    Client ||--o{ EmailLog : logs
+    Invoice ||--o{ Payment : clears
+    Invoice ||--o{ EmailLog : registers
+```
+
+## 📂 Project Directory Structure
+
+```
+Collectly/
+├── collectly-app/        # Premium Next.js 16 (Turbopack) Frontend
+│   ├── src/
+│   │   ├── app/          # App Router (Dashboard, Invoices, Settings, Pay)
+│   │   ├── context/      # Authentication & State wrappers
+│   │   └── lib/          # API Clients & Utility configurations
+└── backend/              # Robust Node.js Express Backend API
+    ├── config/           # Database, Mailer, and Clerk integrations
+    ├── controllers/      # Request handlers & Business logics
+    ├── models/           # Sequelize Model Schema Definitions
+    ├── routes/           # REST Route Directories
+    └── services/         # Automated Scheduler & Mail Dispatches
+```
