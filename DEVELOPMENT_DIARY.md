@@ -68,3 +68,6 @@ Optimizes database query overhead by using selective model attributes projection
 ## Developer Operations Workflow
 Documents processes for clearing local SQLite lockfiles, solving Next.js port conflicts, and checking types with the TypeScript compiler (tsc).
 
+## Future Roadmap
+Planned milestones include Twilio Voice/SMS real-time AI conversation integrations, automated Stripe payout reconciliation, and interactive chart visualizations.
+
