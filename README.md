@@ -16,3 +16,26 @@ Collectly is a high-fidelity, premium SaaS billing, invoicing, and payment colle
 6. [🛡️ Premium UI Aesthetics](#-premium-ui-aesthetics)
 7. [🤝 Contributing](#-contributing)
 8. [📄 License](#-license)
+
+## 🎨 Premium Features & Architecture
+
+### 1. Interactive Freelancer Workspace
+- **Glassmorphic KPI Cards**: Live outstanding dues, paid this month, upcoming balances, and overdue count.
+- **Client Search & Directory**: Dynamic fuzzy search, responsive directory list, and floating onboarding modals.
+- **Client Profiles**: Instant ledger aggregation tracking unpaid/paid invoices, visual SMTP communication timelines, and payment histories.
+- **Cashflow Analytics**: Visual cash flow charts and real-time activity streams of notifications.
+
+### 2. Dual-Reminders Synchronization Tunnel
+- **Automated Policies**: Custom schedule parameters (`reminderBeforeDueDays`, `reminderOnDueDate`, `reminderAfterDueDays`) managed directly in settings. A background daily scheduler worker evaluates unpaid balances, translates states to overdue, and dispatches proximity email notifications.
+- **Manual Reminders**: Direct inline checkouts instantly matching templates (upcoming, due-today, overdue) based on due date proximity, writing communication logs, and rendering visual duplicate indicators.
+- **Payment Hooks Sync**: Automatically silences scheduled notifications the instant a checkout succeeds.
+
+### 3. Multi-Gateway Payment Checkouts
+- Unified checkout forms utilizing **Stripe Connect** and **Razorpay Secure**.
+- Webhook signature validation (`constructEvent` & `validateWebhookSignature`) hardens endpoints against spoofing.
+- Strict double-payment guards check transaction IDs before persisting ledgers, eliminating duplicate logs or credits.
+- Dynamic offline mock checkout simulator for frictionless development.
+
+### 4. Zero-Dependency Developer Offline Sandbox
+- High-fidelity **Mock Authentication Sandbox** completely skips Clerk CDN scripts during outages.
+- Local SQLite database pre-seeded with mockup parameters enables offline sandbox runs immediately.
