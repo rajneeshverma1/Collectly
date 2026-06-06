@@ -62,3 +62,6 @@ Implements strict HTTP headers, CORS configurations, rate-limiting on sensitive 
 ## Data Validation & Sanitization
 Leverages Sequelize schema constraints (e.g. isEmail, allowNull) and express-level check pipelines to ensure incoming request data is sanitized before database insertions.
 
+## Performance Optimization
+Optimizes database query overhead by using selective model attributes projections and defining index hooks on foreign key references (e.g. organizationId, createdBy).
+
