@@ -71,3 +71,33 @@ Collectly/
     ├── routes/           # REST Route Directories
     └── services/         # Automated Scheduler & Mail Dispatches
 ```
+
+## 📡 REST API Endpoint Directory
+
+### 🔒 Authentication Guards
+All endpoints are secured via JWT tokens decoded via Clerk keys or Offline Mock decryption.
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| **GET** | `/api/v1/health` | Service status, database connectivity & server uptime. |
+| **GET** | `/api/v1/dashboard/summary` | Live outstanding KPI counters, chart analytics & activity logs. |
+| **GET** | `/api/v1/clients` | Retrieve all managed organization clients & total outstanding sums. |
+| **POST** | `/api/v1/clients` | Onboard a new client & issue credentials. |
+| **GET** | `/api/v1/clients/:id/profile` | Aggregate individual client profiles, unpaid invoice logs & SMTP histories. |
+| **GET** | `/api/v1/invoices` | List and filter invoices by payment status, client, or date. |
+| **POST** | `/api/v1/invoices` | Draft/Create a new client invoice. |
+| **POST** | `/api/v1/invoices/:id/payments` | Manually record client transaction receipts. |
+| **POST** | `/api/v1/invoices/:id/remind` | Trigger a manual client reminder email. |
+| **GET** | `/api/v1/payments/credentials` | Retrieve Connection statuses & masked API keys. |
+| **POST** | `/api/v1/payments/credentials` | Securely update Stripe/Razorpay keys and automated reminder rules. |
+
+#### Example Invoice Creation Payload:
+```json
+{
+  "clientName": "Acme Corp",
+  "clientEmail": "billing@acme.com",
+  "amount": 1500,
+  "dueDate": "2026-06-15",
+  "description": "Software Development Services"
+}
+```
