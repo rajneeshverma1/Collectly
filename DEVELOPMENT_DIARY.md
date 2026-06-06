@@ -65,3 +65,6 @@ Leverages Sequelize schema constraints (e.g. isEmail, allowNull) and express-lev
 ## Performance Optimization
 Optimizes database query overhead by using selective model attributes projections and defining index hooks on foreign key references (e.g. organizationId, createdBy).
 
+## Developer Operations Workflow
+Documents processes for clearing local SQLite lockfiles, solving Next.js port conflicts, and checking types with the TypeScript compiler (tsc).
+
