@@ -56,3 +56,6 @@ Ensures type safety across the application using npx tsc compiler before commit.
 ## Production Target Environment
 Configured for deployment with environment variable injection and secure SSL redirects.
 
+## Security Best Practices
+Implements strict HTTP headers, CORS configurations, rate-limiting on sensitive endpoints, and encrypted mock JWT signatures in development.
+
