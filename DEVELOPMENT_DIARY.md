@@ -128,3 +128,6 @@ Optimizes build setup flags to speed up local hot-module reloading during develo
 
 ## Sequelize Database Connection Pool
 Implements database connection recycling to maintain backend stability under load.
+
+## Global Application Error Handler
+Intercepts server exceptions to output structured, user-friendly JSON messages.
