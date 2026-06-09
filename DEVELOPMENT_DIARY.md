@@ -104,3 +104,6 @@ Restricts invoice status updates to valid transitions (e.g. from draft to sent, 
 
 ## Local Sandbox Database Seeder
 Populates SQLite with realistic mock data for local offline developer evaluation.
+
+## Helmet Header Protections
+Uses security middleware configurations to harden backend responses against XSS attacks.
