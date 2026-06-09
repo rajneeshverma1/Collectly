@@ -80,3 +80,6 @@ Uses CSS custom variables for glassmorphism tokens, border opacity, and color pa
 
 ## Database Migration Strategy
 Applies Sequelize migration scripts to handle incremental PostgreSQL schema updates in production.
+
+## Unified API Request Handler
+Standardizes fetch calls with authorization header attachments and custom error parsing.
