@@ -125,3 +125,6 @@ Constructs Stripe events securely using official SDK verification methods.
 
 ## Next.js Turbopack Configurations
 Optimizes build setup flags to speed up local hot-module reloading during development.
+
+## Sequelize Database Connection Pool
+Implements database connection recycling to maintain backend stability under load.
