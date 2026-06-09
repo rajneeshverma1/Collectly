@@ -110,3 +110,6 @@ Uses security middleware configurations to harden backend responses against XSS 
 
 ## Express Rate Limiting Policies
 Applies request rate-limit buckets to secure sensitive endpoints against brute-force attempts.
+
+## Custom SMTP Relay Security
+Implements secure SMTP connection layers using SSL/TLS configurations.
