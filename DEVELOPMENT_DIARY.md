@@ -107,3 +107,6 @@ Populates SQLite with realistic mock data for local offline developer evaluation
 
 ## Helmet Header Protections
 Uses security middleware configurations to harden backend responses against XSS attacks.
+
+## Express Rate Limiting Policies
+Applies request rate-limit buckets to secure sensitive endpoints against brute-force attempts.
