@@ -9,18 +9,15 @@ import {
   Search, 
   Filter, 
   ArrowLeft,
-  MoreVertical,
   CheckCircle,
   Clock,
   AlertCircle,
   Calendar,
   DollarSign,
   X,
-  CreditCard,
-  Briefcase,
-  ArrowUpDown,
   Send,
-  Loader2
+  Loader2,
+  ArrowUpDown
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
@@ -281,11 +278,11 @@ export default function InvoicesPage() {
 
   const getStatusStyle = (status: string) => {
     switch (status) {
-      case 'paid': return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
-      case 'partially_paid': return 'bg-teal-500/10 text-teal-400 border-teal-500/20';
-      case 'overdue': return 'bg-red-500/10 text-red-400 border-red-500/20';
-      case 'sent': return 'bg-blue-500/10 text-blue-400 border-blue-500/20';
-      default: return 'bg-white/5 text-white/40 border-white/10';
+      case 'paid': return 'bg-emerald-50 text-emerald-700 border-emerald-200/50';
+      case 'partially_paid': return 'bg-teal-50 text-teal-700 border-teal-200/50';
+      case 'overdue': return 'bg-rose-50 text-rose-700 border-rose-200/50';
+      case 'sent': return 'bg-blue-50 text-blue-700 border-blue-200/50';
+      default: return 'bg-zinc-50 text-zinc-500 border border-zinc-200';
     }
   };
 
@@ -300,17 +297,17 @@ export default function InvoicesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fafafa] text-white p-10 font-sans">
+    <div className="min-h-screen bg-[#f3f3f6] text-zinc-800 p-10 font-sans">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-12">
           <div>
-            <Link href="/dashboard" className="flex items-center gap-2 text-white/40 hover:text-white transition-colors mb-4 group">
+            <Link href="/dashboard" className="flex items-center gap-2 text-zinc-400 hover:text-zinc-700 transition-colors mb-4 group">
               <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
               <span className="text-sm font-bold uppercase tracking-widest">Back to Dashboard</span>
             </Link>
-            <h1 className="text-4xl font-black tracking-tight">Invoices</h1>
-            <p className="text-white/40 mt-2 font-medium">Manage, track, and record client transactions easily.</p>
+            <h1 className="text-4xl font-black tracking-tight text-zinc-900">Invoices</h1>
+            <p className="text-zinc-500 mt-2 font-medium">Manage, track, and record client transactions easily.</p>
           </div>
           
           <div className="flex items-center gap-4">
@@ -318,7 +315,7 @@ export default function InvoicesPage() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={generateRevenueReport}
-              className="bg-white/5 border border-white/10 text-white px-6 py-4 rounded-2xl font-bold text-sm flex items-center gap-3 hover:bg-white/10 transition-all"
+              className="bg-white border border-zinc-200 text-zinc-800 px-6 py-4 rounded-2xl font-bold text-sm flex items-center gap-3 hover:bg-zinc-50 transition-all cursor-pointer shadow-sm"
             >
               <Download size={18} /> Revenue Report
             </motion.button>
@@ -326,7 +323,7 @@ export default function InvoicesPage() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => { setCreateError(null); setIsCreateOpen(true); }}
-              className="bg-white text-black px-8 py-4 rounded-2xl font-black text-sm flex items-center gap-3 shadow-[0_20px_40px_rgba(255,255,255,0.1)]"
+              className="bg-zinc-900 text-white px-8 py-4 rounded-2xl font-black text-sm flex items-center gap-3 hover:bg-zinc-800 transition-all cursor-pointer shadow-sm"
             >
               <Plus size={18} strokeWidth={3} /> Create New Invoice
             </motion.button>
@@ -336,21 +333,21 @@ export default function InvoicesPage() {
         {/* Filters & Search */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="md:col-span-2 relative group">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-white transition-colors" size={18} />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" size={18} />
             <input 
               type="text" 
               placeholder="Search by client or invoice number..." 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all placeholder:text-white/20"
+              className="w-full bg-white border border-zinc-200 rounded-2xl py-4 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900/5 focus:border-zinc-400 transition-all placeholder:text-zinc-400 text-zinc-800 shadow-sm"
             />
           </div>
           <div className="relative group">
-            <Filter className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-white transition-colors" size={18} />
+            <Filter className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" size={18} />
             <select 
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
-              className="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all appearance-none cursor-pointer"
+              className="w-full bg-white border border-zinc-200 rounded-2xl py-4 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900/5 focus:border-zinc-400 transition-all appearance-none cursor-pointer text-zinc-800 shadow-sm"
             >
               <option value="all">All Statuses</option>
               <option value="draft">Draft</option>
@@ -364,13 +361,13 @@ export default function InvoicesPage() {
         </div>
 
         {/* Invoice Table */}
-        <div className="bg-white/[0.02] border border-white/5 rounded-[40px] overflow-hidden backdrop-blur-3xl">
+        <div className="bg-white border border-zinc-200/80 rounded-[40px] overflow-hidden shadow-sm">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-white/5">
+              <tr className="border-b border-zinc-100">
                 <th 
                   onClick={() => handleSort('invoiceNumber')}
-                  className="px-8 py-6 text-[10px] font-black text-white/20 uppercase tracking-[0.2em] cursor-pointer hover:text-white transition-colors"
+                  className="px-8 py-6 text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] cursor-pointer hover:text-zinc-700 transition-colors"
                 >
                   <div className="flex items-center gap-1.5">
                     Invoice <ArrowUpDown size={12} />
@@ -378,7 +375,7 @@ export default function InvoicesPage() {
                 </th>
                 <th 
                   onClick={() => handleSort('clientName')}
-                  className="px-8 py-6 text-[10px] font-black text-white/20 uppercase tracking-[0.2em] cursor-pointer hover:text-white transition-colors"
+                  className="px-8 py-6 text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] cursor-pointer hover:text-zinc-700 transition-colors"
                 >
                   <div className="flex items-center gap-1.5">
                     Client <ArrowUpDown size={12} />
@@ -386,7 +383,7 @@ export default function InvoicesPage() {
                 </th>
                 <th 
                   onClick={() => handleSort('amount')}
-                  className="px-8 py-6 text-[10px] font-black text-white/20 uppercase tracking-[0.2em] cursor-pointer hover:text-white transition-colors"
+                  className="px-8 py-6 text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] cursor-pointer hover:text-zinc-700 transition-colors"
                 >
                   <div className="flex items-center gap-1.5">
                     Amount <ArrowUpDown size={12} />
@@ -394,23 +391,23 @@ export default function InvoicesPage() {
                 </th>
                 <th 
                   onClick={() => handleSort('dueDate')}
-                  className="px-8 py-6 text-[10px] font-black text-white/20 uppercase tracking-[0.2em] cursor-pointer hover:text-white transition-colors"
+                  className="px-8 py-6 text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] cursor-pointer hover:text-zinc-700 transition-colors"
                 >
                   <div className="flex items-center gap-1.5">
                     Due Date <ArrowUpDown size={12} />
                   </div>
                 </th>
-                <th className="px-8 py-6 text-[10px] font-black text-white/20 uppercase tracking-[0.2em]">Status</th>
-                <th className="px-8 py-6 text-[10px] font-black text-white/20 uppercase tracking-[0.2em] text-right">Actions</th>
+                <th className="px-8 py-6 text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em]">Status</th>
+                <th className="px-8 py-6 text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] text-right">Actions</th>
               </tr>
             </thead>
             <tbody>
               <AnimatePresence mode="popLayout">
                 {loading ? (
                   Array.from({ length: 5 }).map((_, i) => (
-                    <tr key={i} className="animate-pulse border-b border-white/[0.02]">
+                    <tr key={i} className="animate-pulse border-b border-zinc-50">
                       <td colSpan={6} className="px-8 py-6">
-                        <div className="h-8 bg-white/5 rounded-xl w-full"></div>
+                        <div className="h-8 bg-zinc-100 rounded-xl w-full"></div>
                       </td>
                     </tr>
                   ))
@@ -421,19 +418,19 @@ export default function InvoicesPage() {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: idx * 0.05 }}
-                      className="border-b border-white/[0.02] hover:bg-white/[0.03] transition-colors group"
+                      className="border-b border-zinc-100 hover:bg-zinc-50/50 transition-colors group"
                     >
                       <td className="px-8 py-6">
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-white/40 group-hover:bg-white/10 group-hover:text-white transition-all">
+                          <div className="w-10 h-10 rounded-xl bg-zinc-50 border border-zinc-150 flex items-center justify-center text-zinc-400 group-hover:bg-zinc-100 group-hover:text-zinc-700 transition-all">
                             <FileText size={18} />
                           </div>
                           <div>
-                            <p className="text-sm font-bold">#{invoice.invoiceNumber}</p>
-                            <p className="text-[11px] text-white/20 font-medium">{new Date(invoice.createdAt).toLocaleDateString()}</p>
+                            <p className="text-sm font-bold text-zinc-900">#{invoice.invoiceNumber}</p>
+                            <p className="text-[11px] text-zinc-400 font-medium">{new Date(invoice.createdAt).toLocaleDateString()}</p>
                             {invoice.lastReminderSent && (
                               <div className="mt-1.5">
-                                <span className="inline-block text-[9px] font-black uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                                <span className="inline-block text-[9px] font-black uppercase tracking-widest text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100">
                                   Last Sent: {new Date(invoice.lastReminderSent).toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
                                 </span>
                               </div>
@@ -443,15 +440,15 @@ export default function InvoicesPage() {
                       </td>
                       <td className="px-8 py-6">
                         <div>
-                          <p className="text-sm font-bold">{invoice.clientName}</p>
-                          <p className="text-[11px] text-white/20 font-medium">{invoice.clientEmail}</p>
+                          <p className="text-sm font-bold text-zinc-900">{invoice.clientName}</p>
+                          <p className="text-[11px] text-zinc-400 font-medium">{invoice.clientEmail}</p>
                         </div>
                       </td>
                       <td className="px-8 py-6">
-                        <p className="text-sm font-black">${parseFloat(invoice.amount.toString()).toLocaleString()}</p>
+                        <p className="text-sm font-black text-zinc-900">${parseFloat(invoice.amount.toString()).toLocaleString()}</p>
                       </td>
                       <td className="px-8 py-6">
-                        <p className="text-sm font-medium text-white/60">{new Date(invoice.dueDate).toLocaleDateString()}</p>
+                        <p className="text-sm font-medium text-zinc-500">{new Date(invoice.dueDate).toLocaleDateString()}</p>
                       </td>
                       <td className="px-8 py-6">
                         <div className={cn(
@@ -459,18 +456,18 @@ export default function InvoicesPage() {
                           getStatusStyle(invoice.status)
                         )}>
                           {getStatusIcon(invoice.status)}
-                          {invoice.status.replace('_', ' ')}
+                          <span>{invoice.status.replace('_', ' ')}</span>
                         </div>
                       </td>
                       <td className="px-8 py-6 text-right">
                         <div className="flex items-center justify-end gap-2">
                           {invoice.status !== 'paid' && invoice.status !== 'cancelled' && (
                             <motion.button 
-                              whileHover={{ scale: 1.1 }}
-                              whileTap={{ scale: 0.9 }}
+                              whileHover={{ scale: 1.05 }}
+                              whileTap={{ scale: 0.95 }}
                               disabled={remindingId === invoice.id}
                               onClick={() => handleSendReminder(invoice.id)}
-                              className="p-3 rounded-xl bg-white/[0.05] border border-white/10 hover:bg-blue-500 hover:text-white transition-all text-white/60 disabled:opacity-50"
+                              className="p-3 rounded-xl bg-zinc-50 border border-zinc-200 text-zinc-500 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all disabled:opacity-50 cursor-pointer"
                               title="Send Email Reminder"
                             >
                               {remindingId === invoice.id ? (
@@ -489,16 +486,16 @@ export default function InvoicesPage() {
                                 setPaymentForm(prev => ({ ...prev, amount: invoice.amount.toString() }));
                                 setIsPaymentOpen(true);
                               }}
-                              className="px-4 py-2 text-xs font-bold bg-white text-black rounded-xl hover:bg-neutral-200 transition-all flex items-center gap-1.5"
+                              className="px-4 py-2 text-xs font-bold bg-zinc-900 text-white rounded-xl hover:bg-zinc-800 transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
                             >
                               <DollarSign size={12} /> Pay
                             </motion.button>
                           )}
                           <motion.button 
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
                             onClick={() => generatePDF(invoice)}
-                            className="p-3 rounded-xl bg-white/[0.05] border border-white/10 hover:bg-white hover:text-black transition-all group"
+                            className="p-3 rounded-xl bg-zinc-50 border border-zinc-200 text-zinc-500 hover:bg-zinc-100 hover:text-zinc-850 transition-all cursor-pointer"
                             title="Download PDF"
                           >
                             <Download size={16} />
@@ -511,10 +508,10 @@ export default function InvoicesPage() {
                   <tr>
                     <td colSpan={6} className="px-8 py-20 text-center">
                       <div className="flex flex-col items-center gap-4">
-                        <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center">
-                          <Search size={32} className="text-white/10" />
+                        <div className="w-16 h-16 rounded-full bg-zinc-50 border border-zinc-150 flex items-center justify-center">
+                          <Search size={32} className="text-zinc-350" />
                         </div>
-                        <p className="text-white/40 font-medium">No invoices found matching your criteria.</p>
+                        <p className="text-zinc-400 font-medium">No invoices found matching your criteria.</p>
                       </div>
                     </td>
                   </tr>
@@ -534,25 +531,25 @@ export default function InvoicesPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsCreateOpen(false)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-md"
+              className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             />
             
             <motion.div 
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="bg-[#0c0c0c] border border-white/10 w-full max-w-xl rounded-[32px] overflow-hidden shadow-[0_24px_64px_rgba(0,0,0,0.8)] relative z-10"
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              className="bg-white border border-zinc-200 w-full max-w-xl rounded-[32px] overflow-hidden shadow-2xl relative z-10 text-zinc-850"
             >
-              <div className="p-8 border-b border-white/5 flex items-center justify-between">
+              <div className="p-8 border-b border-zinc-100 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-white/60">
+                  <div className="w-10 h-10 rounded-xl bg-zinc-50 border border-zinc-150 flex items-center justify-center text-zinc-500">
                     <FileText size={20} />
                   </div>
-                  <h3 className="text-xl font-bold">Create Invoice</h3>
+                  <h3 className="text-xl font-bold text-zinc-900">Create Invoice</h3>
                 </div>
                 <button 
                   onClick={() => setIsCreateOpen(false)}
-                  className="p-2 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-colors"
+                  className="p-2 bg-zinc-50 border border-zinc-150 rounded-xl hover:bg-zinc-100 transition-colors cursor-pointer text-zinc-400 hover:text-zinc-600"
                 >
                   <X size={16} />
                 </button>
@@ -563,40 +560,40 @@ export default function InvoicesPage() {
                   <motion.div 
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="p-4 bg-red-500/10 border border-red-500/20 text-red-400 rounded-2xl flex items-center gap-2 text-xs font-semibold"
+                    className="p-4 bg-rose-50 border border-rose-100 text-rose-700 rounded-2xl flex items-center gap-2 text-xs font-semibold"
                   >
                     <AlertCircle size={14} />
-                    {createError}
+                    <span>{createError}</span>
                   </motion.div>
                 )}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black text-white/40 uppercase tracking-widest">Client Name</label>
+                    <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">Client Name</label>
                     <input 
                       type="text" 
                       required
                       placeholder="e.g. John Doe"
                       value={createForm.clientName}
                       onChange={(e) => setCreateForm(prev => ({ ...prev, clientName: e.target.value }))}
-                      className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all placeholder:text-white/10"
+                      className="w-full bg-white border border-zinc-250 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950/5 focus:border-zinc-400 transition-all placeholder:text-zinc-350 text-zinc-800"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black text-white/40 uppercase tracking-widest">Client Email</label>
+                    <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">Client Email</label>
                     <input 
                       type="email" 
                       required
                       placeholder="e.g. john@company.com"
                       value={createForm.clientEmail}
                       onChange={(e) => setCreateForm(prev => ({ ...prev, clientEmail: e.target.value }))}
-                      className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all placeholder:text-white/10"
+                      className="w-full bg-white border border-zinc-250 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950/5 focus:border-zinc-400 transition-all placeholder:text-zinc-350 text-zinc-800"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black text-white/40 uppercase tracking-widest">Amount ($)</label>
+                    <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">Amount ($)</label>
                     <input 
                       type="number" 
                       required
@@ -604,56 +601,56 @@ export default function InvoicesPage() {
                       placeholder="e.g. 1500"
                       value={createForm.amount}
                       onChange={(e) => setCreateForm(prev => ({ ...prev, amount: e.target.value }))}
-                      className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all placeholder:text-white/10"
+                      className="w-full bg-white border border-zinc-250 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950/5 focus:border-zinc-400 transition-all placeholder:text-zinc-350 text-zinc-800"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black text-white/40 uppercase tracking-widest">Due Date</label>
+                    <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">Due Date</label>
                     <input 
                       type="date" 
                       required
                       value={createForm.dueDate}
                       onChange={(e) => setCreateForm(prev => ({ ...prev, dueDate: e.target.value }))}
-                      className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all text-white/80"
+                      className="w-full bg-white border border-zinc-250 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950/5 focus:border-zinc-400 transition-all text-zinc-800"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-white/40 uppercase tracking-widest">Description</label>
+                  <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">Description</label>
                   <textarea 
                     rows={3}
                     placeholder="Describe professional services or items sold..."
                     value={createForm.description}
                     onChange={(e) => setCreateForm(prev => ({ ...prev, description: e.target.value }))}
-                    className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all placeholder:text-white/10 resize-none"
+                    className="w-full bg-white border border-zinc-250 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950/5 focus:border-zinc-400 transition-all placeholder:text-zinc-350 text-zinc-800 resize-none"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-white/40 uppercase tracking-widest">Status</label>
+                  <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">Status</label>
                   <select 
                     value={createForm.status}
                     onChange={(e) => setCreateForm(prev => ({ ...prev, status: e.target.value }))}
-                    className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all appearance-none cursor-pointer text-white/80"
+                    className="w-full bg-white border border-zinc-250 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950/5 focus:border-zinc-400 transition-all appearance-none cursor-pointer text-zinc-800"
                   >
                     <option value="draft">Draft</option>
                     <option value="sent">Sent</option>
                   </select>
                 </div>
 
-                <div className="pt-4 flex items-center justify-end gap-4 border-t border-white/5">
+                <div className="pt-4 flex items-center justify-end gap-4 border-t border-zinc-100">
                   <button 
                     type="button"
                     onClick={() => setIsCreateOpen(false)}
-                    className="bg-white/5 border border-white/10 hover:bg-white/10 text-white px-6 py-3.5 rounded-2xl text-xs font-bold transition-all"
+                    className="bg-zinc-50 border border-zinc-150 hover:bg-zinc-100 text-zinc-700 px-6 py-3.5 rounded-2xl text-xs font-bold transition-all cursor-pointer"
                   >
                     Cancel
                   </button>
                   <button 
                     type="submit"
                     disabled={createSubmitting}
-                    className="bg-white text-black hover:bg-neutral-200 disabled:opacity-50 px-8 py-3.5 rounded-2xl text-xs font-black transition-all flex items-center gap-2"
+                    className="bg-zinc-900 text-white hover:bg-zinc-800 disabled:opacity-50 px-8 py-3.5 rounded-2xl text-xs font-black transition-all flex items-center gap-2 cursor-pointer shadow-sm"
                   >
                     {createSubmitting ? 'Creating...' : 'Create Invoice'}
                   </button>
@@ -676,23 +673,23 @@ export default function InvoicesPage() {
                 setIsPaymentOpen(false);
                 setSelectedInvoice(null);
               }}
-              className="absolute inset-0 bg-black/60 backdrop-blur-md"
+              className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             />
             
             <motion.div 
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="bg-[#0c0c0c] border border-white/10 w-full max-w-md rounded-[32px] overflow-hidden shadow-[0_24px_64px_rgba(0,0,0,0.8)] relative z-10"
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              className="bg-white border border-zinc-200 w-full max-w-md rounded-[32px] overflow-hidden shadow-2xl relative z-10 text-zinc-850"
             >
-              <div className="p-8 border-b border-white/5 flex items-center justify-between">
+              <div className="p-8 border-b border-zinc-100 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-emerald-400">
+                  <div className="w-10 h-10 rounded-xl bg-zinc-50 border border-zinc-150 flex items-center justify-center text-emerald-500">
                     <DollarSign size={20} />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold">Record Payment</h3>
-                    <p className="text-[10px] text-white/40 font-medium">For Invoice #{selectedInvoice.invoiceNumber}</p>
+                    <h3 className="text-lg font-bold text-zinc-900">Record Payment</h3>
+                    <p className="text-[10px] text-zinc-400 font-medium">For Invoice #{selectedInvoice.invoiceNumber}</p>
                   </div>
                 </div>
                 <button 
@@ -700,7 +697,7 @@ export default function InvoicesPage() {
                     setIsPaymentOpen(false);
                     setSelectedInvoice(null);
                   }}
-                  className="p-2 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-colors"
+                  className="p-2 bg-zinc-50 border border-zinc-150 rounded-xl hover:bg-zinc-100 transition-colors cursor-pointer text-zinc-400 hover:text-zinc-600"
                 >
                   <X size={16} />
                 </button>
@@ -708,7 +705,7 @@ export default function InvoicesPage() {
 
               <form onSubmit={handleRecordPayment} className="p-8 space-y-6">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-white/40 uppercase tracking-widest">Amount Paid ($)</label>
+                  <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">Amount Paid ($)</label>
                   <input 
                     type="number" 
                     required
@@ -717,17 +714,17 @@ export default function InvoicesPage() {
                     placeholder="e.g. 500"
                     value={paymentForm.amount}
                     onChange={(e) => setPaymentForm(prev => ({ ...prev, amount: e.target.value }))}
-                    className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all placeholder:text-white/10"
+                    className="w-full bg-white border border-zinc-250 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950/5 focus:border-zinc-400 transition-all placeholder:text-zinc-350 text-zinc-800"
                   />
-                  <p className="text-[10px] text-white/30 font-medium">Invoice Total: ${selectedInvoice.amount}</p>
+                  <p className="text-[10px] text-zinc-450 font-medium">Invoice Total: ${selectedInvoice.amount}</p>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-white/40 uppercase tracking-widest">Payment Method</label>
+                  <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">Payment Method</label>
                   <select 
                     value={paymentForm.paymentMethod}
                     onChange={(e) => setPaymentForm(prev => ({ ...prev, paymentMethod: e.target.value }))}
-                    className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all appearance-none cursor-pointer text-white/80"
+                    className="w-full bg-white border border-zinc-250 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950/5 focus:border-zinc-400 transition-all appearance-none cursor-pointer text-zinc-800"
                   >
                     <option value="credit_card">Credit/Debit Card</option>
                     <option value="bank_transfer">Bank Transfer (Wire)</option>
@@ -738,31 +735,31 @@ export default function InvoicesPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-white/40 uppercase tracking-widest">Notes (Optional)</label>
+                  <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">Notes (Optional)</label>
                   <textarea 
                     rows={2}
                     placeholder="e.g. Paid first milestone tranche"
                     value={paymentForm.notes}
                     onChange={(e) => setPaymentForm(prev => ({ ...prev, notes: e.target.value }))}
-                    className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all placeholder:text-white/10 resize-none"
+                    className="w-full bg-white border border-zinc-250 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950/5 focus:border-zinc-400 transition-all placeholder:text-zinc-350 text-zinc-800 resize-none"
                   />
                 </div>
 
-                <div className="pt-4 flex items-center justify-end gap-4 border-t border-white/5">
+                <div className="pt-4 flex items-center justify-end gap-4 border-t border-zinc-100">
                   <button 
                     type="button"
                     onClick={() => {
                       setIsPaymentOpen(false);
                       setSelectedInvoice(null);
                     }}
-                    className="bg-white/5 border border-white/10 hover:bg-white/10 text-white px-6 py-3.5 rounded-2xl text-xs font-bold transition-all"
+                    className="bg-zinc-50 border border-zinc-150 hover:bg-zinc-100 text-zinc-700 px-6 py-3.5 rounded-2xl text-xs font-bold transition-all cursor-pointer"
                   >
                     Cancel
                   </button>
                   <button 
                     type="submit"
                     disabled={paymentSubmitting}
-                    className="bg-white text-black hover:bg-neutral-200 disabled:opacity-50 px-8 py-3.5 rounded-2xl text-xs font-black transition-all flex items-center gap-2"
+                    className="bg-zinc-900 text-white hover:bg-zinc-800 disabled:opacity-50 px-8 py-3.5 rounded-2xl text-xs font-black transition-all flex items-center gap-2 cursor-pointer shadow-sm"
                   >
                     {paymentSubmitting ? 'Recording...' : 'Record Payment'}
                   </button>
@@ -783,12 +780,12 @@ export default function InvoicesPage() {
             className={cn(
               "fixed bottom-8 right-8 z-50 px-6 py-4 rounded-2xl border backdrop-blur-xl shadow-2xl flex items-center gap-3 font-bold text-xs transition-all uppercase tracking-wider",
               toast.type === 'success' 
-                ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" 
-                : "bg-red-500/10 text-red-400 border-red-500/20"
+                ? "bg-emerald-50 text-emerald-700 border-emerald-250" 
+                : "bg-rose-50 text-rose-700 border-rose-250"
             )}
           >
             {toast.type === 'success' ? <CheckCircle size={16} /> : <AlertCircle size={16} />}
-            {toast.message}
+            <span>{toast.message}</span>
           </motion.div>
         )}
       </AnimatePresence>
