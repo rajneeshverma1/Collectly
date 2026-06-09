@@ -139,30 +139,30 @@ export default function AnalyticsPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#fafafa] text-white p-10 font-sans">
+    <div className="min-h-screen bg-[#f3f3f6] text-zinc-850 p-10 font-sans">
       <div className="max-w-7xl mx-auto">
         
         {/* Header */}
         <div className="mb-12 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
-            <Link href="/dashboard" className="flex items-center gap-2 text-white/40 hover:text-white transition-colors mb-4 group">
+            <Link href="/dashboard" className="flex items-center gap-2 text-zinc-400 hover:text-zinc-700 transition-colors mb-4 group">
               <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
               <span className="text-sm font-bold uppercase tracking-widest">Back to Dashboard</span>
             </Link>
-            <h1 className="text-4xl font-black tracking-tight flex items-center gap-3">
-              Financial Analytics <TrendingUp className="text-indigo-400" size={32} />
+            <h1 className="text-4xl font-black tracking-tight flex items-center gap-3 text-zinc-900">
+              Financial Analytics <TrendingUp className="text-zinc-800" size={32} />
             </h1>
-            <p className="text-white/40 mt-2 font-medium">Real-time revenue consolidation, payments MRR, and outstanding indices.</p>
+            <p className="text-zinc-500 mt-2 font-medium">Real-time revenue consolidation, payments MRR, and outstanding indices.</p>
           </div>
 
-          <div className="flex items-center gap-4 text-xs font-bold text-white/30 uppercase tracking-wider px-4 py-2 bg-white/5 border border-white/10 rounded-2xl">
+          <div className="flex items-center gap-4 text-xs font-bold text-zinc-500 uppercase tracking-wider px-4 py-2 bg-white border border-zinc-200 rounded-2xl shadow-sm">
             <Calendar size={14} /> LIVE UPDATE SYSTEM
           </div>
         </div>
 
         {loading ? (
-          <div className="h-96 flex items-center justify-center bg-white/[0.02] border border-white/5 rounded-[40px]">
-            <Loader2 className="animate-spin text-white/20" size={32} />
+          <div className="h-96 flex items-center justify-center bg-white border border-zinc-200 rounded-[40px] shadow-sm">
+            <Loader2 className="animate-spin text-zinc-400" size={32} />
           </div>
         ) : (
           <div className="space-y-10">
@@ -173,15 +173,14 @@ export default function AnalyticsPage() {
               {/* Total Revenue */}
               <motion.div 
                 whileHover={{ y: -4 }}
-                className="p-6 bg-gradient-to-br from-white/[0.04] to-white/[0.01] border border-white/10 rounded-[32px] overflow-hidden relative shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+                className="p-6 bg-white border border-zinc-200/80 rounded-[32px] overflow-hidden relative shadow-sm"
               >
-                <div className="absolute top-0 right-0 -mr-6 -mt-6 w-20 h-20 bg-indigo-500/10 blur-[32px] rounded-full" />
-                <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 mb-6">
+                <div className="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 mb-6">
                   <DollarSign size={24} />
                 </div>
-                <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em] mb-2">Total Revenue</p>
-                <h3 className="text-3xl font-black">${metrics.totalRevenue.toLocaleString()}</h3>
-                <span className="text-[10px] text-emerald-400 font-bold flex items-center gap-1 mt-3">
+                <p className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] mb-2">Total Revenue</p>
+                <h3 className="text-3xl font-black text-zinc-900">${metrics.totalRevenue.toLocaleString()}</h3>
+                <span className="text-[10px] text-emerald-700 font-bold flex items-center gap-1 mt-3">
                   <TrendingUp size={10} /> +12.4% vs last month
                 </span>
               </motion.div>
@@ -189,15 +188,14 @@ export default function AnalyticsPage() {
               {/* Outstanding Balance */}
               <motion.div 
                 whileHover={{ y: -4 }}
-                className="p-6 bg-gradient-to-br from-white/[0.04] to-white/[0.01] border border-white/10 rounded-[32px] overflow-hidden relative shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+                className="p-6 bg-white border border-zinc-200/80 rounded-[32px] overflow-hidden relative shadow-sm"
               >
-                <div className="absolute top-0 right-0 -mr-6 -mt-6 w-20 h-20 bg-amber-500/10 blur-[32px] rounded-full" />
-                <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-6">
+                <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600 mb-6">
                   <AlertCircle size={24} />
                 </div>
-                <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em] mb-2">Outstanding Balance</p>
-                <h3 className="text-3xl font-black">${metrics.outstandingBalance.toLocaleString()}</h3>
-                <span className="text-[10px] text-white/30 font-bold flex items-center gap-1 mt-3">
+                <p className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] mb-2">Outstanding Balance</p>
+                <h3 className="text-3xl font-black text-zinc-900">${metrics.outstandingBalance.toLocaleString()}</h3>
+                <span className="text-[10px] text-zinc-450 font-bold flex items-center gap-1 mt-3">
                   Awaiting client clearances
                 </span>
               </motion.div>
@@ -205,15 +203,14 @@ export default function AnalyticsPage() {
               {/* Monthly Recurring Revenue */}
               <motion.div 
                 whileHover={{ y: -4 }}
-                className="p-6 bg-gradient-to-br from-white/[0.04] to-white/[0.01] border border-white/10 rounded-[32px] overflow-hidden relative shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+                className="p-6 bg-white border border-zinc-200/80 rounded-[32px] overflow-hidden relative shadow-sm"
               >
-                <div className="absolute top-0 right-0 -mr-6 -mt-6 w-20 h-20 bg-teal-500/10 blur-[32px] rounded-full" />
-                <div className="w-12 h-12 rounded-2xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-teal-400 mb-6">
+                <div className="w-12 h-12 rounded-2xl bg-teal-50 border border-teal-100 flex items-center justify-center text-teal-650 mb-6">
                   <Layers size={24} />
                 </div>
-                <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em] mb-2">Monthly Revenue (MRR)</p>
-                <h3 className="text-3xl font-black">${metrics.mrr.toLocaleString()}</h3>
-                <span className="text-[10px] text-teal-400 font-bold flex items-center gap-1 mt-3">
+                <p className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] mb-2">Monthly Revenue (MRR)</p>
+                <h3 className="text-3xl font-black text-zinc-900">${metrics.mrr.toLocaleString()}</h3>
+                <span className="text-[10px] text-teal-650 font-bold flex items-center gap-1 mt-3">
                   Collected this calendar month
                 </span>
               </motion.div>
@@ -221,30 +218,27 @@ export default function AnalyticsPage() {
               {/* Success Rate */}
               <motion.div 
                 whileHover={{ y: -4 }}
-                className="p-6 bg-gradient-to-br from-white/[0.04] to-white/[0.01] border border-white/10 rounded-[32px] overflow-hidden relative shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+                className="p-6 bg-white border border-zinc-200/80 rounded-[32px] overflow-hidden relative shadow-sm"
               >
-                <div className="absolute top-0 right-0 -mr-6 -mt-6 w-20 h-20 bg-emerald-500/10 blur-[32px] rounded-full" />
-                <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-6">
+                <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 mb-6">
                   <Percent size={24} />
                 </div>
-                <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em] mb-2">Payment Success Rate</p>
-                <h3 className="text-3xl font-black">{metrics.successRate}%</h3>
-                <span className="text-[10px] text-emerald-400 font-bold flex items-center gap-1 mt-3">
+                <p className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] mb-2">Payment Success Rate</p>
+                <h3 className="text-3xl font-black text-zinc-900">{metrics.successRate}%</h3>
+                <span className="text-[10px] text-emerald-600 font-bold flex items-center gap-1 mt-3">
                   Highly efficient collection velocity
                 </span>
               </motion.div>
             </div>
 
             {/* Recharts Chart Container */}
-            <div className="p-8 bg-white/[0.02] border border-white/5 rounded-[40px] relative overflow-hidden backdrop-blur-3xl shadow-[0_12px_48px_rgba(0,0,0,0.6)]">
-              <div className="absolute top-0 left-0 -ml-12 -mt-12 w-64 h-64 bg-indigo-500/5 blur-[96px] rounded-full" />
-              
+            <div className="p-8 bg-white border border-zinc-200/80 rounded-[40px] relative overflow-hidden shadow-sm">
               <div className="flex items-center justify-between mb-8 relative z-10">
                 <div>
-                  <h4 className="text-xl font-bold">Revenue Growth Index</h4>
-                  <p className="text-xs text-white/30 font-semibold mt-1">Consolidated monthly payout completions</p>
+                  <h4 className="text-xl font-bold text-zinc-900">Revenue Growth Index</h4>
+                  <p className="text-xs text-zinc-450 font-semibold mt-1">Consolidated monthly payout completions</p>
                 </div>
-                <span className="flex items-center gap-1 text-[11px] font-bold text-indigo-400 px-3 py-1.5 bg-indigo-500/10 border border-indigo-500/20 rounded-full">
+                <span className="flex items-center gap-1 text-[11px] font-bold text-indigo-600 px-3 py-1.5 bg-indigo-50 border border-indigo-150 rounded-full shadow-sm">
                   Volume Trends <ArrowUpRight size={12} />
                 </span>
               </div>
@@ -257,40 +251,40 @@ export default function AnalyticsPage() {
                   >
                     <defs>
                       <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#6366f1" stopOpacity={0.4}/>
-                        <stop offset="95%" stopColor="#6366f1" stopOpacity={0.0}/>
+                        <stop offset="5%" stopColor="#4f46e5" stopOpacity={0.15}/>
+                        <stop offset="95%" stopColor="#4f46e5" stopOpacity={0.0}/>
                       </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.04)" />
                     <XAxis 
                       dataKey="name" 
-                      stroke="rgba(255,255,255,0.3)" 
+                      stroke="rgba(0,0,0,0.3)" 
                       fontSize={11}
                       fontWeight="bold"
                     />
                     <YAxis 
-                      stroke="rgba(255,255,255,0.3)" 
+                      stroke="rgba(0,0,0,0.3)" 
                       fontSize={11}
                       fontWeight="bold"
                       tickFormatter={(value) => `$${value.toLocaleString()}`}
                     />
                     <Tooltip 
                       contentStyle={{ 
-                        backgroundColor: '#0c0c0c', 
-                        borderColor: 'rgba(255,255,255,0.1)',
+                        backgroundColor: '#ffffff', 
+                        borderColor: '#e4e4e7',
                         borderRadius: '16px',
-                        color: '#fff',
+                        color: '#18181b',
                         fontSize: '12px',
                         fontWeight: 'bold',
-                        boxShadow: '0 8px 32px rgba(0,0,0,0.5)'
+                        boxShadow: '0 4px 20px rgba(0,0,0,0.05)'
                       }}
-                      itemStyle={{ color: '#818cf8' }}
+                      itemStyle={{ color: '#4f46e5' }}
                       formatter={(value) => [`$${parseFloat((value ?? 0).toString()).toLocaleString()}`, 'Revenue']}
                     />
                     <Area 
                       type="monotone" 
                       dataKey="Revenue" 
-                      stroke="#6366f1" 
+                      stroke="#4f46e5" 
                       strokeWidth={3}
                       fillOpacity={1} 
                       fill="url(#colorRevenue)" 

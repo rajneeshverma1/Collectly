@@ -30,41 +30,40 @@ export default function AgreementPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fafafa] text-white flex items-center justify-center p-6">
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 blur-[120px] rounded-full -mr-64 -mt-64 pointer-events-none" />
+    <div className="min-h-screen bg-[#f3f3f6] text-zinc-800 flex items-center justify-center p-6">
       
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-md w-full bg-white/[0.02] border border-white/10 rounded-[40px] p-10 text-center relative z-10"
+        className="max-w-md w-full bg-white border border-zinc-200/80 rounded-[40px] p-10 text-center relative z-10 shadow-lg"
       >
-        <div className="w-20 h-20 rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center mx-auto mb-8">
-          <FileText size={40} className="text-white/40" />
+        <div className="w-20 h-20 rounded-3xl bg-zinc-50 border border-zinc-150 flex items-center justify-center mx-auto mb-8 text-zinc-400">
+          <FileText size={40} />
         </div>
 
         {status === 'loading' && (
           <>
-            <h2 className="text-3xl font-bold mb-4">Business Agreement</h2>
-            <p className="text-white/40 mb-10 leading-relaxed">
+            <h2 className="text-3xl font-black mb-4 text-zinc-900 tracking-tight">Business Agreement</h2>
+            <p className="text-zinc-500 mb-10 leading-relaxed text-sm font-medium">
               You have been invited to join a professional network. By clicking the button below, you agree to the terms and will be added as a client.
             </p>
             <button 
               onClick={handleApprove}
-              className="w-full py-4 bg-white text-black hover:bg-neutral-200 rounded-[20px] font-black text-sm transition-all flex items-center justify-center gap-2 group"
+              className="w-full py-4 bg-zinc-900 text-white hover:bg-zinc-800 rounded-[20px] font-black text-sm transition-all flex items-center justify-center gap-2 group cursor-pointer shadow-sm"
             >
-              I Agree & Accept <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              <span>I Agree & Accept</span> <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </button>
           </>
         )}
 
         {status === 'success' && (
           <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }}>
-            <div className="w-16 h-16 rounded-full bg-emerald-500/20 flex items-center justify-center mx-auto mb-6">
-              <CheckCircle className="text-emerald-500" size={32} />
+            <div className="w-16 h-16 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center mx-auto mb-6 text-emerald-600">
+              <CheckCircle size={32} />
             </div>
-            <h2 className="text-3xl font-bold mb-4">All Set!</h2>
-            <p className="text-emerald-400/80 font-medium mb-6">{message}</p>
-            <p className="text-white/40 text-sm">
+            <h2 className="text-3xl font-black mb-4 text-zinc-900 tracking-tight">All Set!</h2>
+            <p className="text-emerald-700 font-semibold mb-6">{message}</p>
+            <p className="text-zinc-500 text-sm font-medium">
               You can now close this window. Your information has been securely updated.
             </p>
           </motion.div>
@@ -72,14 +71,14 @@ export default function AgreementPage() {
 
         {status === 'error' && (
           <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }}>
-            <div className="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center mx-auto mb-6">
-              <AlertCircle className="text-red-500" size={32} />
+            <div className="w-16 h-16 rounded-full bg-rose-50 border border-rose-100 flex items-center justify-center mx-auto mb-6 text-rose-600">
+              <AlertCircle size={32} />
             </div>
-            <h2 className="text-3xl font-bold mb-4">Oops!</h2>
-            <p className="text-red-400/80 font-medium mb-6">{message}</p>
+            <h2 className="text-3xl font-black mb-4 text-zinc-900 tracking-tight">Oops!</h2>
+            <p className="text-rose-700 font-semibold mb-6">{message}</p>
             <button 
               onClick={() => setStatus('loading')}
-              className="px-8 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-sm font-bold transition-all"
+              className="w-full py-4 bg-zinc-900 text-white hover:bg-zinc-800 rounded-[20px] font-black text-sm transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
             >
               Try Again
             </button>

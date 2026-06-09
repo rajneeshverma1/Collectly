@@ -16,7 +16,8 @@ import {
   Loader2, 
   ArrowUpRight, 
   CheckCircle2, 
-  AlertCircle 
+  AlertCircle,
+  X
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -124,7 +125,7 @@ export default function ClientsPage() {
   );
 
   return (
-    <div className="h-full overflow-y-auto custom-scrollbar flex flex-col pb-16">
+    <div className="h-full overflow-y-auto custom-scrollbar flex flex-col pb-16 bg-[#f3f3f6]">
       {/* Toast Alert Portal */}
       <AnimatePresence>
         {toast && (
@@ -133,8 +134,8 @@ export default function ClientsPage() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             className={cn(
-              "fixed top-6 right-6 z-50 px-6 py-4 rounded-2xl flex items-center gap-3 border shadow-[0_24px_48px_rgba(0,0,0,0.4)] backdrop-blur-xl transition-all font-semibold text-sm",
-              toast.type === 'success' ? "bg-emerald-950/80 text-emerald-400 border-emerald-500/30" : "bg-red-950/80 text-red-400 border-red-500/30"
+              "fixed top-6 right-6 z-50 px-6 py-4 rounded-2xl flex items-center gap-3 border shadow-2xl backdrop-blur-xl transition-all font-semibold text-sm",
+              toast.type === 'success' ? "bg-emerald-50 text-emerald-700 border-emerald-200" : "bg-rose-50 text-rose-700 border-rose-200"
             )}
           >
             {toast.type === 'success' ? <CheckCircle2 size={18} /> : <AlertCircle size={18} />}
@@ -152,8 +153,8 @@ export default function ClientsPage() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
           >
-            <h2 className="text-4xl lg:text-5xl font-black tracking-tight mb-2 text-white">Clients</h2>
-            <p className="text-white/40 text-base font-medium">
+            <h2 className="text-4xl lg:text-5xl font-black tracking-tight mb-2 text-zinc-900">Clients</h2>
+            <p className="text-zinc-500 text-base font-medium">
               Manage your global client workspaces, contact metadata, outstanding dues, and active email reminders in one premium workspace.
             </p>
           </motion.div>
@@ -162,7 +163,7 @@ export default function ClientsPage() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => setModalOpen(true)}
-            className="bg-white text-black px-6 py-3 rounded-[16px] font-black text-xs hover:bg-neutral-200 transition-all flex items-center gap-2 shadow-[0_20px_40px_rgba(255,255,255,0.05)] self-start sm:self-auto"
+            className="bg-zinc-900 text-white px-6 py-4 rounded-[16px] font-black text-xs hover:bg-zinc-800 transition-all flex items-center gap-2 shadow-sm self-start sm:self-auto cursor-pointer"
           >
             <Plus size={16} strokeWidth={3} />
             <span>Add New Client</span>
@@ -171,32 +172,32 @@ export default function ClientsPage() {
 
         {/* Search controls */}
         <div className="mb-8 relative max-w-md">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" size={16} />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" size={16} />
           <input 
             type="text" 
             placeholder="Search by client name, email, or company..." 
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="bg-white/5 border border-white/5 rounded-2xl pl-12 pr-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-white/10 w-full transition-all"
+            className="bg-white border border-zinc-200 rounded-2xl pl-12 pr-4 py-3.5 text-sm text-zinc-800 placeholder-zinc-400 focus:outline-none focus:border-zinc-400 w-full transition-all shadow-sm"
           />
         </div>
 
         {/* Clients Grid */}
         {loading ? (
-          <div className="py-24 text-center text-white/30">
-            <Loader2 className="animate-spin mx-auto text-white/10 mb-4" size={32} />
+          <div className="py-24 text-center text-zinc-400">
+            <Loader2 className="animate-spin mx-auto text-zinc-350 mb-4" size={32} />
             <p className="font-bold text-sm">Syncing Client Workspaces...</p>
           </div>
         ) : filteredClients.length === 0 ? (
-          <div className="py-20 text-center border border-dashed border-white/5 rounded-[32px] max-w-xl mx-auto">
-            <Users className="mx-auto text-white/10 mb-4" size={48} />
-            <h4 className="text-white font-bold text-lg mb-2">No Clients Registered</h4>
-            <p className="text-white/30 text-sm max-w-md mx-auto mb-6">
+          <div className="py-20 text-center border border-dashed border-zinc-200 rounded-[32px] max-w-xl mx-auto bg-white shadow-sm">
+            <Users className="mx-auto text-zinc-300 mb-4" size={48} />
+            <h4 className="text-zinc-900 font-bold text-lg mb-2">No Clients Registered</h4>
+            <p className="text-zinc-500 text-sm max-w-md mx-auto mb-6">
               Establish client profiles to automatically sync and catalog invoices, transactions, and reminders under single profiles.
             </p>
             <button 
               onClick={() => setModalOpen(true)}
-              className="bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition-all"
+              className="bg-zinc-900 text-white hover:bg-zinc-800 font-bold text-xs px-5 py-3 rounded-xl transition-all cursor-pointer shadow-sm"
             >
               Add Your First Client
             </button>
@@ -214,21 +215,21 @@ export default function ClientsPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
                 whileHover={{ y: -4 }}
-                className="p-6 bg-gradient-to-br from-white/[0.04] to-white/[0.01] border border-white/10 hover:border-white/20 rounded-[24px] relative overflow-hidden group shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all duration-300"
+                className="p-6 bg-white border border-zinc-200 hover:border-zinc-300 rounded-[24px] relative overflow-hidden group shadow-sm transition-all duration-300"
               >
                 <div className="flex items-start justify-between mb-6">
                   <div>
                     <span className={cn(
                       "inline-block text-[9px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full mb-3 border",
-                      client.status === 'active' ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" : "bg-blue-500/10 text-blue-400 border-blue-500/20"
+                      client.status === 'active' ? "bg-emerald-50 text-emerald-700 border-emerald-200/50" : "bg-blue-50 text-blue-700 border-blue-200/50"
                     )}>
                       {client.status}
                     </span>
-                    <h3 className="text-xl font-bold tracking-tight text-white group-hover:text-blue-400 transition-colors">
+                    <h3 className="text-xl font-bold tracking-tight text-zinc-900 group-hover:text-[#f04e23] transition-colors">
                       {client.name}
                     </h3>
                     {client.company && (
-                      <p className="text-xs text-white/40 font-semibold flex items-center gap-1.5 mt-1">
+                      <p className="text-xs text-zinc-450 font-semibold flex items-center gap-1.5 mt-1">
                         <Building size={12} /> {client.company}
                       </p>
                     )}
@@ -236,26 +237,26 @@ export default function ClientsPage() {
                   
                   <Link 
                     href={`/dashboard/clients/${client.id}`}
-                    className="w-10 h-10 rounded-xl bg-white/5 group-hover:bg-white/10 border border-white/5 flex items-center justify-center text-white/30 group-hover:text-white transition-all"
+                    className="w-10 h-10 rounded-xl bg-zinc-50 border border-zinc-150 flex items-center justify-center text-zinc-400 group-hover:bg-zinc-100 group-hover:text-zinc-800 transition-all"
                   >
                     <ArrowUpRight size={16} />
                   </Link>
                 </div>
 
-                <div className="space-y-2 border-t border-white/5 pt-4 text-xs font-semibold text-white/50">
+                <div className="space-y-2 border-t border-zinc-100 pt-4 text-xs font-semibold text-zinc-500">
                   <div className="flex items-center gap-2">
-                    <Mail size={12} className="text-white/20" />
+                    <Mail size={12} className="text-zinc-400" />
                     <span>{client.email}</span>
                   </div>
                   {client.phone && (
                     <div className="flex items-center gap-2">
-                      <Phone size={12} className="text-white/20" />
+                      <Phone size={12} className="text-zinc-400" />
                       <span>{client.phone}</span>
                     </div>
                   )}
                   {client.address && (
                     <div className="flex items-center gap-2">
-                      <MapPin size={12} className="text-white/20" />
+                      <MapPin size={12} className="text-zinc-400" />
                       <span className="truncate max-w-[220px]">{client.address}</span>
                     </div>
                   )}
@@ -275,23 +276,29 @@ export default function ClientsPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setModalOpen(false)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-md"
+              className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             />
             
             <motion.div 
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="bg-neutral-900 border border-white/10 rounded-[32px] p-8 w-full max-w-lg relative z-10 shadow-[0_24px_64px_rgba(0,0,0,0.8)] overflow-hidden"
+              className="bg-white border border-zinc-200 rounded-[32px] p-8 w-full max-w-lg relative z-10 shadow-2xl overflow-hidden text-zinc-850"
             >
-              <div className="absolute top-0 right-0 w-48 h-48 bg-blue-500/5 blur-[50px] rounded-full pointer-events-none" />
-              
-              <h3 className="text-2xl font-black tracking-tight text-white mb-1">Add New Client</h3>
-              <p className="text-xs text-white/40 font-semibold mb-6">Onboard a client to sync automatic reminders and payments.</p>
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-2xl font-black tracking-tight text-zinc-900">Add New Client</h3>
+                <button 
+                  onClick={() => setModalOpen(false)}
+                  className="p-2 bg-zinc-50 border border-zinc-150 rounded-xl hover:bg-zinc-100 transition-colors cursor-pointer text-zinc-400 hover:text-zinc-600"
+                >
+                  <X size={16} />
+                </button>
+              </div>
+              <p className="text-xs text-zinc-450 font-semibold mb-6">Onboard a client to sync automatic reminders and payments.</p>
 
               <form onSubmit={handleAddClient} className="space-y-4">
                 <div>
-                  <label className="block text-[10px] font-black uppercase tracking-widest text-white/30 mb-1.5">Client Name *</label>
+                  <label className="block text-[10px] font-black uppercase tracking-widest text-zinc-400 mb-1.5">Client Name *</label>
                   <input 
                     type="text" 
                     name="name"
@@ -299,12 +306,12 @@ export default function ClientsPage() {
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="e.g. Rachel Green"
-                    className="w-full bg-white/5 border border-white/5 rounded-xl px-4 py-2.5 text-xs text-white placeholder-white/20 focus:outline-none focus:border-white/10 transition-all"
+                    className="w-full bg-white border border-zinc-250 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950/5 focus:border-zinc-400 transition-all placeholder:text-zinc-350 text-zinc-800"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-black uppercase tracking-widest text-white/30 mb-1.5">Client Email *</label>
+                  <label className="block text-[10px] font-black uppercase tracking-widest text-zinc-400 mb-1.5">Client Email *</label>
                   <input 
                     type="email" 
                     name="email"
@@ -312,69 +319,69 @@ export default function ClientsPage() {
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="e.g. rachel@green.com"
-                    className="w-full bg-white/5 border border-white/5 rounded-xl px-4 py-2.5 text-xs text-white placeholder-white/20 focus:outline-none focus:border-white/10 transition-all"
+                    className="w-full bg-white border border-zinc-250 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950/5 focus:border-zinc-400 transition-all placeholder:text-zinc-350 text-zinc-800"
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[10px] font-black uppercase tracking-widest text-white/30 mb-1.5">Phone Number</label>
+                    <label className="block text-[10px] font-black uppercase tracking-widest text-zinc-400 mb-1.5">Phone Number</label>
                     <input 
                       type="text" 
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
                       placeholder="+1 (555) 019-2834"
-                      className="w-full bg-white/5 border border-white/5 rounded-xl px-4 py-2.5 text-xs text-white placeholder-white/20 focus:outline-none focus:border-white/10 transition-all"
+                      className="w-full bg-white border border-zinc-250 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950/5 focus:border-zinc-400 transition-all placeholder:text-zinc-350 text-zinc-800"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-black uppercase tracking-widest text-white/30 mb-1.5">Company Name</label>
+                    <label className="block text-[10px] font-black uppercase tracking-widest text-zinc-400 mb-1.5">Company Name</label>
                     <input 
                       type="text" 
                       name="company"
                       value={formData.company}
                       onChange={handleInputChange}
-                      placeholder="e.g. Green Design Group"
-                      className="w-full bg-white/5 border border-white/5 rounded-xl px-4 py-2.5 text-xs text-white placeholder-white/20 focus:outline-none focus:border-white/10 transition-all"
+                      placeholder="e.g. Rachel Design"
+                      className="w-full bg-white border border-zinc-250 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950/5 focus:border-zinc-400 transition-all placeholder:text-zinc-350 text-zinc-800"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-black uppercase tracking-widest text-white/30 mb-1.5">Billing Address</label>
+                  <label className="block text-[10px] font-black uppercase tracking-widest text-zinc-400 mb-1.5">Billing Address</label>
                   <textarea 
                     name="address"
                     rows={2}
                     value={formData.address}
                     onChange={handleInputChange}
                     placeholder="e.g. 456 Broadway, New York, NY"
-                    className="w-full bg-white/5 border border-white/5 rounded-xl px-4 py-2.5 text-xs text-white placeholder-white/20 focus:outline-none focus:border-white/10 transition-all resize-none"
+                    className="w-full bg-white border border-zinc-250 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950/5 focus:border-zinc-400 transition-all placeholder:text-zinc-350 text-zinc-800 resize-none"
                   />
                 </div>
 
-                <div className="flex items-center justify-end gap-3 pt-4">
-                  <button 
-                    type="button"
-                    onClick={() => setModalOpen(false)}
-                    className="px-5 py-2.5 bg-white/5 hover:bg-white/10 text-white font-bold text-xs rounded-xl border border-white/5 transition-all"
-                  >
-                    Cancel
-                  </button>
+                <div className="pt-6 space-y-3 border-t border-zinc-100">
                   <button 
                     type="submit"
                     disabled={submitting}
-                    className="px-5 py-2.5 bg-white text-black font-black text-xs rounded-xl hover:bg-neutral-200 transition-all flex items-center gap-1.5 shadow-md"
+                    className="w-full py-4 bg-zinc-900 text-white font-black text-xs rounded-2xl hover:bg-zinc-800 transition-all flex items-center justify-center gap-1.5 shadow-sm cursor-pointer"
                   >
                     {submitting ? (
                       <>
                         <Loader2 className="animate-spin" size={12} />
-                        Adding Client...
+                        <span>Adding Client...</span>
                       </>
                     ) : (
                       'Onboard Client'
                     )}
+                  </button>
+                  <button 
+                    type="button"
+                    onClick={() => setModalOpen(false)}
+                    className="w-full py-4 bg-zinc-50 border border-zinc-200 hover:bg-zinc-100 text-zinc-700 font-bold text-xs rounded-2xl transition-all cursor-pointer flex items-center justify-center"
+                  >
+                    Cancel
                   </button>
                 </div>
               </form>

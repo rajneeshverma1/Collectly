@@ -45,16 +45,6 @@ interface GatewayConfig {
   };
 }
 
-/**
- * ClientPayPortal Component
- * 
- * Provides an elegant, glassmorphic client checkout gateway page.
- * Features:
- * - Real-time Stripe checkout redirection tunnels.
- * - Interactive, local-overlay dynamic Razorpay Checkout Modals.
- * - Auto-capture confirmation status parses for callback URLs.
- * - Seamless fallback offline simulator triggers for sandbox testing environments.
- */
 export default function ClientPayPortal() {
   const { invoiceId } = useParams();
   const [loading, setLoading] = useState(true);
@@ -67,7 +57,6 @@ export default function ClientPayPortal() {
   const [selectedGateway, setSelectedGateway] = useState<'stripe' | 'razorpay' | null>(null);
   const [processing, setProcessing] = useState(false);
   const [paidSuccess, setPaidSuccess] = useState(false);
-  const [checkoutUrl, setCheckoutUrl] = useState<string | null>(null);
 
   const fetchInvoiceDetails = async () => {
     try {
@@ -174,7 +163,7 @@ export default function ClientPayPortal() {
               email: session.clientEmail || '',
             },
             theme: {
-              color: "#6366f1",
+              color: "#f04e23",
             }
           };
           
@@ -252,12 +241,12 @@ export default function ClientPayPortal() {
       [invoice.description || 'Professional Services', `$${invoice.amount.toFixed(2)}`, 'PAID']
     ];
 
-    doc.autoTable({
+    (doc as any).autoTable({
       startY: 80,
       head: [tableData[0]],
       body: [tableData[1]],
       theme: 'grid',
-      headStyles: { fillStyle: [16, 185, 129], textColor: [255, 255, 255] },
+      headStyles: { fillColor: [16, 185, 129], textColor: [255, 255, 255] },
     });
 
     const finalY = (doc as any).lastAutoTable.finalY || 100;
@@ -273,25 +262,25 @@ export default function ClientPayPortal() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#fafafa] text-white flex flex-col items-center justify-center gap-4">
-        <Loader2 className="animate-spin text-white/30" size={32} />
-        <p className="text-white/40 text-sm font-medium">Securing connection to invoice vault...</p>
+      <div className="min-h-screen bg-[#f3f3f6] text-zinc-800 flex flex-col items-center justify-center gap-4">
+        <Loader2 className="animate-spin text-zinc-400" size={32} />
+        <p className="text-zinc-500 text-sm font-medium">Securing connection to invoice vault...</p>
       </div>
     );
   }
 
   if (error || !invoice || !gateways) {
     return (
-      <div className="min-h-screen bg-[#fafafa] text-white flex items-center justify-center p-6">
-        <div className="max-w-md w-full bg-white/[0.02] border border-white/10 rounded-[40px] p-10 text-center">
-          <div className="w-16 h-16 bg-red-500/10 border border-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6 text-red-400">
+      <div className="min-h-screen bg-[#f3f3f6] text-zinc-800 flex items-center justify-center p-6">
+        <div className="max-w-md w-full bg-white border border-zinc-200 rounded-[40px] p-10 text-center shadow-lg">
+          <div className="w-16 h-16 bg-rose-50 border border-rose-100 rounded-full flex items-center justify-center mx-auto mb-6 text-rose-600">
             <AlertCircle size={28} />
           </div>
-          <h2 className="text-2xl font-bold mb-3">Connection Lost</h2>
-          <p className="text-white/40 text-sm leading-relaxed mb-6">{error || 'Unable to resolve invoice parameters.'}</p>
+          <h2 className="text-2xl font-bold mb-3 text-zinc-900">Connection Lost</h2>
+          <p className="text-zinc-500 text-sm leading-relaxed mb-6">{error || 'Unable to resolve invoice parameters.'}</p>
           <button 
             onClick={fetchInvoiceDetails}
-            className="px-8 py-3.5 bg-white text-black hover:bg-neutral-200 rounded-xl font-bold text-xs transition-colors"
+            className="w-full py-4 bg-zinc-900 text-white hover:bg-zinc-800 rounded-xl font-bold text-xs transition-colors cursor-pointer shadow-sm"
           >
             Retry Connection
           </button>
@@ -301,34 +290,30 @@ export default function ClientPayPortal() {
   }
 
   return (
-    <div className="min-h-screen bg-[#fafafa] text-white flex items-center justify-center p-6 font-sans relative overflow-hidden">
+    <div className="min-h-screen bg-[#f3f3f6] text-zinc-850 flex items-center justify-center p-6 font-sans relative overflow-hidden">
       
-      {/* Dynamic Background Blurs */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-600/10 blur-[130px] rounded-full -mr-72 -mt-72 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-emerald-600/5 blur-[120px] rounded-full -ml-64 -mb-64 pointer-events-none" />
-
       <div className="max-w-4xl w-full grid grid-cols-1 md:grid-cols-12 gap-8 relative z-10">
         
         {/* Left Side: Invoice Summary Details Card */}
-        <div className="md:col-span-7 bg-white/[0.02] border border-white/5 rounded-[40px] p-8 md:p-10 flex flex-col justify-between backdrop-blur-3xl">
+        <div className="md:col-span-7 bg-white border border-zinc-200 rounded-[40px] p-8 md:p-10 flex flex-col justify-between shadow-sm">
           <div>
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-white/60">
+                <div className="w-10 h-10 rounded-xl bg-zinc-50 border border-zinc-150 flex items-center justify-center text-zinc-400">
                   <FileText size={18} />
                 </div>
                 <div>
-                  <span className="text-[10px] text-white/30 font-black uppercase tracking-[0.2em]">INVOICE CHECKOUT</span>
-                  <h4 className="text-sm font-bold">#{invoice.invoiceNumber}</h4>
+                  <span className="text-[10px] text-zinc-400 font-black uppercase tracking-[0.2em]">INVOICE CHECKOUT</span>
+                  <h4 className="text-sm font-bold text-zinc-900">#{invoice.invoiceNumber}</h4>
                 </div>
               </div>
               
               <span className={`text-[9px] font-black uppercase tracking-wider px-3 py-1 border rounded-full ${
                 paidSuccess 
-                  ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' 
+                  ? 'bg-emerald-50 text-emerald-700 border-emerald-200/50' 
                   : invoice.status === 'overdue' 
-                    ? 'bg-red-500/10 text-red-400 border-red-500/20' 
-                    : 'bg-blue-500/10 text-blue-400 border-blue-500/20'
+                    ? 'bg-rose-50 text-rose-700 border-rose-250/30' 
+                    : 'bg-blue-50 text-blue-700 border-blue-200/50'
               }`}>
                 {paidSuccess ? 'PAID SUCCESS' : invoice.status}
               </span>
@@ -336,24 +321,24 @@ export default function ClientPayPortal() {
 
             <div className="space-y-6">
               <div>
-                <span className="text-[9px] text-white/30 font-black uppercase tracking-[0.2em]">Billed To</span>
-                <h3 className="text-lg font-bold mt-1">{invoice.clientName}</h3>
-                <p className="text-xs text-white/40 font-medium">{invoice.clientEmail}</p>
+                <span className="text-[9px] text-zinc-400 font-black uppercase tracking-[0.2em]">Billed To</span>
+                <h3 className="text-lg font-bold mt-1 text-zinc-900">{invoice.clientName}</h3>
+                <p className="text-xs text-zinc-500 font-medium">{invoice.clientEmail}</p>
               </div>
 
-              <div className="h-[1px] bg-white/5" />
+              <div className="h-[1px] bg-zinc-100" />
 
               <div>
-                <span className="text-[9px] text-white/30 font-black uppercase tracking-[0.2em]">Description</span>
-                <p className="text-sm text-white/70 font-medium mt-1 leading-relaxed">
+                <span className="text-[9px] text-zinc-400 font-black uppercase tracking-[0.2em]">Description</span>
+                <p className="text-sm text-zinc-650 font-medium mt-1 leading-relaxed">
                   {invoice.description || 'Professional milestones deliverables.'}
                 </p>
               </div>
 
-              <div className="h-[1px] bg-white/5" />
+              <div className="h-[1px] bg-zinc-100" />
 
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2 text-white/40">
+                <div className="flex items-center gap-2 text-zinc-500">
                   <Calendar size={14} />
                   <span className="text-xs font-semibold">Due Date: {new Date(invoice.dueDate).toLocaleDateString()}</span>
                 </div>
@@ -361,20 +346,20 @@ export default function ClientPayPortal() {
             </div>
           </div>
 
-          <div className="pt-8 mt-8 border-t border-white/5 flex items-end justify-between">
+          <div className="pt-8 mt-8 border-t border-zinc-100 flex items-end justify-between">
             <div>
-              <span className="text-[9px] text-white/30 font-black uppercase tracking-[0.2em]">Total Amount Due</span>
-              <h2 className="text-3xl font-black mt-1">${invoice.amount.toLocaleString()}</h2>
+              <span className="text-[9px] text-zinc-400 font-black uppercase tracking-[0.2em]">Total Amount Due</span>
+              <h2 className="text-3xl font-black mt-1 text-zinc-900">${invoice.amount.toLocaleString()}</h2>
             </div>
             
-            <div className="flex items-center gap-1.5 text-[10px] text-white/30 font-bold uppercase tracking-wider">
-              <ShieldCheck className="text-emerald-500" size={14} /> SECURED SSL
+            <div className="flex items-center gap-1.5 text-[10px] text-zinc-400 font-bold uppercase tracking-wider">
+              <ShieldCheck className="text-emerald-600" size={14} /> SECURED SSL
             </div>
           </div>
         </div>
 
         {/* Right Side: Gateway Payment Drawer Card */}
-        <div className="md:col-span-5 bg-white/[0.02] border border-white/5 rounded-[40px] p-8 md:p-10 flex flex-col justify-center backdrop-blur-3xl relative overflow-hidden">
+        <div className="md:col-span-5 bg-white border border-zinc-200 rounded-[40px] p-8 md:p-10 flex flex-col justify-center shadow-sm relative overflow-hidden">
           
           <AnimatePresence mode="wait">
             {!paidSuccess ? (
@@ -386,8 +371,8 @@ export default function ClientPayPortal() {
                 className="space-y-6"
               >
                 <div>
-                  <h3 className="text-xl font-bold tracking-tight">Select Payout</h3>
-                  <p className="text-xs text-white/40 font-medium mt-1">Complete your transaction instantly and securely.</p>
+                  <h3 className="text-xl font-bold tracking-tight text-zinc-900">Select Payout</h3>
+                  <p className="text-xs text-zinc-450 font-medium mt-1">Complete your transaction instantly and securely.</p>
                 </div>
 
                 <div className="space-y-4">
@@ -398,15 +383,15 @@ export default function ClientPayPortal() {
                       whileTap={{ scale: 0.98 }}
                       onClick={() => handlePay('stripe')}
                       disabled={processing}
-                      className="w-full p-5 bg-white/[0.03] border border-white/10 rounded-3xl text-left hover:bg-white/[0.06] hover:border-indigo-500/30 transition-all flex items-center justify-between group disabled:opacity-50"
+                      className="w-full p-5 bg-white border border-zinc-200 hover:border-zinc-300 rounded-3xl text-left hover:bg-zinc-50/50 transition-all flex items-center justify-between group disabled:opacity-50 cursor-pointer shadow-sm"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400">
+                        <div className="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600">
                           <CreditCard size={18} />
                         </div>
                         <div>
-                          <p className="text-sm font-bold">Stripe Connect</p>
-                          <p className="text-[10px] text-white/30 font-medium">Pay with Credit/Debit Cards</p>
+                          <p className="text-sm font-bold text-zinc-800">Stripe Connect</p>
+                          <p className="text-[10px] text-zinc-400 font-medium">Pay with Credit/Debit Cards</p>
                         </div>
                       </div>
                     </motion.button>
@@ -419,15 +404,15 @@ export default function ClientPayPortal() {
                       whileTap={{ scale: 0.98 }}
                       onClick={() => handlePay('razorpay')}
                       disabled={processing}
-                      className="w-full p-5 bg-white/[0.03] border border-white/10 rounded-3xl text-left hover:bg-white/[0.06] hover:border-teal-500/30 transition-all flex items-center justify-between group disabled:opacity-50"
+                      className="w-full p-5 bg-white border border-zinc-200 hover:border-zinc-300 rounded-3xl text-left hover:bg-zinc-50/50 transition-all flex items-center justify-between group disabled:opacity-50 cursor-pointer shadow-sm"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-teal-500/10 flex items-center justify-center text-teal-400">
+                        <div className="w-10 h-10 rounded-xl bg-teal-50 border border-teal-100 flex items-center justify-center text-teal-650">
                           <Building size={18} />
                         </div>
                         <div>
-                          <p className="text-sm font-bold">Razorpay Connect</p>
-                          <p className="text-[10px] text-white/30 font-medium">Pay with Netbanking / Wallets</p>
+                          <p className="text-sm font-bold text-zinc-800">Razorpay Connect</p>
+                          <p className="text-[10px] text-zinc-400 font-medium">Pay with Netbanking / Wallets</p>
                         </div>
                       </div>
                     </motion.button>
@@ -435,7 +420,7 @@ export default function ClientPayPortal() {
 
                   {/* If neither connected */}
                   {!gateways.stripe.connected && !gateways.razorpay.connected ? (
-                    <div className="p-6 bg-amber-500/10 border border-amber-500/20 rounded-3xl text-center text-amber-400">
+                    <div className="p-6 bg-amber-50 border border-amber-100 rounded-3xl text-center text-amber-700">
                       <AlertCircle className="mx-auto mb-3" size={24} />
                       <p className="text-xs font-bold leading-relaxed">
                         No active payment gateways are configured by the freelancer. Please contact them to complete this billing.
@@ -448,10 +433,10 @@ export default function ClientPayPortal() {
                   <motion.div 
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="p-4 bg-white/[0.02] border border-white/5 rounded-2xl flex items-center gap-3 text-xs font-bold text-indigo-400"
+                    className="p-4 bg-zinc-50 border border-zinc-150 rounded-2xl flex items-center gap-3 text-xs font-bold text-indigo-600"
                   >
                     <Loader2 className="animate-spin" size={14} />
-                    {selectedGateway === 'stripe' ? 'Initializing Stripe Secure Tunnel...' : 'Launching Razorpay Checkout Modal...'}
+                    <span>{selectedGateway === 'stripe' ? 'Initializing Stripe Secure Tunnel...' : 'Launching Razorpay Checkout Modal...'}</span>
                   </motion.div>
                 )}
               </motion.div>
@@ -462,23 +447,23 @@ export default function ClientPayPortal() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="text-center space-y-6"
               >
-                <div className="w-16 h-16 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/10">
+                <div className="w-16 h-16 bg-emerald-50 border border-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-sm">
                   <Check size={28} strokeWidth={3} />
                 </div>
 
                 <div>
-                  <h3 className="text-2xl font-black">Transaction Settled</h3>
-                  <p className="text-xs text-white/40 font-medium mt-1">Receipt generated and logged successfully.</p>
+                  <h3 className="text-2xl font-black text-zinc-900 tracking-tight">Transaction Settled</h3>
+                  <p className="text-xs text-zinc-450 font-medium mt-1">Receipt generated and logged successfully.</p>
                 </div>
 
-                <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-4 text-left space-y-2">
+                <div className="bg-zinc-50 border border-zinc-150 rounded-2xl p-4 text-left space-y-2">
                   <div className="flex justify-between text-xs">
-                    <span className="text-white/30">Settled Amount:</span>
-                    <span className="font-bold">${invoice.amount.toLocaleString()}</span>
+                    <span className="text-zinc-400">Settled Amount:</span>
+                    <span className="font-bold text-zinc-800">${invoice.amount.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between text-xs">
-                    <span className="text-white/30">Payment Channel:</span>
-                    <span className="font-bold uppercase text-indigo-400">{selectedGateway || 'Card/Transfer'}</span>
+                    <span className="text-zinc-400">Payment Channel:</span>
+                    <span className="font-bold uppercase text-indigo-650">{selectedGateway || 'Card/Transfer'}</span>
                   </div>
                 </div>
 
@@ -486,7 +471,7 @@ export default function ClientPayPortal() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={generatePDF}
-                  className="w-full py-4 bg-white text-black hover:bg-neutral-200 rounded-2xl font-black text-xs tracking-wider uppercase transition-colors flex items-center justify-center gap-2 shadow-[0_20px_40px_rgba(255,255,255,0.05)]"
+                  className="w-full py-4 bg-zinc-900 text-white hover:bg-zinc-800 rounded-2xl font-black text-xs tracking-wider uppercase transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-sm"
                 >
                   <Download size={14} /> Download Receipt PDF
                 </motion.button>
