@@ -98,3 +98,6 @@ Maintains local search arrays to enable instant client directory filtering and m
 
 ## Organization Onboarding Flow
 Coordinates registration steps to setup organizations and configure payment connection keys.
+
+## Invoice Lifecycle State Machine
+Restricts invoice status updates to valid transitions (e.g. from draft to sent, paid, or overdue).
