@@ -113,3 +113,6 @@ Applies request rate-limit buckets to secure sensitive endpoints against brute-f
 
 ## Custom SMTP Relay Security
 Implements secure SMTP connection layers using SSL/TLS configurations.
+
+## Clerk JWT Decryption Hook
+Decodes external authentication tokens inside Express routing middleware.
