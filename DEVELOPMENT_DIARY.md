@@ -83,3 +83,6 @@ Applies Sequelize migration scripts to handle incremental PostgreSQL schema upda
 
 ## Unified API Request Handler
 Standardizes fetch calls with authorization header attachments and custom error parsing.
+
+## SMTP Mail Template Engine
+Compiles HTML emails for payment notifications, receipts, and invoice links.
