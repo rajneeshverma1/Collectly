@@ -86,3 +86,6 @@ Standardizes fetch calls with authorization header attachments and custom error 
 
 ## SMTP Mail Template Engine
 Compiles HTML emails for payment notifications, receipts, and invoice links.
+
+## Double-Payment Guard Logic
+Inspects transaction tables before processing payment success webhooks to prevent duplicate credits.
