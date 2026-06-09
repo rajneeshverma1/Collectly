@@ -71,3 +71,6 @@ Documents processes for clearing local SQLite lockfiles, solving Next.js port co
 ## Future Roadmap
 Planned milestones include Twilio Voice/SMS real-time AI conversation integrations, automated Stripe payout reconciliation, and interactive chart visualizations.
 
+
+## Frontend State Management Hook
+Maintains dashboard context using standard React Context and custom `useAuth` wrappers.
