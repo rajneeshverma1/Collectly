@@ -19,37 +19,37 @@ interface SummaryCardProps {
 const cardConfig = {
   outstanding: {
     icon: DollarSign,
-    color: 'text-blue-400',
-    bgColor: 'bg-blue-500/10',
-    borderColor: 'border-blue-500/20',
+    color: 'text-blue-600',
+    bgColor: 'bg-blue-50/80',
+    borderColor: 'border-blue-100',
     label: 'Outstanding',
   },
   overdue: {
     icon: AlertCircle,
-    color: 'text-red-400',
-    bgColor: 'bg-red-500/10',
-    borderColor: 'border-red-500/20',
+    color: 'text-rose-600',
+    bgColor: 'bg-rose-50/80',
+    borderColor: 'border-rose-100',
     label: 'Overdue',
   },
   due: {
     icon: Calendar,
-    color: 'text-amber-400',
-    bgColor: 'bg-amber-500/10',
-    borderColor: 'border-amber-500/20',
+    color: 'text-amber-600',
+    bgColor: 'bg-amber-50/80',
+    borderColor: 'border-amber-100',
     label: 'Due This Week',
   },
   collected: {
     icon: CheckCircle,
-    color: 'text-emerald-400',
-    bgColor: 'bg-emerald-500/10',
-    borderColor: 'border-emerald-500/20',
+    color: 'text-emerald-600',
+    bgColor: 'bg-emerald-50/80',
+    borderColor: 'border-emerald-100',
     label: 'Collected',
   },
   clients: {
     icon: Users,
-    color: 'text-indigo-400',
-    bgColor: 'bg-indigo-500/10',
-    borderColor: 'border-indigo-500/20',
+    color: 'text-indigo-600',
+    bgColor: 'bg-indigo-50/80',
+    borderColor: 'border-indigo-100',
     label: 'Total Clients',
   },
 };
@@ -73,14 +73,14 @@ export function SummaryCard({ title, amount, count, trend, newestItem, type, ind
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: index * 0.1 }}
-        className="p-6 bg-white/[0.02] border border-white/5 rounded-3xl animate-pulse"
+        className="p-6 bg-white border border-zinc-150 rounded-[32px] animate-pulse"
       >
         <div className="flex items-center justify-between mb-6">
-          <div className="w-12 h-12 rounded-2xl bg-white/5" />
-          <div className="w-20 h-6 rounded-full bg-white/5" />
+          <div className="w-12 h-12 rounded-2xl bg-zinc-100" />
+          <div className="w-20 h-6 rounded-full bg-zinc-100" />
         </div>
-        <div className="w-32 h-10 rounded-xl bg-white/5 mb-3" />
-        <div className="w-24 h-4 rounded-lg bg-white/5" />
+        <div className="w-32 h-10 rounded-xl bg-zinc-100 mb-3" />
+        <div className="w-24 h-4 rounded-lg bg-zinc-100" />
       </motion.div>
     );
   }
@@ -94,50 +94,53 @@ export function SummaryCard({ title, amount, count, trend, newestItem, type, ind
         delay: index * 0.1,
         ease: [0.23, 1, 0.32, 1]
       }}
-      whileHover={{ y: -5, transition: { duration: 0.2 } }}
+      whileHover={{ y: -4, transition: { duration: 0.2 } }}
       className={cn(
-        "relative group p-6 rounded-[32px] overflow-hidden transition-all duration-500",
-        "bg-gradient-to-br from-white/[0.05] to-white/[0.01]",
-        "border border-white/10 hover:border-white/20",
-        "shadow-[0_8px_48px_rgba(0,0,0,0.4)] hover:shadow-[0_24px_64px_rgba(0,0,0,0.5)]"
+        "relative group p-6 rounded-[32px] overflow-hidden transition-all duration-300",
+        "bg-white border border-zinc-200/80 hover:border-zinc-300",
+        "shadow-sm hover:shadow-md"
       )}
     >
       {/* Decorative Background Element */}
       <div className={cn(
-        "absolute -right-4 -top-4 w-24 h-24 blur-[64px] opacity-20 transition-opacity duration-500 group-hover:opacity-40",
-        config.bgColor.replace('/10', '/40')
+        "absolute -right-4 -top-4 w-24 h-24 blur-[64px] opacity-10 transition-opacity duration-300 group-hover:opacity-25",
+        config.bgColor
       )} />
 
       {/* Header */}
       <div className="flex items-center justify-between mb-6 relative z-10">
         <div className={cn(
-          "w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3",
+          "w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 border",
           config.bgColor,
-          "border border-white/5"
+          config.borderColor
         )}>
-          <Icon size={24} className={config.color} />
+          <Icon size={20} className={config.color} />
         </div>
         
         {newestItem ? (
           <span className={cn(
-            "inline-block text-[11px] font-bold px-3 py-1.5 rounded-full backdrop-blur-md border border-white/5 truncate max-w-[130px]",
+            "inline-block text-[10px] font-black px-3 py-1.5 rounded-full border truncate max-w-[130px] uppercase tracking-wider",
             config.bgColor,
+            config.borderColor,
             config.color
           )}>
             New: {newestItem}
           </span>
         ) : trend !== undefined ? (
           <div className={cn(
-            "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold tracking-tight backdrop-blur-md border border-white/5",
-            trend >= 0 ? "bg-emerald-500/10 text-emerald-400" : "bg-red-500/10 text-red-400"
+            "flex items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider border",
+            trend >= 0 
+              ? "bg-emerald-50 border-emerald-100 text-emerald-600" 
+              : "bg-rose-50 border-rose-100 text-rose-600"
           )}>
-            {trend >= 0 ? <TrendingUp size={12} /> : <TrendingDown size={12} />}
+            {trend >= 0 ? <TrendingUp size={10} /> : <TrendingDown size={10} />}
             {Math.abs(trend).toFixed(1)}%
           </div>
         ) : (
           <span className={cn(
-            "text-[11px] font-bold px-3 py-1.5 rounded-full backdrop-blur-md border border-white/5",
+            "text-[10px] font-black px-3 py-1.5 rounded-full border uppercase tracking-wider",
             config.bgColor,
+            config.borderColor,
             config.color
           )}>
             {count} {count === 1 ? 'item' : 'items'}
@@ -147,15 +150,15 @@ export function SummaryCard({ title, amount, count, trend, newestItem, type, ind
 
       {/* Amount & Label */}
       <div className="relative z-10">
-        <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.25em] mb-2 group-hover:text-white/60 transition-colors">
+        <p className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.25em] mb-2 group-hover:text-zinc-500 transition-colors">
           {title}
         </p>
         <div className="flex items-baseline gap-2">
-          <h3 className="text-3xl font-black tracking-tight text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.1)] group-hover:drop-shadow-[0_0_25px_rgba(255,255,255,0.2)] transition-all">
+          <h3 className="text-3xl font-black tracking-tight text-zinc-900 transition-all">
             {type === 'clients' ? count : formatCurrency(amount)}
           </h3>
           {trend !== undefined && (
-            <span className="text-[10px] font-medium text-white/20">
+            <span className="text-[10px] font-bold text-zinc-400">
               +{count} this month
             </span>
           )}
@@ -163,12 +166,12 @@ export function SummaryCard({ title, amount, count, trend, newestItem, type, ind
       </div>
 
       {/* Progress Bar (Visual decorative element) */}
-      <div className="mt-6 h-1 w-full bg-white/5 rounded-full overflow-hidden">
+      <div className="mt-6 h-1 w-full bg-zinc-100 rounded-full overflow-hidden">
         <motion.div 
           initial={{ width: 0 }}
           animate={{ width: "100%" }}
           transition={{ duration: 1, delay: 0.5 + index * 0.1 }}
-          className={cn("h-full opacity-50", config.color.replace('text-', 'bg-'))} 
+          className={cn("h-full opacity-70", config.color.replace('text-', 'bg-'))} 
         />
       </div>
     </motion.div>
