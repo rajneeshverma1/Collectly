@@ -92,3 +92,6 @@ Inspects transaction tables before processing payment success webhooks to preven
 
 ## Interactive Dashboard Charts
 Renders financial statistics using lightweight CSS/SVG charting modules for smooth scaling.
+
+## Client Search Indexing
+Maintains local search arrays to enable instant client directory filtering and matching.
