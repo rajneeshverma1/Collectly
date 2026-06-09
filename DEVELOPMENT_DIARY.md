@@ -101,3 +101,6 @@ Coordinates registration steps to setup organizations and configure payment conn
 
 ## Invoice Lifecycle State Machine
 Restricts invoice status updates to valid transitions (e.g. from draft to sent, paid, or overdue).
+
+## Local Sandbox Database Seeder
+Populates SQLite with realistic mock data for local offline developer evaluation.
