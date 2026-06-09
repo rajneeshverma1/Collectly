@@ -77,3 +77,6 @@ Maintains dashboard context using standard React Context and custom `useAuth` wr
 
 ## Global Custom Theme Configurations
 Uses CSS custom variables for glassmorphism tokens, border opacity, and color palette schemes.
+
+## Database Migration Strategy
+Applies Sequelize migration scripts to handle incremental PostgreSQL schema updates in production.
