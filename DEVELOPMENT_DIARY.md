@@ -122,3 +122,6 @@ Computes SHA256 HMAC values to validate payload origins from Razorpay servers.
 
 ## Stripe Webhook Cryptographic Handshake
 Constructs Stripe events securely using official SDK verification methods.
+
+## Next.js Turbopack Configurations
+Optimizes build setup flags to speed up local hot-module reloading during development.
