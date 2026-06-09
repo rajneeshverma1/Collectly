@@ -95,3 +95,6 @@ Renders financial statistics using lightweight CSS/SVG charting modules for smoo
 
 ## Client Search Indexing
 Maintains local search arrays to enable instant client directory filtering and matching.
+
+## Organization Onboarding Flow
+Coordinates registration steps to setup organizations and configure payment connection keys.
