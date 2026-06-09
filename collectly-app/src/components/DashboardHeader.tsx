@@ -39,7 +39,10 @@ export function DashboardHeader() {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.data.status === 'success') {
-        const transactions = res.data.data || [];
+        // Exclusively show notifications for invoices paid in full
+        const transactions = (res.data.data || []).filter(
+          (t: any) => t.Invoice?.status === 'paid'
+        );
         setNotifications(transactions);
         
         // Check if there are new payments since the last time notifications were opened
@@ -160,11 +163,11 @@ export function DashboardHeader() {
                             <DollarSign size={14} />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-xs font-bold leading-tight">Payment Captured</p>
+                            <p className="text-xs font-bold leading-tight">Full Payment Received</p>
                             <p className="text-[10px] text-zinc-500 leading-normal mt-0.5">
                               <span className="font-bold text-zinc-700">{notif.Invoice?.clientName || 'Client'}</span> paid{' '}
                               <span className="font-black text-[#f04e23]">{notif.Invoice?.currency === 'INR' ? '₹' : '$'}{notif.amount}</span>{' '}
-                              for invoice <span className="font-bold text-zinc-700">{notif.Invoice?.invoiceNumber}</span>.
+                              to settle invoice <span className="font-bold text-zinc-700">{notif.Invoice?.invoiceNumber}</span> in full.
                             </p>
                             <span className="text-[9px] text-zinc-400 font-bold block mt-1">
                               {formatRelativeTime(notif.paidAt || notif.createdAt)}
