@@ -2,12 +2,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fcfcfd;
-  --foreground: #09090b; /* Zinc 950 */
+  --background: #f3f3f6; /* Low-glare soft warm silver-grey */
+  --foreground: #18181b; /* Zinc 900 */
   --primary: #f04e23; /* YC Orange / Coral */
   --primary-foreground: #ffffff;
   --secondary: #ffffff;
-  --secondary-foreground: #09090b;
+  --secondary-foreground: #18181b;
   --muted: #f4f4f5; /* Zinc 100 */
   --muted-foreground: #71717a; /* Zinc 500 */
   --accent: #f04e23;
@@ -69,53 +69,53 @@ body {
 
 /* Custom indicator blurs override for cleaner backdrop aesthetics */
 .bg-blue-500\/5 {
-  background-color: rgba(240, 78, 35, 0.02) !important; /* YC Orange soft blur */
+  background-color: rgba(240, 78, 35, 0.01) !important; /* Extremely soft Orange blur */
 }
 .bg-indigo-600\/5 {
-  background-color: rgba(79, 70, 229, 0.02) !important; /* Indigo soft blur */
+  background-color: rgba(79, 70, 229, 0.01) !important; /* Extremely soft Indigo blur */
 }
 
 /* Sidebar override for consistent, premium white background */
-.bg-\[\#080808\] {
+.bg-\[\#ffffff\] {
   background-color: #ffffff !important;
   border-right: 1px solid #e4e4e7 !important;
 }
 
-/* Layout override for off-white canvas */
-.bg-\[\#050505\] {
-  background-color: #fafafa !important;
+/* Layout override for soft grey canvas (not blinding white) */
+.bg-\[\#fafafa\] {
+  background-color: #f3f3f6 !important;
 }
 
-/* Card container visual polishing */
+/* Card container visual polishing (solid white cards over silver background) */
 .bg-white\/\[0\.01\] {
   background-color: #ffffff !important;
   border: 1px solid #e4e4e7 !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.01), 0 2px 4px rgba(0, 0, 0, 0.02) !important;
   backdrop-filter: none !important;
 }
 
 .bg-white\/\[0\.01\]:hover {
   background-color: #ffffff !important;
   border-color: #d4d4d8 !important;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
 }
 
 /* Table row hovering */
 .hover\:bg-white\/\[0\.02\]:hover {
-  background-color: #fafafa !important;
+  background-color: #f8f8fa !important;
 }
 
 /* UI Elements Visual Refinements */
 .bg-white\/5 {
-  background-color: #f4f4f5 !important;
-  border: 1px solid #e4e4e7 !important;
+  background-color: #e4e4e7 !important;
+  border: 1px solid #d4d4d8 !important;
 }
 
 /* Search input overrides */
 input.bg-white\/5 {
   background-color: #ffffff !important;
   border: 1px solid #e4e4e7 !important;
-  color: #09090b !important;
+  color: #18181b !important;
 }
 input.bg-white\/5::placeholder {
   color: #a1a1aa !important;
@@ -128,33 +128,33 @@ input:focus {
 /* Sidebar active item styling in light mode */
 aside .bg-white.text-black {
   background-color: #f4f4f5 !important;
-  color: #09090b !important;
+  color: #18181b !important;
   box-shadow: none !important;
 }
 aside .bg-white.text-black svg {
-  color: #09090b !important;
+  color: #18181b !important;
 }
 
 /* Sidebar non-active hover background */
 aside .hover\:bg-white\/\[0\.03\]:hover {
-  background-color: #fafafa !important;
+  background-color: #f4f4f5 !important;
 }
 
 /* User profile box in sidebar */
 .bg-white\/\[0\.03\] {
-  background-color: #fafafa !important;
+  background-color: #f4f4f5 !important;
   border: 1px solid #e4e4e7 !important;
 }
 .bg-white\/\[0\.03\]:hover {
-  background-color: #f4f4f5 !important;
+  background-color: #e4e4e7 !important;
 }
 
 /* Primary Action Buttons (e.g. Create New Invoice, Upgrade Pro) */
 button.bg-white.text-black, a.bg-white.text-black {
-  background-color: #09090b !important;
+  background-color: #18181b !important;
   color: #ffffff !important;
-  border: 1px solid #09090b !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+  border: 1px solid #18181b !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06) !important;
 }
 button.bg-white.text-black:hover, a.bg-white.text-black:hover {
   background-color: #27272a !important;
@@ -164,8 +164,8 @@ button.bg-white.text-black:hover, a.bg-white.text-black:hover {
 /* Status Filter Active/Inactive States */
 .bg-white.text-black.font-bold {
   background-color: #ffffff !important;
-  color: #09090b !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  color: #18181b !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
 }
 
 /* Header styling override */
@@ -178,7 +178,7 @@ header.h-20 {
 header input {
   background-color: #f4f4f5 !important;
   border-color: #e4e4e7 !important;
-  color: #09090b !important;
+  color: #18181b !important;
 }
 header input:focus {
   background-color: #ffffff !important;
@@ -200,7 +200,7 @@ header input:focus {
   background-color: #e4e4e7 !important;
 }
 
-.border-\[\#050505\] {
+.border-\[\#ffffff\] {
   border-color: #ffffff !important;
 }
 
@@ -218,16 +218,16 @@ header input:focus {
 
 /* Text Colors Hierarchy */
 .text-white {
-  color: #09090b !important;
+  color: #18181b !important;
 }
 .text-white\/20 {
-  color: #a1a1aa !important; /* Zinc-400 */
-}
-.text-white\/30 {
   color: #71717a !important; /* Zinc-500 */
 }
-.text-white\/40 {
+.text-white\/30 {
   color: #52525b !important; /* Zinc-600 */
+}
+.text-white\/40 {
+  color: #3f3f46 !important; /* Zinc-700 */
 }
 .text-white\/60 {
   color: #27272a !important; /* Zinc-800 */
@@ -286,13 +286,13 @@ svg circle[fill="#10b981"], svg circle[fill="#34d399"] {
   fill: #059669 !important;
 }
 svg line {
-  stroke: rgba(0, 0, 0, 0.06) !important;
+  stroke: rgba(0, 0, 0, 0.05) !important;
 }
 
 /* Text selections & scrollbars */
 ::selection {
-  background-color: rgba(240, 78, 35, 0.15);
-  color: #09090b;
+  background-color: rgba(240, 78, 35, 0.12);
+  color: #18181b;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -304,10 +304,10 @@ svg line {
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.08);
+  background: rgba(0, 0, 0, 0.06);
   border-radius: 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.15);
+  background: rgba(0, 0, 0, 0.12);
 }
