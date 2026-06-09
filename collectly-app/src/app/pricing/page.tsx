@@ -115,7 +115,7 @@ export default function PricingPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-indigo-500/30 overflow-x-hidden">
+    <div className="min-h-screen bg-[#fafafa] text-white font-sans selection:bg-indigo-500/30 overflow-x-hidden">
       <Navbar />
 
       {/* Hero Ambient Glows */}

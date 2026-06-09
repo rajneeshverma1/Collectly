@@ -21,11 +21,11 @@ export function DashboardHeader() {
       <div className="flex items-center gap-5">
         <div className="flex -space-x-3 hover:-space-x-1 transition-all duration-300">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="w-8 h-8 rounded-full border-2 border-[#050505] bg-neutral-800 flex items-center justify-center overflow-hidden hover:scale-110 transition-transform cursor-pointer">
+            <div key={i} className="w-8 h-8 rounded-full border-2 border-[#ffffff] bg-neutral-800 flex items-center justify-center overflow-hidden hover:scale-110 transition-transform cursor-pointer">
                <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i + 10}`} alt="User" />
             </div>
           ))}
-          <div className="w-8 h-8 rounded-full border-2 border-[#050505] bg-white/5 flex items-center justify-center text-[10px] font-bold hover:scale-110 transition-transform cursor-pointer">
+          <div className="w-8 h-8 rounded-full border-2 border-[#ffffff] bg-white/5 flex items-center justify-center text-[10px] font-bold hover:scale-110 transition-transform cursor-pointer">
             +12
           </div>
         </div>
@@ -34,7 +34,7 @@ export function DashboardHeader() {
           <div className="w-11 h-11 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center group-hover:bg-white/[0.08] transition-all">
             <Bell size={20} className="text-white/60 group-hover:text-white transition-colors" />
           </div>
-          <div className="absolute top-2.5 right-2.5 w-2 h-2 bg-blue-500 rounded-full border-2 border-[#050505]"></div>
+          <div className="absolute top-2.5 right-2.5 w-2 h-2 bg-blue-500 rounded-full border-2 border-[#ffffff]"></div>
         </div>
       </div>
     </header>

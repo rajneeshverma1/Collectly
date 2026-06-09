@@ -300,7 +300,7 @@ export default function InvoicesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white p-10 font-sans">
+    <div className="min-h-screen bg-[#fafafa] text-white p-10 font-sans">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-12">

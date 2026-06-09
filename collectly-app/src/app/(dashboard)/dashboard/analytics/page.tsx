@@ -139,7 +139,7 @@ export default function AnalyticsPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white p-10 font-sans">
+    <div className="min-h-screen bg-[#fafafa] text-white p-10 font-sans">
       <div className="max-w-7xl mx-auto">
         
         {/* Header */}

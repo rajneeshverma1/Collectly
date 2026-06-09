@@ -45,7 +45,7 @@ export function Sidebar() {
   if (!user) return null;
 
   return (
-    <aside className="w-72 border-r border-white/[0.05] bg-[#080808] flex flex-col p-6 hidden lg:flex">
+    <aside className="w-72 border-r border-zinc-200 bg-[#ffffff] flex flex-col p-6 hidden lg:flex">
       <div className="flex items-center gap-3 px-2 mb-12">
         <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow-[0_0_20px_rgba(255,255,255,0.2)]">
           <div className="w-5 h-5 rounded-[4px] border-2 border-black"></div>
@@ -113,7 +113,7 @@ export function Sidebar() {
                 alt="Avatar"
                 className="w-10 h-10 rounded-full border border-white/10"
               />
-              <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 border-[#080808] rounded-full"></div>
+              <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 border-[#ffffff] rounded-full"></div>
             </div>
             <div className="overflow-hidden">
               <p className="text-sm font-bold truncate leading-tight">{user.firstName} {user.lastName}</p>

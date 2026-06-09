@@ -125,7 +125,7 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white p-10 font-sans">
+    <div className="min-h-screen bg-[#fafafa] text-white p-10 font-sans">
       <div className="max-w-4xl mx-auto">
         
         {/* Header */}

@@ -273,7 +273,7 @@ export default function ClientPayPortal() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#050505] text-white flex flex-col items-center justify-center gap-4">
+      <div className="min-h-screen bg-[#fafafa] text-white flex flex-col items-center justify-center gap-4">
         <Loader2 className="animate-spin text-white/30" size={32} />
         <p className="text-white/40 text-sm font-medium">Securing connection to invoice vault...</p>
       </div>
@@ -282,7 +282,7 @@ export default function ClientPayPortal() {
 
   if (error || !invoice || !gateways) {
     return (
-      <div className="min-h-screen bg-[#050505] text-white flex items-center justify-center p-6">
+      <div className="min-h-screen bg-[#fafafa] text-white flex items-center justify-center p-6">
         <div className="max-w-md w-full bg-white/[0.02] border border-white/10 rounded-[40px] p-10 text-center">
           <div className="w-16 h-16 bg-red-500/10 border border-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6 text-red-400">
             <AlertCircle size={28} />
@@ -301,7 +301,7 @@ export default function ClientPayPortal() {
   }
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white flex items-center justify-center p-6 font-sans relative overflow-hidden">
+    <div className="min-h-screen bg-[#fafafa] text-white flex items-center justify-center p-6 font-sans relative overflow-hidden">
       
       {/* Dynamic Background Blurs */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-600/10 blur-[130px] rounded-full -mr-72 -mt-72 pointer-events-none" />
