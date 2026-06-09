@@ -119,3 +119,6 @@ Decodes external authentication tokens inside Express routing middleware.
 
 ## Razorpay Signature HMAC Verification
 Computes SHA256 HMAC values to validate payload origins from Razorpay servers.
+
+## Stripe Webhook Cryptographic Handshake
+Constructs Stripe events securely using official SDK verification methods.
