@@ -9,7 +9,7 @@ Collectly is a high-fidelity, premium SaaS billing, invoicing, and payment colle
 
 ## 📋 Table of Contents
 1. [🎨 Premium Features & Architecture](#-premium-features--architecture)
-2. [ERD Diagram](#-architectural-associations)
+2. [🏗️ System Design & Architecture](#-system-design--architecture)
 3. [📂 Project Directory Structure](#-project-directory-structure)
 4. [📡 REST API Endpoint Directory](#-rest-api-endpoint-directory)
 5. [⚙️ Fast-Track Developer Setup](#-fast-track-developer-setup)
@@ -40,9 +40,39 @@ Collectly is a high-fidelity, premium SaaS billing, invoicing, and payment colle
 - High-fidelity **Mock Authentication Sandbox** completely skips Clerk CDN scripts during outages.
 - Local SQLite database pre-seeded with mockup parameters enables offline sandbox runs immediately.
 
-## 🏗️ Architectural Associations
+## 🏗️ System Design & Architecture
 
-The database associations map Sequelize SQLite/PostgreSQL tables seamlessly:
+### 1. High-Level Architecture Overview
+Collectly is built on a decoupled **Client-Server Architecture** separating the Next.js frontend, an Express/Sequelize API gateway, and external authentication, payment, and mailing microservices.
+
+```mermaid
+graph TD
+    subgraph Client Tier [Client Tier - Frontend Next.js]
+        A[Next.js App Router] -->|User Interface & State| B[Framer Motion & Glassmorphic Dashboards]
+        A -->|Authentication Handshake| C[Clerk Auth / Local Mock Sandbox]
+    end
+
+    subgraph Application Tier [Application Tier - Express API]
+        D[Express.js Server]
+        E[Auth Security Middleware] -->|Verify JWT / Session| D
+        F[Scheduler Service Worker] -->|Background Automation| G[Reminder Dispatcher]
+        H[Payment Webhook Handlers] -->|Signature Validation| D
+    end
+
+    subgraph Storage & Services [Storage & Third-Party Integration]
+        D -->|Sequelize ORM| I[(SQLite / PostgreSQL Database)]
+        G -->|SMTP Dispatch| J[Nodemailer / Mail Server]
+        D -->|REST Client| K[Stripe Connect Gateway]
+        D -->|REST Client| L[Razorpay Secure Gateway]
+    end
+
+    A -->|HTTPS Requests / Bearer Token| E
+    K -.->|Webhook Events| H
+    L -.->|Webhook Events| H
+```
+
+### 2. Database Schema & ERD
+The database schema uses Sequelize to map relationships between organizations, users, clients, invoices, payments, and communication logs:
 
 ```mermaid
 erDiagram
@@ -53,6 +83,58 @@ erDiagram
     Client ||--o{ EmailLog : logs
     Invoice ||--o{ Payment : clears
     Invoice ||--o{ EmailLog : registers
+```
+
+### 3. Invoice Reminder Lifecycle & Logic Flow
+The background automated **Reminder Service** tracks due dates and organization settings to automate outreach.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Worker as Scheduler Worker (Cron)
+    participant DB as SQLite / PostgreSQL Database
+    participant Mailer as SMTP Mailer Service
+    participant Client as Client Recipient
+
+    Note over Worker, DB: Scheduled service runs daily at midnight
+    Worker->>DB: Query unpaid invoices (draft, sent, overdue)
+    DB-->>Worker: Return outstanding invoices list
+    loop For each unpaid invoice
+        Worker->>Worker: Evaluate due date proximity & Org reminder policy
+        alt Days remaining matches reminderBeforeDueDays
+            Worker->>Mailer: Dispatch Upcoming Due Alert
+            Mailer->>Client: Send email notification
+            Worker->>DB: Create EmailLog entry
+        else Due date matches today (reminderOnDueDate)
+            Worker->>Mailer: Dispatch Invoice Due Today Alert
+            Mailer->>Client: Send email notification
+            Worker->>DB: Create EmailLog entry
+        else Past due date matches reminderAfterDueDays
+            Worker->>DB: Update Invoice status to "overdue"
+            Worker->>Mailer: Dispatch Overdue Warning Alert
+            Mailer->>Client: Send email notification
+            Worker->>DB: Create EmailLog entry
+        end
+    end
+```
+
+### 4. Webhook Ingestion & Double-Payment Guards
+Security and transactional consistency are maintained through webhook validation and state guards.
+
+```mermaid
+flowchart TD
+    A[Stripe / Razorpay API] -->|POST Webhook Event| B[Webhook Router]
+    B --> C{Verify Webhook Signature?}
+    C -->|No| D[Log Security Warning & Return 400 Bad Request]
+    C -->|Yes| E[Extract Invoice ID & Transaction ID]
+    E --> F{Check DB: Transaction ID already processed?}
+    F -->|Yes| G[Log Duplicate Event & Return 200 OK]
+    F -->|No| H[Begin SQL Transaction]
+    H --> I[Update Invoice Status to 'paid']
+    I --> J[Insert Payment Record with Transaction ID]
+    J --> K[Log SMTP Payment Receipt Email]
+    K --> L[Commit SQL Transaction]
+    L --> M[Send 200 OK to Payment Provider]
 ```
 
 ## 📂 Project Directory Structure
