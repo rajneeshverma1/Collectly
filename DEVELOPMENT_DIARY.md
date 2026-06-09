@@ -89,3 +89,6 @@ Compiles HTML emails for payment notifications, receipts, and invoice links.
 
 ## Double-Payment Guard Logic
 Inspects transaction tables before processing payment success webhooks to prevent duplicate credits.
+
+## Interactive Dashboard Charts
+Renders financial statistics using lightweight CSS/SVG charting modules for smooth scaling.
