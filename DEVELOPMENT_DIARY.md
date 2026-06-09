@@ -74,3 +74,6 @@ Planned milestones include Twilio Voice/SMS real-time AI conversation integratio
 
 ## Frontend State Management Hook
 Maintains dashboard context using standard React Context and custom `useAuth` wrappers.
+
+## Global Custom Theme Configurations
+Uses CSS custom variables for glassmorphism tokens, border opacity, and color palette schemes.
