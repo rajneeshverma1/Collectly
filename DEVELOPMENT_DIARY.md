@@ -131,3 +131,6 @@ Implements database connection recycling to maintain backend stability under loa
 
 ## Global Application Error Handler
 Intercepts server exceptions to output structured, user-friendly JSON messages.
+
+## Dynamic YC Light Theme Custom CSS Variables
+Implements dynamic CSS custom variables mapping to soft, low-glare silver-grey canvas backgrounds and high-contrast charcoal typography.
