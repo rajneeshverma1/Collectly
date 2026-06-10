@@ -164,3 +164,6 @@ Updates key metric tiles and typography inside the primary overview deck to supp
 
 ## JWT Auth Header Injection Interceptors
 Configures Axios interceptors to automatically attach JWT authorization tokens to out-going API calls.
+
+## SQLite Database Connection Query Logging
+Configures custom Sequelize logging rules to print formatted SQL queries in the development console.
