@@ -146,3 +146,6 @@ Configures the financial analytics line charts and tooltips to support clean, li
 
 ## Credentials and Reminders Settings Layout Overhaul
 Aligns settings page credentials inputs, connector indicators, and reminder configuration options with YC styling.
+
+## Client Checkout Pay Portal Design Integration
+Updates public payment checkout screens to feature clean, light-grey boxes and high-contrast transaction logs.
