@@ -39,7 +39,7 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <div className="pb-6 text-sm text-zinc-500 leading-relaxed max-w-2xl">
+            <div className="pb-6 text-sm text-zinc-500 leading-relaxed max-w-4xl">
               {answer}
             </div>
           </motion.div>
@@ -73,13 +73,13 @@ export const FAQSection = () => {
     },
     {
       question: "What happens if the payment fails?",
-      answer: "If a payment fails, our AI agent can gracefully handle the error, explain the reason to the caller, and offer alternative payment methods or retry options immediately.",
+      answer: "If a payment failed, our AI agent can gracefully handle the error, explain the reason to the caller, and offer alternative payment methods or retry options immediately.",
     },
   ];
 
   return (
     <section className="pt-24 pb-12 px-6 bg-[#0B0B0F]">
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
