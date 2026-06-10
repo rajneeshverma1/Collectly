@@ -143,3 +143,6 @@ Overhauls client listings, directory filters, and search bar inputs to match the
 
 ## Analytics Page Responsive Recharts Visual Settings
 Configures the financial analytics line charts and tooltips to support clean, light-mode background and grid borders.
+
+## Credentials and Reminders Settings Layout Overhaul
+Aligns settings page credentials inputs, connector indicators, and reminder configuration options with YC styling.
