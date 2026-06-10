@@ -167,3 +167,6 @@ Configures Axios interceptors to automatically attach JWT authorization tokens t
 
 ## SQLite Database Connection Query Logging
 Configures custom Sequelize logging rules to print formatted SQL queries in the development console.
+
+## Local Node.js Development CORS Policy Settings
+Sets up unified CORS origins, Helmet protections, and server port alignments for dashboard integration.
