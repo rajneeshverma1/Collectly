@@ -56,7 +56,7 @@ const Navbar = () => {
           paddingBottom: navPy,
         }}
         transition={{ ease: "easeInOut" }}
-        className="fixed z-50 left-1/2 -translate-x-1/2 max-w-7xl rounded-[24px] border py-4">
+        className="fixed z-50 left-1/2 -translate-x-1/2 max-w-[900px] rounded-[24px] border py-4">
         <div className="flex justify-between items-center w-full mx-auto">
           {/* Logo */}
           <div className="flex items-center">
