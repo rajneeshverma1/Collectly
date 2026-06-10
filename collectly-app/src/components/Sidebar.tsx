@@ -31,7 +31,7 @@ const SidebarItem = ({ icon: Icon, label, href, active }: { icon: any, label: st
     {active && (
       <motion.div 
         layoutId="sidebar-active"
-        className="absolute inset-0 bg-zinc-900 rounded-xl -z-10"
+        className="absolute inset-0 bg-[#f04e23] rounded-xl -z-10"
         transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
       />
     )}
@@ -48,7 +48,7 @@ export function Sidebar() {
     <aside className="w-72 border-r border-zinc-200 bg-[#ffffff] flex flex-col p-6 hidden lg:flex">
       <div className="flex items-center gap-3 px-2 mb-12">
         <div className="w-10 h-10 rounded-xl bg-zinc-50 border border-zinc-200 flex items-center justify-center">
-          <div className="w-5 h-5 rounded-[4px] border-2 border-zinc-900 bg-zinc-900"></div>
+          <div className="w-5 h-5 rounded-[4px] border-2 border-[#f04e23] bg-[#f04e23]"></div>
         </div>
         <span className="text-lg font-black tracking-tighter uppercase italic text-zinc-900">COLLECTLY</span>
       </div>
@@ -120,7 +120,7 @@ export function Sidebar() {
               <p className="text-[11px] text-zinc-400 font-medium truncate">{user.emailAddresses?.[0]?.emailAddress}</p>
             </div>
           </div>
-          <button className="w-full flex items-center justify-center gap-2 py-2 bg-zinc-900 hover:bg-zinc-800 text-white rounded-xl text-[11px] font-black uppercase tracking-wider transition-all cursor-pointer shadow-sm">
+          <button className="w-full flex items-center justify-center gap-2 py-2 bg-[#f04e23] hover:bg-[#d83f18] text-white rounded-xl text-[11px] font-black uppercase tracking-wider transition-all cursor-pointer shadow-sm">
             <span>Upgrade Pro</span> <Plus size={12} />
           </button>
         </div>
