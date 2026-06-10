@@ -152,3 +152,6 @@ Updates public payment checkout screens to feature clean, light-grey boxes and h
 
 ## Sidebar Navigation Active State Indicators
 Implements active black menu highlights, category markers, and profile widget cards inside the main dashboard sidebar.
+
+## Dashboard Header Dynamic Payments Notification System
+Implements a real-time polling webhook listener filtering successful full-payment transactions into an animated notifications drawer.
