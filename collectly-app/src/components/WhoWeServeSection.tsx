@@ -55,7 +55,7 @@ export const WhoWeServeSection: React.FC = () => {
 
   return (
     <section className="relative bg-[#0B0B0F] py-16 md:py-24 overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-5xl mx-auto px-6">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
