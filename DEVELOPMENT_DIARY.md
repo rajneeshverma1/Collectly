@@ -149,3 +149,6 @@ Aligns settings page credentials inputs, connector indicators, and reminder conf
 
 ## Client Checkout Pay Portal Design Integration
 Updates public payment checkout screens to feature clean, light-grey boxes and high-contrast transaction logs.
+
+## Sidebar Navigation Active State Indicators
+Implements active black menu highlights, category markers, and profile widget cards inside the main dashboard sidebar.
