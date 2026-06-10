@@ -173,3 +173,6 @@ Sets up unified CORS origins, Helmet protections, and server port alignments for
 
 ## Client Agreement Gate Terms Signing Portal
 Updates the business agreement contract acceptance portal to support clean silver-grey background boxes and solid black actions.
+
+## Offline Fallback Authorization Sandbox Mocks
+Documents simulated local session objects and bypass routes active when local Clerk auth servers are suspended.
