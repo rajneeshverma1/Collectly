@@ -2,18 +2,18 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f3f3f6; /* Low-glare soft warm silver-grey */
-  --foreground: #18181b; /* Zinc 900 */
+  --background: #0B0B0F; /* Landing page native dark theme */
+  --foreground: #ffffff;
   --primary: #f04e23; /* YC Orange / Coral */
   --primary-foreground: #ffffff;
-  --secondary: #ffffff;
-  --secondary-foreground: #18181b;
-  --muted: #f4f4f5; /* Zinc 100 */
-  --muted-foreground: #71717a; /* Zinc 500 */
+  --secondary: #18181b;
+  --secondary-foreground: #ffffff;
+  --muted: #18181b;
+  --muted-foreground: #a1a1aa;
   --accent: #f04e23;
   --accent-foreground: #ffffff;
-  --border: #e4e4e7; /* Zinc 200 */
-  --input: #e4e4e7;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.1);
   --ring: #f04e23;
   --radius: 0.75rem;
 }
@@ -38,21 +38,21 @@
   --radius-sm: calc(var(--radius) - 4px);
   --font-sans: var(--font-maven), ui-sans-serif, system-ui;
 
-  /* Overriding default Tailwind colors to match a cohesive, premium light palette */
-  --color-blue-400: #f04e23; /* YC Orange */
+  /* Cohesive accents */
+  --color-blue-400: #f04e23;
   --color-blue-500: #e03e16;
   --color-blue-600: #b02e09;
   
-  --color-emerald-400: #10b981; /* Mint Sage Success */
+  --color-emerald-400: #10b981;
   --color-emerald-500: #059669;
   
-  --color-red-400: #e11d48; /* Red/Crimson Overdue Alert */
+  --color-red-400: #e11d48;
   --color-red-500: #be123c;
   
-  --color-amber-400: #d97706; /* Due warning */
+  --color-amber-400: #d97706;
   --color-amber-500: #b45309;
   
-  --color-indigo-400: #4f46e5; /* Indigo client metrics */
+  --color-indigo-400: #4f46e5;
   --color-indigo-500: #4338ca;
 }
 
@@ -67,230 +67,251 @@ body {
   overflow-x: hidden;
 }
 
-/* Custom indicator blurs override for cleaner backdrop aesthetics */
-.bg-blue-500\/5 {
-  background-color: rgba(240, 78, 35, 0.01) !important; /* Extremely soft Orange blur */
+/* ==========================================================
+   DASHBOARD SCOPED STYLES (YC WHITISH LIGHT THEME)
+   ========================================================== */
+
+.dashboard-layout-theme {
+  --background: #f3f3f6; /* Soft warm silver-grey background */
+  --foreground: #18181b; /* Zinc 900 primary text */
+  --border: #e4e4e7; /* Zinc 200 borders */
+  --input: #e4e4e7;
+  
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
 }
-.bg-indigo-600\/5 {
-  background-color: rgba(79, 70, 229, 0.01) !important; /* Extremely soft Indigo blur */
+
+/* Custom indicator blurs override for cleaner backdrop aesthetics */
+.dashboard-layout-theme .bg-blue-500\/5 {
+  background-color: rgba(240, 78, 35, 0.01) !important;
+}
+.dashboard-layout-theme .bg-indigo-600\/5 {
+  background-color: rgba(79, 70, 229, 0.01) !important;
 }
 
 /* Sidebar override for consistent, premium white background */
-.bg-\[\#ffffff\] {
+.dashboard-layout-theme .bg-\[\#ffffff\] {
   background-color: #ffffff !important;
   border-right: 1px solid #e4e4e7 !important;
 }
 
-/* Layout override for soft grey canvas (not blinding white) */
-.bg-\[\#fafafa\] {
+/* Layout override for soft grey canvas */
+.dashboard-layout-theme.bg-\[\#fafafa\], .dashboard-layout-theme .bg-\[\#fafafa\] {
   background-color: #f3f3f6 !important;
 }
 
-/* Card container visual polishing (solid white cards over silver background) */
-.bg-white\/\[0\.01\] {
+/* Card container visual polishing */
+.dashboard-layout-theme .bg-white\/\[0\.01\] {
   background-color: #ffffff !important;
   border: 1px solid #e4e4e7 !important;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.01), 0 2px 4px rgba(0, 0, 0, 0.02) !important;
   backdrop-filter: none !important;
 }
 
-.bg-white\/\[0\.01\]:hover {
+.dashboard-layout-theme .bg-white\/\[0\.01\]:hover {
   background-color: #ffffff !important;
   border-color: #d4d4d8 !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
 }
 
 /* Table row hovering */
-.hover\:bg-white\/\[0\.02\]:hover {
+.dashboard-layout-theme .hover\:bg-white\/\[0\.02\]:hover {
   background-color: #f8f8fa !important;
 }
 
 /* UI Elements Visual Refinements */
-.bg-white\/5 {
+.dashboard-layout-theme .bg-white\/5 {
   background-color: #e4e4e7 !important;
   border: 1px solid #d4d4d8 !important;
 }
 
 /* Search input overrides */
-input.bg-white\/5 {
+.dashboard-layout-theme input.bg-white\/5 {
   background-color: #ffffff !important;
   border: 1px solid #e4e4e7 !important;
   color: #18181b !important;
 }
-input.bg-white\/5::placeholder {
+.dashboard-layout-theme input.bg-white\/5::placeholder {
   color: #a1a1aa !important;
 }
 
-input:focus {
+.dashboard-layout-theme input:focus {
   border-color: rgba(240, 78, 35, 0.4) !important;
 }
 
 /* Sidebar active item styling in light mode */
-aside .bg-white.text-black {
+.dashboard-layout-theme aside .bg-white.text-black {
   background-color: #f4f4f5 !important;
   color: #18181b !important;
   box-shadow: none !important;
 }
-aside .bg-white.text-black svg {
+.dashboard-layout-theme aside .bg-white.text-black svg {
   color: #18181b !important;
 }
 
 /* Sidebar non-active hover background */
-aside .hover\:bg-white\/\[0\.03\]:hover {
+.dashboard-layout-theme aside .hover\:bg-white\/\[0\.03\]:hover {
   background-color: #f4f4f5 !important;
 }
 
 /* User profile box in sidebar */
-.bg-white\/\[0\.03\] {
+.dashboard-layout-theme .bg-white\/\[0\.03\] {
   background-color: #f4f4f5 !important;
   border: 1px solid #e4e4e7 !important;
 }
-.bg-white\/\[0\.03\]:hover {
+.dashboard-layout-theme .bg-white\/\[0\.03\]:hover {
   background-color: #e4e4e7 !important;
 }
 
 /* Primary Action Buttons (e.g. Create New Invoice, Upgrade Pro) */
-button.bg-white.text-black, a.bg-white.text-black, button.bg-zinc-900, a.bg-zinc-900 {
+.dashboard-layout-theme button.bg-white.text-black, 
+.dashboard-layout-theme a.bg-white.text-black, 
+.dashboard-layout-theme button.bg-zinc-900, 
+.dashboard-layout-theme a.bg-zinc-900 {
   background-color: var(--primary) !important;
   color: #ffffff !important;
   border: 1px solid var(--primary) !important;
   box-shadow: 0 4px 12px rgba(240, 78, 35, 0.15) !important;
 }
-button.bg-white.text-black:hover, a.bg-white.text-black:hover, button.bg-zinc-900:hover, a.bg-zinc-900:hover {
+.dashboard-layout-theme button.bg-white.text-black:hover, 
+.dashboard-layout-theme a.bg-white.text-black:hover, 
+.dashboard-layout-theme button.bg-zinc-900:hover, 
+.dashboard-layout-theme a.bg-zinc-900:hover {
   background-color: #d83f18 !important;
   border-color: #d83f18 !important;
 }
 
 /* Status Filter Active/Inactive States */
-.bg-white.text-black.font-bold {
+.dashboard-layout-theme .bg-white.text-black.font-bold {
   background-color: #ffffff !important;
   color: #18181b !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
 }
 
 /* Header styling override */
-header.h-20 {
+.dashboard-layout-theme header.h-20 {
   background-color: rgba(255, 255, 255, 0.8) !important;
   border-color: #e4e4e7 !important;
   backdrop-filter: blur(20px) !important;
 }
 
-header input {
+.dashboard-layout-theme header input {
   background-color: #f4f4f5 !important;
   border-color: #e4e4e7 !important;
   color: #18181b !important;
 }
-header input:focus {
+.dashboard-layout-theme header input:focus {
   background-color: #ffffff !important;
   border-color: rgba(240, 78, 35, 0.4) !important;
   box-shadow: 0 0 0 2px rgba(240, 78, 35, 0.1) !important;
 }
 
-.bg-white\/5.text-\[10px\] {
+.dashboard-layout-theme .bg-white\/5.text-\[10px\] {
   background-color: #ffffff !important;
   border-color: #e4e4e7 !important;
   color: #71717a !important;
 }
 
-.bg-white\/\[0\.03\].border-white\/10 {
+.dashboard-layout-theme .bg-white\/\[0\.03\].border-white\/10 {
   background-color: #f4f4f5 !important;
   border-color: #e4e4e7 !important;
 }
-.bg-white\/\[0\.03\].border-white\/10:hover {
+.dashboard-layout-theme .bg-white\/\[0\.03\].border-white\/10:hover {
   background-color: #e4e4e7 !important;
 }
 
-.border-\[\#ffffff\] {
+.dashboard-layout-theme .border-\[\#ffffff\] {
   border-color: #ffffff !important;
 }
 
 /* Toast overrides for light mode */
-.bg-emerald-950\/80 {
+.dashboard-layout-theme .bg-emerald-950\/80 {
   background-color: #f0fdf4 !important;
   color: #166534 !important;
   border-color: #bbf7d0 !important;
 }
-.bg-red-950\/80 {
+.dashboard-layout-theme .bg-red-950\/80 {
   background-color: #fef2f2 !important;
   color: #991b1b !important;
   border-color: #fecaca !important;
 }
 
 /* Text Colors Hierarchy */
-.text-white {
+.dashboard-layout-theme .text-white {
   color: #18181b !important;
 }
-.text-white\/20 {
-  color: #71717a !important; /* Zinc-500 */
+.dashboard-layout-theme .text-white\/20 {
+  color: #71717a !important;
 }
-.text-white\/30 {
-  color: #52525b !important; /* Zinc-600 */
+.dashboard-layout-theme .text-white\/30 {
+  color: #52525b !important;
 }
-.text-white\/40 {
-  color: #3f3f46 !important; /* Zinc-700 */
+.dashboard-layout-theme .text-white\/40 {
+  color: #3f3f46 !important;
 }
-.text-white\/60 {
-  color: #27272a !important; /* Zinc-800 */
+.dashboard-layout-theme .text-white\/60 {
+  color: #27272a !important;
 }
 
-/* Badges styling: keeping text highly readable on light backgrounds */
-.bg-emerald-500\/10 {
+/* Badges styling */
+.dashboard-layout-theme .bg-emerald-500\/10 {
   background-color: rgba(16, 185, 129, 0.1) !important;
   color: #065f46 !important;
   border-color: rgba(16, 185, 129, 0.2) !important;
 }
-.bg-red-500\/10 {
+.dashboard-layout-theme .bg-red-500\/10 {
   background-color: rgba(225, 29, 72, 0.1) !important;
   color: #9f1239 !important;
   border-color: rgba(225, 29, 72, 0.2) !important;
 }
-.bg-blue-500\/10 {
+.dashboard-layout-theme .bg-blue-500\/10 {
   background-color: rgba(240, 78, 35, 0.1) !important;
   color: #9a2c14 !important;
   border-color: rgba(240, 78, 35, 0.2) !important;
 }
 
 /* Tables styling */
-table th {
+.dashboard-layout-theme table th {
   border-bottom: 1px solid #e4e4e7 !important;
 }
-table tr {
+.dashboard-layout-theme table tr {
   border-bottom: 1px solid #f4f4f5 !important;
 }
 
-/* Overdue Action alert box in light mode */
-.bg-red-950\/10 {
+/* Overdue Action alert box */
+.dashboard-layout-theme .bg-red-950\/10 {
   background-color: #fff5f5 !important;
   border: 1px solid #fed7d7 !important;
 }
-.bg-red-950\/10 .text-red-400 {
+.dashboard-layout-theme .bg-red-950\/10 .text-red-400 {
   color: #c53030 !important;
 }
-.bg-red-950\/10 button {
+.dashboard-layout-theme .bg-red-950\/10 button {
   background-color: #fff5f5 !important;
   color: #c53030 !important;
   border-color: #feb2b2 !important;
 }
-.bg-red-950\/10 button:hover {
+.dashboard-layout-theme .bg-red-950\/10 button:hover {
   background-color: #fed7d7 !important;
 }
 
-/* Style SVG trend line and points to use a refined mint green color */
-svg path[stroke="#10b981"] {
+/* SVG trends overrides */
+.dashboard-layout-theme svg path[stroke="#10b981"] {
   stroke: #059669 !important;
 }
-svg stop[stop-color="#10b981"] {
+.dashboard-layout-theme svg stop[stop-color="#10b981"] {
   stop-color: #059669 !important;
 }
-svg circle[fill="#10b981"], svg circle[fill="#34d399"] {
+.dashboard-layout-theme svg circle[fill="#10b981"], 
+.dashboard-layout-theme svg circle[fill="#34d399"] {
   fill: #059669 !important;
 }
-svg line {
+.dashboard-layout-theme svg line {
   stroke: rgba(0, 0, 0, 0.05) !important;
 }
 
-/* Text selections & scrollbars */
-::selection {
+/* Selection */
+.dashboard-layout-theme ::selection {
   background-color: rgba(240, 78, 35, 0.12);
   color: #18181b;
 }

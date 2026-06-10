@@ -30,7 +30,7 @@ export default function AgreementPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f3f3f6] text-zinc-800 flex items-center justify-center p-6">
+    <div className="min-h-screen bg-[#f3f3f6] text-zinc-800 flex items-center justify-center p-6 dashboard-layout-theme">
       
       <motion.div 
         initial={{ opacity: 0, y: 20 }}

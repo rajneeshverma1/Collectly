@@ -290,7 +290,7 @@ export default function ClientPayPortal() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f3f3f6] text-zinc-850 flex items-center justify-center p-6 font-sans relative overflow-hidden">
+    <div className="min-h-screen bg-[#f3f3f6] text-zinc-850 flex items-center justify-center p-6 font-sans relative overflow-hidden dashboard-layout-theme">
       
       <div className="max-w-4xl w-full grid grid-cols-1 md:grid-cols-12 gap-8 relative z-10">
         
