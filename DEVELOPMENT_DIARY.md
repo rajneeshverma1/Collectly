@@ -155,3 +155,6 @@ Implements active black menu highlights, category markers, and profile widget ca
 
 ## Dashboard Header Dynamic Payments Notification System
 Implements a real-time polling webhook listener filtering successful full-payment transactions into an animated notifications drawer.
+
+## Dedicated Notifications Route Registry
+Creates a new dedicated dashboard route under `/dashboard/notifications` to list historical client payments.
