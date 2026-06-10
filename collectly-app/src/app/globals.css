@@ -2,19 +2,19 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0B0B0F; /* Landing page native dark theme */
+  --background: #000000; /* Original landing page dark background */
   --foreground: #ffffff;
-  --primary: #f04e23; /* YC Orange / Coral */
+  --primary: #3b82f6; /* Original landing page primary blue */
   --primary-foreground: #ffffff;
-  --secondary: #18181b;
+  --secondary: #0f172a;
   --secondary-foreground: #ffffff;
-  --muted: #18181b;
-  --muted-foreground: #a1a1aa;
-  --accent: #f04e23;
-  --accent-foreground: #ffffff;
-  --border: rgba(255, 255, 255, 0.1);
-  --input: rgba(255, 255, 255, 0.1);
-  --ring: #f04e23;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --accent: #f1f5f9;
+  --accent-foreground: #0f172a;
+  --border: #1a1a1a;
+  --input: #e2e8f0;
+  --ring: #3b82f6;
   --radius: 0.75rem;
 }
 
@@ -37,23 +37,6 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
   --font-sans: var(--font-maven), ui-sans-serif, system-ui;
-
-  /* Cohesive accents */
-  --color-blue-400: #f04e23;
-  --color-blue-500: #e03e16;
-  --color-blue-600: #b02e09;
-  
-  --color-emerald-400: #10b981;
-  --color-emerald-500: #059669;
-  
-  --color-red-400: #e11d48;
-  --color-red-500: #be123c;
-  
-  --color-amber-400: #d97706;
-  --color-amber-500: #b45309;
-  
-  --color-indigo-400: #4f46e5;
-  --color-indigo-500: #4338ca;
 }
 
 * {
@@ -61,10 +44,28 @@
 }
 
 body {
-  background: var(--background);
+  background: #0B0B0F; /* Landing page base dark background */
   color: var(--foreground);
   font-feature-settings: "rlig" 1, "calt" 1;
   overflow-x: hidden;
+}
+
+/* Landing page custom scrollbars */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 /* ==========================================================
@@ -72,13 +73,39 @@ body {
    ========================================================== */
 
 .dashboard-layout-theme {
-  --background: #f3f3f6; /* Soft warm silver-grey background */
+  --background: #f3f3f6; /* Low-glare soft warm silver-grey background */
   --foreground: #18181b; /* Zinc 900 primary text */
-  --border: #e4e4e7; /* Zinc 200 borders */
+  --primary: #f04e23; /* YC Orange / Coral */
+  --primary-foreground: #ffffff;
+  --secondary: #ffffff;
+  --secondary-foreground: #18181b;
+  --muted: #f4f4f5; /* Zinc 100 */
+  --muted-foreground: #71717a; /* Zinc 500 */
+  --accent: #f04e23;
+  --accent-foreground: #ffffff;
+  --border: #e4e4e7;
   --input: #e4e4e7;
+  --ring: #f04e23;
   
   background-color: var(--background) !important;
   color: var(--foreground) !important;
+}
+
+/* Override default blue classes to orange within the dashboard layout only */
+.dashboard-layout-theme .text-blue-400 {
+  color: var(--primary) !important;
+}
+.dashboard-layout-theme .border-blue-500\/20 {
+  border-color: rgba(240, 78, 35, 0.2) !important;
+}
+.dashboard-layout-theme .hover\:text-blue-600:hover {
+  color: #d83f18 !important;
+}
+.dashboard-layout-theme .hover\:border-blue-200:hover {
+  border-color: rgba(240, 78, 35, 0.3) !important;
+}
+.dashboard-layout-theme .hover\:bg-blue-50:hover {
+  background-color: rgba(240, 78, 35, 0.05) !important;
 }
 
 /* Custom indicator blurs override for cleaner backdrop aesthetics */
@@ -316,19 +343,20 @@ body {
   color: #18181b;
 }
 
-.custom-scrollbar::-webkit-scrollbar {
+/* Dashboard custom scrollbars */
+.dashboard-layout-theme .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
 }
 
-.custom-scrollbar::-webkit-scrollbar-track {
+.dashboard-layout-theme .custom-scrollbar::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb {
+.dashboard-layout-theme .custom-scrollbar::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.06);
   border-radius: 10px;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+.dashboard-layout-theme .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.12);
 }
