@@ -161,3 +161,6 @@ Creates a new dedicated dashboard route under `/dashboard/notifications` to list
 
 ## Dashboard Overview KPI Summary Card Restyling
 Updates key metric tiles and typography inside the primary overview deck to support high-contrast labels.
+
+## JWT Auth Header Injection Interceptors
+Configures Axios interceptors to automatically attach JWT authorization tokens to out-going API calls.
