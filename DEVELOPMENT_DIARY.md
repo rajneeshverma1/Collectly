@@ -158,3 +158,6 @@ Implements a real-time polling webhook listener filtering successful full-paymen
 
 ## Dedicated Notifications Route Registry
 Creates a new dedicated dashboard route under `/dashboard/notifications` to list historical client payments.
+
+## Dashboard Overview KPI Summary Card Restyling
+Updates key metric tiles and typography inside the primary overview deck to support high-contrast labels.
