@@ -140,3 +140,6 @@ Redesigns the Create Invoice and Record Payment dialogs from dark-themed boxes t
 
 ## Client Deck Onboard Directory Theme Restyle
 Overhauls client listings, directory filters, and search bar inputs to match the silver-grey design guidelines.
+
+## Analytics Page Responsive Recharts Visual Settings
+Configures the financial analytics line charts and tooltips to support clean, light-mode background and grid borders.
