@@ -19,7 +19,7 @@ const Navbar = () => {
 
   const navScale = useTransform(smoothScrollY, [0, 250], [1, 0.98]);
   const navTop = useTransform(smoothScrollY, [0, 250], [24, 20]);
-  const navWidth = useTransform(smoothScrollY, [0, 250], ["90%", "85%"]);
+  const navWidth = useTransform(smoothScrollY, [0, 250], ["100%", "85%"]);
   const navBg = useTransform(smoothScrollY, [0, 250], ["rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.12)"]);
   const navBorder = useTransform(smoothScrollY, [0, 250], ["rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.18)"]);
   const navShadow = useTransform(smoothScrollY, [0, 250], ["none", "0 8px 32px rgba(0,0,0,0.8)"]);
@@ -56,7 +56,7 @@ const Navbar = () => {
           paddingBottom: navPy,
         }}
         transition={{ ease: "easeInOut" }}
-        className="fixed z-50 left-1/2 -translate-x-1/2 max-w-[900px] rounded-[24px] border py-4">
+        className="fixed z-50 left-1/2 -translate-x-1/2 w-full max-w-[1024px] rounded-[24px] border py-4">
         <div className="flex justify-between items-center w-full mx-auto">
           {/* Logo */}
           <div className="flex items-center">
