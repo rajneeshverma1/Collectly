@@ -18,21 +18,20 @@ const Navbar = () => {
   });
 
   const navScale = useTransform(smoothScrollY, [0, 250], [1, 0.98]);
-  const navTop = useTransform(smoothScrollY, [0, 250], [40, 20]);
-  const navWidth = useTransform(smoothScrollY, [0, 250], ["100%", "85%"]);
+  const navTop = useTransform(smoothScrollY, [0, 250], [24, 20]);
+  const navWidth = useTransform(smoothScrollY, [0, 250], ["90%", "85%"]);
   const navBg = useTransform(smoothScrollY, [0, 250], ["rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.12)"]);
   const navBorder = useTransform(smoothScrollY, [0, 250], ["rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.18)"]);
   const navShadow = useTransform(smoothScrollY, [0, 250], ["none", "0 8px 32px rgba(0,0,0,0.8)"]);
   const navBlur = useTransform(smoothScrollY, [0, 250], ["blur(0px)", "blur(12px)"]);
-  const navGap = useTransform(smoothScrollY, [0, 250], ["40px", "32px"]);
-  const navPadding = useTransform(smoothScrollY, [0, 250], ["32px", "28px"]);
-  const navPy = useTransform(smoothScrollY, [0, 250], ["20px", "12px"]);
+  const navGap = useTransform(smoothScrollY, [0, 250], ["36px", "32px"]);
+  const navPadding = useTransform(smoothScrollY, [0, 250], ["24px", "20px"]);
+  const navPy = useTransform(smoothScrollY, [0, 250], ["14px", "12px"]);
 
   const navLinks = [
     { name: "Problem", href: "/#problem" },
     { name: "How It Works", href: "/#how-it-works" },
     { name: "Integrations", href: "/#integrations" },
-    { name: "Pricing", href: "/pricing" },
   ];
 
   return (
