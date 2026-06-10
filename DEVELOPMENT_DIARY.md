@@ -137,3 +137,6 @@ Implements dynamic CSS custom variables mapping to soft, low-glare silver-grey c
 
 ## Dynamic Invoices Form Modals Theme Conversion
 Redesigns the Create Invoice and Record Payment dialogs from dark-themed boxes to high-contrast white card segments.
+
+## Client Deck Onboard Directory Theme Restyle
+Overhauls client listings, directory filters, and search bar inputs to match the silver-grey design guidelines.
