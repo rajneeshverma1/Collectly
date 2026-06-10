@@ -150,15 +150,15 @@ aside .hover\:bg-white\/\[0\.03\]:hover {
 }
 
 /* Primary Action Buttons (e.g. Create New Invoice, Upgrade Pro) */
-button.bg-white.text-black, a.bg-white.text-black {
-  background-color: #18181b !important;
+button.bg-white.text-black, a.bg-white.text-black, button.bg-zinc-900, a.bg-zinc-900 {
+  background-color: var(--primary) !important;
   color: #ffffff !important;
-  border: 1px solid #18181b !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06) !important;
+  border: 1px solid var(--primary) !important;
+  box-shadow: 0 4px 12px rgba(240, 78, 35, 0.15) !important;
 }
-button.bg-white.text-black:hover, a.bg-white.text-black:hover {
-  background-color: #27272a !important;
-  border-color: #27272a !important;
+button.bg-white.text-black:hover, a.bg-white.text-black:hover, button.bg-zinc-900:hover, a.bg-zinc-900:hover {
+  background-color: #d83f18 !important;
+  border-color: #d83f18 !important;
 }
 
 /* Status Filter Active/Inactive States */
