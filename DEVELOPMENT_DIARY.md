@@ -134,3 +134,6 @@ Intercepts server exceptions to output structured, user-friendly JSON messages.
 
 ## Dynamic YC Light Theme Custom CSS Variables
 Implements dynamic CSS custom variables mapping to soft, low-glare silver-grey canvas backgrounds and high-contrast charcoal typography.
+
+## Dynamic Invoices Form Modals Theme Conversion
+Redesigns the Create Invoice and Record Payment dialogs from dark-themed boxes to high-contrast white card segments.
