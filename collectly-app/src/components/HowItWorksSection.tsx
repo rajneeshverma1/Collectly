@@ -32,11 +32,11 @@ const CodeBlock: React.FC = () => (
       <div className="w-3 h-3 rounded-full bg-green-500/80" />
     </div>
     <div className="space-y-2">
-      <p><span className="text-purple-400">const</span> <span className="text-blue-400">session</span> <span className="text-gray-900">=</span> <span className="text-purple-400">await</span> <span className="text-yellow-400">collectly</span><span className="text-gray-900">.</span><span className="text-green-400">createSession</span><span className="text-gray-900">({"{"}</span></p>
-      <p className="pl-4"><span className="text-gray-900">amount:</span> <span className="text-orange-400">4999</span><span className="text-gray-900">,</span></p>
-      <p className="pl-4"><span className="text-gray-900">currency:</span> <span className="text-green-300">"INR"</span><span className="text-gray-900">,</span></p>
-      <p className="pl-4"><span className="text-gray-900">channel:</span> <span className="text-green-300">"voice"</span></p>
-      <p><span className="text-gray-900">{"}"})</span></p>
+      <p><span className="text-purple-400">const</span> <span className="text-blue-400">session</span> <span className="text-white">=</span> <span className="text-purple-400">await</span> <span className="text-yellow-400">collectly</span><span className="text-white">.</span><span className="text-green-400">createSession</span><span className="text-white">({"{"}</span></p>
+      <p className="pl-4"><span className="text-white">amount:</span> <span className="text-orange-400">4999</span><span className="text-white">,</span></p>
+      <p className="pl-4"><span className="text-white">currency:</span> <span className="text-green-300">"INR"</span><span className="text-white">,</span></p>
+      <p className="pl-4"><span className="text-white">channel:</span> <span className="text-green-300">"voice"</span></p>
+      <p><span className="text-white">{"}"})</span></p>
     </div>
   </motion.div>
 );
@@ -51,13 +51,13 @@ const OptionCard: React.FC<{ icon: React.ReactNode; title: string; steps: string
       <div className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center">
         {icon}
       </div>
-      <h4 className="text-gray-900 font-semibold text-base">{title}</h4>
+      <h4 className="text-white font-semibold text-base">{title}</h4>
     </div>
     <div className="flex items-center gap-2 flex-wrap">
       {steps.map((step, idx) => (
         <React.Fragment key={idx}>
           <span className="text-xs text-zinc-400 bg-white/5 px-2 py-1.5 rounded-lg border border-transparent">{step}</span>
-          {idx < steps.length - 1 && <span className="text-zinc-600">→</span>}
+          {idx < steps.length - 1 && <span className="text-zinc-400">→</span>}
         </React.Fragment>
       ))}
     </div>
@@ -78,7 +78,7 @@ const PaymentSuccessCard: React.FC = () => (
         <p className="text-xs text-zinc-500 mb-1">Payment Status</p>
         <div className="flex items-center gap-2">
           <CheckCircle className="w-4 h-4 text-green-400" />
-          <span className="text-base font-semibold text-gray-900">Payment Successful</span>
+          <span className="text-base font-semibold text-white">Payment Successful</span>
         </div>
       </div>
       <div className="bg-green-500/10 border border-transparent rounded-lg px-3 py-1.5">
@@ -136,7 +136,7 @@ const PaymentSuccessCard: React.FC = () => (
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-600 mb-3">HOW IT WORKS</p>
+          <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-400 mb-3">HOW IT WORKS</p>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight tracking-tight">
             Three steps. Zero card data.
           </h2>

@@ -17,8 +17,8 @@ export const AIProcessingCard = () => {
             </div>
 
             <div className="space-y-1">
-                <h3 className="font-semibold text-gray-900">AI Processing</h3>
-                <p className="text-xs text-gray-900/50 flex items-center justify-center gap-1.5 font-medium">
+                <h3 className="font-semibold text-white">AI Processing</h3>
+                <p className="text-xs text-white/50 flex items-center justify-center gap-1.5 font-medium">
                     <Clock size={12} /> Analyzing invoice...
                 </p>
             </div>

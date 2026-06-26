@@ -23,7 +23,7 @@ const ServeCard: React.FC<ServeCardProps> = ({ icon, title, description, delay }
       <div className="w-10 h-10 rounded-lg bg-white/[0.02] border border-white/[0.03] flex items-center justify-center mb-4">
         {icon}
       </div>
-      <h3 className="text-base font-bold text-gray-900 mb-2 tracking-tight">{title}</h3>
+      <h3 className="text-base font-bold text-white mb-2 tracking-tight">{title}</h3>
       <p className="text-[12px] text-zinc-500 leading-relaxed max-w-[180px]">{description}</p>
     </div>
   </motion.div>
@@ -32,22 +32,22 @@ const ServeCard: React.FC<ServeCardProps> = ({ icon, title, description, delay }
 export const WhoWeServeSection: React.FC<{ id?: string }> = ({ id }) => {
   const segments = [
     {
-      icon: <User className="w-4 h-4 text-gray-900/60" />,
+      icon: <User className="w-4 h-4 text-white/60" />,
       title: "Freelancers",
       description: "Get paid faster for your work with seamless payment collection.",
     },
     {
-      icon: <Building2 className="w-4 h-4 text-gray-900/60" />,
+      icon: <Building2 className="w-4 h-4 text-white/60" />,
       title: "B2B",
       description: "Streamline invoicing and collect large transactions securely.",
     },
     {
-      icon: <Store className="w-4 h-4 text-gray-900/60" />,
+      icon: <Store className="w-4 h-4 text-white/60" />,
       title: "Small Businesses",
       description: "Simplify payments, reduce manual work, and focus on growth.",
     },
     {
-      icon: <Layers className="w-4 h-4 text-gray-900/60" />,
+      icon: <Layers className="w-4 h-4 text-white/60" />,
       title: "Agencies",
       description: "Manage multiple clients and scale your operations effortlessly.",
     },

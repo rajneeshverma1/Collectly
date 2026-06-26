@@ -17,14 +17,14 @@ export const ResultInvoiceCard = () => {
                     <div className="w-6 h-6 bg-white/5 border border-transparent rounded-lg flex items-center justify-center">
                         <div className="w-1.5 h-1.5 bg-green-500 rounded-full shadow-[0_0_10px_rgba(34,197,94,0.5)]" />
                     </div>
-                    <span className="text-[10px] font-bold text-gray-900 tracking-widest uppercase">Collectly</span>
+                    <span className="text-[10px] font-bold text-white tracking-widest uppercase">Collectly</span>
                 </div>
-                <div className="text-[10px] text-gray-900/30 font-medium font-mono">INV-456789</div>
+                <div className="text-[10px] text-white/30 font-medium font-mono">INV-456789</div>
             </div>
 
             <div className="mt-4 text-center">
-                <div className="text-[9px] text-gray-900/30 uppercase tracking-widest font-bold">Total Amount</div>
-                <div className="text-[26px] font-bold text-gray-900 tracking-tight mt-1 tabular-nums">$284,342.57</div>
+                <div className="text-[9px] text-white/30 uppercase tracking-widest font-bold">Total Amount</div>
+                <div className="text-[26px] font-bold text-white tracking-tight mt-1 tabular-nums">$284,342.57</div>
             </div>
 
             <div className="space-y-2.5 mt-2">
@@ -37,7 +37,7 @@ export const ResultInvoiceCard = () => {
                     <CheckCircle2 size={12} strokeWidth={3} />
                     Verified
                 </div>
-                <div className="text-gray-900/20 text-[9px] font-medium tracking-tight">
+                <div className="text-white/20 text-[9px] font-medium tracking-tight">
                     Due in 15 days
                 </div>
             </div>
