@@ -159,7 +159,7 @@ const Navbar = () => {
                   <div key={link.name} className="relative">
                     <button
                       onClick={() => setIsFeaturesOpen(!isFeaturesOpen)}
-                      className="flex items-center gap-1.5 text-base font-medium text-gray-600 hover:text-gray-900 transition-colors bg-transparent border-0 cursor-pointer focus:outline-none"
+                      className="flex items-center gap-1.5 text-lg font-bold text-gray-900 hover:text-black transition-colors bg-transparent border-0 cursor-pointer focus:outline-none"
                     >
                       <span>{link.name}</span>
                       <motion.span
@@ -178,7 +178,7 @@ const Navbar = () => {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="text-base font-medium text-gray-600 hover:text-gray-900 transition-colors"
+                  className="text-lg font-bold text-gray-900 hover:text-black transition-colors"
                 >
                   {link.name}
                 </Link>
