@@ -145,6 +145,7 @@ const Footer = () => {
                                 <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">API</Link></li>
                             </ul>
                         </div>
+                    </div>
                 </div>
             </div>
         </footer>
