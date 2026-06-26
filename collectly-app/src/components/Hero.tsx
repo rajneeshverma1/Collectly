@@ -4,28 +4,30 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { GradientButton } from './gradient-button';
 import { BrandLogos } from './brand-logos';
+import { HeroVisual } from './HeroVisual';
 
 export const Hero = () => {
     return (
         <section
             className="font-sans relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden bg-white"
         >
-            {/* ── Layer 1: Faded landscape background at the bottom ── */}
+            {/* ── Layer 1: Full landing page background (30% of the image) ── */}
             <div
-                className="absolute inset-x-0 bottom-0 z-0 pointer-events-none h-[40vh]"
+                className="absolute inset-0 z-0 pointer-events-none"
                 style={{
                     backgroundImage: 'url("/Image%2020-06-26%20at%2020.23.jpg")',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'top center',
+                    backgroundSize: '100% 333%', // Shows only 30% of the image vertically
+                    backgroundPosition: 'top center', // Uses the top part, hiding the yellowish bottom
                     backgroundRepeat: 'no-repeat',
-                    maskImage: 'linear-gradient(to bottom, transparent 0%, black 80%)',
-                    WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 80%)',
-                    opacity: 0.9
+                    maskImage: 'linear-gradient(to bottom, transparent 0%, transparent 65%, black 80%, black 100%)',
+                    WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, transparent 65%, black 80%, black 100%)',
+                    opacity: 0.95
                 }}
             />
 
+
             {/* ── Content ── */}
-            <div className="max-w-7xl mx-auto px-6 flex flex-col items-center justify-center relative z-10 pt-32 pb-20">
+            <div className="max-w-7xl mx-auto px-6 flex flex-col items-center justify-center relative z-10 pt-48 md:pt-56 pb-10">
 
 
                 <motion.h1
@@ -60,6 +62,11 @@ export const Hero = () => {
                         Watch demo
                     </button>
                 </motion.div>
+
+                {/* Visual Workflow Illustration */}
+                <div className="relative w-full mt-10">
+                    <HeroVisual />
+                </div>
 
                 <div className="mt-auto pt-20">
                     {/* The cards from JustPaid can be added here or in a separate section */}
