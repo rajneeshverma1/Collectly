@@ -156,10 +156,14 @@ const Navbar = () => {
             {navLinks.map((link) => {
               if (link.name === "Features") {
                 return (
-                  <div key={link.name} className="relative">
+                  <div 
+                    key={link.name} 
+                    className="relative"
+                    onMouseEnter={() => setIsFeaturesOpen(true)}
+                    onMouseLeave={() => setIsFeaturesOpen(false)}
+                  >
                     <button
-                      onClick={() => setIsFeaturesOpen(!isFeaturesOpen)}
-                      className="flex items-center gap-1.5 text-lg font-medium text-gray-900 hover:text-black transition-colors bg-transparent border-0 cursor-pointer focus:outline-none"
+                      className="flex items-center gap-1.5 text-lg font-medium text-gray-900 hover:text-black transition-colors bg-transparent border-0 cursor-pointer focus:outline-none py-2"
                     >
                       <span>{link.name}</span>
                       <motion.span
@@ -235,6 +239,8 @@ const Navbar = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 15, scale: 0.98 }}
               transition={{ duration: 0.25, ease: "easeOut" }}
+              onMouseEnter={() => setIsFeaturesOpen(true)}
+              onMouseLeave={() => setIsFeaturesOpen(false)}
               className="absolute left-1/2 -translate-x-1/2 top-full mt-4 w-[750px] bg-white border border-gray-200 rounded-[24px] p-8 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] z-50 hidden md:grid grid-cols-2 gap-x-8 gap-y-0"
               style={{ fontFamily: 'Satoshi, sans-serif' }}
             >
