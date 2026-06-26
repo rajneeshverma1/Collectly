@@ -21,22 +21,22 @@ export const SubFooter = () => {
 
                     {/* Right: Socials */}
                     <div className="flex items-center gap-5">
-                        <Link href="#" className="text-gray-400 hover:text-white transition-colors">
+                        <Link href="#" className="text-gray-400 hover:text-gray-900 transition-colors">
                             <Linkedin size={18} />
                         </Link>
-                        <Link href="#" className="text-gray-400 hover:text-white transition-colors">
+                        <Link href="#" className="text-gray-400 hover:text-gray-900 transition-colors">
                             <Youtube size={18} />
                         </Link>
-                        <Link href="#" className="text-gray-400 hover:text-white transition-colors">
+                        <Link href="#" className="text-gray-400 hover:text-gray-900 transition-colors">
                             <Twitter size={18} />
                         </Link>
-                        <Link href="#" className="text-gray-400 hover:text-white transition-colors">
+                        <Link href="#" className="text-gray-400 hover:text-gray-900 transition-colors">
                             <Instagram size={18} />
                         </Link>
-                        <Link href="#" className="text-gray-400 hover:text-white transition-colors">
+                        <Link href="#" className="text-gray-400 hover:text-gray-900 transition-colors">
                             <Music2 size={18} />
                         </Link>
-                        <Link href="#" className="text-gray-400 hover:text-white transition-colors">
+                        <Link href="#" className="text-gray-400 hover:text-gray-900 transition-colors">
                             <span className="text-lg leading-none">🦋</span>
                         </Link>
                     </div>

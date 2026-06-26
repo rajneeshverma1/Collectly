@@ -2,9 +2,12 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
-const mavenFont = localFont({
-  src: "./fonts/maven-font.woff2",
-  variable: "--font-maven",
+import { IBM_Plex_Sans } from "next/font/google";
+
+const ibmPlexSans = IBM_Plex_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-ibm",
   display: "swap",
 });
 
@@ -24,7 +27,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" className="scroll-smooth">
-        <body className={`${mavenFont.variable} font-sans antialiased`}>
+        <body className={`${ibmPlexSans.variable} font-sans antialiased`}>
           <AuthProvider>
             {children}
           </AuthProvider>

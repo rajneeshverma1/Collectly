@@ -1,48 +1,131 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { 
+  Menu, 
+  X, 
+  ChevronDown, 
+  Layers, 
+  FileText, 
+  Clock, 
+  CheckCircle2, 
+  CreditCard, 
+  Box, 
+  TrendingUp, 
+  Search 
+} from "lucide-react";
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "framer-motion";
 
 import { Show, UserButton } from "@/lib/auth-wrapper";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isFeaturesOpen, setIsFeaturesOpen] = useState(false);
+  const [isMobileFeaturesOpen, setIsMobileFeaturesOpen] = useState(false);
   const { scrollY } = useScroll();
 
+  const navRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+        setIsFeaturesOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const smoothScrollY = useSpring(scrollY, {
-    stiffness: 50,
-    damping: 25,
+    stiffness: 150,
+    damping: 20,
     restDelta: 0.001
   });
 
-  const navScale = useTransform(smoothScrollY, [0, 250], [1, 0.98]);
-  const navTop = useTransform(smoothScrollY, [0, 250], [24, 20]);
-  const navWidth = useTransform(smoothScrollY, [0, 250], ["100%", "85%"]);
-  const navBg = useTransform(smoothScrollY, [0, 250], ["rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.12)"]);
-  const navBorder = useTransform(smoothScrollY, [0, 250], ["rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.18)"]);
-  const navShadow = useTransform(smoothScrollY, [0, 250], ["none", "0 8px 32px rgba(0,0,0,0.8)"]);
-  const navBlur = useTransform(smoothScrollY, [0, 250], ["blur(0px)", "blur(12px)"]);
-  const navGap = useTransform(smoothScrollY, [0, 250], ["36px", "32px"]);
-  const navPadding = useTransform(smoothScrollY, [0, 250], ["24px", "20px"]);
-  const navPy = useTransform(smoothScrollY, [0, 250], ["14px", "12px"]);
+  const navScale = useTransform(smoothScrollY, [0, 150], [1, 0.98]);
+  const navWidth = useTransform(smoothScrollY, [0, 150], ["100%", "85%"]);
+  const navBg = useTransform(smoothScrollY, [0, 150], ["rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.95)"]);
+  const navBorder = useTransform(smoothScrollY, [0, 150], ["rgba(0, 0, 0, 0)", "rgba(0, 0, 0, 0.1)"]);
+  const navShadow = useTransform(smoothScrollY, [0, 150], ["none", "0 8px 32px rgba(0,0,0,0.05)"]);
+  const navBlur = useTransform(smoothScrollY, [0, 150], ["blur(0px)", "blur(16px)"]);
+  const navRadius = useTransform(smoothScrollY, [0, 150], ["0px", "32px"]);
 
   const navLinks = [
-    { name: "Problem", href: "/#problem" },
-    { name: "How It Works", href: "/#how-it-works" },
-    { name: "Integrations", href: "/#integrations" },
+    { name: "Features", href: "/#features" },
+    { name: "Solutions", href: "/#solutions" },
+    { name: "Pricing", href: "/pricing" },
+    { name: "About", href: "/#about" },
+  ];
+
+  const coreFeatures = [
+    {
+      icon: <Layers size={18} />,
+      title: "Accounts Receivable",
+      description: "Automate your AR workflow and capture dues efficiently.",
+      href: "/#features"
+    },
+    {
+      icon: <FileText size={18} />,
+      title: "Contract & Billing AI",
+      description: "AI extracts payment terms and schedules from uploaded files.",
+      href: "/#features"
+    },
+    {
+      icon: <Clock size={18} />,
+      title: "Reminder AI",
+      description: "Intelligent background email notifications run automatically.",
+      href: "/#features"
+    },
+    {
+      icon: <CheckCircle2 size={18} />,
+      title: "Payment Hook Sync",
+      description: "Instantly silences reminder dispatchers once payments clear.",
+      href: "/#features"
+    }
+  ];
+
+  const moreFeatures = [
+    {
+      icon: <CreditCard size={18} />,
+      title: "Multi-Gateway Checkout",
+      description: "Stripe Connect and Razorpay Secure signatures validated.",
+      href: "/#features"
+    },
+    {
+      icon: <Box size={18} />,
+      title: "Local Sandbox",
+      description: "Zero-dependency mock auth bypass for offline development.",
+      href: "/#features"
+    },
+    {
+      icon: <TrendingUp size={18} />,
+      title: "Cashflow Analytics",
+      description: "Track outstanding KPI summaries and active operations.",
+      href: "/#features"
+    },
+    {
+      icon: <Search size={18} />,
+      title: "Client Directories",
+      description: "Search customer ledger histories and historical SMTP logs.",
+      href: "/#features"
+    }
   ];
 
   return (
     <>
-      {/* Top Blur Mask / Zone */}
-      <div className="fixed top-0 left-0 right-0 h-32 z-40 pointer-events-none bg-gradient-to-b from-[#0B0B0F]/40 to-transparent backdrop-blur-xl mask-blur"
-        style={{ maskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)' }} />
+      {/* Maintenance Banner */}
+      <div className="fixed top-0 left-0 right-0 z-[60] bg-gray-900 text-white py-2.5 px-4 text-center shadow-sm">
+        <span className="text-[13px] font-medium text-gray-200">
+          🚧 Website under maintenance. Reach out to <a href="mailto:wwrajneesh807@gmail.com" className="font-bold text-[#22c55e] hover:text-green-400 transition-colors underline">wwrajneesh807@gmail.com</a>
+        </span>
+      </div>
 
       <motion.nav 
+        ref={navRef}
         style={{ 
-          top: navTop,
           width: navWidth,
           scale: navScale,
           backgroundColor: navBg,
@@ -50,54 +133,76 @@ const Navbar = () => {
           boxShadow: navShadow,
           backdropFilter: navBlur,
           WebkitBackdropFilter: navBlur,
-          paddingLeft: navPadding,
-          paddingRight: navPadding,
-          paddingTop: navPy,
-          paddingBottom: navPy,
+          borderRadius: navRadius,
         }}
         transition={{ ease: "easeInOut" }}
-        className="fixed z-50 left-1/2 -translate-x-1/2 w-full max-w-[1024px] rounded-[24px] border py-4">
-        <div className="flex justify-between items-center w-full mx-auto">
+        className="fixed top-12 left-1/2 -translate-x-1/2 z-50 border border-transparent py-4"
+      >
+        <div className="flex justify-between items-center w-full max-w-7xl mx-auto px-6 md:px-8">
           {/* Logo */}
           <div className="flex items-center">
-            <Link href="/" className="flex items-center gap-2">
-              <span className="text-xl font-bold tracking-tight text-white">Collectly</span>
+            <Link href="/" className="flex items-center gap-1.5">
+              <span className="text-4xl font-extrabold tracking-tight text-gray-900">Collectly</span>
+              <motion.span 
+                animate={{ scale: [1, 1.4, 1] }}
+                transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+                className="w-4 h-4 rounded-full bg-[#22c55e] mt-2" 
+              />
             </Link>
           </div>
 
           {/* Center Nav Links (Desktop) */}
-          <motion.div 
-            style={{ gap: navGap }}
-            className="hidden md:flex items-center"
-          >
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className="text-[14px] font-medium text-[#A1A1A1] hover:text-white transition-colors"
-              >
-                {link.name}
-              </Link>
-            ))}
-          </motion.div>
+          <div className="hidden md:flex items-center gap-14">
+            {navLinks.map((link) => {
+              if (link.name === "Features") {
+                return (
+                  <div key={link.name} className="relative">
+                    <button
+                      onClick={() => setIsFeaturesOpen(!isFeaturesOpen)}
+                      className="flex items-center gap-1.5 text-base font-medium text-gray-600 hover:text-gray-900 transition-colors bg-transparent border-0 cursor-pointer focus:outline-none"
+                    >
+                      <span>{link.name}</span>
+                      <motion.span
+                        animate={{ rotate: isFeaturesOpen ? 180 : 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="inline-flex items-center"
+                      >
+                        <ChevronDown size={14} className="opacity-70" />
+                      </motion.span>
+                    </button>
+                  </div>
+                );
+              }
+
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className="text-base font-medium text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
+          </div>
 
           {/* Right Actions (Desktop) */}
           <div className="hidden md:flex items-center space-x-4">
             <Show when="signed-out">
               <Link href="/sign-in">
-                <button className="bg-transparent border border-transparent text-white/90 text-[14px] font-medium px-7 py-2.5 rounded-2xl transition-all duration-300 hover:bg-white/5 hover:border-gray-600 active:scale-95">
-                  Sign In
+                <button className="bg-gray-800 border border-transparent text-white text-base font-medium px-8 py-3 rounded-full transition-all duration-300 hover:bg-gray-700 active:scale-95">
+                  Login
                 </button>
               </Link>
               <Link href="/sign-up">
-                <button className="bg-white text-black text-[14px] font-semibold px-7 py-2.5 rounded-2xl shadow-lg transition-all duration-300 hover:bg-white/90 hover:scale-[1.02] active:scale-95">
-                  Get Started
+                <button className="bg-[#6366f1] text-white text-base font-semibold px-8 py-3 rounded-full shadow-lg transition-all duration-300 hover:bg-[#4f46e5] hover:scale-[1.02] active:scale-95">
+                  Book a demo
                 </button>
               </Link>
             </Show>
             <Show when="signed-in">
               <Link href="/dashboard">
-                <button className="bg-white/5 border border-white/10 text-white text-[14px] font-medium px-7 py-2.5 rounded-2xl transition-all duration-300 hover:bg-white/10 active:scale-95">
+                <button className="bg-gray-800 border border-transparent text-white text-base font-medium px-8 py-3 rounded-full transition-all duration-300 hover:bg-gray-700 active:scale-95">
                   Dashboard
                 </button>
               </Link>
@@ -115,12 +220,69 @@ const Navbar = () => {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-white hover:text-gray-300 transition-colors p-2"
+              className="text-gray-900 hover:text-gray-600 transition-colors p-2"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </div>
+
+        {/* Floating Dropdown (Desktop) */}
+        <AnimatePresence>
+          {isFeaturesOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: 15, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 15, scale: 0.98 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="absolute left-0 right-0 top-full mt-4 bg-black/90 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 shadow-2xl z-50 hidden md:grid grid-cols-2 gap-10"
+            >
+              <div>
+                <h3 className="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-6">Core Features</h3>
+                <div className="grid grid-cols-1 gap-2">
+                  {coreFeatures.map((feature) => (
+                    <Link
+                      key={feature.title}
+                      href={feature.href}
+                      onClick={() => setIsFeaturesOpen(false)}
+                      className="flex gap-4 p-3 rounded-2xl hover:bg-white/[0.03] border border-transparent hover:border-white/5 transition-all duration-300 group text-left"
+                    >
+                      <div className="w-10 h-10 rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-center text-[#A1A1A1] group-hover:text-indigo-400 group-hover:bg-indigo-500/10 group-hover:border-indigo-500/20 transition-all duration-300 shrink-0">
+                        {feature.icon}
+                      </div>
+                      <div>
+                        <h4 className="text-[13px] font-bold text-white mb-1 transition-colors">{feature.title}</h4>
+                        <p className="text-[11px] text-zinc-500 leading-normal font-semibold">{feature.description}</p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              <div className="border-l border-white/5 pl-10">
+                <h3 className="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-6">More Features</h3>
+                <div className="grid grid-cols-1 gap-2">
+                  {moreFeatures.map((feature) => (
+                    <Link
+                      key={feature.title}
+                      href={feature.href}
+                      onClick={() => setIsFeaturesOpen(false)}
+                      className="flex gap-4 p-3 rounded-2xl hover:bg-white/[0.03] border border-transparent hover:border-white/5 transition-all duration-300 group text-left"
+                    >
+                      <div className="w-10 h-10 rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-center text-[#A1A1A1] group-hover:text-indigo-400 group-hover:bg-indigo-500/10 group-hover:border-indigo-500/20 transition-all duration-300 shrink-0">
+                        {feature.icon}
+                      </div>
+                      <div>
+                        <h4 className="text-[13px] font-bold text-white mb-1 transition-colors">{feature.title}</h4>
+                        <p className="text-[11px] text-zinc-500 leading-normal font-semibold">{feature.description}</p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Mobile Nav Overlay */}
         <AnimatePresence>
@@ -132,16 +294,63 @@ const Navbar = () => {
               className="absolute top-full left-1/2 -translate-x-1/2 w-full mt-4 bg-black/80 backdrop-blur-xl border border-transparent rounded-3xl shadow-2xl p-6 md:hidden overflow-hidden"
             >
               <div className="space-y-4">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    className="flex items-center justify-between py-2 text-sm font-medium text-[#A1A1AA] hover:text-white"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {link.name}
-                  </Link>
-                ))}
+                {navLinks.map((link) => {
+                  if (link.name === "Features") {
+                    return (
+                      <div key={link.name} className="py-2">
+                        <button
+                          onClick={() => setIsMobileFeaturesOpen(!isMobileFeaturesOpen)}
+                          className="flex items-center justify-between w-full text-sm font-medium text-[#A1A1AA] hover:text-white focus:outline-none bg-transparent border-0 cursor-pointer text-left"
+                        >
+                          <span>{link.name}</span>
+                          <motion.span
+                            animate={{ rotate: isMobileFeaturesOpen ? 180 : 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="inline-flex items-center"
+                          >
+                            <ChevronDown size={16} />
+                          </motion.span>
+                        </button>
+                        
+                        <AnimatePresence>
+                          {isMobileFeaturesOpen && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              className="overflow-hidden pl-4 pr-2 mt-2 space-y-2.5 border-l border-white/5"
+                            >
+                              {[...coreFeatures, ...moreFeatures].map((feat) => (
+                                <Link
+                                  key={feat.title}
+                                  href={feat.href}
+                                  className="block py-1.5 text-xs text-zinc-500 hover:text-white"
+                                  onClick={() => {
+                                    setIsOpen(false);
+                                    setIsMobileFeaturesOpen(false);
+                                  }}
+                                >
+                                  {feat.title}
+                                </Link>
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <Link
+                      key={link.name}
+                      href={link.href}
+                      className="flex items-center justify-between py-2 text-sm font-medium text-[#A1A1AA] hover:text-white"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {link.name}
+                    </Link>
+                  );
+                })}
                 <div className="pt-4 flex flex-col gap-3">
                   <Show when="signed-out">
                     <Link href="/sign-in" className="w-full">
@@ -161,7 +370,7 @@ const Navbar = () => {
                         Dashboard
                       </button>
                     </Link>
-                    </Show>
+                  </Show>
                 </div>
               </div>
             </motion.div>

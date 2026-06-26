@@ -136,24 +136,24 @@ export function ClientSection() {
           >
             <div className="flex items-center gap-3 mb-2">
                <div className="p-2 bg-white/5 border border-white/10 rounded-xl">
-                 <Users size={20} className="text-white/60" />
+                 <Users size={20} className="text-gray-900/60" />
                </div>
                <h2 className="text-4xl font-bold tracking-tight">Clients</h2>
             </div>
-            <p className="text-white/40 text-base font-medium">
+            <p className="text-gray-900/40 text-base font-medium">
               Manage your client relationships and contact details.
             </p>
           </motion.div>
 
           <div className="flex items-center gap-4">
              <div className="relative group">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-white transition-colors" size={18} />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-900/20 group-focus-within:text-gray-900 transition-colors" size={18} />
                 <input 
                   type="text" 
                   placeholder="Search clients..." 
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="bg-white/[0.03] border border-white/10 rounded-2xl py-3 pl-12 pr-6 text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all placeholder:text-white/20 w-64"
+                  className="bg-white/[0.03] border border-white/10 rounded-2xl py-3 pl-12 pr-6 text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all placeholder:text-gray-900/20 w-64"
                 />
              </div>
              <motion.button 
@@ -174,7 +174,7 @@ export function ClientSection() {
               animate={{ opacity: 1, y: 0 }}
               className="p-6 bg-white/[0.02] border border-white/5 rounded-[32px]"
            >
-              <p className="text-xs text-white/30 font-bold uppercase tracking-widest mb-1">Total Clients</p>
+              <p className="text-xs text-gray-900/30 font-bold uppercase tracking-widest mb-1">Total Clients</p>
               <h3 className="text-3xl font-black">{loading ? '...' : clients.length}</h3>
            </motion.div>
            <motion.div 
@@ -183,7 +183,7 @@ export function ClientSection() {
               transition={{ delay: 0.1 }}
               className="p-6 bg-white/[0.02] border border-white/5 rounded-[32px]"
            >
-              <p className="text-xs text-white/30 font-bold uppercase tracking-widest mb-1">Active This Month</p>
+              <p className="text-xs text-gray-900/30 font-bold uppercase tracking-widest mb-1">Active This Month</p>
               <h3 className="text-3xl font-black">{clients.length > 0 ? Math.ceil(clients.length * 0.4) : 0}</h3>
            </motion.div>
            <motion.div 
@@ -192,7 +192,7 @@ export function ClientSection() {
               transition={{ delay: 0.2 }}
               className="p-6 bg-white/[0.02] border border-white/5 rounded-[32px]"
            >
-              <p className="text-xs text-white/30 font-bold uppercase tracking-widest mb-1">New This Week</p>
+              <p className="text-xs text-gray-900/30 font-bold uppercase tracking-widest mb-1">New This Week</p>
               <h3 className="text-3xl font-black">{clients.length > 0 ? Math.ceil(clients.length * 0.1) : 0}</h3>
            </motion.div>
         </div>
@@ -200,15 +200,15 @@ export function ClientSection() {
         {/* Clients List */}
         {loading ? (
           <div className="h-64 flex items-center justify-center">
-            <Loader2 className="animate-spin text-white/20" size={32} />
+            <Loader2 className="animate-spin text-gray-900/20" size={32} />
           </div>
         ) : filteredClients.length === 0 ? (
           <div className="h-64 flex flex-col items-center justify-center bg-white/[0.01] border border-dashed border-white/10 rounded-[40px] p-10 text-center">
             <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-4">
-              <Users size={32} className="text-white/20" />
+              <Users size={32} className="text-gray-900/20" />
             </div>
             <h3 className="text-xl font-bold mb-2">No clients found</h3>
-            <p className="text-white/40 max-w-xs mx-auto mb-6">
+            <p className="text-gray-900/40 max-w-xs mx-auto mb-6">
               {searchQuery ? `No clients matching "${searchQuery}"` : "You haven't added any clients yet. Start by adding your first one!"}
             </p>
             {!searchQuery && (
@@ -237,7 +237,7 @@ export function ClientSection() {
                   <div className="flex flex-col items-end gap-2">
                     <button 
                       onClick={() => setEditingClient(client)}
-                      className="p-2 text-white/20 hover:text-white transition-colors"
+                      className="p-2 text-gray-900/20 hover:text-gray-900 transition-colors"
                     >
                       <MoreHorizontal size={20} />
                     </button>
@@ -246,18 +246,18 @@ export function ClientSection() {
 
                 <h4 className="text-xl font-bold mb-1 group-hover:text-blue-400 transition-colors">{client.name}</h4>
                 <div className="space-y-3 mt-4">
-                  <div className="flex items-center gap-3 text-sm text-white/40">
+                  <div className="flex items-center gap-3 text-sm text-gray-900/40">
                     <Mail size={14} />
                     <span className="truncate">{client.email}</span>
                   </div>
                   {client.company && (
-                    <div className="flex items-center gap-3 text-sm text-white/40">
+                    <div className="flex items-center gap-3 text-sm text-gray-900/40">
                       <Building size={14} />
                       <span className="truncate">{client.company}</span>
                     </div>
                   )}
                   {client.phone && (
-                    <div className="flex items-center gap-3 text-sm text-white/40">
+                    <div className="flex items-center gap-3 text-sm text-gray-900/40">
                       <Phone size={14} />
                       <span className="truncate">{client.phone}</span>
                     </div>
@@ -265,7 +265,7 @@ export function ClientSection() {
                 </div>
 
                 <div className="mt-8 pt-6 border-t border-white/5 flex items-center justify-between">
-                  <span className="text-[10px] font-bold text-white/20 uppercase tracking-widest">
+                  <span className="text-[10px] font-bold text-gray-900/20 uppercase tracking-widest">
                     Added {new Date(client.createdAt).toLocaleDateString()}
                   </span>
                   <button className="text-[10px] font-black uppercase tracking-wider text-blue-500 hover:text-blue-400">
@@ -298,7 +298,7 @@ export function ClientSection() {
               <div className="p-8 border-b border-white/5 flex items-center justify-between">
                 <div>
                   <h3 className="text-2xl font-bold mb-1">{editingClient ? 'Edit Client' : 'Add New Client'}</h3>
-                  <p className="text-sm text-white/40">
+                  <p className="text-sm text-gray-900/40">
                     {editingClient ? 'Update the details for this client.' : 'Enter the details of your new client.'}
                   </p>
                 </div>
@@ -316,7 +316,7 @@ export function ClientSection() {
               <form onSubmit={handleSubmit} className="p-8 space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em] ml-1">Full Name</label>
+                    <label className="text-[10px] font-bold text-gray-900/30 uppercase tracking-[0.2em] ml-1">Full Name</label>
                     <input 
                       required
                       name="name"
@@ -327,7 +327,7 @@ export function ClientSection() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em] ml-1">Email Address</label>
+                    <label className="text-[10px] font-bold text-gray-900/30 uppercase tracking-[0.2em] ml-1">Email Address</label>
                     <input 
                       required
                       type="email"
@@ -342,7 +342,7 @@ export function ClientSection() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em] ml-1">Phone Number</label>
+                    <label className="text-[10px] font-bold text-gray-900/30 uppercase tracking-[0.2em] ml-1">Phone Number</label>
                     <input 
                       name="phone"
                       value={formData.phone}
@@ -352,7 +352,7 @@ export function ClientSection() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em] ml-1">Company</label>
+                    <label className="text-[10px] font-bold text-gray-900/30 uppercase tracking-[0.2em] ml-1">Company</label>
                     <input 
                       name="company"
                       value={formData.company}
@@ -364,7 +364,7 @@ export function ClientSection() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em] ml-1">Address</label>
+                  <label className="text-[10px] font-bold text-gray-900/30 uppercase tracking-[0.2em] ml-1">Address</label>
                   <textarea 
                     name="address"
                     value={formData.address}

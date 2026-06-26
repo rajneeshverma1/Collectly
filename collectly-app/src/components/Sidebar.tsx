@@ -24,9 +24,9 @@ import { usePathname } from 'next/navigation';
 const SidebarItem = ({ icon: Icon, label, href, active }: { icon: any, label: string, href: string, active: boolean }) => (
   <Link href={href} className={cn(
     "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all group w-full relative z-10",
-    active ? "text-white shadow-sm" : "text-zinc-500 hover:text-zinc-800 hover:bg-zinc-50"
+    active ? "text-gray-900 shadow-sm" : "text-zinc-500 hover:text-zinc-800 hover:bg-zinc-50"
   )}>
-    <Icon size={18} className={cn("transition-colors", active ? "text-white" : "group-hover:text-zinc-700")} />
+    <Icon size={18} className={cn("transition-colors", active ? "text-gray-900" : "group-hover:text-zinc-700")} />
     <span>{label}</span>
     {active && (
       <motion.div 
@@ -120,7 +120,7 @@ export function Sidebar() {
               <p className="text-[11px] text-zinc-400 font-medium truncate">{user.emailAddresses?.[0]?.emailAddress}</p>
             </div>
           </div>
-          <button className="w-full flex items-center justify-center gap-2 py-2 bg-[#f04e23] hover:bg-[#d83f18] text-white rounded-xl text-[11px] font-black uppercase tracking-wider transition-all cursor-pointer shadow-sm">
+          <button className="w-full flex items-center justify-center gap-2 py-2 bg-[#f04e23] hover:bg-[#d83f18] text-gray-900 rounded-xl text-[11px] font-black uppercase tracking-wider transition-all cursor-pointer shadow-sm">
             <span>Upgrade Pro</span> <Plus size={12} />
           </button>
         </div>

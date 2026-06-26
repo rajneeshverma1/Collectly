@@ -18,7 +18,7 @@ export const BrandLogos = () => {
 
             {/* Authorize.net Logo */}
             <div className="flex flex-col items-center">
-                <span className="text-white text-xl md:text-2xl font-medium tracking-wide">authorize.net</span>
+                <span className="text-gray-900 text-xl md:text-2xl font-medium tracking-wide">authorize.net</span>
                 <span className="text-gray-400 text-xs tracking-wider">A Visa Solution</span>
             </div>
 

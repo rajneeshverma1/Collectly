@@ -48,7 +48,7 @@ export function RecentActivity() {
   if (loading) {
     return (
       <div className="h-64 flex items-center justify-center bg-white/[0.02] border border-white/5 rounded-[40px]">
-        <Loader2 className="animate-spin text-white/20" size={32} />
+        <Loader2 className="animate-spin text-gray-900/20" size={32} />
       </div>
     );
   }
@@ -63,11 +63,11 @@ export function RecentActivity() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h4 className="text-xl font-bold mb-1">Recent Clients</h4>
-          <p className="text-xs text-white/30 font-bold uppercase tracking-widest">Newly Onboarded</p>
+          <p className="text-xs text-gray-900/30 font-bold uppercase tracking-widest">Newly Onboarded</p>
         </div>
         <Link 
           href="/dashboard/clients"
-          className="flex items-center gap-2 text-xs font-bold text-white/40 hover:text-white transition-colors"
+          className="flex items-center gap-2 text-xs font-bold text-gray-900/40 hover:text-gray-900 transition-colors"
         >
           View All <ArrowUpRight size={14} />
         </Link>
@@ -76,8 +76,8 @@ export function RecentActivity() {
       <div className="space-y-4">
         {recentClients.length === 0 ? (
           <div className="py-10 text-center">
-            <User size={32} className="mx-auto text-white/10 mb-3" />
-            <p className="text-white/30 text-sm">No clients added yet.</p>
+            <User size={32} className="mx-auto text-gray-900/10 mb-3" />
+            <p className="text-gray-900/30 text-sm">No clients added yet.</p>
           </div>
         ) : (
           recentClients.map((client, index) => (
@@ -95,7 +95,7 @@ export function RecentActivity() {
                 <div>
                   <h5 className="font-bold text-sm group-hover:text-blue-400 transition-colors">{client.name}</h5>
                   <div className="flex items-center gap-2 mt-1">
-                    <span className="text-[10px] text-white/30">{client.email}</span>
+                    <span className="text-[10px] text-gray-900/30">{client.email}</span>
                     <div className="w-1 h-1 rounded-full bg-white/10" />
                     <span className={cn(
                       "text-[9px] font-black uppercase tracking-widest px-1.5 py-0.5 rounded bg-white/5",
@@ -107,8 +107,8 @@ export function RecentActivity() {
                 </div>
               </div>
               <div className="text-right hidden sm:block">
-                <p className="text-[10px] font-bold text-white/20 uppercase tracking-widest">Added</p>
-                <p className="text-[11px] font-medium text-white/60">{new Date(client.createdAt).toLocaleDateString()}</p>
+                <p className="text-[10px] font-bold text-gray-900/20 uppercase tracking-widest">Added</p>
+                <p className="text-[11px] font-medium text-gray-900/60">{new Date(client.createdAt).toLocaleDateString()}</p>
               </div>
             </motion.div>
           ))

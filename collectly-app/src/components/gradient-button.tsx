@@ -17,7 +17,7 @@ export const GradientButton = ({ children, className }: GradientButtonProps) => 
             className={cn(
                 "h-8 px-6 inline-flex items-center justify-center gap-2 rounded-full",
                 "bg-[#6366F1]",
-                "text-white font-medium text-sm md:text-base antialiased",
+                "text-gray-900 font-medium text-sm md:text-base antialiased",
                 "shadow-md shadow-indigo-500/20 hover:shadow-[0_0_20px_rgba(99,102,241,0.4)]",
                 "focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2",
                 "transition-all duration-200 ease-out",

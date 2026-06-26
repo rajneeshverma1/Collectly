@@ -32,11 +32,11 @@ const CodeBlock: React.FC = () => (
       <div className="w-3 h-3 rounded-full bg-green-500/80" />
     </div>
     <div className="space-y-2">
-      <p><span className="text-purple-400">const</span> <span className="text-blue-400">session</span> <span className="text-white">=</span> <span className="text-purple-400">await</span> <span className="text-yellow-400">collectly</span><span className="text-white">.</span><span className="text-green-400">createSession</span><span className="text-white">({"{"}</span></p>
-      <p className="pl-4"><span className="text-white">amount:</span> <span className="text-orange-400">4999</span><span className="text-white">,</span></p>
-      <p className="pl-4"><span className="text-white">currency:</span> <span className="text-green-300">"INR"</span><span className="text-white">,</span></p>
-      <p className="pl-4"><span className="text-white">channel:</span> <span className="text-green-300">"voice"</span></p>
-      <p><span className="text-white">{"}"})</span></p>
+      <p><span className="text-purple-400">const</span> <span className="text-blue-400">session</span> <span className="text-gray-900">=</span> <span className="text-purple-400">await</span> <span className="text-yellow-400">collectly</span><span className="text-gray-900">.</span><span className="text-green-400">createSession</span><span className="text-gray-900">({"{"}</span></p>
+      <p className="pl-4"><span className="text-gray-900">amount:</span> <span className="text-orange-400">4999</span><span className="text-gray-900">,</span></p>
+      <p className="pl-4"><span className="text-gray-900">currency:</span> <span className="text-green-300">"INR"</span><span className="text-gray-900">,</span></p>
+      <p className="pl-4"><span className="text-gray-900">channel:</span> <span className="text-green-300">"voice"</span></p>
+      <p><span className="text-gray-900">{"}"})</span></p>
     </div>
   </motion.div>
 );
@@ -51,7 +51,7 @@ const OptionCard: React.FC<{ icon: React.ReactNode; title: string; steps: string
       <div className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center">
         {icon}
       </div>
-      <h4 className="text-white font-semibold text-base">{title}</h4>
+      <h4 className="text-gray-900 font-semibold text-base">{title}</h4>
     </div>
     <div className="flex items-center gap-2 flex-wrap">
       {steps.map((step, idx) => (
@@ -78,7 +78,7 @@ const PaymentSuccessCard: React.FC = () => (
         <p className="text-xs text-zinc-500 mb-1">Payment Status</p>
         <div className="flex items-center gap-2">
           <CheckCircle className="w-4 h-4 text-green-400" />
-          <span className="text-base font-semibold text-white">Payment Successful</span>
+          <span className="text-base font-semibold text-gray-900">Payment Successful</span>
         </div>
       </div>
       <div className="bg-green-500/10 border border-transparent rounded-lg px-3 py-1.5">
@@ -126,7 +126,7 @@ const PaymentSuccessCard: React.FC = () => (
   }, [lineProgress]);
 
   return (
-    <section ref={containerRef} id={id} className="relative bg-[#0B0B0F] py-16 md:py-24 overflow-hidden">
+    <section ref={containerRef} id={id} className="relative bg-white py-16 md:py-24 overflow-hidden">
       <div className="max-w-5xl mx-auto px-6">
         {/* Header */}
         <motion.div
@@ -137,7 +137,7 @@ const PaymentSuccessCard: React.FC = () => (
           className="text-center mb-16"
         >
           <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-600 mb-3">HOW IT WORKS</p>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight tracking-tight">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight tracking-tight">
             Three steps. Zero card data.
           </h2>
         </motion.div>
@@ -167,7 +167,7 @@ const PaymentSuccessCard: React.FC = () => (
                 <span className="inline-block bg-white/[0.02] border border-transparent rounded-full px-2 py-0.5 text-[10px] text-zinc-500 mb-2">
                   Step 1
                 </span>
-                <h3 className="text-xl font-bold text-white mb-2">Create a Session</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Create a Session</h3>
                 <p className="text-xs text-zinc-500 leading-relaxed max-w-sm ml-auto">
                   Generate a secure payment session with a single API call. No PCI compliance needed. Just specify amount and channel.
                 </p>
@@ -208,7 +208,7 @@ const PaymentSuccessCard: React.FC = () => (
                 <span className="inline-block bg-white/[0.02] border border-transparent rounded-full px-2 py-0.5 text-[10px] text-zinc-500 mb-2">
                   Step 2
                 </span>
-                <h3 className="text-xl font-bold text-white mb-2">Collect Payment</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Collect Payment</h3>
                 <p className="text-xs text-zinc-500 leading-relaxed max-w-sm">
                   Our AI agent handles the payment conversation via voice or SMS. Secure UPI collection happens automatically.
                 </p>
@@ -231,7 +231,7 @@ const PaymentSuccessCard: React.FC = () => (
                 <span className="inline-block bg-white/[0.02] border border-transparent rounded-full px-2 py-0.5 text-[10px] text-zinc-500 mb-2">
                   Step 3
                 </span>
-                <h3 className="text-xl font-bold text-white mb-2">Confirm & Track</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Confirm & Track</h3>
                 <p className="text-xs text-zinc-500 leading-relaxed max-w-sm ml-auto">
                   Receive real-time updates and payment status directly in your dashboard. Monitor transactions effortlessly.
                 </p>

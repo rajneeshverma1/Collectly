@@ -41,7 +41,7 @@ const CarouselCard = ({ item }: { item: typeof testimonials[0] }) => (
 
             {/* Content Container (Centered Text) */}
             <div className="absolute inset-0 flex items-center justify-center p-12 text-center">
-                <h3 className="text-xl md:text-2xl font-medium text-white leading-tight max-w-[85%] transition-all duration-500 group-hover:scale-[1.02]">
+                <h3 className="text-xl md:text-2xl font-medium text-gray-900 leading-tight max-w-[85%] transition-all duration-500 group-hover:scale-[1.02]">
                     {item.title}
                 </h3>
             </div>
@@ -81,7 +81,7 @@ export const TestimonialsCarousel = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-3xl md:text-4xl lg:text-5xl font-medium text-white mb-6 tracking-tight"
+                    className="text-3xl md:text-4xl lg:text-5xl font-medium text-gray-900 mb-6 tracking-tight"
                 >
                     Built for modern finance teams that demand more
                 </motion.h2>

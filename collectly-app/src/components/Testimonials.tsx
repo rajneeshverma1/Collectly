@@ -15,13 +15,13 @@ const Testimonials = () => {
                     <div className="relative z-10 flex flex-col lg:flex-row items-center gap-12">
                         <div className="flex-1">
                             <div className="inline-flex items-center justify-center w-12 h-12 bg-primary rounded-xl mb-8">
-                                <Quote className="text-white" size={24} />
+                                <Quote className="text-gray-900" size={24} />
                             </div>
                             <motion.h2
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                className="text-3xl lg:text-4xl font-bold text-white mb-8 leading-tight"
+                                className="text-3xl lg:text-4xl font-bold text-gray-900 mb-8 leading-tight"
                             >
                                 &quot;With JustPaid, I can finally breathe easy knowing my finances are
                                 under control. The automated processes and real-time insights give
@@ -32,7 +32,7 @@ const Testimonials = () => {
                                     JS
                                 </div>
                                 <div>
-                                    <p className="text-white font-bold">John Smith</p>
+                                    <p className="text-gray-900 font-bold">John Smith</p>
                                     <p className="text-primary/80 text-sm">CEO @ TechFlow</p>
                                 </div>
                             </div>
@@ -40,7 +40,7 @@ const Testimonials = () => {
 
                         <div className="flex-1 w-full flex justify-center lg:justify-end">
                             <div className="bg-white/5 backdrop-blur-sm border border-transparent p-8 rounded-3xl w-full max-w-md">
-                                <h4 className="text-white font-bold mb-6">Revenue Growth</h4>
+                                <h4 className="text-gray-900 font-bold mb-6">Revenue Growth</h4>
                                 <div className="space-y-6">
                                     {[
                                         { label: "Accounts Receivable", value: "98%", color: "bg-primary" },
@@ -49,8 +49,8 @@ const Testimonials = () => {
                                     ].map((stat, i) => (
                                         <div key={i}>
                                             <div className="flex justify-between text-sm mb-2">
-                                                <span className="text-white/60">{stat.label}</span>
-                                                <span className="text-white font-bold">{stat.value}</span>
+                                                <span className="text-gray-900/60">{stat.label}</span>
+                                                <span className="text-gray-900 font-bold">{stat.value}</span>
                                             </div>
                                             <div className="h-2 bg-white/10 rounded-full overflow-hidden">
                                                 <motion.div

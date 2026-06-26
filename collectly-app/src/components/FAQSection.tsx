@@ -18,7 +18,7 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
         onClick={() => setIsOpen(!isOpen)}
         className="w-full py-6 flex items-center justify-between text-left group"
       >
-        <span className="text-base md:text-lg font-medium text-white/90 group-hover:text-white transition-colors">
+        <span className="text-base md:text-lg font-medium text-gray-900/90 group-hover:text-gray-900 transition-colors">
           {question}
         </span>
         <motion.div
@@ -78,7 +78,7 @@ export const FAQSection = () => {
   ];
 
   return (
-    <section className="pt-24 pb-12 px-6 bg-[#0B0B0F]">
+    <section className="pt-24 pb-12 px-6 bg-white">
       <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -87,7 +87,7 @@ export const FAQSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight">
+          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 tracking-tight">
             Common questions.
           </h2>
         </motion.div>

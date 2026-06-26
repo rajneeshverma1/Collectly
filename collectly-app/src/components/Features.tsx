@@ -22,24 +22,24 @@ const FeatureCard = ({ title, description, children, delay }: { title: string, d
             {children}
         </div>
         <div>
-            <h3 className="text-xl font-bold text-white mb-4">{title}</h3>
-            <p className="text-white/50 leading-relaxed text-sm">
+            <h3 className="text-xl font-bold text-gray-900 mb-4">{title}</h3>
+            <p className="text-gray-900/50 leading-relaxed text-sm">
                 {description}
             </p>
         </div>
     </motion.div>
 );
 
-const Features = () => {
+const Features = ({ id }: { id?: string }) => {
     return (
-        <section className="py-24 bg-[#0B0B0F] relative overflow-hidden">
+        <section id={id} className="py-24 bg-white relative overflow-hidden">
             <div className="max-w-7xl mx-auto px-6 relative z-10">
                 <div className="text-center mb-20">
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-3xl md:text-4xl lg:text-5xl font-medium text-white leading-tight tracking-tight max-w-3xl mx-auto"
+                        className="text-3xl md:text-4xl lg:text-5xl font-medium text-gray-900 leading-tight tracking-tight max-w-3xl mx-auto"
                     >
                         Unlock effortless revenue management for your startup
                     </motion.h2>
@@ -58,8 +58,8 @@ const Features = () => {
                                     <FileText size={20} />
                                 </div>
                                 <div className="flex-grow">
-                                    <div className="text-xs font-semibold text-white">invoice-jan-2025.pdf</div>
-                                    <div className="text-[10px] text-white/40 mt-0.5">45 KB / 145 KB</div>
+                                    <div className="text-xs font-semibold text-gray-900">invoice-jan-2025.pdf</div>
+                                    <div className="text-[10px] text-gray-900/40 mt-0.5">45 KB / 145 KB</div>
                                 </div>
                             </div>
                             <div className="mt-4 w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
@@ -105,7 +105,7 @@ const Features = () => {
                     >
                         <div className="w-full max-w-[260px] bg-white/5 border border-transparent rounded-2xl overflow-hidden shadow-xl">
                             <div className="bg-white/5 px-4 py-2 flex items-center justify-between border-b border-transparent">
-                                <span className="text-[10px] font-bold text-white/40 uppercase tracking-wider">AI Agent</span>
+                                <span className="text-[10px] font-bold text-gray-900/40 uppercase tracking-wider">AI Agent</span>
                                 <div className="flex items-center gap-1">
                                     <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
                                     <span className="text-[9px] font-medium text-green-400">Active</span>
@@ -114,15 +114,15 @@ const Features = () => {
                             <div className="p-5 space-y-4">
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2">
-                                        <Clock size={12} className="text-white/40" />
-                                        <span className="text-[10px] text-white/50">Follow-up schedule</span>
+                                        <Clock size={12} className="text-gray-900/40" />
+                                        <span className="text-[10px] text-gray-900/50">Follow-up schedule</span>
                                     </div>
                                     <div className="flex items-center gap-1 text-blue-400">
                                         <CheckCircle2 size={12} />
                                         <span className="text-[10px] font-bold">Invoices paid</span>
                                     </div>
                                 </div>
-                                <div className="pt-3 flex items-center justify-between text-white/40">
+                                <div className="pt-3 flex items-center justify-between text-gray-900/40">
                                     <div className="flex items-center gap-1.5">
                                         <Send size={12} />
                                         <span className="text-[10px] font-medium">Auto-follow up</span>

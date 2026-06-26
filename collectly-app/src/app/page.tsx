@@ -2,10 +2,12 @@ import Navbar from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { ProblemSection } from "@/components/ProblemSection";
 import { HowItWorksSection } from "@/components/HowItWorksSection";
+import Features from "@/components/Features";
 import { ConfigurableSection } from "@/components/ConfigurableSection";
 import { WhoWeServeSection } from "@/components/WhoWeServeSection";
 import { IntegrationsSection } from "@/components/IntegrationsSection";
 import { TestimonialsCarousel } from "@/components/testimonials-carousel";
+import { AboutSection } from "@/components/AboutSection";
 import { FinalCTA } from "@/components/final-cta";
 import { FAQSection } from "@/components/FAQSection";
 import { WordmarkSection } from "@/components/wordmark-section";
@@ -19,14 +21,17 @@ export default function Home() {
       <Hero />
       <ProblemSection id="problem" />
       <HowItWorksSection id="how-it-works" />
+      <Features id="features" />
       <ConfigurableSection />
-      <WhoWeServeSection />
+      <WhoWeServeSection id="solutions" />
       <IntegrationsSection id="integrations" />
       <TestimonialsCarousel />
+      <AboutSection id="about" />
       <FinalCTA />
       <FAQSection />
       <WordmarkSection />
       <SubFooter />
+      <Footer />
     </main>
   );
 }

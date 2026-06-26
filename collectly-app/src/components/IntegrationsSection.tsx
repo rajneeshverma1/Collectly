@@ -103,7 +103,7 @@ export const IntegrationsSection: React.FC<{ id?: string }> = ({ id }) => {
   ];
 
   return (
-    <section id={id} className="relative bg-[#0B0B0F] py-24 md:py-32 overflow-hidden">
+    <section id={id} className="relative bg-white py-24 md:py-32 overflow-hidden">
       <div className="max-w-5xl mx-auto px-6">
         {/* Header */}
         <motion.div
@@ -114,7 +114,7 @@ export const IntegrationsSection: React.FC<{ id?: string }> = ({ id }) => {
           className="text-center mb-16"
         >
           <p className="text-xs uppercase tracking-widest text-zinc-500 mb-4">INTEGRATIONS</p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight tracking-tight mb-6">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight tracking-tight mb-6">
             Works with your stack.
           </h2>
           <p className="text-base md:text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">

@@ -94,12 +94,12 @@ export function MockUserButton() {
   if (!isSignedIn) return null;
   return (
     <div className="flex items-center gap-3">
-      <div className="w-8 h-8 rounded-full bg-indigo-600 border border-white/10 flex items-center justify-center font-bold text-xs text-white">
+      <div className="w-8 h-8 rounded-full bg-indigo-600 border border-white/10 flex items-center justify-center font-bold text-xs text-gray-900">
         {user?.firstName?.[0] || 'U'}
       </div>
       <button 
         onClick={() => ctx?.setIsSignedIn(false)}
-        className="text-[10px] text-white/40 hover:text-white font-bold uppercase tracking-wider transition-colors"
+        className="text-[10px] text-gray-900/40 hover:text-gray-900 font-bold uppercase tracking-wider transition-colors"
       >
         Sign Out
       </button>

@@ -63,6 +63,10 @@ const Footer = () => {
                 </div>
 
                 {/* Bottom row removed in favor of SubFooter bar */}
+                <div className="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p className="text-sm text-[#94A3B8]">© {new Date().getFullYear()} Collectly, Inc. All rights reserved.</p>
+                    <p className="text-sm text-[#94A3B8]">Built with ❤️ in San Francisco</p>
+                </div>
             </div>
         </footer>
     );

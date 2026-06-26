@@ -24,12 +24,12 @@ const data = [
 
 export const WorkflowSection = () => {
     return (
-        <section className="py-24 relative overflow-hidden bg-[#0B0B0F]">
+        <section className="py-24 relative overflow-hidden bg-white">
             {/* Background Accent */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/5 blur-[120px] rounded-full pointer-events-none" />
 
             <div className="max-w-[1200px] mx-auto px-6 relative z-10">
-                <h2 className="text-2xl md:text-3xl font-medium text-white text-center mb-16 tracking-tight">
+                <h2 className="text-2xl md:text-3xl font-medium text-gray-900 text-center mb-16 tracking-tight">
                     Automate Financial Workflows
                 </h2>
 
@@ -37,8 +37,8 @@ export const WorkflowSection = () => {
                     {/* Left Side — Revenue vs Collections Graph */}
                     <div className="p-10 border-b md:border-b-0 md:border-r border-transparent">
                         <div className="mb-10">
-                            <h3 className="font-medium text-white mb-3">Revenue vs Collections tracking</h3>
-                            <p className="text-sm text-white/50 max-w-sm leading-relaxed">
+                            <h3 className="font-medium text-gray-900 mb-3">Revenue vs Collections tracking</h3>
+                            <p className="text-sm text-gray-900/50 max-w-sm leading-relaxed">
                                 Monitor billed revenue against actual collections. Identify payment gaps instantly.
                             </p>
                         </div>
@@ -87,8 +87,8 @@ export const WorkflowSection = () => {
                     {/* Right Side — Invoice Preview */}
                     <div className="p-10 bg-white/[0.02]">
                         <div className="mb-10">
-                            <h3 className="font-medium text-white mb-3">Automated smart invoicing</h3>
-                            <p className="text-sm text-white/50 max-w-sm leading-relaxed">
+                            <h3 className="font-medium text-gray-900 mb-3">Automated smart invoicing</h3>
+                            <p className="text-sm text-gray-900/50 max-w-sm leading-relaxed">
                                 AI-powered invoice generation and tracking. Get paid 30% faster with zero errors.
                             </p>
                         </div>
@@ -105,14 +105,14 @@ export const WorkflowSection = () => {
                                         <div className="w-7 h-7 bg-indigo-600 rounded-lg flex items-center justify-center">
                                             <div className="w-1.5 h-1.5 bg-white rounded-full" />
                                         </div>
-                                        <span className="text-[11px] font-bold text-white tracking-widest uppercase">Collectly</span>
+                                        <span className="text-[11px] font-bold text-gray-900 tracking-widest uppercase">Collectly</span>
                                     </div>
-                                    <div className="text-[10px] text-white/30 font-medium font-mono">INV-456789</div>
+                                    <div className="text-[10px] text-gray-900/30 font-medium font-mono">INV-456789</div>
                                 </div>
 
                                 <div className="mt-3">
-                                    <div className="text-[10px] text-white/30 uppercase tracking-widest font-bold mb-1.5">Total Amount</div>
-                                    <div className="text-3xl font-bold text-white tabular-nums">$284,342.57</div>
+                                    <div className="text-[10px] text-gray-900/30 uppercase tracking-widest font-bold mb-1.5">Total Amount</div>
+                                    <div className="text-3xl font-bold text-gray-900 tabular-nums">$284,342.57</div>
                                 </div>
 
                                 <div className="space-y-2 mt-2">
@@ -126,7 +126,7 @@ export const WorkflowSection = () => {
                                         <CheckCircle2 size={14} strokeWidth={3} />
                                         Verified
                                     </div>
-                                    <div className="bg-white/5 border border-transparent text-white/40 text-[9px] font-bold px-2.5 py-1 rounded-lg tracking-tight">
+                                    <div className="bg-white/5 border border-transparent text-gray-900/40 text-[9px] font-bold px-2.5 py-1 rounded-lg tracking-tight">
                                         Due in 15 days
                                     </div>
                                 </div>

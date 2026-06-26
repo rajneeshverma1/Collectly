@@ -23,38 +23,38 @@ const ServeCard: React.FC<ServeCardProps> = ({ icon, title, description, delay }
       <div className="w-10 h-10 rounded-lg bg-white/[0.02] border border-white/[0.03] flex items-center justify-center mb-4">
         {icon}
       </div>
-      <h3 className="text-base font-bold text-white mb-2 tracking-tight">{title}</h3>
+      <h3 className="text-base font-bold text-gray-900 mb-2 tracking-tight">{title}</h3>
       <p className="text-[12px] text-zinc-500 leading-relaxed max-w-[180px]">{description}</p>
     </div>
   </motion.div>
 );
 
-export const WhoWeServeSection: React.FC = () => {
+export const WhoWeServeSection: React.FC<{ id?: string }> = ({ id }) => {
   const segments = [
     {
-      icon: <User className="w-4 h-4 text-white/60" />,
+      icon: <User className="w-4 h-4 text-gray-900/60" />,
       title: "Freelancers",
       description: "Get paid faster for your work with seamless payment collection.",
     },
     {
-      icon: <Building2 className="w-4 h-4 text-white/60" />,
+      icon: <Building2 className="w-4 h-4 text-gray-900/60" />,
       title: "B2B",
       description: "Streamline invoicing and collect large transactions securely.",
     },
     {
-      icon: <Store className="w-4 h-4 text-white/60" />,
+      icon: <Store className="w-4 h-4 text-gray-900/60" />,
       title: "Small Businesses",
       description: "Simplify payments, reduce manual work, and focus on growth.",
     },
     {
-      icon: <Layers className="w-4 h-4 text-white/60" />,
+      icon: <Layers className="w-4 h-4 text-gray-900/60" />,
       title: "Agencies",
       description: "Manage multiple clients and scale your operations effortlessly.",
     },
   ];
 
   return (
-    <section className="relative bg-[#0B0B0F] py-16 md:py-24 overflow-hidden">
+    <section id={id} className="relative bg-white py-16 md:py-24 overflow-hidden">
       <div className="max-w-5xl mx-auto px-6">
         {/* Header */}
         <motion.div
@@ -65,7 +65,7 @@ export const WhoWeServeSection: React.FC = () => {
           className="text-center mb-12"
         >
           <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-600 mb-4">WHO WE SERVE</p>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight tracking-tight mb-4">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight tracking-tight mb-4">
             Built for businesses that <br /> grow with smarter payments.
           </h2>
           <p className="text-sm md:text-base text-zinc-500 max-w-xl mx-auto leading-relaxed">

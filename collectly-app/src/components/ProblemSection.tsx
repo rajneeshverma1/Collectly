@@ -64,7 +64,7 @@ const ProblemCard: React.FC<ProblemCardProps> = ({ icon, title, description, acc
       </div>
 
       {/* Title */}
-      <h3 className="text-lg font-semibold text-white mb-2 tracking-tight">
+      <h3 className="text-lg font-semibold text-gray-900 mb-2 tracking-tight">
         {title}
       </h3>
 
@@ -105,7 +105,7 @@ export const ProblemSection: React.FC<{ id?: string }> = ({ id }) => {
   ];
 
   return (
-    <section id={id} className="relative bg-[#0B0B0F] py-16 md:py-24 overflow-hidden">
+    <section id={id} className="relative bg-white py-16 md:py-24 overflow-hidden">
       {/* Subtle background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0B0B0F] to-[#0B0B0F]" />
       
@@ -122,7 +122,7 @@ export const ProblemSection: React.FC<{ id?: string }> = ({ id }) => {
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight tracking-tight">
             <span className="text-zinc-500">Every voice AI company</span>
             <br />
-            <span className="text-white">hits the payment wall.</span>
+            <span className="text-gray-900">hits the payment wall.</span>
           </h2>
           <p className="mt-4 text-sm md:text-base text-zinc-400 max-w-xl mx-auto leading-relaxed">
             The infrastructure that worked at Series A breaks at scale. Payment failures and legacy systems become the bottleneck to growth.

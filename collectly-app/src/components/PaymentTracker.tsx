@@ -99,11 +99,11 @@ export function PaymentTracker() {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
           </h4>
-          <p className="text-xs text-white/30 font-bold uppercase tracking-widest mt-1">Live Payment Gateway Logs</p>
+          <p className="text-xs text-gray-900/30 font-bold uppercase tracking-widest mt-1">Live Payment Gateway Logs</p>
         </div>
 
         <div className="flex items-center gap-3">
-          <span className="text-[10px] text-white/30 font-bold uppercase tracking-widest hidden md:inline-flex items-center gap-1">
+          <span className="text-[10px] text-gray-900/30 font-bold uppercase tracking-widest hidden md:inline-flex items-center gap-1">
             <Clock size={10} /> Auto-sync active
           </span>
           <motion.button 
@@ -111,7 +111,7 @@ export function PaymentTracker() {
             whileTap={{ scale: 0.95 }}
             onClick={() => fetchTransactions(true)}
             disabled={syncing}
-            className="p-3 bg-white/5 border border-white/10 hover:bg-white/10 rounded-2xl transition-all text-white/70 hover:text-white flex items-center justify-center disabled:opacity-50"
+            className="p-3 bg-white/5 border border-white/10 hover:bg-white/10 rounded-2xl transition-all text-gray-900/70 hover:text-gray-900 flex items-center justify-center disabled:opacity-50"
             title="Force refresh transaction history"
           >
             <RefreshCw size={14} className={syncing ? "animate-spin" : ""} />
@@ -121,7 +121,7 @@ export function PaymentTracker() {
 
       {loading ? (
         <div className="h-48 flex items-center justify-center">
-          <Loader2 className="animate-spin text-white/20" size={24} />
+          <Loader2 className="animate-spin text-gray-900/20" size={24} />
         </div>
       ) : error ? (
         <div className="p-6 bg-red-500/10 border border-red-500/20 rounded-3xl text-center text-red-400 text-xs font-semibold flex items-center justify-center gap-2">
@@ -138,7 +138,7 @@ export function PaymentTracker() {
                 <TrendingUp size={20} />
               </div>
               <div>
-                <p className="text-[10px] text-white/40 font-black uppercase tracking-wider">Total Gateway Revenue</p>
+                <p className="text-[10px] text-gray-900/40 font-black uppercase tracking-wider">Total Gateway Revenue</p>
                 <h3 className="text-2xl font-black mt-0.5 text-emerald-400">{formatCurrency(totalCaptured)}</h3>
               </div>
             </div>
@@ -153,9 +153,9 @@ export function PaymentTracker() {
           <div className="space-y-3.5 max-h-[320px] overflow-y-auto pr-1.5 custom-scrollbar">
             {transactions.length === 0 ? (
               <div className="py-12 border border-dashed border-white/5 rounded-3xl text-center">
-                <CreditCard size={28} className="mx-auto text-white/10 mb-3" />
-                <p className="text-white/30 text-xs font-bold uppercase tracking-wider">No dynamic payments processed yet</p>
-                <p className="text-[11px] text-white/20 mt-1">Stripe Checkout and Razorpay events appear here automatically.</p>
+                <CreditCard size={28} className="mx-auto text-gray-900/10 mb-3" />
+                <p className="text-gray-900/30 text-xs font-bold uppercase tracking-wider">No dynamic payments processed yet</p>
+                <p className="text-[11px] text-gray-900/20 mt-1">Stripe Checkout and Razorpay events appear here automatically.</p>
               </div>
             ) : (
               <AnimatePresence>
@@ -178,10 +178,10 @@ export function PaymentTracker() {
 
                       <div>
                         <div className="flex items-center gap-2">
-                          <h5 className="font-bold text-sm text-white group-hover:text-blue-400 transition-colors">
+                          <h5 className="font-bold text-sm text-gray-900 group-hover:text-blue-400 transition-colors">
                             {tx.Invoice ? tx.Invoice.clientName : 'Valued Client'}
                           </h5>
-                          <span className="text-[10px] text-white/30 font-medium">
+                          <span className="text-[10px] text-gray-900/30 font-medium">
                             #{tx.Invoice ? tx.Invoice.invoiceNumber : 'N/A'}
                           </span>
                         </div>
@@ -191,8 +191,8 @@ export function PaymentTracker() {
                           }`}>
                             {tx.paymentMethod === 'credit_card' ? 'Stripe Checkout' : 'Razorpay Secure'}
                           </span>
-                          <span className="text-white/20 text-[9px]">•</span>
-                          <span className="text-[10px] text-white/30 font-medium">
+                          <span className="text-gray-900/20 text-[9px]">•</span>
+                          <span className="text-[10px] text-gray-900/30 font-medium">
                             {new Date(tx.paidAt).toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })}
                           </span>
                         </div>
@@ -201,13 +201,13 @@ export function PaymentTracker() {
 
                     <div className="text-right flex items-center gap-4">
                       <div>
-                        <p className="font-black text-sm text-white">{formatCurrency(tx.amount)}</p>
-                        <p className="text-[9px] text-white/30 font-bold uppercase tracking-widest flex items-center gap-0.5 justify-end">
+                        <p className="font-black text-sm text-gray-900">{formatCurrency(tx.amount)}</p>
+                        <p className="text-[9px] text-gray-900/30 font-bold uppercase tracking-widest flex items-center gap-0.5 justify-end">
                           <CheckCircle size={8} className="text-emerald-500" /> Captured
                         </p>
                       </div>
                       <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                        <ArrowUpRight size={14} className="text-white/30" />
+                        <ArrowUpRight size={14} className="text-gray-900/30" />
                       </div>
                     </div>
                   </motion.div>
