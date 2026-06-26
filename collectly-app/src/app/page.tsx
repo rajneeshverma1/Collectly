@@ -6,10 +6,10 @@ import Features from "@/components/Features";
 import { ConfigurableSection } from "@/components/ConfigurableSection";
 import { WhoWeServeSection } from "@/components/WhoWeServeSection";
 import { IntegrationsSection } from "@/components/IntegrationsSection";
-import { TestimonialsCarousel } from "@/components/testimonials-carousel";
 import { AboutSection } from "@/components/AboutSection";
 import { FinalCTA } from "@/components/final-cta";
 import { FAQSection } from "@/components/FAQSection";
+import { LLMCTASection } from "@/components/LLMCTASection";
 import { WordmarkSection } from "@/components/wordmark-section";
 import { SubFooter } from "@/components/sub-footer";
 import Footer from "@/components/Footer";
@@ -25,10 +25,10 @@ export default function Home() {
       <ConfigurableSection />
       <WhoWeServeSection id="solutions" />
       <IntegrationsSection id="integrations" />
-      <TestimonialsCarousel />
       <AboutSection id="about" />
       <FinalCTA />
       <FAQSection />
+      <LLMCTASection />
       <Footer />
       <WordmarkSection />
       <SubFooter />

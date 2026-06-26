@@ -13,20 +13,20 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="bg-[#111114] border border-white/[0.03] rounded-2xl px-6 md:px-8 mb-2 last:mb-0 transition-all duration-300">
+    <div className="border-b border-gray-200 py-4 last:border-0">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full py-6 flex items-center justify-between text-left group"
+        className="w-full flex items-center justify-between text-left group py-2"
       >
-        <span className="text-base md:text-lg font-medium text-gray-900/90 group-hover:text-gray-900 transition-colors">
+        <span className="text-[15px] font-semibold text-gray-900 group-hover:text-black transition-colors">
           {question}
         </span>
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="text-zinc-600 group-hover:text-zinc-400 transition-colors ml-4"
+          className="text-gray-400 ml-4 shrink-0 group-hover:text-gray-600 transition-colors"
         >
-          <ChevronDown size={20} />
+          <ChevronDown size={18} strokeWidth={2} />
         </motion.div>
       </button>
       
@@ -39,7 +39,7 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <div className="pb-6 text-sm text-zinc-500 leading-relaxed max-w-4xl">
+            <div className="pt-2 pb-4 text-sm text-gray-500 leading-relaxed pr-8">
               {answer}
             </div>
           </motion.div>
@@ -52,56 +52,91 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
 export const FAQSection = () => {
   const faqs = [
     {
-      question: "Do I need to be PCI compliant?",
-      answer: "No. Collectly handles all card data through our secure, PCI-compliant infrastructure. Your servers never see or touch sensitive payment information, keeping you entirely out of PCI scope.",
+      question: "What does Collectly do?",
+      answer: "Collectly is an AI-powered financial operations platform that automates your entire billing cycle. We handle everything from invoicing and payment collection to reconciliation and dunning, acting as your 24/7 AI billing agent."
     },
     {
-      question: "What does the caller actually hear?",
-      answer: "Callers hear a natural, human-like voice that guides them through the payment process. You can customize the voice, tone, and specific messaging to match your brand&apos;s personality perfectly.",
+      question: "How does the AI Billing Agent work?",
+      answer: "Our AI Billing Agent intelligently interacts with your customers through voice or text to follow up on overdue payments, answer billing queries, and negotiate payment plans, all while maintaining a natural and empathetic tone."
     },
     {
-      question: "How long does integration take?",
-      answer: "Most integrations are completed within 3-7 days. Our developer-first API and pre-built components make it simple to connect your existing voice platform and payment gateway.",
+      question: "What integrations does Collectly support?",
+      answer: "Collectly seamlessly integrates with major ERPs, accounting software (like QuickBooks, Xero, NetSuite), and payment gateways (Stripe, Authorize.net, Adyen) to ensure your data stays perfectly synced."
     },
     {
-      question: "What payment gateways do you support?",
-      answer: "We support all major payment gateways including Stripe, Authorize.net, Adyen, Braintree, and many others through our unified integration layer.",
+      question: "Can Collectly handle complex or usage-based billing?",
+      answer: "Absolutely. Our platform is built to handle complex billing models, including usage-based, tiered, and hybrid subscriptions. We ingest raw usage data and automatically calculate the correct billing amounts."
     },
     {
-      question: "Can I preauthorize cards without charging?",
-      answer: "Yes. Our system supports full authorization and capture workflows, allowing you to verify funds and hold them before finalizing the transaction at a later time.",
+      question: "Do I need to replace Stripe to use Collectly?",
+      answer: "No, you don't. Collectly sits on top of your existing payment infrastructure like Stripe. We act as the intelligence layer that orchestrates the billing logic, while Stripe continues to process the actual transactions."
     },
     {
-      question: "What happens if the payment fails?",
-      answer: "If a payment failed, our AI agent can gracefully handle the error, explain the reason to the caller, and offer alternative payment methods or retry options immediately.",
+      question: "What kind of companies use Collectly?",
+      answer: "Collectly is built for fast-growing B2B companies, SaaS startups, agencies, and mid-market enterprises that want to streamline their financial operations and reduce revenue leakage."
     },
+    {
+      question: "Is my financial data secure?",
+      answer: "Security is our top priority. Collectly is SOC-2, GDPR, and HIPAA compliant. We use bank-grade encryption for data at rest and in transit, ensuring your sensitive financial information is always protected."
+    },
+    {
+      question: "What makes Collectly different from other billing tools?",
+      answer: "Unlike traditional billing tools that just generate invoices, Collectly provides an active AI agent that actively works to recover revenue, resolve billing disputes, and automate the manual tasks that slow down your finance team."
+    }
   ];
 
   return (
-    <section className="pt-24 pb-12 px-6 bg-white">
-      <div className="max-w-5xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 tracking-tight">
-            Common questions.
-          </h2>
-        </motion.div>
+    <section className="py-24 px-6 bg-[#fafafa]">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
+          
+          {/* Left Column */}
+          <div className="lg:col-span-5">
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="text-3xl md:text-[40px] font-normal text-gray-900 mb-6 tracking-tight leading-tight"
+            >
+              Questions and answers
+            </motion.h2>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <p className="text-gray-500 text-[15px] leading-relaxed mb-8 pr-4">
+                Tell us your most pressing billing challenge—whether it's getting paid on
+                time, ensuring accurate and timely billing, or improving financial
+                reporting—and we'll show you exactly how Collectly.ai can solve it.
+                <br /><br />
+                Browse the <span className="font-semibold text-gray-700">Collectly Help Center</span> for guides and FAQs anytime.
+              </p>
+              
+              <button className="bg-[#2D2D35] hover:bg-[#1a1a1f] text-white text-[13px] font-semibold py-3.5 px-6 rounded-full inline-flex items-center gap-1 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-sm tracking-wide">
+                Still have questions? Talk to Founder <span className="ml-1 text-lg leading-none">&rarr;</span>
+              </button>
+            </motion.div>
+          </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          {faqs.map((faq, index) => (
-            <FAQItem key={index} question={faq.question} answer={faq.answer} />
-          ))}
-        </motion.div>
+          {/* Right Column */}
+          <div className="lg:col-span-7">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              {faqs.map((faq, index) => (
+                <FAQItem key={index} question={faq.question} answer={faq.answer} />
+              ))}
+            </motion.div>
+          </div>
+
+        </div>
       </div>
     </section>
   );

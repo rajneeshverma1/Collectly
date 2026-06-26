@@ -9,11 +9,11 @@ const TimelineDot: React.FC<{ isActive: boolean; isCompleted: boolean }> = ({ is
   <motion.div
     animate={{
       scale: isActive ? 1.2 : 1,
-      backgroundColor: isCompleted || isActive ? '#ffffff' : '#52525B',
-      boxShadow: isActive ? '0 0 20px rgba(255, 255, 255, 0.5)' : 'none',
+      backgroundColor: isCompleted || isActive ? '#111827' : '#E5E7EB',
+      boxShadow: isActive ? '0 0 20px rgba(0, 0, 0, 0.15)' : 'none',
     }}
     transition={{ duration: 0.4 }}
-    className="absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-2 border-transparent z-10"
+    className="absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-2 border-gray-200 z-10"
   />
 );
 
@@ -24,7 +24,7 @@ const CodeBlock: React.FC = () => (
     whileInView={{ opacity: 1, x: 0 }}
     viewport={{ once: true, margin: "-100px" }}
     transition={{ duration: 0.6, delay: 0.2 }}
-    className="bg-zinc-900/80 border border-transparent rounded-2xl p-5 font-mono text-xs backdrop-blur-sm hover:scale-[1.02] transition-all duration-300 shadow-xl"
+    className="bg-white border border-gray-200 rounded-2xl p-5 font-mono text-xs backdrop-blur-sm hover:scale-[1.02] transition-all duration-300 shadow-xl"
   >
     <div className="flex items-center gap-2 mb-4">
       <div className="w-3 h-3 rounded-full bg-red-500/80" />
@@ -32,11 +32,11 @@ const CodeBlock: React.FC = () => (
       <div className="w-3 h-3 rounded-full bg-green-500/80" />
     </div>
     <div className="space-y-2">
-      <p><span className="text-purple-400">const</span> <span className="text-blue-400">session</span> <span className="text-white">=</span> <span className="text-purple-400">await</span> <span className="text-yellow-400">collectly</span><span className="text-white">.</span><span className="text-green-400">createSession</span><span className="text-white">({"{"}</span></p>
-      <p className="pl-4"><span className="text-white">amount:</span> <span className="text-orange-400">4999</span><span className="text-white">,</span></p>
-      <p className="pl-4"><span className="text-white">currency:</span> <span className="text-green-300">"INR"</span><span className="text-white">,</span></p>
-      <p className="pl-4"><span className="text-white">channel:</span> <span className="text-green-300">"voice"</span></p>
-      <p><span className="text-white">{"}"})</span></p>
+      <p><span className="text-purple-400">const</span> <span className="text-blue-400">session</span> <span className="text-gray-900">=</span> <span className="text-purple-400">await</span> <span className="text-yellow-400">collectly</span><span className="text-gray-900">.</span><span className="text-green-400">createSession</span><span className="text-gray-900">({"{"}</span></p>
+      <p className="pl-4"><span className="text-gray-900">amount:</span> <span className="text-orange-400">4999</span><span className="text-gray-900">,</span></p>
+      <p className="pl-4"><span className="text-gray-900">currency:</span> <span className="text-green-300">"INR"</span><span className="text-gray-900">,</span></p>
+      <p className="pl-4"><span className="text-gray-900">channel:</span> <span className="text-green-300">"voice"</span></p>
+      <p><span className="text-gray-900">{"}"})</span></p>
     </div>
   </motion.div>
 );
@@ -45,19 +45,19 @@ const CodeBlock: React.FC = () => (
 const OptionCard: React.FC<{ icon: React.ReactNode; title: string; steps: string[] }> = ({ icon, title, steps }) => (
   <motion.div
     whileHover={{ scale: 1.02 }}
-    className="bg-zinc-900/50 border border-transparent rounded-2xl p-5 backdrop-blur-sm cursor-pointer transition-all duration-300 shadow-lg"
+    className="bg-white border border-gray-200 rounded-2xl p-5 backdrop-blur-sm cursor-pointer transition-all duration-300 shadow-lg"
   >
     <div className="flex items-center gap-3 mb-3">
-      <div className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center">
+      <div className="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center">
         {icon}
       </div>
-      <h4 className="text-white font-semibold text-base">{title}</h4>
+      <h4 className="text-gray-900 font-semibold text-base">{title}</h4>
     </div>
     <div className="flex items-center gap-2 flex-wrap">
       {steps.map((step, idx) => (
         <React.Fragment key={idx}>
-          <span className="text-xs text-zinc-400 bg-white/5 px-2 py-1.5 rounded-lg border border-transparent">{step}</span>
-          {idx < steps.length - 1 && <span className="text-zinc-400">→</span>}
+          <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1.5 rounded-lg border border-gray-200">{step}</span>
+          {idx < steps.length - 1 && <span className="text-gray-500">→</span>}
         </React.Fragment>
       ))}
     </div>
@@ -71,36 +71,36 @@ const PaymentSuccessCard: React.FC = () => (
     whileInView={{ opacity: 1, x: 0 }}
     viewport={{ once: true, margin: "-100px" }}
     transition={{ duration: 0.6, delay: 0.2 }}
-    className="bg-zinc-900/80 border border-transparent rounded-2xl p-5 backdrop-blur-sm hover:scale-[1.02] transition-all duration-300 shadow-2xl"
+    className="bg-white border border-gray-200 rounded-2xl p-5 backdrop-blur-sm hover:scale-[1.02] transition-all duration-300 shadow-2xl"
   >
     <div className="flex items-start justify-between mb-5">
       <div>
-        <p className="text-xs text-zinc-500 mb-1">Payment Status</p>
+        <p className="text-xs text-gray-500 mb-1">Payment Status</p>
         <div className="flex items-center gap-2">
           <CheckCircle className="w-4 h-4 text-green-400" />
-          <span className="text-base font-semibold text-white">Payment Successful</span>
+          <span className="text-base font-semibold text-gray-900">Payment Successful</span>
         </div>
       </div>
-      <div className="bg-green-500/10 border border-transparent rounded-lg px-3 py-1.5">
+      <div className="bg-green-500/10 border border-gray-200 rounded-lg px-3 py-1.5">
         <span className="text-green-400 font-semibold text-sm">₹4,999</span>
       </div>
     </div>
     
-    <div className="space-y-2 border-t border-transparent pt-3">
+    <div className="space-y-2 border-t border-gray-200 pt-3">
       <div className="flex justify-between text-xs">
-        <span className="text-zinc-500">Transaction ID</span>
-        <span className="text-zinc-300 font-mono">TXN_8X92KD</span>
+        <span className="text-gray-500">Transaction ID</span>
+        <span className="text-gray-700 font-mono">TXN_8X92KD</span>
       </div>
       <div className="flex justify-between text-xs">
-        <span className="text-zinc-500">Timestamp</span>
-        <span className="text-zinc-300">2024-01-15 14:32:07</span>
+        <span className="text-gray-500">Timestamp</span>
+        <span className="text-gray-700">2024-01-15 14:32:07</span>
       </div>
       <div className="flex justify-between text-xs">
-        <span className="text-zinc-500">Channel</span>
-        <span className="text-zinc-300">Voice Call</span>
+        <span className="text-gray-500">Channel</span>
+        <span className="text-gray-700">Voice Call</span>
       </div>
       <div className="flex justify-between text-xs">
-        <span className="text-zinc-500">Status</span>
+        <span className="text-gray-500">Status</span>
         <span className="text-green-400 font-semibold">Confirmed</span>
       </div>
     </div>
@@ -136,7 +136,7 @@ const PaymentSuccessCard: React.FC = () => (
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-400 mb-3">HOW IT WORKS</p>
+          <p className="text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-3">HOW IT WORKS</p>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight tracking-tight">
             Three steps. Zero card data.
           </h2>
@@ -145,10 +145,10 @@ const PaymentSuccessCard: React.FC = () => (
         {/* Timeline */}
         <div className="relative">
           {/* Vertical Line */}
-          <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-zinc-800">
+          <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-gray-200">
             <motion.div
               style={{ scaleY: lineProgress }}
-              className="absolute top-0 left-0 right-0 bottom-0 bg-gradient-to-b from-zinc-600 via-zinc-400 to-zinc-400 origin-top"
+              className="absolute top-0 left-0 right-0 bottom-0 bg-gradient-to-b from-gray-300 via-gray-500 to-gray-500 origin-top"
             />
           </div>
 
@@ -164,11 +164,11 @@ const PaymentSuccessCard: React.FC = () => (
                 transition={{ duration: 0.6 }}
                 className="md:text-right"
               >
-                <span className="inline-block bg-white/[0.02] border border-transparent rounded-full px-2 py-0.5 text-[10px] text-zinc-500 mb-2">
+                <span className="inline-block bg-white/[0.02] border border-gray-200 rounded-full px-2 py-0.5 text-[10px] text-gray-500 mb-2">
                   Step 1
                 </span>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">Create a Session</h3>
-                <p className="text-xs text-zinc-500 leading-relaxed max-w-sm ml-auto">
+                <p className="text-xs text-gray-500 leading-relaxed max-w-sm ml-auto">
                   Generate a secure payment session with a single API call. No PCI compliance needed. Just specify amount and channel.
                 </p>
               </motion.div>
@@ -205,11 +205,11 @@ const PaymentSuccessCard: React.FC = () => (
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.6 }}
               >
-                <span className="inline-block bg-white/[0.02] border border-transparent rounded-full px-2 py-0.5 text-[10px] text-zinc-500 mb-2">
+                <span className="inline-block bg-white/[0.02] border border-gray-200 rounded-full px-2 py-0.5 text-[10px] text-gray-500 mb-2">
                   Step 2
                 </span>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">Collect Payment</h3>
-                <p className="text-xs text-zinc-500 leading-relaxed max-w-sm">
+                <p className="text-xs text-gray-500 leading-relaxed max-w-sm">
                   Our AI agent handles the payment conversation via voice or SMS. Secure UPI collection happens automatically.
                 </p>
               </motion.div>
@@ -228,11 +228,11 @@ const PaymentSuccessCard: React.FC = () => (
                 transition={{ duration: 0.6 }}
                 className="md:text-right"
               >
-                <span className="inline-block bg-white/[0.02] border border-transparent rounded-full px-2 py-0.5 text-[10px] text-zinc-500 mb-2">
+                <span className="inline-block bg-white/[0.02] border border-gray-200 rounded-full px-2 py-0.5 text-[10px] text-gray-500 mb-2">
                   Step 3
                 </span>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">Confirm & Track</h3>
-                <p className="text-xs text-zinc-500 leading-relaxed max-w-sm ml-auto">
+                <p className="text-xs text-gray-500 leading-relaxed max-w-sm ml-auto">
                   Receive real-time updates and payment status directly in your dashboard. Monitor transactions effortlessly.
                 </p>
               </motion.div>

@@ -15,7 +15,7 @@ const IntegrationCard: React.FC<Omit<IntegrationCardProps, 'name'>> = ({ logo, d
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: "-50px" }}
     transition={{ duration: 0.4, delay }}
-    className="bg-[#111111] border border-transparent rounded-xl h-20 px-6 flex items-center justify-center transition-all duration-300 ease-in-out hover:shadow-xl hover:shadow-white/5 cursor-pointer group"
+    className="bg-white border border-gray-200 rounded-xl h-20 px-6 flex items-center justify-center transition-all duration-300 ease-in-out hover:shadow-xl hover:shadow-black/5 cursor-pointer group"
   >
     <div className="opacity-60 group-hover:opacity-100 transition-opacity duration-300">
       {logo}
@@ -25,9 +25,9 @@ const IntegrationCard: React.FC<Omit<IntegrationCardProps, 'name'>> = ({ logo, d
 
 const DividerLabel: React.FC<{ text: string }> = ({ text }) => (
   <div className="flex items-center gap-4 my-10">
-    <div className="flex-1 h-px bg-zinc-800" />
-    <p className="text-xs uppercase tracking-wider text-zinc-500">{text}</p>
-    <div className="flex-1 h-px bg-zinc-800" />
+    <div className="flex-1 h-px bg-gray-200" />
+    <p className="text-xs uppercase tracking-wider text-gray-500">{text}</p>
+    <div className="flex-1 h-px bg-gray-200" />
   </div>
 );
 
@@ -113,11 +113,11 @@ export const IntegrationsSection: React.FC<{ id?: string }> = ({ id }) => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <p className="text-xs uppercase tracking-widest text-zinc-500 mb-4">INTEGRATIONS</p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight tracking-tight mb-6">
+          <p className="text-xs uppercase tracking-widest text-gray-500 mb-4">INTEGRATIONS</p>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight tracking-tight mb-6">
             Works with your stack.
           </h2>
-          <p className="text-base md:text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base md:text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
             Platform-agnostic. Connect your voice platform and payment gateway with ease.
           </p>
         </motion.div>
@@ -154,7 +154,7 @@ export const IntegrationsSection: React.FC<{ id?: string }> = ({ id }) => {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="text-center mt-10"
         >
-          <p className="text-sm text-zinc-500 hover:text-zinc-400 transition-colors duration-300 cursor-pointer">
+          <p className="text-sm text-gray-500 hover:text-gray-500 transition-colors duration-300 cursor-pointer">
             + more
           </p>
         </motion.div>

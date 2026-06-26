@@ -56,7 +56,7 @@ const ProblemCard: React.FC<ProblemCardProps> = ({ icon, title, description, acc
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className={`group relative p-5 rounded-2xl border ${colors.border} bg-[#0D0D10]/30 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-white/10 hover:shadow-2xl shadow-black/40`}
+      className={`group relative p-5 rounded-2xl border ${colors.border} bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl shadow-sm`}
     >
       {/* Icon */}
       <div className={`inline-flex items-center justify-center w-10 h-10 rounded-lg ${colors.iconBg} border ${colors.iconBorder} shadow-lg ${colors.iconGlow} mb-4`}>
@@ -64,12 +64,12 @@ const ProblemCard: React.FC<ProblemCardProps> = ({ icon, title, description, acc
       </div>
 
       {/* Title */}
-      <h3 className="text-lg font-semibold text-white mb-2 tracking-tight">
+      <h3 className="text-lg font-semibold text-gray-900 mb-2 tracking-tight">
         {title}
       </h3>
 
       {/* Description */}
-      <p className="text-xs text-zinc-400 leading-relaxed max-w-xs">
+      <p className="text-xs text-gray-500 leading-relaxed max-w-xs">
         {description}
       </p>
     </motion.div>
@@ -106,9 +106,6 @@ export const ProblemSection: React.FC<{ id?: string }> = ({ id }) => {
 
   return (
     <section id={id} className="relative bg-white py-16 md:py-24 overflow-hidden">
-      {/* Subtle background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0B0B0F] to-[#0B0B0F]" />
-      
       {/* Content */}
       <div className="relative max-w-5xl mx-auto px-6">
         {/* Header */}
@@ -120,11 +117,11 @@ export const ProblemSection: React.FC<{ id?: string }> = ({ id }) => {
           className="text-center mb-12 md:mb-16"
         >
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight tracking-tight">
-            <span className="text-zinc-400">Every voice AI company</span>
+            <span className="text-gray-500">Every voice AI company</span>
             <br />
-            <span className="text-white">hits the payment wall.</span>
+            <span className="text-gray-900">hits the payment wall.</span>
           </h2>
-          <p className="mt-4 text-sm md:text-base text-zinc-400 max-w-xl mx-auto leading-relaxed">
+          <p className="mt-4 text-sm md:text-base text-gray-500 max-w-xl mx-auto leading-relaxed">
             The infrastructure that worked at Series A breaks at scale. Payment failures and legacy systems become the bottleneck to growth.
           </p>
         </motion.div>
