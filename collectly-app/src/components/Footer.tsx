@@ -148,21 +148,27 @@ const Footer = () => {
                     </div>
                 </div>
 
-                {/* Subfooter */}
-                <div className="border-t border-white/10 pt-8 pb-16 flex flex-col md:flex-row justify-between items-center gap-6">
-                    <div className="flex space-x-5">
-                        <Link href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-white/10 hover:text-white transition-colors"><Twitter size={18} /></Link>
-                        <Link href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-white/10 hover:text-white transition-colors"><Linkedin size={18} /></Link>
-                        <Link href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-white/10 hover:text-white transition-colors"><Github size={18} /></Link>
-                    </div>
-                    <p className="text-[14px] text-gray-500 font-medium tracking-wide">© {new Date().getFullYear()} Collectly. All rights reserved.</p>
-                </div>
-                
-                {/* BIG Collectly Text */}
-                <div className="flex items-center justify-center w-full select-none mt-auto">
-                    <span className="text-[13vw] font-black text-white leading-[0.8] tracking-tighter opacity-95">
+                {/* BIG Collectly Text with Gradient and Green Dot */}
+                <div className="flex items-center justify-center w-full select-none mt-20 relative px-4">
+                    <span className="text-[14vw] font-black leading-[0.85] tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white/90 to-[#0B0B0F]">
                         Collectly.ai
                     </span>
+                    <span className="w-[3vw] h-[3vw] rounded-full bg-[#22c55e] absolute right-[6%] bottom-[12%] shadow-[0_0_60px_rgba(34,197,94,0.8)]"></span>
+                </div>
+
+                {/* Dark Subfooter Bar */}
+                <div className="mt-8 mb-4 bg-[#121215] rounded-[24px] px-8 py-5 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <p className="text-[12px] text-gray-400 font-medium tracking-wide">
+                        Built with ❤️ in India 🇮🇳 for San Francisco 🇺🇸
+                    </p>
+                    <p className="text-[12px] text-gray-500 font-medium">
+                        Copyright © 2026 Collectly. All rights reserved
+                    </p>
+                    <div className="flex space-x-5">
+                        <Link href="#" className="text-gray-500 hover:text-gray-300 transition-colors"><Linkedin size={16} /></Link>
+                        <Link href="#" className="text-gray-500 hover:text-gray-300 transition-colors"><Twitter size={16} /></Link>
+                        <Link href="#" className="text-gray-500 hover:text-gray-300 transition-colors"><Github size={16} /></Link>
+                    </div>
                 </div>
             </div>
         </footer>
