@@ -138,7 +138,7 @@ const Navbar = () => {
         transition={{ ease: "easeInOut" }}
         className="fixed top-12 left-1/2 -translate-x-1/2 z-50 border border-transparent py-4"
       >
-        <div className="flex justify-between items-center w-full max-w-7xl mx-auto px-6 md:px-8">
+        <div className="flex justify-between items-center w-full max-w-7xl mx-auto px-6 md:px-8 relative">
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center gap-1.5">
@@ -158,7 +158,7 @@ const Navbar = () => {
                 return (
                   <div 
                     key={link.name} 
-                    className="relative"
+                    className=""
                     onMouseEnter={() => setIsFeaturesOpen(true)}
                     onMouseLeave={() => setIsFeaturesOpen(false)}
                   >
@@ -182,7 +182,7 @@ const Navbar = () => {
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: 15, scale: 0.98 }}
                           transition={{ duration: 0.25, ease: "easeOut" }}
-                          className="absolute left-0 top-full pt-6 w-[750px] z-50"
+                          className="absolute left-6 md:left-8 top-[calc(100%-8px)] pt-6 w-[750px] z-50"
                           style={{ fontFamily: 'Satoshi, sans-serif' }}
                         >
                           <div className="bg-white border !border-gray-200 rounded-[24px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hidden md:grid grid-cols-2 gap-x-8 gap-y-0">
@@ -200,7 +200,7 @@ const Navbar = () => {
                                       {feature.icon}
                                     </div>
                                     <div className="pt-0.5">
-                                      <h4 className="text-[15px] font-bold text-gray-900 mb-0.5">{feature.title}</h4>
+                                      <h4 className="text-[15px] font-medium text-gray-900 mb-0.5">{feature.title}</h4>
                                       <p className="text-[13px] text-gray-500 leading-snug">{feature.description}</p>
                                     </div>
                                   </Link>
@@ -222,7 +222,7 @@ const Navbar = () => {
                                       {feature.icon}
                                     </div>
                                     <div className="pt-0.5">
-                                      <h4 className="text-[15px] font-bold text-gray-900 mb-0.5">{feature.title}</h4>
+                                      <h4 className="text-[15px] font-medium text-gray-900 mb-0.5">{feature.title}</h4>
                                       <p className="text-[13px] text-gray-500 leading-snug">{feature.description}</p>
                                     </div>
                                   </Link>
