@@ -15,7 +15,7 @@ const IntegrationCard: React.FC<Omit<IntegrationCardProps, 'name'>> = ({ logo, d
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: "-50px" }}
     transition={{ duration: 0.4, delay }}
-    className="bg-white border border-gray-200 rounded-xl h-20 px-6 flex items-center justify-center transition-all duration-300 ease-in-out hover:shadow-xl hover:shadow-black/5 cursor-pointer group"
+    className="bg-white rounded-xl h-20 px-6 flex items-center justify-center transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-1 cursor-pointer group shadow-sm"
   >
     <div className="opacity-60 group-hover:opacity-100 transition-opacity duration-300">
       {logo}
@@ -36,7 +36,7 @@ export const IntegrationsSection: React.FC<{ id?: string }> = ({ id }) => {
     {
       name: "VAPI",
       logo: (
-        <svg viewBox="0 0 120 40" className="h-6" fill="white">
+        <svg viewBox="0 0 120 40" className="h-6" fill="#111827">
           <text x="10" y="28" fontFamily="Arial, sans-serif" fontSize="24" fontWeight="bold">VAPI</text>
         </svg>
       ),
@@ -44,7 +44,7 @@ export const IntegrationsSection: React.FC<{ id?: string }> = ({ id }) => {
     {
       name: "Retell",
       logo: (
-        <svg viewBox="0 0 120 40" className="h-6" fill="white">
+        <svg viewBox="0 0 120 40" className="h-6" fill="#111827">
           <text x="5" y="28" fontFamily="Arial, sans-serif" fontSize="22" fontWeight="bold">Retell</text>
         </svg>
       ),
@@ -52,7 +52,7 @@ export const IntegrationsSection: React.FC<{ id?: string }> = ({ id }) => {
     {
       name: "LiveKit",
       logo: (
-        <svg viewBox="0 0 120 40" className="h-6" fill="white">
+        <svg viewBox="0 0 120 40" className="h-6" fill="#111827">
           <text x="5" y="28" fontFamily="Arial, sans-serif" fontSize="20" fontWeight="bold">LiveKit</text>
         </svg>
       ),
@@ -60,7 +60,7 @@ export const IntegrationsSection: React.FC<{ id?: string }> = ({ id }) => {
     {
       name: "Twilio",
       logo: (
-        <svg viewBox="0 0 120 40" className="h-6" fill="white">
+        <svg viewBox="0 0 120 40" className="h-6" fill="#111827">
           <text x="10" y="28" fontFamily="Arial, sans-serif" fontSize="22" fontWeight="bold">Twilio</text>
         </svg>
       ),
@@ -79,7 +79,7 @@ export const IntegrationsSection: React.FC<{ id?: string }> = ({ id }) => {
     {
       name: "Authorize.net",
       logo: (
-        <svg viewBox="0 0 140 40" className="h-6" fill="white">
+        <svg viewBox="0 0 140 40" className="h-6" fill="#111827">
           <text x="5" y="27" fontFamily="Arial, sans-serif" fontSize="16" fontWeight="bold">Authorize.net</text>
         </svg>
       ),
@@ -87,7 +87,7 @@ export const IntegrationsSection: React.FC<{ id?: string }> = ({ id }) => {
     {
       name: "Adyen",
       logo: (
-        <svg viewBox="0 0 120 40" className="h-7" fill="white">
+        <svg viewBox="0 0 120 40" className="h-7" fill="#111827">
           <text x="15" y="28" fontFamily="Arial, sans-serif" fontSize="22" fontWeight="bold">Adyen</text>
         </svg>
       ),
@@ -95,7 +95,7 @@ export const IntegrationsSection: React.FC<{ id?: string }> = ({ id }) => {
     {
       name: "Braintree",
       logo: (
-        <svg viewBox="0 0 120 40" className="h-6" fill="white">
+        <svg viewBox="0 0 120 40" className="h-6" fill="#111827">
           <text x="5" y="27" fontFamily="Arial, sans-serif" fontSize="20" fontWeight="bold">Braintree</text>
         </svg>
       ),

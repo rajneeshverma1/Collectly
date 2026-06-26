@@ -28,13 +28,7 @@ const Footer = () => {
                         </form>
                         
                         <div className="space-y-8 mt-auto">
-                            <div>
-                                <p className="text-xs text-gray-500 font-semibold uppercase tracking-widest mb-4">Backed by</p>
-                                <div className="flex items-center gap-3">
-                                    <div className="w-9 h-9 bg-[#F26522] rounded-md flex items-center justify-center font-bold text-white text-lg">Y</div>
-                                    <span className="text-[15px] text-gray-300 font-medium">Y Combinator (W23)</span>
-                                </div>
-                            </div>
+
                             
                             <div className="flex flex-wrap gap-3">
                                 <span className="text-[11px] font-semibold tracking-wide uppercase px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-gray-400">SOC-2 Certified</span>
@@ -95,7 +89,6 @@ const Footer = () => {
                                 <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Team</Link></li>
                                 <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Careers</Link></li>
                                 <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Investors</Link></li>
-                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">YC Portfolio</Link></li>
                                 <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Events</Link></li>
                                 <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Trust</Link></li>
                             </ul>

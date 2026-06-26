@@ -56,7 +56,7 @@ export const LLMCTASection = () => {
           <h2 className="text-3xl md:text-4xl lg:text-[40px] font-normal text-gray-900 mb-3 tracking-tight">
             Still not sure Collectly is right for you?
           </h2>
-          <p className="text-base text-gray-500 mb-10">
+          <p className="text-lg md:text-xl text-gray-500 mb-12">
             Let your favorite LLM tell you.
           </p>
         </motion.div>
@@ -74,9 +74,11 @@ export const LLMCTASection = () => {
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center px-5 py-2.5 rounded-full border border-gray-200 bg-white text-sm font-semibold text-gray-800 hover:shadow-md transition-all duration-300 hover:-translate-y-0.5"
+              className="inline-flex items-center px-6 py-3 rounded-full border border-gray-200 bg-white text-base md:text-lg font-semibold text-gray-800 hover:shadow-md transition-all duration-300 hover:-translate-y-0.5"
             >
-              {link.icon}
+              <div className="scale-125 mr-3 flex items-center justify-center">
+                {link.icon}
+              </div>
               {link.name}
             </Link>
           ))}
@@ -89,13 +91,13 @@ export const LLMCTASection = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="flex flex-col items-center"
         >
-          <p className="text-[15px] text-gray-500 mb-5">
+          <p className="text-lg text-gray-500 mb-6">
             Already convinced?
           </p>
-          <button className="bg-[#6366F1] hover:bg-[#4F46E5] text-white text-[15px] font-semibold py-3.5 px-8 rounded-full transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 mb-3">
+          <button className="bg-[#6366F1] hover:bg-[#4F46E5] text-white text-base md:text-lg font-semibold py-4 px-10 rounded-full transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 mb-4">
             Talk to Founder
           </button>
-          <p className="text-[13px] text-gray-400">
+          <p className="text-sm text-gray-400">
             No credit card required.
           </p>
         </motion.div>

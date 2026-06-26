@@ -17,10 +17,10 @@ const ServeCard: React.FC<ServeCardProps> = ({ icon, title, description, delay }
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: "-50px" }}
     transition={{ duration: 0.5, delay }}
-    className="bg-white border border-gray-200 rounded-2xl p-6 transition-all duration-300 ease-in-out group hover:shadow-xl hover:-translate-y-1 shadow-sm"
+    className="bg-white rounded-2xl p-6 transition-all duration-300 ease-in-out group hover:shadow-xl hover:-translate-y-1 shadow-sm"
   >
     <div className="flex flex-col items-center text-center">
-      <div className="w-10 h-10 rounded-lg bg-gray-50 border border-gray-100 flex items-center justify-center mb-4">
+      <div className="w-10 h-10 rounded-lg bg-gray-50 flex items-center justify-center mb-4">
         {icon}
       </div>
       <h3 className="text-base font-bold text-gray-900 mb-2 tracking-tight">{title}</h3>
