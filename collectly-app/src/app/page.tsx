@@ -29,9 +29,9 @@ export default function Home() {
       <AboutSection id="about" />
       <FinalCTA />
       <FAQSection />
+      <Footer />
       <WordmarkSection />
       <SubFooter />
-      <Footer />
     </main>
   );
 }

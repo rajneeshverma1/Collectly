@@ -145,30 +145,6 @@ const Footer = () => {
                                 <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">API</Link></li>
                             </ul>
                         </div>
-                    </div>
-                </div>
-
-                {/* BIG Collectly Text with Gradient and Green Dot */}
-                <div className="flex items-center justify-center w-full select-none mt-20 relative px-4">
-                    <span className="text-[15vw] font-black leading-[0.85] tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-[#646470] to-[#0B0B0F]">
-                        Collectly.ai.
-                    </span>
-                    <span className="w-[3.5vw] h-[3.5vw] rounded-full bg-[#1b8e43] absolute right-[4%] bottom-[15%] shadow-[0_0_60px_rgba(34,197,94,0.4)] blur-[1px]"></span>
-                </div>
-
-                {/* Dark Subfooter Bar */}
-                <div className="mt-8 mb-4 bg-[#121215] rounded-[24px] px-8 py-5 flex flex-col md:flex-row items-center justify-between gap-4">
-                    <p className="text-[12px] text-gray-400 font-medium tracking-wide">
-                        Built with ❤️ in India 🇮🇳 for San Francisco 🇺🇸
-                    </p>
-                    <p className="text-[12px] text-gray-500 font-medium">
-                        Copyright © 2026 Collectly. All rights reserved
-                    </p>
-                    <div className="flex space-x-5">
-                        <Link href="#" className="text-gray-500 hover:text-gray-300 transition-colors"><Linkedin size={16} /></Link>
-                        <Link href="#" className="text-gray-500 hover:text-gray-300 transition-colors"><Twitter size={16} /></Link>
-                        <Link href="#" className="text-gray-500 hover:text-gray-300 transition-colors"><Github size={16} /></Link>
-                    </div>
                 </div>
             </div>
         </footer>
