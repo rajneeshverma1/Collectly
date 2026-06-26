@@ -235,47 +235,47 @@ const Navbar = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 15, scale: 0.98 }}
               transition={{ duration: 0.25, ease: "easeOut" }}
-              className="absolute left-0 right-0 top-full mt-4 bg-black/90 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 shadow-2xl z-50 hidden md:grid grid-cols-2 gap-10"
+              className="absolute left-1/2 -translate-x-1/2 top-full mt-4 w-[750px] bg-white border border-gray-200 rounded-[24px] p-8 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] z-50 hidden md:grid grid-cols-2 gap-x-8 gap-y-0"
               style={{ fontFamily: 'Satoshi, sans-serif' }}
             >
               <div>
-                <h3 className="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-6">Core Features</h3>
+                <h3 className="text-[12px] font-semibold text-gray-400 uppercase tracking-widest mb-4 pl-3">Core Features</h3>
                 <div className="grid grid-cols-1 gap-2">
                   {coreFeatures.map((feature) => (
                     <Link
                       key={feature.title}
                       href={feature.href}
                       onClick={() => setIsFeaturesOpen(false)}
-                      className="flex gap-4 p-3 rounded-2xl hover:bg-white/[0.03] border border-transparent hover:border-white/5 transition-all duration-300 group text-left"
+                      className="flex items-start gap-4 p-3 rounded-2xl hover:bg-gray-50 transition-colors group text-left"
                     >
-                      <div className="w-10 h-10 rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-center text-[#A1A1A1] group-hover:text-indigo-400 group-hover:bg-indigo-500/10 group-hover:border-indigo-500/20 transition-all duration-300 shrink-0">
+                      <div className="w-11 h-11 rounded-xl bg-white border border-gray-200 flex items-center justify-center text-gray-500 shadow-sm shrink-0 group-hover:border-gray-300 transition-colors">
                         {feature.icon}
                       </div>
-                      <div>
-                        <h4 className="text-[13px] font-bold text-white mb-1 transition-colors">{feature.title}</h4>
-                        <p className="text-[11px] text-zinc-500 leading-normal font-semibold">{feature.description}</p>
+                      <div className="pt-0.5">
+                        <h4 className="text-[15px] font-bold text-gray-900 mb-0.5">{feature.title}</h4>
+                        <p className="text-[13px] text-gray-500 leading-snug">{feature.description}</p>
                       </div>
                     </Link>
                   ))}
                 </div>
               </div>
 
-              <div className="border-l border-white/5 pl-10">
-                <h3 className="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-6">More Features</h3>
+              <div>
+                <h3 className="text-[12px] font-semibold text-gray-400 uppercase tracking-widest mb-4 pl-3">More Features</h3>
                 <div className="grid grid-cols-1 gap-2">
                   {moreFeatures.map((feature) => (
                     <Link
                       key={feature.title}
                       href={feature.href}
                       onClick={() => setIsFeaturesOpen(false)}
-                      className="flex gap-4 p-3 rounded-2xl hover:bg-white/[0.03] border border-transparent hover:border-white/5 transition-all duration-300 group text-left"
+                      className="flex items-start gap-4 p-3 rounded-2xl hover:bg-gray-50 transition-colors group text-left"
                     >
-                      <div className="w-10 h-10 rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-center text-[#A1A1A1] group-hover:text-indigo-400 group-hover:bg-indigo-500/10 group-hover:border-indigo-500/20 transition-all duration-300 shrink-0">
+                      <div className="w-11 h-11 rounded-xl bg-white border border-gray-200 flex items-center justify-center text-gray-500 shadow-sm shrink-0 group-hover:border-gray-300 transition-colors">
                         {feature.icon}
                       </div>
-                      <div>
-                        <h4 className="text-[13px] font-bold text-white mb-1 transition-colors">{feature.title}</h4>
-                        <p className="text-[11px] text-zinc-500 leading-normal font-semibold">{feature.description}</p>
+                      <div className="pt-0.5">
+                        <h4 className="text-[15px] font-bold text-gray-900 mb-0.5">{feature.title}</h4>
+                        <p className="text-[13px] text-gray-500 leading-snug">{feature.description}</p>
                       </div>
                     </Link>
                   ))}
