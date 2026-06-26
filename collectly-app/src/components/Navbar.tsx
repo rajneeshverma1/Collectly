@@ -236,6 +236,7 @@ const Navbar = () => {
               exit={{ opacity: 0, y: 15, scale: 0.98 }}
               transition={{ duration: 0.25, ease: "easeOut" }}
               className="absolute left-0 right-0 top-full mt-4 bg-black/90 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 shadow-2xl z-50 hidden md:grid grid-cols-2 gap-10"
+              style={{ fontFamily: 'Satoshi, sans-serif' }}
             >
               <div>
                 <h3 className="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-6">Core Features</h3>
