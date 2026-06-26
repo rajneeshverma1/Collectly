@@ -139,9 +139,8 @@ const Navbar = () => {
         className="fixed top-12 left-1/2 -translate-x-1/2 z-50 border border-transparent py-4"
       >
         <div className="flex justify-between items-center w-full max-w-7xl mx-auto px-6 md:px-8 relative">
-          {/* Logo */}
-          <div className="flex items-center">
-            <Link href="/" className="flex items-center gap-1.5">
+          <div className="flex items-center gap-12">
+            <Link href="/" className="flex items-center gap-1.5 shrink-0">
               <span className="text-4xl font-extrabold tracking-tight text-gray-900">Collectly</span>
               <motion.span 
                 animate={{ scale: [1, 1.4, 1] }}
@@ -149,10 +148,9 @@ const Navbar = () => {
                 className="w-4 h-4 rounded-full bg-[#22c55e] mt-2" 
               />
             </Link>
-          </div>
 
-          {/* Center Nav Links (Desktop) */}
-          <div className="hidden md:flex items-center gap-14">
+            {/* Nav Links (Desktop) */}
+            <div className="hidden md:flex items-center gap-10">
             {navLinks.map((link) => {
               if (link.name === "Features") {
                 return (
@@ -182,7 +180,7 @@ const Navbar = () => {
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: 15, scale: 0.98 }}
                           transition={{ duration: 0.25, ease: "easeOut" }}
-                          className="absolute left-6 md:left-8 top-[calc(100%-8px)] pt-6 w-[750px] z-50"
+                          className="absolute left-[-20px] top-[calc(100%-8px)] pt-6 w-[750px] z-50"
                           style={{ fontFamily: 'Satoshi, sans-serif' }}
                         >
                           <div className="bg-white border !border-gray-200 rounded-[24px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hidden md:grid grid-cols-2 gap-x-8 gap-y-0">
@@ -247,6 +245,7 @@ const Navbar = () => {
                 </Link>
               );
             })}
+            </div>
           </div>
 
           {/* Right Actions (Desktop) */}
