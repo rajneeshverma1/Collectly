@@ -111,7 +111,7 @@ export default function PricingPage() {
         </div>
 
         {/* Pricing Cards Grid */}
-        <div className="flex flex-col lg:flex-row items-stretch justify-center gap-4 lg:gap-6 mb-32 pb-12 pt-8">
+        <div className="flex flex-col lg:flex-row items-stretch justify-center gap-4 lg:gap-6 mb-8 pb-12 pt-8">
           {plans.map((plan, i) => (
             <motion.div
               key={plan.name}
@@ -192,6 +192,34 @@ export default function PricingPage() {
               </div>
             </motion.div>
           ))}
+        </div>
+
+        {/* Enterprise Banner */}
+        <div className="max-w-[1000px] mx-auto mb-32 bg-[#f8f9fa] border border-gray-200/60 rounded-[24px] p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+          <div>
+            <h3 className="text-[22px] font-medium text-gray-900">Enterprise</h3>
+            <p className="text-[13px] font-semibold text-gray-500 mt-1">$50M+ Annual Revenue</p>
+            
+            <h4 className="text-[28px] font-medium text-gray-900 mt-6">Custom</h4>
+            <p className="text-[13px] text-gray-500 mt-2 max-w-2xl leading-relaxed">
+              Everything in Professional + Custom integrations, Custom AI collections, Custom dashboards, Unlimited AI actions
+            </p>
+            
+            <div className="mt-4">
+              <span className="bg-[#10b981] text-white text-[12px] font-semibold px-3 py-1 rounded-full">
+                Implementation Team: Included
+              </span>
+            </div>
+          </div>
+          
+          <div className="shrink-0">
+            <Link 
+              href="/contact" 
+              className="inline-block bg-[#5B50FF] hover:bg-[#4a40e0] text-white text-[15px] font-medium px-8 py-3.5 rounded-full shadow-sm transition-colors"
+            >
+              Contact Sales
+            </Link>
+          </div>
         </div>
       </main>
 
