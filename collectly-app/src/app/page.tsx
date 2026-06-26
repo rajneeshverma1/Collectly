@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { AutomateBillingSection } from "@/components/AutomateBillingSection";
+import { ConnectFinanceSection } from "@/components/ConnectFinanceSection";
 import { ProblemSection } from "@/components/ProblemSection";
 import { HowItWorksSection } from "@/components/HowItWorksSection";
 import Features from "@/components/Features";
@@ -20,6 +21,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <AutomateBillingSection />
+      <ConnectFinanceSection />
       <ProblemSection id="problem" />
       <HowItWorksSection id="how-it-works" />
       <Features id="features" />
