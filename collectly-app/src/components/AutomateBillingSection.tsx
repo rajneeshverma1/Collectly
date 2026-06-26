@@ -51,7 +51,7 @@ export const AutomateBillingSection = () => {
                         transition={{ duration: 0.6 }}
                         className="max-w-lg"
                     >
-                        <h2 className="text-4xl md:text-5xl font-medium text-gray-900 leading-tight mb-6 tracking-tight">
+                        <h2 className="text-4xl md:text-5xl font-normal text-gray-900 leading-tight mb-6 tracking-tight">
                             Automate Billing from Invoice to Payment
                         </h2>
                         <p className="text-lg text-gray-500 mb-10 leading-relaxed">
@@ -70,7 +70,7 @@ export const AutomateBillingSection = () => {
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.6, delay: 0.2 }}
                     >
-                        <div className="bg-white rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.08)] border border-gray-100 overflow-hidden w-full max-w-[600px] mx-auto">
+                        <div className="bg-white rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.08)] overflow-hidden w-full max-w-[600px] mx-auto">
                             {/* Window Header */}
                             <div className="px-4 py-3 border-b border-gray-100 bg-gray-50/50 flex items-center gap-2">
                                 <div className="w-3 h-3 rounded-full bg-red-400" />
