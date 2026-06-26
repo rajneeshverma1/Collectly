@@ -111,16 +111,16 @@ export default function PricingPage() {
         </div>
 
         {/* Pricing Cards Grid */}
-        <div className="flex flex-col xl:flex-row items-stretch justify-center gap-4 lg:gap-6 mb-32 overflow-x-auto pb-12 pt-8 px-4 snap-x hide-scrollbar">
+        <div className="flex flex-col lg:flex-row items-stretch justify-center gap-4 lg:gap-6 mb-32 pb-12 pt-8">
           {plans.map((plan, i) => (
             <motion.div
               key={plan.name}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 + i * 0.1, duration: 0.5 }}
-              className={`min-w-[260px] max-w-[320px] flex-1 p-8 rounded-[32px] bg-white border relative flex flex-col justify-between snap-center transition-all hover:-translate-y-1 hover:shadow-xl ${
+              className={`flex-1 p-6 lg:p-8 rounded-[32px] bg-white border relative flex flex-col justify-between transition-all hover:-translate-y-1 hover:shadow-xl ${
                 plan.isPopular 
-                  ? 'border-[#5B50FF] shadow-[0_8px_30px_rgb(91,80,255,0.12)] z-10 scale-105' 
+                  ? 'border-[#5B50FF] shadow-[0_8px_30px_rgb(91,80,255,0.12)] z-10 lg:scale-105' 
                   : 'border-gray-100 shadow-sm'
               }`}
             >
