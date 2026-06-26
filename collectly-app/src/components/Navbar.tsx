@@ -182,50 +182,52 @@ const Navbar = () => {
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: 15, scale: 0.98 }}
                           transition={{ duration: 0.25, ease: "easeOut" }}
-                          className="absolute left-0 top-[calc(100%+16px)] w-[750px] bg-white border !border-gray-200 rounded-[24px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] z-50 hidden md:grid grid-cols-2 gap-x-8 gap-y-0"
+                          className="absolute left-0 top-full pt-6 w-[750px] z-50"
                           style={{ fontFamily: 'Satoshi, sans-serif' }}
                         >
-                          <div>
-                            <h3 className="text-[12px] font-semibold text-gray-400 uppercase tracking-widest mb-4 pl-3">Core Features</h3>
-                            <div className="grid grid-cols-1 gap-2">
-                              {coreFeatures.map((feature) => (
-                                <Link
-                                  key={feature.title}
-                                  href={feature.href}
-                                  onClick={() => setIsFeaturesOpen(false)}
-                                  className="flex items-start gap-4 p-3 rounded-2xl hover:bg-gray-50 transition-colors group text-left"
-                                >
-                                  <div className="w-11 h-11 rounded-xl bg-white border !border-gray-200 flex items-center justify-center text-gray-500 shadow-sm shrink-0 group-hover:!border-gray-300 transition-colors">
-                                    {feature.icon}
-                                  </div>
-                                  <div className="pt-0.5">
-                                    <h4 className="text-[15px] font-bold text-gray-900 mb-0.5">{feature.title}</h4>
-                                    <p className="text-[13px] text-gray-500 leading-snug">{feature.description}</p>
-                                  </div>
-                                </Link>
-                              ))}
+                          <div className="bg-white border !border-gray-200 rounded-[24px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hidden md:grid grid-cols-2 gap-x-8 gap-y-0">
+                            <div>
+                              <h3 className="text-[12px] font-semibold text-gray-400 uppercase tracking-widest mb-4 pl-3">Core Features</h3>
+                              <div className="grid grid-cols-1 gap-2">
+                                {coreFeatures.map((feature) => (
+                                  <Link
+                                    key={feature.title}
+                                    href={feature.href}
+                                    onClick={() => setIsFeaturesOpen(false)}
+                                    className="flex items-start gap-4 p-3 rounded-2xl hover:bg-gray-50 transition-colors group text-left"
+                                  >
+                                    <div className="w-11 h-11 rounded-xl bg-white border !border-gray-200 flex items-center justify-center text-gray-500 shadow-sm shrink-0 group-hover:!border-gray-300 transition-colors">
+                                      {feature.icon}
+                                    </div>
+                                    <div className="pt-0.5">
+                                      <h4 className="text-[15px] font-bold text-gray-900 mb-0.5">{feature.title}</h4>
+                                      <p className="text-[13px] text-gray-500 leading-snug">{feature.description}</p>
+                                    </div>
+                                  </Link>
+                                ))}
+                              </div>
                             </div>
-                          </div>
 
-                          <div>
-                            <h3 className="text-[12px] font-semibold text-gray-400 uppercase tracking-widest mb-4 pl-3">More Features</h3>
-                            <div className="grid grid-cols-1 gap-2">
-                              {moreFeatures.map((feature) => (
-                                <Link
-                                  key={feature.title}
-                                  href={feature.href}
-                                  onClick={() => setIsFeaturesOpen(false)}
-                                  className="flex items-start gap-4 p-3 rounded-2xl hover:bg-gray-50 transition-colors group text-left"
-                                >
-                                  <div className="w-11 h-11 rounded-xl bg-white border !border-gray-200 flex items-center justify-center text-gray-500 shadow-sm shrink-0 group-hover:!border-gray-300 transition-colors">
-                                    {feature.icon}
-                                  </div>
-                                  <div className="pt-0.5">
-                                    <h4 className="text-[15px] font-bold text-gray-900 mb-0.5">{feature.title}</h4>
-                                    <p className="text-[13px] text-gray-500 leading-snug">{feature.description}</p>
-                                  </div>
-                                </Link>
-                              ))}
+                            <div>
+                              <h3 className="text-[12px] font-semibold text-gray-400 uppercase tracking-widest mb-4 pl-3">More Features</h3>
+                              <div className="grid grid-cols-1 gap-2">
+                                {moreFeatures.map((feature) => (
+                                  <Link
+                                    key={feature.title}
+                                    href={feature.href}
+                                    onClick={() => setIsFeaturesOpen(false)}
+                                    className="flex items-start gap-4 p-3 rounded-2xl hover:bg-gray-50 transition-colors group text-left"
+                                  >
+                                    <div className="w-11 h-11 rounded-xl bg-white border !border-gray-200 flex items-center justify-center text-gray-500 shadow-sm shrink-0 group-hover:!border-gray-300 transition-colors">
+                                      {feature.icon}
+                                    </div>
+                                    <div className="pt-0.5">
+                                      <h4 className="text-[15px] font-bold text-gray-900 mb-0.5">{feature.title}</h4>
+                                      <p className="text-[13px] text-gray-500 leading-snug">{feature.description}</p>
+                                    </div>
+                                  </Link>
+                                ))}
+                              </div>
                             </div>
                           </div>
                         </motion.div>
