@@ -150,10 +150,10 @@ const Footer = () => {
 
                 {/* BIG Collectly Text with Gradient and Green Dot */}
                 <div className="flex items-center justify-center w-full select-none mt-20 relative px-4">
-                    <span className="text-[14vw] font-black leading-[0.85] tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white/90 to-[#0B0B0F]">
-                        Collectly.ai
+                    <span className="text-[15vw] font-black leading-[0.85] tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-[#646470] to-[#0B0B0F]">
+                        Collectly.ai.
                     </span>
-                    <span className="w-[3vw] h-[3vw] rounded-full bg-[#22c55e] absolute right-[6%] bottom-[12%] shadow-[0_0_60px_rgba(34,197,94,0.8)]"></span>
+                    <span className="w-[3.5vw] h-[3.5vw] rounded-full bg-[#1b8e43] absolute right-[4%] bottom-[15%] shadow-[0_0_60px_rgba(34,197,94,0.4)] blur-[1px]"></span>
                 </div>
 
                 {/* Dark Subfooter Bar */}
