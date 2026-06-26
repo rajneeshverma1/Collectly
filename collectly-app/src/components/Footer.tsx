@@ -1,71 +1,168 @@
+'use client';
 import React from "react";
 import Link from "next/link";
-import { Twitter, Linkedin, Github, Mail } from "lucide-react";
+import { Twitter, Linkedin, Github } from "lucide-react";
 
 const Footer = () => {
     return (
-        <footer className="pt-12 pb-12" style={{ backgroundColor: '#0B0B0F' }}>
-            <div className="max-w-[1450px] mx-auto px-6 sm:px-10 lg:px-12">
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-16 mb-16">
-                    <div className="col-span-2 lg:col-span-2">
-                        <Link href="/" className="inline-block mb-10">
-                            <div className="flex items-center gap-2">
-                                <span className="text-3xl md:text-4xl font-bold tracking-wide text-white">Collectly.ai</span>
-                                <div className="w-3 h-3 bg-green-500 rounded-full mt-2.5" />
-                            </div>
-                        </Link>
-                        <p className="text-[#94A3B8] text-lg max-w-md mb-8 leading-relaxed">
-                            AI-powered revenue operations for modern finance teams. Automate
-                            your billing and get paid faster.
+        <footer className="pt-24 pb-8 text-white relative overflow-hidden" style={{ backgroundColor: '#0B0B0F' }}>
+            <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
+                
+                <div className="grid grid-cols-1 xl:grid-cols-12 gap-16 xl:gap-12 mb-24">
+                    
+                    {/* Newsletter & Badges - Col Span 4 */}
+                    <div className="xl:col-span-4 flex flex-col">
+                        <h3 className="text-2xl font-bold mb-4">Subscribe to Collectly Newsletter</h3>
+                        <p className="text-gray-400 text-[15px] mb-8 leading-relaxed max-w-sm">
+                            Stay updated with the latest insights on AI-powered billing automation and financial operations.
                         </p>
-                        <div className="flex space-x-4">
-                            <Link href="#" className="p-2 bg-white/5 rounded-full text-gray-400 hover:text-white transition-colors">
-                                <Twitter size={20} />
-                            </Link>
-                            <Link href="#" className="p-2 bg-white/5 rounded-full text-gray-400 hover:text-white transition-colors">
-                                <Linkedin size={20} />
-                            </Link>
-                            <Link href="#" className="p-2 bg-white/5 rounded-full text-gray-400 hover:text-white transition-colors">
-                                <Github size={20} />
-                            </Link>
+                        <form className="flex gap-2 mb-12 max-w-md">
+                            <input 
+                                type="email" 
+                                placeholder="Email address" 
+                                className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm w-full focus:outline-none focus:border-[#22c55e] text-white transition-colors"
+                            />
+                            <button type="submit" className="bg-[#22c55e] hover:bg-green-500 text-white px-6 py-3 rounded-xl text-sm font-semibold transition-colors shrink-0">
+                                Subscribe
+                            </button>
+                        </form>
+                        
+                        <div className="space-y-8 mt-auto">
+                            <div>
+                                <p className="text-xs text-gray-500 font-semibold uppercase tracking-widest mb-4">Backed by</p>
+                                <div className="flex items-center gap-3">
+                                    <div className="w-9 h-9 bg-[#F26522] rounded-md flex items-center justify-center font-bold text-white text-lg">Y</div>
+                                    <span className="text-[15px] text-gray-300 font-medium">Y Combinator (W23)</span>
+                                </div>
+                            </div>
+                            
+                            <div className="flex flex-wrap gap-3">
+                                <span className="text-[11px] font-semibold tracking-wide uppercase px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-gray-400">SOC-2 Certified</span>
+                                <span className="text-[11px] font-semibold tracking-wide uppercase px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-gray-400">GDPR Compliant</span>
+                                <span className="text-[11px] font-semibold tracking-wide uppercase px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-gray-400">HIPAA Compliant</span>
+                            </div>
                         </div>
                     </div>
 
-                    <div>
-                        <h4 className="text-lg font-bold text-white mb-8">Product</h4>
-                        <ul className="space-y-5">
-                            <li><Link href="#" className="text-base text-[#94A3B8] hover:text-white transition-colors">AI Billing</Link></li>
-                            <li><Link href="#" className="text-base text-[#94A3B8] hover:text-white transition-colors">Contract Extraction</Link></li>
-                            <li><Link href="#" className="text-base text-[#94A3B8] hover:text-white transition-colors">Collections</Link></li>
-                            <li><Link href="#" className="text-base text-[#94A3B8] hover:text-white transition-colors">Reconciliation</Link></li>
-                        </ul>
-                    </div>
+                    {/* Link Columns - Col Span 8 */}
+                    <div className="xl:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-16">
+                        {/* Column 1 */}
+                        <div>
+                            <h4 className="text-[13px] font-bold text-white mb-6 uppercase tracking-widest">Platform</h4>
+                            <ul className="space-y-4">
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">AI Financial Copilot</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Pricing Page Builder</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Accounts Receivable</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Contract & Billing AI</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Reminder AI</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Contract Management</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Usage-Based Billing</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Billing Models</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Customer Invoicing</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Revenue Insights</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Upsells & Renewals</Link></li>
+                            </ul>
+                        </div>
 
-                    <div>
-                        <h4 className="text-lg font-bold text-white mb-8">Company</h4>
-                        <ul className="space-y-5">
-                            <li><Link href="#" className="text-base text-[#94A3B8] hover:text-white transition-colors">About Us</Link></li>
-                            <li><Link href="#" className="text-base text-[#94A3B8] hover:text-white transition-colors">Careers</Link></li>
-                            <li><Link href="#" className="text-base text-[#94A3B8] hover:text-white transition-colors">Press Kit</Link></li>
-                            <li><Link href="#" className="text-base text-[#94A3B8] hover:text-white transition-colors">Contact</Link></li>
-                        </ul>
-                    </div>
+                        {/* Column 2 */}
+                        <div>
+                            <h4 className="text-[13px] font-bold text-white mb-6 uppercase tracking-widest">Solutions</h4>
+                            <ul className="space-y-4 mb-12">
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">AI Companies</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Founders</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Startups</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Mid-Market</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Enterprise</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Healthcare</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Real Estate</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Finance</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Accounting</Link></li>
+                            </ul>
+                            
+                            <h4 className="text-[13px] font-bold text-white mb-6 uppercase tracking-widest">Contact</h4>
+                            <ul className="space-y-4">
+                                <li><a href="mailto:sales@collectly.ai" className="text-[14px] font-semibold text-[#22c55e] hover:text-green-400 transition-colors">sales@collectly.ai</a></li>
+                            </ul>
+                        </div>
 
-                    <div>
-                        <h4 className="text-lg font-bold text-white mb-8">Support</h4>
-                        <ul className="space-y-5">
-                            <li><Link href="#" className="text-base text-[#94A3B8] hover:text-white transition-colors">Help Center</Link></li>
-                            <li><Link href="#" className="text-base text-[#94A3B8] hover:text-white transition-colors">API Docs</Link></li>
-                            <li><Link href="#" className="text-base text-[#94A3B8] hover:text-white transition-colors">System Status</Link></li>
-                            <li><Link href="#" className="text-base text-[#94A3B8] hover:text-white transition-colors">Privacy</Link></li>
-                        </ul>
+                        {/* Column 3 */}
+                        <div>
+                            <h4 className="text-[13px] font-bold text-white mb-6 uppercase tracking-widest">Company</h4>
+                            <ul className="space-y-4 mb-12">
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Mission</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Customers</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Case Studies</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Team</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Careers</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Investors</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">YC Portfolio</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Events</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Trust</Link></li>
+                            </ul>
+                            
+                            <h4 className="text-[13px] font-bold text-white mb-6 uppercase tracking-widest">Policies</h4>
+                            <ul className="space-y-4">
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Privacy Policy</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Terms and Conditions</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Legal</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Community Guidelines</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Cookies</Link></li>
+                            </ul>
+                        </div>
+
+                        {/* Column 4 */}
+                        <div>
+                            <h4 className="text-[13px] font-bold text-white mb-6 uppercase tracking-widest">Compare</h4>
+                            <ul className="space-y-4 mb-12">
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Lemon Squeezy</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Stripe Billing</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Tabs</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Campfire</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Chargebee</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Zuora</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Maxio</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">PandaDoc</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Recurly</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">FreshBooks</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">QuickBooks</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Zoho Billing</Link></li>
+                            </ul>
+                            
+                            <h4 className="text-[13px] font-bold text-white mb-6 uppercase tracking-widest">Resources</h4>
+                            <ul className="space-y-4">
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Blog</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Tools</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Integrations</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Glossary</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Podcast</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Learning Center</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Press</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Changelog</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Help Center</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Onboarding</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Partner Services</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">Directory</Link></li>
+                                <li><Link href="#" className="text-[14px] text-gray-400 hover:text-white transition-colors">API</Link></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
-                {/* Bottom row removed in favor of SubFooter bar */}
-                <div className="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="text-sm text-[#94A3B8]">© {new Date().getFullYear()} Collectly, Inc. All rights reserved.</p>
-                    <p className="text-sm text-[#94A3B8]">Built with ❤️ in San Francisco</p>
+                {/* Subfooter */}
+                <div className="border-t border-white/10 pt-8 pb-16 flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div className="flex space-x-5">
+                        <Link href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-white/10 hover:text-white transition-colors"><Twitter size={18} /></Link>
+                        <Link href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-white/10 hover:text-white transition-colors"><Linkedin size={18} /></Link>
+                        <Link href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-white/10 hover:text-white transition-colors"><Github size={18} /></Link>
+                    </div>
+                    <p className="text-[14px] text-gray-500 font-medium tracking-wide">© {new Date().getFullYear()} Collectly. All rights reserved.</p>
+                </div>
+                
+                {/* BIG Collectly Text */}
+                <div className="flex items-center justify-center w-full select-none mt-auto">
+                    <span className="text-[13vw] font-black text-white leading-[0.8] tracking-tighter opacity-95">
+                        Collectly.ai
+                    </span>
                 </div>
             </div>
         </footer>
