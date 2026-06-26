@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { AutomateBillingSection } from "@/components/AutomateBillingSection";
+import { AutopilotSection } from "@/components/AutopilotSection";
 import { ConnectFinanceSection } from "@/components/ConnectFinanceSection";
 import { ProblemSection } from "@/components/ProblemSection";
 import { HowItWorksSection } from "@/components/HowItWorksSection";
@@ -21,6 +22,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <AutomateBillingSection />
+      <AutopilotSection />
       <ConnectFinanceSection />
       <ProblemSection id="problem" />
       <HowItWorksSection id="how-it-works" />
