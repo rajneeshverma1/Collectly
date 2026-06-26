@@ -15,17 +15,17 @@
 }
 
 :root {
-  --background: #000000; /* Original landing page dark background */
-  --foreground: #ffffff;
-  --primary: #3b82f6; /* Original landing page primary blue */
+  --background: #ffffff;
+  --foreground: #000000;
+  --primary: #3b82f6;
   --primary-foreground: #ffffff;
-  --secondary: #0f172a;
-  --secondary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f172a;
   --muted: #f1f5f9;
   --muted-foreground: #64748b;
   --accent: #f1f5f9;
   --accent-foreground: #0f172a;
-  --border: #1a1a1a;
+  --border: #e2e8f0;
   --input: #e2e8f0;
   --ring: #3b82f6;
   --radius: 0.75rem;

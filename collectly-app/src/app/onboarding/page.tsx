@@ -51,7 +51,7 @@ export default function OnboardingPage() {
   if (authLoading) return null;
 
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-6 selection:bg-purple-500/30">
+    <div className="min-h-screen bg-[#fafafa] text-gray-900 flex flex-col items-center justify-center p-6 selection:bg-purple-500/30">
       {/* Background radial glow */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-[25%] -left-[10%] w-[70%] h-[70%] bg-purple-900/10 rounded-full blur-[120px]" />
@@ -69,7 +69,7 @@ export default function OnboardingPage() {
                 key={i} 
                 className={cn(
                   "h-1 w-12 rounded-full transition-all duration-500",
-                  step >= i ? "bg-white" : "bg-white/10"
+                  step >= i ? "bg-gray-900" : "bg-black/10"
                 )} 
               />
             ))}
@@ -88,26 +88,26 @@ export default function OnboardingPage() {
             >
               <div className="text-center">
                 <h1 className="text-3xl font-semibold mb-3 tracking-tight">Create your workspace</h1>
-                <p className="text-white/40 text-sm">Every account on Collectly needs an organization. You can invite teammates later.</p>
+                <p className="text-gray-500 text-sm">Every account on Collectly needs an organization. You can invite teammates later.</p>
               </div>
 
               <div className="space-y-6">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-white/40 ml-1">Organization Name</label>
+                  <label className="text-sm font-medium text-gray-500 ml-1">Organization Name</label>
                   <input
                     id="org-name"
                     autoFocus
                     value={orgName}
                     onChange={(e) => setOrgName(e.target.value)}
                     placeholder="e.g. Acme Studio"
-                    className="w-full bg-[#111111] border border-white/5 rounded-2xl px-5 py-4 text-lg focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/30 transition-all duration-200 placeholder:text-white/5 shadow-inner"
+                    className="w-full bg-white border border-gray-200 rounded-xl px-5 py-4 text-lg focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/30 transition-all duration-200 shadow-sm"
                   />
                 </div>
 
                 <button
                   disabled={!orgName}
                   onClick={() => setStep(2)}
-                  className="w-full py-4 bg-white text-black font-semibold rounded-2xl mt-4 hover:bg-white/90 active:scale-[0.98] disabled:opacity-50 transition-all flex items-center justify-center gap-2 group shadow-xl shadow-white/5"
+                  className="w-full py-4 bg-gray-900 text-white font-semibold rounded-2xl mt-4 hover:bg-gray-800 active:scale-[0.98] disabled:opacity-50 transition-all flex items-center justify-center gap-2 group shadow-xl"
                 >
                   <span>Continue</span>
                   <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
@@ -125,7 +125,7 @@ export default function OnboardingPage() {
             >
               <div className="text-center">
                 <h1 className="text-3xl font-semibold mb-3 tracking-tight">Tell us about {orgName}</h1>
-                <p className="text-white/40 text-sm">We&apos;ll tailor your experience based on your business type.</p>
+                <p className="text-gray-500 text-sm">We&apos;ll tailor your experience based on your business type.</p>
               </div>
 
               <div className="grid grid-cols-1 gap-4">
@@ -139,25 +139,25 @@ export default function OnboardingPage() {
                     className={cn(
                       "flex items-center gap-5 p-6 rounded-3xl border transition-all duration-300 text-left relative overflow-hidden group",
                       orgType === option.id 
-                        ? "bg-white/5 border-purple-500/30 ring-1 ring-purple-500/20" 
-                        : "bg-[#0A0A0A]/60 border-white/5 hover:border-white/20"
+                        ? "bg-purple-50 border-purple-500 ring-1 ring-purple-500/20" 
+                        : "bg-white border-gray-200 hover:border-gray-300"
                     )}
                   >
                     <div className={cn(
                       "p-3 rounded-xl transition-all duration-300",
-                      orgType === option.id ? "bg-purple-600 text-white shadow-lg shadow-purple-500/20" : "bg-white/5 text-white/20 group-hover:text-white/40"
+                      orgType === option.id ? "bg-purple-600 text-white shadow-lg shadow-purple-500/20" : "bg-gray-100 text-gray-400 group-hover:text-gray-600"
                     )}>
                       {option.icon}
                     </div>
                     <div className="flex-grow">
                       <div className="font-semibold text-lg">{option.id}</div>
-                      <div className="text-sm text-white/30">{option.desc}</div>
+                      <div className="text-sm text-gray-500">{option.desc}</div>
                     </div>
                     <div className={cn(
                       "w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all duration-300",
-                      orgType === option.id ? "bg-white border-white scale-110" : "border-white/10"
+                      orgType === option.id ? "bg-purple-600 border-purple-600 scale-110" : "border-gray-300"
                     )}>
-                      {orgType === option.id && <Check size={12} className="text-black" strokeWidth={4} />}
+                      {orgType === option.id && <Check size={12} className="text-white" strokeWidth={4} />}
                     </div>
                   </button>
                 ))}
@@ -166,13 +166,13 @@ export default function OnboardingPage() {
               <div className="flex gap-4 mt-8">
                 <button
                   onClick={() => setStep(1)}
-                  className="w-1/3 py-4 bg-[#141414] hover:bg-[#1A1A1A] border border-white/5 text-white/60 font-medium rounded-2xl transition-all duration-200"
+                  className="w-1/3 py-4 bg-white border border-gray-200 text-gray-600 font-medium rounded-2xl transition-all duration-200"
                 >
                   Back
                 </button>
                 <button
                   onClick={() => setStep(3)}
-                  className="flex-grow py-4 bg-white text-black font-semibold rounded-2xl hover:bg-white/90 active:scale-[0.98] transition-all flex items-center justify-center gap-2 group shadow-xl shadow-white/5"
+                  className="flex-grow py-4 bg-gray-900 text-white font-semibold rounded-2xl hover:bg-gray-800 active:scale-[0.98] transition-all flex items-center justify-center gap-2 group shadow-xl"
                 >
                   <span>Continue</span>
                   <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
@@ -190,13 +190,13 @@ export default function OnboardingPage() {
             >
               <div className="text-center">
                 <h1 className="text-3xl font-semibold mb-3 tracking-tight">Your Expertise</h1>
-                <p className="text-white/40 text-sm">Help us understand your background and target market.</p>
+                <p className="text-gray-500 text-sm">Help us understand your background and target market.</p>
               </div>
 
               <div className="space-y-6">
                 {/* Experience Level */}
                 <div className="space-y-3">
-                  <label className="text-sm font-medium text-white/40 ml-1">Experience Level</label>
+                  <label className="text-sm font-medium text-gray-500 ml-1">Experience Level</label>
                   <div className="grid grid-cols-3 gap-2">
                     {['Beginner', 'Intermediate', 'Expert'].map((level) => (
                       <button
@@ -205,8 +205,8 @@ export default function OnboardingPage() {
                         className={cn(
                           "py-3 rounded-xl border text-sm font-medium transition-all duration-300",
                           experienceLevel === level 
-                            ? "bg-purple-600/20 border-purple-500/50 text-white" 
-                            : "bg-[#111] border-white/5 text-white/40 hover:border-white/10"
+                            ? "bg-purple-600/10 border-purple-500 text-purple-700" 
+                            : "bg-white border-gray-200 text-gray-600 hover:border-gray-300"
                         )}
                       >
                         {level}
@@ -217,7 +217,7 @@ export default function OnboardingPage() {
 
                 {/* Project Location */}
                 <div className="space-y-3">
-                  <label className="text-sm font-medium text-white/40 ml-1">Project Location</label>
+                  <label className="text-sm font-medium text-gray-500 ml-1">Project Location</label>
                   <div className="grid grid-cols-3 gap-2">
                     {['India', 'USA', 'Others'].map((loc) => (
                       <button
@@ -226,8 +226,8 @@ export default function OnboardingPage() {
                         className={cn(
                           "py-3 rounded-xl border text-sm font-medium transition-all duration-300",
                           location === loc 
-                            ? "bg-indigo-600/20 border-indigo-500/50 text-white" 
-                            : "bg-[#111] border-white/5 text-white/40 hover:border-white/10"
+                            ? "bg-indigo-600/10 border-indigo-500 text-indigo-700" 
+                            : "bg-white border-gray-200 text-gray-600 hover:border-gray-300"
                         )}
                       >
                         {loc}
@@ -238,13 +238,13 @@ export default function OnboardingPage() {
 
                 {/* Projects Completed */}
                 <div className="space-y-3">
-                  <label className="text-sm font-medium text-white/40 ml-1">Projects Completed</label>
+                  <label className="text-sm font-medium text-gray-500 ml-1">Projects Completed</label>
                   <input
                     type="text"
                     value={projectsCompleted}
                     onChange={(e) => setProjectsCompleted(e.target.value)}
                     placeholder="e.g. 15+ projects"
-                    className="w-full bg-[#111111] border border-white/5 rounded-2xl px-5 py-4 text-lg focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/30 transition-all duration-200 placeholder:text-white/5 shadow-inner"
+                    className="w-full bg-white border border-gray-200 rounded-xl px-5 py-4 text-lg focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/30 transition-all duration-200 shadow-sm"
                   />
                 </div>
 

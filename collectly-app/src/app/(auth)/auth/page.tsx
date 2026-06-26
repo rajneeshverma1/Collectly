@@ -33,12 +33,12 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[#fafafa] flex items-center justify-center p-4">
       <div className="w-full max-w-[360px]">
 
         {/* Header */}
         <div className="text-center mb-6">
-          <h1 className="text-2xl font-bold text-white mb-1">
+          <h1 className="text-2xl font-bold text-gray-900 mb-1">
             {isLogin ? 'Welcome back!' : 'Create account'}
           </h1>
           <p className="text-gray-500 text-sm">
@@ -49,34 +49,34 @@ export default function AuthPage() {
         <form onSubmit={handleSubmit} className="space-y-3">
           {!isLogin && (
             <div className="space-y-1">
-              <label className="text-white font-semibold text-xs" htmlFor="name">Full Name</label>
+              <label className="text-gray-900 font-semibold text-xs" htmlFor="name">Full Name</label>
               <input
                 id="name" type="text" placeholder="John Doe" value={formData.name}
                 onChange={handleChange} required={!isLogin}
-                className="w-full bg-transparent border border-white/20 rounded-lg py-2.5 px-3 text-white placeholder:text-gray-600 focus:outline-none focus:border-white/40 transition-colors text-sm"
+                className="w-full bg-white border border-gray-200 rounded-lg py-2.5 px-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-gray-300 transition-colors text-sm shadow-sm"
               />
             </div>
           )}
 
           <div className="space-y-1">
-            <label className="text-white font-semibold text-xs" htmlFor="email">Email</label>
+            <label className="text-gray-900 font-semibold text-xs" htmlFor="email">Email</label>
             <input
               id="email" type="email" placeholder="anna@gmail.com" value={formData.email}
               onChange={handleChange} required autoComplete="off"
-              className="w-full bg-transparent border border-white/20 rounded-lg py-2.5 px-3 text-white placeholder:text-gray-600 focus:outline-none focus:border-white/40 transition-colors text-sm"
+              className="w-full bg-white border border-gray-200 rounded-lg py-2.5 px-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-gray-300 transition-colors text-sm shadow-sm"
             />
           </div>
 
           <div className="space-y-1">
-            <label className="text-white font-semibold text-xs" htmlFor="password">Password</label>
+            <label className="text-gray-900 font-semibold text-xs" htmlFor="password">Password</label>
             <div className="relative">
               <input
                 id="password" type={showPassword ? 'text' : 'password'} placeholder="••••••••"
                 value={formData.password} onChange={handleChange} required
-                className="w-full bg-transparent border border-white/20 rounded-lg py-2.5 px-3 pr-10 text-white placeholder:text-gray-600 focus:outline-none focus:border-white/40 transition-colors text-sm"
+                className="w-full bg-white border border-gray-200 rounded-lg py-2.5 px-3 pr-10 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-gray-300 transition-colors text-sm shadow-sm"
               />
               <button type="button" onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 transition-colors">
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors">
                 {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
               </button>
             </div>
@@ -85,10 +85,10 @@ export default function AuthPage() {
           {isLogin && (
             <div className="flex items-center justify-between pt-1">
               <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" className="w-3.5 h-3.5 rounded border border-white/20 bg-transparent accent-white cursor-pointer" />
-                <span className="text-gray-400 text-xs">Remember for 30 days</span>
+                <input type="checkbox" className="w-3.5 h-3.5 rounded border border-gray-200 bg-white accent-gray-900 cursor-pointer" />
+                <span className="text-gray-500 text-xs">Remember for 30 days</span>
               </label>
-              <Link href="#" className="text-white font-bold text-xs hover:text-gray-300 transition-colors">
+              <Link href="#" className="text-gray-900 font-bold text-xs hover:text-gray-600 transition-colors">
                 Forgot password?
               </Link>
             </div>
