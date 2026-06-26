@@ -13,7 +13,21 @@ import {
   CreditCard, 
   Box, 
   TrendingUp, 
-  Search 
+  Search,
+  User,
+  Zap,
+  Monitor,
+  Building2,
+  Heart,
+  Bot,
+  Home,
+  Calculator,
+  Target,
+  Users,
+  Building,
+  Scale,
+  Briefcase,
+  Plug
 } from "lucide-react";
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "framer-motion";
 
@@ -21,7 +35,7 @@ import { Show, UserButton } from "@/lib/auth-wrapper";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isFeaturesOpen, setIsFeaturesOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isMobileFeaturesOpen, setIsMobileFeaturesOpen] = useState(false);
   const { scrollY } = useScroll();
 
@@ -30,7 +44,7 @@ const Navbar = () => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (navRef.current && !navRef.current.contains(event.target as Node)) {
-        setIsFeaturesOpen(false);
+        setActiveDropdown(null);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -114,6 +128,108 @@ const Navbar = () => {
     }
   ];
 
+  const companySizeSolutions = [
+    {
+      icon: <User size={18} />,
+      title: "Founders",
+      description: "For startup founders",
+      href: "/#solutions"
+    },
+    {
+      icon: <Zap size={18} />,
+      title: "Startups",
+      description: "Scale your business",
+      href: "/#solutions"
+    },
+    {
+      icon: <Monitor size={18} />,
+      title: "Mid-Market",
+      description: "Growing companies",
+      href: "/#solutions"
+    },
+    {
+      icon: <Building2 size={18} />,
+      title: "Enterprise",
+      description: "Large organizations",
+      href: "/#solutions"
+    }
+  ];
+
+  const industrySolutions = [
+    {
+      icon: <Box size={18} />,
+      title: "Collectly for Finance",
+      description: "AI agents for finance teams",
+      href: "/#solutions"
+    },
+    {
+      icon: <Heart size={18} />,
+      title: "Healthcare",
+      description: "Medical billing solutions",
+      href: "/#solutions"
+    },
+    {
+      icon: <Bot size={18} />,
+      title: "AI Companies",
+      description: "For AI-native businesses",
+      href: "/#solutions"
+    },
+    {
+      icon: <Home size={18} />,
+      title: "Real Estate",
+      description: "Property management billing",
+      href: "/#solutions"
+    },
+    {
+      icon: <Calculator size={18} />,
+      title: "Finance",
+      description: "Financial services",
+      href: "/#solutions"
+    }
+  ];
+
+  const companyAbout = [
+    {
+      icon: <Target size={18} />,
+      title: "Mission",
+      description: "Our mission & vision",
+      href: "/#about"
+    },
+    {
+      icon: <Users size={18} />,
+      title: "Team",
+      description: "Meet our team",
+      href: "/#about"
+    },
+    {
+      icon: <Building size={18} />,
+      title: "Customers",
+      description: "Customer stories",
+      href: "/#about"
+    }
+  ];
+
+  const moreAbout = [
+    {
+      icon: <Scale size={18} />,
+      title: "Compare",
+      description: "See how we stack up",
+      href: "/#about"
+    },
+    {
+      icon: <Briefcase size={18} />,
+      title: "Careers",
+      description: "Join our team",
+      href: "/#about"
+    },
+    {
+      icon: <Plug size={18} />,
+      title: "Integrations",
+      description: "CRM, payments, accounting & more",
+      href: "/#about"
+    }
+  ];
+
   return (
     <>
       {/* Maintenance Banner */}
@@ -152,20 +268,46 @@ const Navbar = () => {
             {/* Nav Links (Desktop) */}
             <div className="hidden md:flex items-center gap-10">
             {navLinks.map((link) => {
-              if (link.name === "Features") {
+              const isDropdown = ["Features", "Solutions", "About"].includes(link.name);
+
+              if (isDropdown) {
+                let col1Title = "";
+                let col2Title = "";
+                let col1Data: any[] = [];
+                let col2Data: any[] = [];
+
+                if (link.name === "Features") {
+                  col1Title = "Core Features";
+                  col1Data = coreFeatures;
+                  col2Title = "More Features";
+                  col2Data = moreFeatures;
+                } else if (link.name === "Solutions") {
+                  col1Title = "BY COMPANY SIZE";
+                  col1Data = companySizeSolutions;
+                  col2Title = "BY INDUSTRY";
+                  col2Data = industrySolutions;
+                } else if (link.name === "About") {
+                  col1Title = "COMPANY";
+                  col1Data = companyAbout;
+                  col2Title = "MORE";
+                  col2Data = moreAbout;
+                }
+
+                const isOpen = activeDropdown === link.name;
+
                 return (
                   <div 
                     key={link.name} 
                     className=""
-                    onMouseEnter={() => setIsFeaturesOpen(true)}
-                    onMouseLeave={() => setIsFeaturesOpen(false)}
+                    onMouseEnter={() => setActiveDropdown(link.name)}
+                    onMouseLeave={() => setActiveDropdown(null)}
                   >
                     <button
                       className="flex items-center gap-1.5 text-lg font-medium text-gray-900 hover:text-black transition-colors bg-transparent border-0 cursor-pointer focus:outline-none py-2"
                     >
                       <span>{link.name}</span>
                       <motion.span
-                        animate={{ rotate: isFeaturesOpen ? 180 : 0 }}
+                        animate={{ rotate: isOpen ? 180 : 0 }}
                         transition={{ duration: 0.2 }}
                         className="inline-flex items-center"
                       >
@@ -174,7 +316,7 @@ const Navbar = () => {
                     </button>
 
                     <AnimatePresence>
-                      {isFeaturesOpen && (
+                      {isOpen && (
                         <motion.div
                           initial={{ opacity: 0, y: 15, scale: 0.98 }}
                           animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -185,21 +327,21 @@ const Navbar = () => {
                         >
                           <div className="bg-white border !border-gray-200 rounded-[24px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hidden md:grid grid-cols-2 gap-x-8 gap-y-0">
                             <div>
-                              <h3 className="text-[12px] font-semibold text-gray-400 uppercase tracking-widest mb-4 pl-3">Core Features</h3>
+                              <h3 className="text-[12px] font-semibold text-gray-400 uppercase tracking-widest mb-4 pl-3">{col1Title}</h3>
                               <div className="grid grid-cols-1 gap-2">
-                                {coreFeatures.map((feature) => (
+                                {col1Data.map((item) => (
                                   <Link
-                                    key={feature.title}
-                                    href={feature.href}
-                                    onClick={() => setIsFeaturesOpen(false)}
+                                    key={item.title}
+                                    href={item.href}
+                                    onClick={() => setActiveDropdown(null)}
                                     className="flex items-start gap-4 p-3 rounded-2xl hover:bg-gray-50 transition-colors group text-left"
                                   >
                                     <div className="w-11 h-11 rounded-xl bg-white border !border-gray-200 flex items-center justify-center text-gray-500 shadow-sm shrink-0 group-hover:!border-gray-300 transition-colors">
-                                      {feature.icon}
+                                      {item.icon}
                                     </div>
                                     <div className="pt-0.5">
-                                      <h4 className="text-[15px] font-medium text-gray-900 mb-0.5">{feature.title}</h4>
-                                      <p className="text-[13px] text-gray-500 leading-snug">{feature.description}</p>
+                                      <h4 className="text-[15px] font-medium text-gray-900 mb-0.5">{item.title}</h4>
+                                      <p className="text-[13px] text-gray-500 leading-snug">{item.description}</p>
                                     </div>
                                   </Link>
                                 ))}
@@ -207,21 +349,21 @@ const Navbar = () => {
                             </div>
 
                             <div>
-                              <h3 className="text-[12px] font-semibold text-gray-400 uppercase tracking-widest mb-4 pl-3">More Features</h3>
+                              <h3 className="text-[12px] font-semibold text-gray-400 uppercase tracking-widest mb-4 pl-3">{col2Title}</h3>
                               <div className="grid grid-cols-1 gap-2">
-                                {moreFeatures.map((feature) => (
+                                {col2Data.map((item) => (
                                   <Link
-                                    key={feature.title}
-                                    href={feature.href}
-                                    onClick={() => setIsFeaturesOpen(false)}
+                                    key={item.title}
+                                    href={item.href}
+                                    onClick={() => setActiveDropdown(null)}
                                     className="flex items-start gap-4 p-3 rounded-2xl hover:bg-gray-50 transition-colors group text-left"
                                   >
                                     <div className="w-11 h-11 rounded-xl bg-white border !border-gray-200 flex items-center justify-center text-gray-500 shadow-sm shrink-0 group-hover:!border-gray-300 transition-colors">
-                                      {feature.icon}
+                                      {item.icon}
                                     </div>
                                     <div className="pt-0.5">
-                                      <h4 className="text-[15px] font-medium text-gray-900 mb-0.5">{feature.title}</h4>
-                                      <p className="text-[13px] text-gray-500 leading-snug">{feature.description}</p>
+                                      <h4 className="text-[15px] font-medium text-gray-900 mb-0.5">{item.title}</h4>
+                                      <p className="text-[13px] text-gray-500 leading-snug">{item.description}</p>
                                     </div>
                                   </Link>
                                 ))}
