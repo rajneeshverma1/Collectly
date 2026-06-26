@@ -25,7 +25,7 @@ const IntegrationCard = ({ name, category, status, isConnected }: { name: string
 
 export const ConnectFinanceSection = () => {
     return (
-        <section className="py-24 bg-[#FAFAFA]">
+        <section className="py-24 bg-white">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     
