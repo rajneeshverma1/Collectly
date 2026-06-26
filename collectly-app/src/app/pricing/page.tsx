@@ -85,7 +85,7 @@ export default function PricingPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="mt-10 inline-flex items-center p-1 bg-white border border-gray-200 rounded-full shadow-sm"
+            className="mt-10 inline-flex items-center p-1 bg-white border !border-gray-200 rounded-full shadow-sm"
           >
             <button
               onClick={() => setBillingCycle('Monthly')}
@@ -120,8 +120,8 @@ export default function PricingPage() {
               transition={{ delay: 0.1 + i * 0.1, duration: 0.5 }}
               className={`flex-1 p-6 lg:p-8 rounded-[32px] bg-white border relative flex flex-col justify-between transition-all hover:-translate-y-1 hover:shadow-xl ${
                 plan.isPopular 
-                  ? 'border-[#5B50FF] shadow-[0_8px_30px_rgb(91,80,255,0.12)] z-10 lg:scale-105' 
-                  : 'border-gray-100 shadow-sm'
+                  ? '!border-[#5B50FF] shadow-[0_8px_30px_rgb(91,80,255,0.12)] z-10 lg:scale-105' 
+                  : '!border-gray-200 shadow-sm'
               }`}
             >
               {plan.isPopular && (
@@ -158,7 +158,7 @@ export default function PricingPage() {
                 <button className="w-full flex items-center justify-center py-2 text-gray-300 hover:text-gray-500 transition-colors mb-4">
                   <ChevronDown size={20} />
                 </button>
-                <div className="flex items-center justify-center gap-2 border-t border-gray-100 pt-6 mb-6">
+                <div className="flex items-center justify-center gap-2 border-t !border-gray-100 pt-6 mb-6">
                   <span className="text-[14px] font-semibold text-gray-900">Implementation Team</span>
                   <div className="w-4 h-4 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 cursor-help">
                     <Info size={10} strokeWidth={3} />
@@ -171,7 +171,7 @@ export default function PricingPage() {
                     className={`block w-full py-3.5 rounded-2xl text-[14px] font-semibold text-center transition-all ${
                       plan.isPopular 
                         ? 'bg-[#5B50FF] hover:bg-[#4a40e0] text-white shadow-md' 
-                        : 'bg-white border border-gray-200 text-gray-900 hover:bg-gray-50'
+                        : 'bg-white border !border-gray-200 text-gray-900 hover:bg-gray-50'
                     }`}
                   >
                     Get Started
@@ -183,7 +183,7 @@ export default function PricingPage() {
                     className={`block w-full py-3.5 rounded-2xl text-[14px] font-semibold text-center transition-all ${
                       plan.isPopular 
                         ? 'bg-[#5B50FF] hover:bg-[#4a40e0] text-white shadow-md' 
-                        : 'bg-white border border-gray-200 text-gray-900 hover:bg-gray-50'
+                        : 'bg-white border !border-gray-200 text-gray-900 hover:bg-gray-50'
                     }`}
                   >
                     Go to Dashboard
@@ -195,7 +195,7 @@ export default function PricingPage() {
         </div>
 
         {/* Enterprise Banner */}
-        <div className="max-w-[1000px] mx-auto mb-32 bg-[#f8f9fa] border border-gray-200/60 rounded-[24px] p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+        <div className="w-full mb-32 bg-[#f8f9fa] border !border-gray-200 rounded-[24px] p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
           <div>
             <h3 className="text-[22px] font-medium text-gray-900">Enterprise</h3>
             <p className="text-[13px] font-semibold text-gray-500 mt-1">$50M+ Annual Revenue</p>
