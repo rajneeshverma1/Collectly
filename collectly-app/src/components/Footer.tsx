@@ -20,7 +20,7 @@ const Footer = () => {
                             <input 
                                 type="email" 
                                 placeholder="Email address" 
-                                className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm w-full focus:outline-none focus:border-[#22c55e] text-white transition-colors"
+                                className="bg-white/5 rounded-xl px-4 py-3 text-sm w-full focus:outline-none focus:border-[#22c55e] text-white transition-colors"
                             />
                             <button type="submit" className="bg-[#22c55e] hover:bg-green-500 text-white px-6 py-3 rounded-xl text-sm font-semibold transition-colors shrink-0">
                                 Subscribe
@@ -31,9 +31,9 @@ const Footer = () => {
 
                             
                             <div className="flex flex-wrap gap-3">
-                                <span className="text-[11px] font-semibold tracking-wide uppercase px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-gray-400">SOC-2 Certified</span>
-                                <span className="text-[11px] font-semibold tracking-wide uppercase px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-gray-400">GDPR Compliant</span>
-                                <span className="text-[11px] font-semibold tracking-wide uppercase px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-gray-400">HIPAA Compliant</span>
+                                <span className="text-[11px] font-semibold tracking-wide uppercase px-3 py-1.5 bg-white/5 rounded-full text-gray-400">SOC-2 Certified</span>
+                                <span className="text-[11px] font-semibold tracking-wide uppercase px-3 py-1.5 bg-white/5 rounded-full text-gray-400">GDPR Compliant</span>
+                                <span className="text-[11px] font-semibold tracking-wide uppercase px-3 py-1.5 bg-white/5 rounded-full text-gray-400">HIPAA Compliant</span>
                             </div>
                         </div>
                     </div>

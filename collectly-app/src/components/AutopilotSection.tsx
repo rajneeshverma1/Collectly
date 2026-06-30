@@ -18,9 +18,9 @@ export const AutopilotSection = () => {
                         transition={{ duration: 0.6 }}
                         className="order-2 lg:order-1"
                     >
-                        <div className="bg-[#121212] rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4)] overflow-hidden w-full max-w-[500px] mx-auto border border-white/5">
+                        <div className="bg-[#121212] rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4)] overflow-hidden w-full max-w-[500px] mx-auto">
                             {/* Window Header */}
-                            <div className="px-4 py-3 bg-[#1a1a1a] flex items-center gap-2 border-b border-white/5">
+                            <div className="px-4 py-3 bg-[#1a1a1a] flex items-center gap-2">
                                 <div className="w-3 h-3 rounded-full bg-red-500" />
                                 <div className="w-3 h-3 rounded-full bg-yellow-500" />
                                 <div className="w-3 h-3 rounded-full bg-green-500" />
@@ -30,7 +30,7 @@ export const AutopilotSection = () => {
                             <div className="p-6">
                                 <div className="flex justify-between items-center mb-6">
                                     <h3 className="text-xl font-semibold text-white">Automatic Reminders</h3>
-                                    <button className="border border-white/10 text-gray-400 hover:text-white px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors">
+                                    <button className="text-gray-400 hover:text-white px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors">
                                         <Settings2 className="w-3.5 h-3.5" />
                                         AI Settings
                                     </button>
@@ -48,7 +48,7 @@ export const AutopilotSection = () => {
                                 </div>
 
                                 {/* Reminder Sequence */}
-                                <div className="border border-white/10 rounded-xl p-5 mb-4 bg-[#161616]">
+                                <div className="rounded-xl p-5 mb-4 bg-[#161616]">
                                     <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-5">Reminder Sequence</p>
                                     
                                     <div className="flex items-center justify-between relative">
@@ -57,7 +57,7 @@ export const AutopilotSection = () => {
                                         
                                         {/* Step 1 */}
                                         <div className="flex flex-col items-center gap-2 relative z-10">
-                                            <div className="w-10 h-10 rounded-full bg-[#1e1e1e] border border-white/5 flex items-center justify-center text-gray-400">
+                                            <div className="w-10 h-10 rounded-full bg-[#1e1e1e] flex items-center justify-center text-gray-400">
                                                 <Bell className="w-4 h-4" />
                                             </div>
                                             <span className="text-[10px] text-gray-400 font-medium">Day 1</span>
@@ -65,7 +65,7 @@ export const AutopilotSection = () => {
                                         
                                         {/* Step 2 */}
                                         <div className="flex flex-col items-center gap-2 relative z-10">
-                                            <div className="w-10 h-10 rounded-full bg-[#1e1e1e] border border-white/5 flex items-center justify-center text-gray-400">
+                                            <div className="w-10 h-10 rounded-full bg-[#1e1e1e] flex items-center justify-center text-gray-400">
                                                 <Clock className="w-4 h-4" />
                                             </div>
                                             <span className="text-[10px] text-gray-400 font-medium">Day 7</span>
@@ -81,7 +81,7 @@ export const AutopilotSection = () => {
                                         
                                         {/* Step 4 */}
                                         <div className="flex flex-col items-center gap-2 relative z-10">
-                                            <div className="w-10 h-10 rounded-full bg-[#1e1e1e] border border-white/5 flex items-center justify-center text-gray-400">
+                                            <div className="w-10 h-10 rounded-full bg-[#1e1e1e] flex items-center justify-center text-gray-400">
                                                 <Mail className="w-4 h-4" />
                                             </div>
                                             <span className="text-[10px] text-gray-400 font-medium">Day 30</span>
@@ -90,7 +90,7 @@ export const AutopilotSection = () => {
                                 </div>
 
                                 {/* Email Preview */}
-                                <div className="border border-white/10 rounded-xl p-5 bg-[#161616]">
+                                <div className="rounded-xl p-5 bg-[#161616]">
                                     <div className="flex justify-between items-center mb-4">
                                         <div className="flex items-center gap-2 text-gray-300 font-medium text-sm">
                                             <Mail className="w-4 h-4 text-gray-400" />
