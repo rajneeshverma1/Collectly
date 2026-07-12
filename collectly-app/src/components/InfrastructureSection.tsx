@@ -138,21 +138,6 @@ export const InfrastructureSection = () => {
                     </div>
                 </div>
 
-                {/* Text Content */}
-                <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="text-center max-w-3xl mx-auto mt-12"
-                >
-                    <h2 className="text-4xl md:text-5xl font-normal text-gray-900 leading-tight mb-6 tracking-tight">
-                        Battle-tested billing infrastructure
-                    </h2>
-                    <p className="text-lg text-gray-500 leading-relaxed">
-                        Processing millions in payments across global businesses — automated invoicing, collections, and reconciliation that finance teams trust.
-                    </p>
-                </motion.div>
 
             </div>
         </section>

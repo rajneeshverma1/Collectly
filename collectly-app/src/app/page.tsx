@@ -2,10 +2,8 @@ import Navbar from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { AutomateBillingSection } from "@/components/AutomateBillingSection";
 import { AutopilotSection } from "@/components/AutopilotSection";
-import { InfrastructureSection } from "@/components/InfrastructureSection";
-import { ConnectFinanceSection } from "@/components/ConnectFinanceSection";
-import { ProblemSection } from "@/components/ProblemSection";
-import { HowItWorksSection } from "@/components/HowItWorksSection";
+
+import { EverythingElseSection } from "@/components/EverythingElseSection";
 import Features from "@/components/Features";
 import { ConfigurableSection } from "@/components/ConfigurableSection";
 import { WhoWeServeSection } from "@/components/WhoWeServeSection";
@@ -24,10 +22,8 @@ export default function Home() {
       <Hero />
       <AutomateBillingSection />
       <AutopilotSection />
-      <InfrastructureSection />
-      <ConnectFinanceSection />
-      <ProblemSection id="problem" />
-      <HowItWorksSection id="how-it-works" />
+
+      <EverythingElseSection />
       <Features id="features" />
       <ConfigurableSection />
       <WhoWeServeSection id="solutions" />
