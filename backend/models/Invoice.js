@@ -14,6 +14,14 @@ const Invoice = sequelize.define(
       allowNull: false,
       unique: true,
     },
+    clientId: {
+      type: DataTypes.UUID,
+      allowNull: true,
+      references: {
+        model: "clients",
+        key: "id",
+      },
+    },
     clientName: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -31,6 +39,25 @@ const Invoice = sequelize.define(
       validate: {
         min: 0,
       },
+    },
+    subtotal: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: true,
+      validate: {
+        min: 0,
+      },
+    },
+    taxTotal: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: true,
+      validate: {
+        min: 0,
+      },
+    },
+    paymentToken: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      unique: true,
     },
     dueDate: {
       type: DataTypes.DATE,
@@ -79,6 +106,8 @@ const Invoice = sequelize.define(
     timestamps: true,
     indexes: [
       { fields: ["organizationId"] },
+      { fields: ["clientId"] },
+      { fields: ["paymentToken"] },
       { fields: ["status"] },
       { fields: ["dueDate"] },
       { fields: ["createdBy"] },

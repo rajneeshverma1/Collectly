@@ -134,11 +134,11 @@ export default function ClientsPage() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             className={cn(
-              "fixed top-6 right-6 z-50 px-6 py-4 rounded-2xl flex items-center gap-3 border shadow-2xl backdrop-blur-xl transition-all font-semibold text-sm",
-              toast.type === 'success' ? "bg-emerald-50 text-emerald-700 border-emerald-200" : "bg-rose-50 text-rose-700 border-rose-200"
+              "fixed top-6 right-6 z-50 px-4 py-2 rounded-none border border-black transition-none font-bold text-sm",
+              toast.type === 'success' ? "bg-white text-black" : "bg-black text-white"
             )}
           >
-            {toast.type === 'success' ? <CheckCircle2 size={18} /> : <AlertCircle size={18} />}
+            {toast.type === 'success' ? <CheckCircle2 size={14} /> : <AlertCircle size={14} />}
             <span>{toast.message}</span>
           </motion.div>
         )}
@@ -159,26 +159,24 @@ export default function ClientsPage() {
             </p>
           </motion.div>
           
-          <motion.button 
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+          <button 
             onClick={() => setModalOpen(true)}
-            className="bg-zinc-900 text-white px-6 py-4 rounded-[16px] font-black text-xs hover:bg-zinc-800 transition-all flex items-center gap-2 shadow-sm self-start sm:self-auto cursor-pointer"
+            className="bg-black border border-black text-white px-4 py-2 rounded-none font-bold text-xs hover:bg-gray-800 transition-none flex items-center gap-2 self-start sm:self-auto cursor-pointer"
           >
-            <Plus size={16} strokeWidth={3} />
+            <Plus size={16} strokeWidth={2} />
             <span>Add New Client</span>
-          </motion.button>
+          </button>
         </div>
 
         {/* Search controls */}
         <div className="mb-8 relative max-w-md">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" size={16} />
+          <Search className="absolute left-2 top-1/2 -translate-y-1/2 text-black" size={14} />
           <input 
             type="text" 
             placeholder="Search by client name, email, or company..." 
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="bg-white border border-zinc-200 rounded-2xl pl-12 pr-4 py-3.5 text-sm text-zinc-800 placeholder-zinc-400 focus:outline-none focus:border-zinc-400 w-full transition-all shadow-sm"
+            className="bg-white border border-black rounded-none pl-8 pr-4 py-2 text-sm text-black placeholder-gray-500 focus:outline-none w-full transition-none shadow-none"
           />
         </div>
 
@@ -189,15 +187,15 @@ export default function ClientsPage() {
             <p className="font-bold text-sm">Syncing Client Workspaces...</p>
           </div>
         ) : filteredClients.length === 0 ? (
-          <div className="py-20 text-center border border-dashed border-zinc-200 rounded-[32px] max-w-xl mx-auto bg-white shadow-sm">
-            <Users className="mx-auto text-zinc-300 mb-4" size={48} />
-            <h4 className="text-zinc-900 font-bold text-lg mb-2">No Clients Registered</h4>
-            <p className="text-zinc-500 text-sm max-w-md mx-auto mb-6">
+          <div className="py-12 text-center border border-black rounded-none max-w-xl mx-auto bg-white shadow-none">
+            <Users className="mx-auto text-black mb-4" size={32} />
+            <h4 className="text-black font-bold text-lg mb-2">No Clients Registered</h4>
+            <p className="text-black text-sm max-w-md mx-auto mb-6">
               Establish client profiles to automatically sync and catalog invoices, transactions, and reminders under single profiles.
             </p>
             <button 
               onClick={() => setModalOpen(true)}
-              className="bg-zinc-900 text-white hover:bg-zinc-800 font-bold text-xs px-5 py-3 rounded-xl transition-all cursor-pointer shadow-sm"
+              className="bg-black border border-black text-white hover:bg-gray-800 font-bold text-xs px-4 py-2 rounded-none transition-none cursor-pointer shadow-none"
             >
               Add Your First Client
             </button>
@@ -215,17 +213,17 @@ export default function ClientsPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
                 whileHover={{ y: -4 }}
-                className="p-6 bg-white border border-zinc-200 hover:border-zinc-300 rounded-[24px] relative overflow-hidden group shadow-sm transition-all duration-300"
+                className="p-4 bg-white border border-black rounded-none relative overflow-hidden shadow-none transition-none"
               >
                 <div className="flex items-start justify-between mb-6">
                   <div>
                     <span className={cn(
-                      "inline-block text-[9px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full mb-3 border",
-                      client.status === 'active' ? "bg-emerald-50 text-emerald-700 border-emerald-200/50" : "bg-blue-50 text-blue-700 border-blue-200/50"
+                      "inline-block text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 border border-black mb-2",
+                      client.status === 'active' ? "text-black bg-white" : "text-black bg-white"
                     )}>
                       {client.status}
                     </span>
-                    <h3 className="text-xl font-bold tracking-tight text-zinc-900 group-hover:text-[#f04e23] transition-colors">
+                    <h3 className="text-xl font-bold tracking-tight text-zinc-900 group-hover:text-zinc-600 transition-colors">
                       {client.name}
                     </h3>
                     {client.company && (
@@ -236,8 +234,7 @@ export default function ClientsPage() {
                   </div>
                   
                   <Link 
-                    href={`/dashboard/clients/${client.id}`}
-                    className="w-10 h-10 rounded-xl bg-zinc-50 border border-zinc-150 flex items-center justify-center text-zinc-400 group-hover:bg-zinc-100 group-hover:text-zinc-800 transition-all"
+                    className="w-8 h-8 rounded-none border border-black flex items-center justify-center text-black hover:bg-gray-200 transition-none"
                   >
                     <ArrowUpRight size={16} />
                   </Link>
@@ -283,13 +280,13 @@ export default function ClientsPage() {
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="bg-white border border-zinc-200 rounded-[32px] p-8 w-full max-w-lg relative z-10 shadow-2xl overflow-hidden text-zinc-850"
+              className="bg-white border border-black p-4 w-full max-w-lg relative z-10 shadow-none text-black"
             >
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-2xl font-black tracking-tight text-zinc-900">Add New Client</h3>
                 <button 
                   onClick={() => setModalOpen(false)}
-                  className="p-2 bg-zinc-50 border border-zinc-150 rounded-xl hover:bg-zinc-100 transition-colors cursor-pointer text-zinc-400 hover:text-zinc-600"
+                  className="p-1 border border-black bg-white hover:bg-gray-200 cursor-pointer text-black"
                 >
                   <X size={16} />
                 </button>
@@ -306,7 +303,7 @@ export default function ClientsPage() {
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="e.g. Rachel Green"
-                    className="w-full bg-white border border-zinc-250 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950/5 focus:border-zinc-400 transition-all placeholder:text-zinc-350 text-zinc-800"
+                    className="w-full bg-white border border-black rounded-none px-2 py-1 text-sm focus:outline-none placeholder:text-gray-500 text-black"
                   />
                 </div>
 
@@ -319,7 +316,7 @@ export default function ClientsPage() {
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="e.g. rachel@green.com"
-                    className="w-full bg-white border border-zinc-250 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950/5 focus:border-zinc-400 transition-all placeholder:text-zinc-350 text-zinc-800"
+                    className="w-full bg-white border border-black rounded-none px-2 py-1 text-sm focus:outline-none placeholder:text-gray-500 text-black"
                   />
                 </div>
 
@@ -332,7 +329,7 @@ export default function ClientsPage() {
                       value={formData.phone}
                       onChange={handleInputChange}
                       placeholder="+1 (555) 019-2834"
-                      className="w-full bg-white border border-zinc-250 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950/5 focus:border-zinc-400 transition-all placeholder:text-zinc-350 text-zinc-800"
+                      className="w-full bg-white border border-black rounded-none px-2 py-1 text-sm focus:outline-none placeholder:text-gray-500 text-black"
                     />
                   </div>
 
@@ -344,7 +341,7 @@ export default function ClientsPage() {
                       value={formData.company}
                       onChange={handleInputChange}
                       placeholder="e.g. Rachel Design"
-                      className="w-full bg-white border border-zinc-250 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950/5 focus:border-zinc-400 transition-all placeholder:text-zinc-350 text-zinc-800"
+                      className="w-full bg-white border border-black rounded-none px-2 py-1 text-sm focus:outline-none placeholder:text-gray-500 text-black"
                     />
                   </div>
                 </div>
@@ -357,7 +354,7 @@ export default function ClientsPage() {
                     value={formData.address}
                     onChange={handleInputChange}
                     placeholder="e.g. 456 Broadway, New York, NY"
-                    className="w-full bg-white border border-zinc-250 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950/5 focus:border-zinc-400 transition-all placeholder:text-zinc-350 text-zinc-800 resize-none"
+                    className="w-full bg-white border border-black rounded-none px-2 py-1 text-sm focus:outline-none placeholder:text-gray-500 text-black resize-none"
                   />
                 </div>
 
@@ -365,7 +362,7 @@ export default function ClientsPage() {
                   <button 
                     type="submit"
                     disabled={submitting}
-                    className="w-full py-4 bg-zinc-900 text-white font-black text-xs rounded-2xl hover:bg-zinc-800 transition-all flex items-center justify-center gap-1.5 shadow-sm cursor-pointer"
+                    className="w-full py-2 bg-black border border-black text-white font-bold text-xs rounded-none hover:bg-gray-800 transition-none flex items-center justify-center gap-1.5 shadow-none cursor-pointer"
                   >
                     {submitting ? (
                       <>
@@ -379,7 +376,7 @@ export default function ClientsPage() {
                   <button 
                     type="button"
                     onClick={() => setModalOpen(false)}
-                    className="w-full py-4 bg-zinc-50 border border-zinc-200 hover:bg-zinc-100 text-zinc-700 font-bold text-xs rounded-2xl transition-all cursor-pointer flex items-center justify-center"
+                    className="w-full py-2 bg-white border border-black hover:bg-gray-200 text-black font-bold text-xs rounded-none transition-none cursor-pointer flex items-center justify-center"
                   >
                     Cancel
                   </button>

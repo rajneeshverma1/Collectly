@@ -5,6 +5,9 @@
 const Invoice = require("../models/Invoice");
 const Organization = require("../models/Organization");
 const Payment = require("../models/Payment");
+const InvoiceLineItem = require("../models/InvoiceLineItem");
+const Client = require("../models/Client");
+const { v4: uuidv4 } = require("uuid");
 const { Op } = require("sequelize");
 
 /**
@@ -69,7 +72,12 @@ exports.getAllInvoices = async (req, res, next) => {
  */
 exports.getInvoice = async (req, res, next) => {
   try {
-    const invoice = await Invoice.findByPk(req.params.id);
+    const invoice = await Invoice.findByPk(req.params.id, {
+      include: [
+        { model: InvoiceLineItem, as: "lineItems" },
+        { model: Client, as: "client" }
+      ]
+    });
 
     if (!invoice) {
       return res.status(404).json({
@@ -115,7 +123,7 @@ exports.createInvoice = async (req, res, next) => {
     // To prevent SequelizeUniqueConstraintError on SQLite/PostgreSQL, we run a dynamic check
     // loop that increments the count sequence globally and guarantees an invoiceNumber is
     // completely unique in the system before calling create.
-    let invoiceNumber = req.body.invoiceNumber;
+    let { invoiceNumber, lineItems, clientId, ...rest } = req.body;
     if (!invoiceNumber) {
       let isUnique = false;
       let count = await Invoice.count();
@@ -129,18 +137,57 @@ exports.createInvoice = async (req, res, next) => {
       }
     }
 
+    let subtotal = 0;
+    let taxTotal = 0;
+    if (lineItems && Array.isArray(lineItems)) {
+      lineItems.forEach(item => {
+        const qty = parseFloat(item.quantity) || 0;
+        const rate = parseFloat(item.rate) || 0;
+        const tax = parseFloat(item.taxPercentage) || 0;
+        const itemTotal = qty * rate;
+        subtotal += itemTotal;
+        taxTotal += itemTotal * (tax / 100);
+      });
+    }
+
     const invoice = await Invoice.create({
-      ...req.body,
+      ...rest,
       invoiceNumber,
+      clientId,
+      paymentToken: uuidv4(),
+      subtotal,
+      taxTotal,
       organizationId,
       createdBy: req.user.id,
       status: req.body.status || "draft",
     });
 
+    if (lineItems && Array.isArray(lineItems) && lineItems.length > 0) {
+      const lineItemsData = lineItems.map(item => {
+        const qty = parseFloat(item.quantity) || 0;
+        const rate = parseFloat(item.rate) || 0;
+        const tax = parseFloat(item.taxPercentage) || 0;
+        const itemTotal = qty * rate;
+        return {
+          invoiceId: invoice.id,
+          description: item.description,
+          quantity: qty,
+          rate: rate,
+          taxPercentage: tax,
+          totalAmount: itemTotal + (itemTotal * (tax / 100))
+        };
+      });
+      await InvoiceLineItem.bulkCreate(lineItemsData);
+    }
+
+    const createdInvoice = await Invoice.findByPk(invoice.id, {
+      include: [{ model: InvoiceLineItem, as: "lineItems" }]
+    });
+
     res.status(201).json({
       status: "success",
       data: {
-        invoice,
+        invoice: createdInvoice,
       },
     });
   } catch (error) {

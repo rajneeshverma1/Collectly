@@ -55,7 +55,7 @@ export const Hero = () => {
                     transition={{ duration: 0.5, delay: 0.3 }}
                     className="mt-10 flex flex-col sm:flex-row items-center gap-4 justify-center"
                 >
-                    <button className="w-full sm:w-auto bg-[#6366f1] hover:bg-[#4f46e5] text-gray-900 px-10 py-4 text-lg rounded-full font-medium transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+                    <button onClick={() => window.dispatchEvent(new Event('open-founder-modal'))} className="w-full sm:w-auto bg-[#6366f1] hover:bg-[#4f46e5] text-white px-10 py-4 text-lg rounded-full font-medium transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 text-center">
                         Talk to Founder
                     </button>
                     <button className="w-full sm:w-auto bg-white hover:bg-gray-50 text-gray-800 px-10 py-4 text-lg rounded-full font-medium transition-all shadow-[0_0_0_1px_rgba(0,0,0,0.1)] hover:shadow-[0_0_0_1px_rgba(0,0,0,0.2)]">

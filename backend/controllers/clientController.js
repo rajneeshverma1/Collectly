@@ -303,7 +303,10 @@ exports.getClientProfile = async (req, res, next) => {
     const Invoice = require("../models/Invoice");
     const invoices = await Invoice.findAll({
       where: { 
-        clientEmail: client.email,
+        [Op.or]: [
+          { clientId: client.id },
+          { clientEmail: client.email }
+        ],
         organizationId 
       },
       order: [["createdAt", "DESC"]]
@@ -320,8 +323,8 @@ exports.getClientProfile = async (req, res, next) => {
 
     // Fetch payment history for all invoices linked to this client
     const Payment = require("../models/Payment");
-    const invoiceIds = invoices.map(inv => inv.id);
     const { Op } = require("sequelize");
+    const invoiceIds = invoices.map(inv => inv.id);
     
     let payments = [];
     if (invoiceIds.length > 0) {

@@ -162,7 +162,7 @@ export default function NotificationsPage() {
                     <h4 className="text-sm font-black text-white">Full Payment Captured</h4>
                     <p className="text-xs text-white/40 font-medium mt-1">
                       Client <span className="font-bold text-white">{notif.Invoice?.clientName}</span> paid{' '}
-                      <span className="font-bold text-[#f04e23]">{notif.Invoice?.currency === 'INR' ? '₹' : '$'}{notif.amount}</span>{' '}
+                      <span className="font-bold text-zinc-900">{notif.Invoice?.currency === 'INR' ? '₹' : '$'}{notif.amount}</span>{' '}
                       to settle invoice <span className="font-bold text-white">{notif.Invoice?.invoiceNumber}</span> in full.
                     </p>
                     {notif.notes && (

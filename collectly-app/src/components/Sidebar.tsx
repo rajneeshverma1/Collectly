@@ -23,18 +23,11 @@ import { usePathname } from 'next/navigation';
 
 const SidebarItem = ({ icon: Icon, label, href, active }: { icon: any, label: string, href: string, active: boolean }) => (
   <Link href={href} className={cn(
-    "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all group w-full relative z-10",
-    active ? "text-gray-900 shadow-sm" : "text-zinc-500 hover:text-zinc-800 hover:bg-zinc-50"
+    "flex items-center gap-2 px-2 py-1.5 text-sm font-normal transition-none w-full",
+    active ? "text-white bg-black" : "text-black hover:bg-gray-200"
   )}>
-    <Icon size={18} className={cn("transition-colors", active ? "text-gray-900" : "group-hover:text-zinc-700")} />
+    <Icon size={14} className={cn("transition-none", active ? "text-white" : "text-black")} />
     <span>{label}</span>
-    {active && (
-      <motion.div 
-        layoutId="sidebar-active"
-        className="absolute inset-0 bg-[#f04e23] rounded-xl -z-10"
-        transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
-      />
-    )}
   </Link>
 );
 
@@ -45,16 +38,16 @@ export function Sidebar() {
   if (!user) return null;
 
   return (
-    <aside className="w-72 border-r border-zinc-200 bg-[#ffffff] flex flex-col p-6 hidden lg:flex">
-      <div className="flex items-center gap-3 px-2 mb-12">
-        <div className="w-10 h-10 rounded-xl bg-zinc-50 border border-zinc-200 flex items-center justify-center">
-          <div className="w-5 h-5 rounded-[4px] border-2 border-[#f04e23] bg-[#f04e23]"></div>
+    <aside className="w-64 border-r border-black bg-white flex flex-col p-4 hidden lg:flex">
+      <div className="flex items-center gap-2 mb-8">
+        <div className="w-8 h-8 bg-black border border-black flex items-center justify-center text-white font-bold text-sm">
+          Y
         </div>
-        <span className="text-lg font-black tracking-tighter uppercase italic text-zinc-900">COLLECTLY</span>
+        <span className="text-base font-bold text-black">Collectly</span>
       </div>
 
-      <nav className="space-y-1.5 flex-grow">
-        <p className="px-4 text-[10px] font-black text-zinc-400 uppercase tracking-[0.3em] mb-4">Main Menu</p>
+      <nav className="space-y-0.5 flex-grow">
+        <p className="px-2 text-xs font-bold text-black mb-2">Main Menu</p>
         <SidebarItem 
           icon={LayoutDashboard} 
           label="Overview" 
@@ -86,8 +79,8 @@ export function Sidebar() {
           active={pathname.startsWith('/dashboard/notifications')} 
         />
         
-        <div className="mt-10">
-          <p className="px-4 text-[10px] font-black text-zinc-400 uppercase tracking-[0.3em] mb-4">Settings & Support</p>
+        <div className="mt-8">
+          <p className="px-2 text-xs font-bold text-black mb-2">Settings & Support</p>
           <SidebarItem 
             icon={Settings} 
             label="Settings" 
@@ -96,31 +89,30 @@ export function Sidebar() {
           />
           <button 
             onClick={logout}
-            className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-rose-600 hover:bg-rose-50 transition-all w-full group mt-1 cursor-pointer"
+            className="flex items-center gap-2 px-2 py-1.5 text-sm font-normal text-black hover:bg-gray-200 transition-none w-full cursor-pointer"
           >
-            <LogOut size={18} className="group-hover:rotate-12 transition-transform" />
+            <LogOut size={14} className="text-black" />
             <span>Logout</span>
           </button>
         </div>
       </nav>
 
-      <div className="mt-auto group cursor-pointer">
-        <div className="p-4 bg-zinc-50 hover:bg-zinc-100/85 rounded-[24px] border border-zinc-200/60 transition-all duration-300">
-          <div className="flex items-center gap-3 mb-4">
+      <div className="mt-auto group cursor-pointer border-t border-black pt-4">
+        <div className="bg-transparent transition-none">
+          <div className="flex items-center gap-2 mb-2">
             <div className="relative">
               <img
                 src={user.imageUrl || `https://api.dicebear.com/7.x/initials/svg?seed=${user.firstName || 'User'}`}
                 alt="Avatar"
-                className="w-10 h-10 rounded-full border border-zinc-200"
+                className="w-8 h-8 rounded-none border border-black"
               />
-              <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 border-[#ffffff] rounded-full"></div>
             </div>
             <div className="overflow-hidden">
-              <p className="text-sm font-bold truncate leading-tight text-zinc-800">{user.firstName} {user.lastName}</p>
-              <p className="text-[11px] text-zinc-400 font-medium truncate">{user.emailAddresses?.[0]?.emailAddress}</p>
+              <p className="text-sm font-normal truncate leading-tight text-black">{user.firstName} {user.lastName}</p>
+              <p className="text-xs text-black font-normal truncate">{user.emailAddresses?.[0]?.emailAddress}</p>
             </div>
           </div>
-          <button className="w-full flex items-center justify-center gap-2 py-2 bg-[#f04e23] hover:bg-[#d83f18] text-gray-900 rounded-xl text-[11px] font-black uppercase tracking-wider transition-all cursor-pointer shadow-sm">
+          <button className="w-full flex items-center justify-center gap-2 py-1 border border-black hover:bg-gray-200 text-black rounded-none text-xs font-normal transition-none cursor-pointer">
             <span>Upgrade Pro</span> <Plus size={12} />
           </button>
         </div>

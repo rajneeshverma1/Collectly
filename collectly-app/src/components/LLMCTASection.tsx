@@ -94,7 +94,7 @@ export const LLMCTASection = () => {
           <p className="text-lg text-gray-500 mb-6">
             Already convinced?
           </p>
-          <button className="bg-[#6366F1] hover:bg-[#4F46E5] text-white text-base md:text-lg font-semibold py-4 px-10 rounded-full transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 mb-4">
+          <button onClick={() => window.dispatchEvent(new Event('open-founder-modal'))} className="bg-[#6366F1] hover:bg-[#4F46E5] text-white text-base md:text-lg font-semibold py-4 px-10 rounded-full transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 mb-4 text-center">
             Talk to Founder
           </button>
           <p className="text-sm text-gray-400">

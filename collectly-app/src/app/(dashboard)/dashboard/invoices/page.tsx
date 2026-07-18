@@ -58,10 +58,9 @@ export default function InvoicesPage() {
   const [createForm, setCreateForm] = useState({
     clientName: '',
     clientEmail: '',
-    amount: '',
     dueDate: '',
-    description: '',
-    status: 'sent'
+    status: 'sent',
+    lineItems: [{ description: '', quantity: 1, rate: 0, taxPercentage: 0 }]
   });
   const [createSubmitting, setCreateSubmitting] = useState(false);
   const [createError, setCreateError] = useState<string | null>(null);
@@ -144,10 +143,9 @@ export default function InvoicesPage() {
       setCreateForm({
         clientName: '',
         clientEmail: '',
-        amount: '',
         dueDate: '',
-        description: '',
-        status: 'sent'
+        status: 'sent',
+        lineItems: [{ description: '', quantity: 1, rate: 0, taxPercentage: 0 }]
       });
       fetchInvoices();
     } catch (error: any) {
@@ -311,43 +309,39 @@ export default function InvoicesPage() {
           </div>
           
           <div className="flex items-center gap-4">
-            <motion.button 
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+            <button 
               onClick={generateRevenueReport}
-              className="bg-white border border-zinc-200 text-zinc-800 px-6 py-4 rounded-2xl font-bold text-sm flex items-center gap-3 hover:bg-zinc-50 transition-all cursor-pointer shadow-sm"
+              className="bg-white border border-black text-black px-4 py-2 rounded-none font-bold text-sm flex items-center gap-2 hover:bg-gray-200 transition-none cursor-pointer shadow-none"
             >
-              <Download size={18} /> Revenue Report
-            </motion.button>
-            <motion.button 
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              <Download size={16} /> Revenue Report
+            </button>
+            <button 
               onClick={() => { setCreateError(null); setIsCreateOpen(true); }}
-              className="bg-zinc-900 text-white px-8 py-4 rounded-2xl font-black text-sm flex items-center gap-3 hover:bg-zinc-800 transition-all cursor-pointer shadow-sm"
+              className="bg-black border border-black text-white px-4 py-2 rounded-none font-bold text-sm flex items-center gap-2 hover:bg-gray-800 transition-none cursor-pointer shadow-none"
             >
-              <Plus size={18} strokeWidth={3} /> Create New Invoice
-            </motion.button>
+              <Plus size={16} strokeWidth={2} /> Create New Invoice
+            </button>
           </div>
         </div>
 
         {/* Filters & Search */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="md:col-span-2 relative group">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" size={18} />
+            <Search className="absolute left-2 top-1/2 -translate-y-1/2 text-black" size={14} />
             <input 
               type="text" 
               placeholder="Search by client or invoice number..." 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-white border border-zinc-200 rounded-2xl py-4 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900/5 focus:border-zinc-400 transition-all placeholder:text-zinc-400 text-zinc-800 shadow-sm"
+              className="w-full bg-white border border-black rounded-none py-2 pl-8 pr-4 text-sm focus:outline-none placeholder:text-gray-500 text-black shadow-none transition-none"
             />
           </div>
           <div className="relative group">
-            <Filter className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" size={18} />
+            <Filter className="absolute left-2 top-1/2 -translate-y-1/2 text-black pointer-events-none" size={14} />
             <select 
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
-              className="w-full bg-white border border-zinc-200 rounded-2xl py-4 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900/5 focus:border-zinc-400 transition-all appearance-none cursor-pointer text-zinc-800 shadow-sm"
+              className="w-full bg-white border border-black rounded-none py-2 pl-8 pr-4 text-sm focus:outline-none appearance-none cursor-pointer text-black shadow-none transition-none"
             >
               <option value="all">All Statuses</option>
               <option value="draft">Draft</option>
@@ -361,7 +355,7 @@ export default function InvoicesPage() {
         </div>
 
         {/* Invoice Table */}
-        <div className="bg-white border border-zinc-200/80 rounded-[40px] overflow-hidden shadow-sm">
+        <div className="bg-white border border-black rounded-none overflow-hidden shadow-none">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b border-zinc-100">
@@ -405,32 +399,29 @@ export default function InvoicesPage() {
               <AnimatePresence mode="popLayout">
                 {loading ? (
                   Array.from({ length: 5 }).map((_, i) => (
-                    <tr key={i} className="animate-pulse border-b border-zinc-50">
+                    <tr key={i} className="animate-pulse border-b border-gray-200">
                       <td colSpan={6} className="px-8 py-6">
-                        <div className="h-8 bg-zinc-100 rounded-xl w-full"></div>
+                        <div className="h-8 bg-gray-200 rounded-none w-full"></div>
                       </td>
                     </tr>
                   ))
                 ) : invoices.length > 0 ? (
                   invoices.map((invoice, idx) => (
-                    <motion.tr 
+                    <tr 
                       key={invoice.id}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: idx * 0.05 }}
-                      className="border-b border-zinc-100 hover:bg-zinc-50/50 transition-colors group"
+                      className="border-b border-gray-200 hover:bg-gray-100 transition-none group"
                     >
                       <td className="px-8 py-6">
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-xl bg-zinc-50 border border-zinc-150 flex items-center justify-center text-zinc-400 group-hover:bg-zinc-100 group-hover:text-zinc-700 transition-all">
-                            <FileText size={18} />
+                          <div className="w-8 h-8 rounded-none border border-black bg-white flex items-center justify-center text-black">
+                            <FileText size={14} />
                           </div>
                           <div>
-                            <p className="text-sm font-bold text-zinc-900">#{invoice.invoiceNumber}</p>
-                            <p className="text-[11px] text-zinc-400 font-medium">{new Date(invoice.createdAt).toLocaleDateString()}</p>
+                            <p className="text-sm font-bold text-black">#{invoice.invoiceNumber}</p>
+                            <p className="text-[11px] text-gray-500 font-normal">{new Date(invoice.createdAt).toLocaleDateString()}</p>
                             {invoice.lastReminderSent && (
                               <div className="mt-1.5">
-                                <span className="inline-block text-[9px] font-black uppercase tracking-widest text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100">
+                                <span className="inline-block text-[9px] font-bold uppercase tracking-widest text-black bg-white px-1 py-0.5 border border-black">
                                   Last Sent: {new Date(invoice.lastReminderSent).toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
                                 </span>
                               </div>
@@ -467,7 +458,7 @@ export default function InvoicesPage() {
                               whileTap={{ scale: 0.95 }}
                               disabled={remindingId === invoice.id}
                               onClick={() => handleSendReminder(invoice.id)}
-                              className="p-3 rounded-xl bg-zinc-50 border border-zinc-200 text-zinc-500 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all disabled:opacity-50 cursor-pointer"
+                              className="p-2 rounded-none bg-white border border-black text-black hover:bg-gray-200 transition-none disabled:opacity-50 cursor-pointer"
                               title="Send Email Reminder"
                             >
                               {remindingId === invoice.id ? (
@@ -486,7 +477,7 @@ export default function InvoicesPage() {
                                 setPaymentForm(prev => ({ ...prev, amount: invoice.amount.toString() }));
                                 setIsPaymentOpen(true);
                               }}
-                              className="px-4 py-2 text-xs font-bold bg-zinc-900 text-white rounded-xl hover:bg-zinc-800 transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
+                              className="px-2 py-1 text-xs font-bold bg-black border border-black text-white rounded-none hover:bg-gray-800 transition-none flex items-center gap-1.5 cursor-pointer shadow-none"
                             >
                               <DollarSign size={12} /> Pay
                             </motion.button>
@@ -495,21 +486,21 @@ export default function InvoicesPage() {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => generatePDF(invoice)}
-                            className="p-3 rounded-xl bg-zinc-50 border border-zinc-200 text-zinc-500 hover:bg-zinc-100 hover:text-zinc-850 transition-all cursor-pointer"
+                            className="p-2 rounded-none bg-white border border-black text-black hover:bg-gray-200 transition-none cursor-pointer"
                             title="Download PDF"
                           >
                             <Download size={16} />
                           </motion.button>
                         </div>
                       </td>
-                    </motion.tr>
+                    </tr>
                   ))
                 ) : (
                   <tr>
                     <td colSpan={6} className="px-8 py-20 text-center">
                       <div className="flex flex-col items-center gap-4">
-                        <div className="w-16 h-16 rounded-full bg-zinc-50 border border-zinc-150 flex items-center justify-center">
-                          <Search size={32} className="text-zinc-350" />
+                        <div className="w-12 h-12 rounded-none bg-white border border-black flex items-center justify-center">
+                          <Search size={24} className="text-black" />
                         </div>
                         <p className="text-zinc-400 font-medium">No invoices found matching your criteria.</p>
                       </div>
@@ -538,18 +529,18 @@ export default function InvoicesPage() {
               initial={{ opacity: 0, scale: 0.95, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 15 }}
-              className="bg-white border border-zinc-200 w-full max-w-xl rounded-[32px] overflow-hidden shadow-2xl relative z-10 text-zinc-850"
+              className="bg-white border border-black w-full max-w-xl rounded-none shadow-none relative z-10 text-black"
             >
               <div className="p-8 border-b border-zinc-100 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-zinc-50 border border-zinc-150 flex items-center justify-center text-zinc-500">
-                    <FileText size={20} />
+                  <div className="w-8 h-8 rounded-none bg-white border border-black flex items-center justify-center text-black">
+                    <FileText size={16} />
                   </div>
                   <h3 className="text-xl font-bold text-zinc-900">Create Invoice</h3>
                 </div>
                 <button 
                   onClick={() => setIsCreateOpen(false)}
-                  className="p-2 bg-zinc-50 border border-zinc-150 rounded-xl hover:bg-zinc-100 transition-colors cursor-pointer text-zinc-400 hover:text-zinc-600"
+                  className="p-1 border border-black bg-white hover:bg-gray-200 cursor-pointer text-black"
                 >
                   <X size={16} />
                 </button>
@@ -560,7 +551,7 @@ export default function InvoicesPage() {
                   <motion.div 
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="p-4 bg-rose-50 border border-rose-100 text-rose-700 rounded-2xl flex items-center gap-2 text-xs font-semibold"
+                    className="p-2 bg-white border border-black text-black rounded-none flex items-center gap-2 text-xs font-bold"
                   >
                     <AlertCircle size={14} />
                     <span>{createError}</span>
@@ -575,7 +566,7 @@ export default function InvoicesPage() {
                       placeholder="e.g. John Doe"
                       value={createForm.clientName}
                       onChange={(e) => setCreateForm(prev => ({ ...prev, clientName: e.target.value }))}
-                      className="w-full bg-white border border-zinc-250 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950/5 focus:border-zinc-400 transition-all placeholder:text-zinc-350 text-zinc-800"
+                      className="w-full bg-white border border-black rounded-none px-2 py-1 text-sm focus:outline-none placeholder:text-gray-500 text-black transition-none"
                     />
                   </div>
                   <div className="space-y-2">
@@ -586,24 +577,12 @@ export default function InvoicesPage() {
                       placeholder="e.g. john@company.com"
                       value={createForm.clientEmail}
                       onChange={(e) => setCreateForm(prev => ({ ...prev, clientEmail: e.target.value }))}
-                      className="w-full bg-white border border-zinc-250 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950/5 focus:border-zinc-400 transition-all placeholder:text-zinc-350 text-zinc-800"
+                      className="w-full bg-white border border-black rounded-none px-2 py-1 text-sm focus:outline-none placeholder:text-gray-500 text-black transition-none"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">Amount ($)</label>
-                    <input 
-                      type="number" 
-                      required
-                      min="1"
-                      placeholder="e.g. 1500"
-                      value={createForm.amount}
-                      onChange={(e) => setCreateForm(prev => ({ ...prev, amount: e.target.value }))}
-                      className="w-full bg-white border border-zinc-250 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950/5 focus:border-zinc-400 transition-all placeholder:text-zinc-350 text-zinc-800"
-                    />
-                  </div>
                   <div className="space-y-2">
                     <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">Due Date</label>
                     <input 
@@ -611,20 +590,103 @@ export default function InvoicesPage() {
                       required
                       value={createForm.dueDate}
                       onChange={(e) => setCreateForm(prev => ({ ...prev, dueDate: e.target.value }))}
-                      className="w-full bg-white border border-zinc-250 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950/5 focus:border-zinc-400 transition-all text-zinc-800"
+                      className="w-full bg-white border border-black rounded-none px-2 py-1 text-sm focus:outline-none placeholder:text-gray-500 text-black transition-none"
                     />
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">Description</label>
-                  <textarea 
-                    rows={3}
-                    placeholder="Describe professional services or items sold..."
-                    value={createForm.description}
-                    onChange={(e) => setCreateForm(prev => ({ ...prev, description: e.target.value }))}
-                    className="w-full bg-white border border-zinc-250 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950/5 focus:border-zinc-400 transition-all placeholder:text-zinc-350 text-zinc-800 resize-none"
-                  />
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">Line Items</label>
+                    <button 
+                      type="button" 
+                      onClick={() => setCreateForm(prev => ({ ...prev, lineItems: [...prev.lineItems, { description: '', quantity: 1, rate: 0, taxPercentage: 0 }] }))}
+                      className="text-[10px] font-bold text-black border border-black px-2 py-1 uppercase hover:bg-gray-100"
+                    >
+                      + Add Item
+                    </button>
+                  </div>
+                  
+                  {createForm.lineItems.map((item, index) => (
+                    <div key={index} className="grid grid-cols-12 gap-2 items-end border-b border-gray-100 pb-2 mb-2">
+                      <div className="col-span-5">
+                        <input 
+                          placeholder="Description"
+                          required
+                          value={item.description}
+                          onChange={(e) => {
+                            const newItems = [...createForm.lineItems];
+                            newItems[index].description = e.target.value;
+                            setCreateForm({...createForm, lineItems: newItems});
+                          }}
+                          className="w-full bg-white border border-black rounded-none px-2 py-1 text-sm focus:outline-none placeholder:text-gray-500 text-black transition-none"
+                        />
+                      </div>
+                      <div className="col-span-2">
+                        <input 
+                          type="number"
+                          placeholder="Qty"
+                          min="1"
+                          required
+                          value={item.quantity}
+                          onChange={(e) => {
+                            const newItems = [...createForm.lineItems];
+                            newItems[index].quantity = parseFloat(e.target.value) || 0;
+                            setCreateForm({...createForm, lineItems: newItems});
+                          }}
+                          className="w-full bg-white border border-black rounded-none px-2 py-1 text-sm focus:outline-none placeholder:text-gray-500 text-black transition-none"
+                        />
+                      </div>
+                      <div className="col-span-2">
+                        <input 
+                          type="number"
+                          placeholder="Rate"
+                          min="0"
+                          step="0.01"
+                          required
+                          value={item.rate}
+                          onChange={(e) => {
+                            const newItems = [...createForm.lineItems];
+                            newItems[index].rate = parseFloat(e.target.value) || 0;
+                            setCreateForm({...createForm, lineItems: newItems});
+                          }}
+                          className="w-full bg-white border border-black rounded-none px-2 py-1 text-sm focus:outline-none placeholder:text-gray-500 text-black transition-none"
+                        />
+                      </div>
+                      <div className="col-span-2">
+                        <input 
+                          type="number"
+                          placeholder="Tax %"
+                          min="0"
+                          max="100"
+                          value={item.taxPercentage}
+                          onChange={(e) => {
+                            const newItems = [...createForm.lineItems];
+                            newItems[index].taxPercentage = parseFloat(e.target.value) || 0;
+                            setCreateForm({...createForm, lineItems: newItems});
+                          }}
+                          className="w-full bg-white border border-black rounded-none px-2 py-1 text-sm focus:outline-none placeholder:text-gray-500 text-black transition-none"
+                        />
+                      </div>
+                      <div className="col-span-1 flex justify-center pb-1">
+                        {createForm.lineItems.length > 1 && (
+                          <button 
+                            type="button" 
+                            onClick={() => {
+                              const newItems = createForm.lineItems.filter((_, i) => i !== index);
+                              setCreateForm({...createForm, lineItems: newItems});
+                            }}
+                            className="text-black hover:text-gray-600"
+                          >
+                            <X size={16} />
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                  <div className="flex justify-end text-sm font-bold mt-2">
+                    Total: ${createForm.lineItems.reduce((acc, curr) => acc + (curr.quantity * curr.rate * (1 + curr.taxPercentage / 100)), 0).toFixed(2)}
+                  </div>
                 </div>
 
                 <div className="space-y-2">
@@ -632,7 +694,7 @@ export default function InvoicesPage() {
                   <select 
                     value={createForm.status}
                     onChange={(e) => setCreateForm(prev => ({ ...prev, status: e.target.value }))}
-                    className="w-full bg-white border border-zinc-250 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950/5 focus:border-zinc-400 transition-all appearance-none cursor-pointer text-zinc-800"
+                    className="w-full bg-white border border-black rounded-none px-2 py-1 text-sm focus:outline-none appearance-none cursor-pointer text-black transition-none"
                   >
                     <option value="draft">Draft</option>
                     <option value="sent">Sent</option>
@@ -643,14 +705,14 @@ export default function InvoicesPage() {
                   <button 
                     type="button"
                     onClick={() => setIsCreateOpen(false)}
-                    className="bg-zinc-50 border border-zinc-150 hover:bg-zinc-100 text-zinc-700 px-6 py-3.5 rounded-2xl text-xs font-bold transition-all cursor-pointer"
+                    className="bg-white border border-black hover:bg-gray-200 text-black px-4 py-2 rounded-none text-xs font-bold transition-none cursor-pointer"
                   >
                     Cancel
                   </button>
                   <button 
                     type="submit"
                     disabled={createSubmitting}
-                    className="bg-zinc-900 text-white hover:bg-zinc-800 disabled:opacity-50 px-8 py-3.5 rounded-2xl text-xs font-black transition-all flex items-center gap-2 cursor-pointer shadow-sm"
+                    className="bg-black border border-black text-white hover:bg-gray-800 disabled:opacity-50 px-4 py-2 rounded-none text-xs font-bold transition-none flex items-center gap-2 cursor-pointer shadow-none"
                   >
                     {createSubmitting ? 'Creating...' : 'Create Invoice'}
                   </button>
@@ -680,12 +742,12 @@ export default function InvoicesPage() {
               initial={{ opacity: 0, scale: 0.95, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 15 }}
-              className="bg-white border border-zinc-200 w-full max-w-md rounded-[32px] overflow-hidden shadow-2xl relative z-10 text-zinc-850"
+              className="bg-white border border-black w-full max-w-md rounded-none shadow-none relative z-10 text-black"
             >
               <div className="p-8 border-b border-zinc-100 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-zinc-50 border border-zinc-150 flex items-center justify-center text-emerald-500">
-                    <DollarSign size={20} />
+                  <div className="w-8 h-8 rounded-none border border-black bg-white flex items-center justify-center text-black">
+                    <DollarSign size={16} />
                   </div>
                   <div>
                     <h3 className="text-lg font-bold text-zinc-900">Record Payment</h3>
@@ -697,9 +759,9 @@ export default function InvoicesPage() {
                     setIsPaymentOpen(false);
                     setSelectedInvoice(null);
                   }}
-                  className="p-2 bg-zinc-50 border border-zinc-150 rounded-xl hover:bg-zinc-100 transition-colors cursor-pointer text-zinc-400 hover:text-zinc-600"
+                  className="p-1 border border-black bg-white hover:bg-gray-200 cursor-pointer text-black"
                 >
-                  <X size={16} />
+                  <X size={14} />
                 </button>
               </div>
 
@@ -714,7 +776,7 @@ export default function InvoicesPage() {
                     placeholder="e.g. 500"
                     value={paymentForm.amount}
                     onChange={(e) => setPaymentForm(prev => ({ ...prev, amount: e.target.value }))}
-                    className="w-full bg-white border border-zinc-250 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950/5 focus:border-zinc-400 transition-all placeholder:text-zinc-350 text-zinc-800"
+                    className="w-full bg-white border border-black rounded-none px-2 py-1 text-sm focus:outline-none placeholder:text-gray-500 text-black transition-none"
                   />
                   <p className="text-[10px] text-zinc-450 font-medium">Invoice Total: ${selectedInvoice.amount}</p>
                 </div>
@@ -724,7 +786,7 @@ export default function InvoicesPage() {
                   <select 
                     value={paymentForm.paymentMethod}
                     onChange={(e) => setPaymentForm(prev => ({ ...prev, paymentMethod: e.target.value }))}
-                    className="w-full bg-white border border-zinc-250 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950/5 focus:border-zinc-400 transition-all appearance-none cursor-pointer text-zinc-800"
+                    className="w-full bg-white border border-black rounded-none px-2 py-1 text-sm focus:outline-none appearance-none cursor-pointer text-black transition-none"
                   >
                     <option value="credit_card">Credit/Debit Card</option>
                     <option value="bank_transfer">Bank Transfer (Wire)</option>
@@ -741,7 +803,7 @@ export default function InvoicesPage() {
                     placeholder="e.g. Paid first milestone tranche"
                     value={paymentForm.notes}
                     onChange={(e) => setPaymentForm(prev => ({ ...prev, notes: e.target.value }))}
-                    className="w-full bg-white border border-zinc-250 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950/5 focus:border-zinc-400 transition-all placeholder:text-zinc-350 text-zinc-800 resize-none"
+                    className="w-full bg-white border border-black rounded-none px-2 py-1 text-sm focus:outline-none placeholder:text-gray-500 text-black resize-none transition-none"
                   />
                 </div>
 
@@ -752,14 +814,14 @@ export default function InvoicesPage() {
                       setIsPaymentOpen(false);
                       setSelectedInvoice(null);
                     }}
-                    className="bg-zinc-50 border border-zinc-150 hover:bg-zinc-100 text-zinc-700 px-6 py-3.5 rounded-2xl text-xs font-bold transition-all cursor-pointer"
+                    className="bg-white border border-black hover:bg-gray-200 text-black px-4 py-2 rounded-none text-xs font-bold transition-none cursor-pointer"
                   >
                     Cancel
                   </button>
                   <button 
                     type="submit"
                     disabled={paymentSubmitting}
-                    className="bg-zinc-900 text-white hover:bg-zinc-800 disabled:opacity-50 px-8 py-3.5 rounded-2xl text-xs font-black transition-all flex items-center gap-2 cursor-pointer shadow-sm"
+                    className="bg-black border border-black text-white hover:bg-gray-800 disabled:opacity-50 px-4 py-2 rounded-none text-xs font-bold transition-none flex items-center gap-2 cursor-pointer shadow-none"
                   >
                     {paymentSubmitting ? 'Recording...' : 'Record Payment'}
                   </button>
@@ -778,10 +840,10 @@ export default function InvoicesPage() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
             className={cn(
-              "fixed bottom-8 right-8 z-50 px-6 py-4 rounded-2xl border backdrop-blur-xl shadow-2xl flex items-center gap-3 font-bold text-xs transition-all uppercase tracking-wider",
+              "fixed bottom-8 right-8 z-50 px-4 py-2 rounded-none border border-black shadow-none flex items-center gap-2 font-bold text-xs transition-none uppercase tracking-wider",
               toast.type === 'success' 
-                ? "bg-emerald-50 text-emerald-700 border-emerald-250" 
-                : "bg-rose-50 text-rose-700 border-rose-250"
+                ? "bg-white text-black" 
+                : "bg-black text-white"
             )}
           >
             {toast.type === 'success' ? <CheckCircle size={16} /> : <AlertCircle size={16} />}

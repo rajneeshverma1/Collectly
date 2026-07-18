@@ -89,15 +89,15 @@ export function DashboardHeader() {
   };
 
   return (
-    <header className="h-20 border-b border-gray-200 flex items-center justify-between px-10 bg-white/50 backdrop-blur-2xl sticky top-0 z-20">
+    <header className="h-12 border-b border-black flex items-center justify-between px-4 bg-white sticky top-0 z-20">
       <div className="relative w-[400px] group">
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-900/20 group-focus-within:text-gray-900 transition-colors" size={18} />
         <input 
           type="text" 
           placeholder="Search anything..." 
-          className="w-full bg-white border border-gray-200 rounded-2xl py-2.5 pl-12 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 transition-all placeholder:text-gray-400 hover:bg-gray-50 shadow-sm"
+          className="w-full bg-white border border-black rounded-none py-1 pl-8 pr-12 text-sm focus:outline-none transition-none placeholder:text-gray-500"
         />
-        <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-1.5 px-2 py-1 rounded-lg border border-gray-200 bg-gray-50 text-[10px] text-gray-500 font-black group-focus-within:text-gray-900 group-focus-within:border-gray-300 transition-all">
+        <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1.5 px-1 py-0.5 rounded-none border border-black bg-gray-100 text-[10px] text-black font-normal">
           <Command size={10} /> K
         </div>
       </div>
@@ -105,11 +105,11 @@ export function DashboardHeader() {
       <div className="flex items-center gap-5">
         <div className="flex -space-x-3 hover:-space-x-1 transition-all duration-300">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-gray-100 flex items-center justify-center overflow-hidden hover:scale-110 transition-transform cursor-pointer shadow-sm">
+            <div key={i} className="w-6 h-6 rounded-none border border-black bg-gray-100 flex items-center justify-center overflow-hidden cursor-pointer">
                <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i + 10}`} alt="User" />
             </div>
           ))}
-          <div className="w-8 h-8 rounded-full border-2 border-[#ffffff] bg-white/5 flex items-center justify-center text-[10px] font-bold hover:scale-110 transition-transform cursor-pointer">
+          <div className="w-6 h-6 rounded-none border border-black bg-white flex items-center justify-center text-[10px] font-bold cursor-pointer">
             +12
           </div>
         </div>
@@ -117,9 +117,9 @@ export function DashboardHeader() {
         
         {/* Dynamic Notification Bell and Dropdown */}
         <div className="relative" ref={dropdownRef}>
-          <button onClick={handleOpenDropdown} className="w-10 h-10 rounded-full border border-gray-200 bg-white flex items-center justify-center relative hover:bg-gray-50 hover:scale-105 transition-all shadow-sm">
-            <Bell size={18} className="text-gray-600" />
-            {hasNew && <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-[#F26522] rounded-full ring-2 ring-white"></span>}
+          <button onClick={handleOpenDropdown} className="w-8 h-8 rounded-none border border-black bg-white flex items-center justify-center relative hover:bg-gray-100">
+            <Bell size={14} className="text-black" />
+            {hasNew && <span className="absolute top-1 right-1 w-1.5 h-1.5 bg-black rounded-none border border-black"></span>}
           </button>
 
           <AnimatePresence>
@@ -161,7 +161,7 @@ export function DashboardHeader() {
                             <p className="text-xs font-bold leading-tight">Full Payment Received</p>
                             <p className="text-[10px] text-zinc-500 leading-normal mt-0.5">
                               <span className="font-bold text-zinc-700">{notif.Invoice?.clientName || 'Client'}</span> paid{' '}
-                              <span className="font-black text-[#f04e23]">{notif.Invoice?.currency === 'INR' ? '₹' : '$'}{notif.amount}</span>{' '}
+                              <span className="font-black text-zinc-900">{notif.Invoice?.currency === 'INR' ? '₹' : '$'}{notif.amount}</span>{' '}
                               to settle invoice <span className="font-bold text-zinc-700">{notif.Invoice?.invoiceNumber}</span> in full.
                             </p>
                             <span className="text-[9px] text-zinc-400 font-bold block mt-1">

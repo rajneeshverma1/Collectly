@@ -14,6 +14,7 @@ import { LLMCTASection } from "@/components/LLMCTASection";
 import { WordmarkSection } from "@/components/wordmark-section";
 import { SubFooter } from "@/components/sub-footer";
 import Footer from "@/components/Footer";
+import { FounderModal } from "@/components/FounderModal";
 
 export default function Home() {
   return (
@@ -34,6 +35,7 @@ export default function Home() {
       <Footer />
       <WordmarkSection />
       <SubFooter />
+      <FounderModal />
     </main>
   );
 }

@@ -11,6 +11,8 @@ const dashboardRoutes = require("./routes/dashboardRoutes");
 const invoiceRoutes = require("./routes/invoiceRoutes");
 const clientRoutes = require("./routes/clientRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
+const reconciliationRoutes = require("./routes/reconciliationRoutes");
+const reminderRoutes = require("./routes/reminderRoutes");
 const errorHandler = require("./middleware/errorHandler");
 const { apiLimiter } = require("./utils/rateLimiter");
 
@@ -21,10 +23,23 @@ const Invoice = require("./models/Invoice");
 const Payment = require("./models/Payment");
 const Client = require("./models/Client");
 const EmailLog = require("./models/EmailLog");
+const InvoiceLineItem = require("./models/InvoiceLineItem");
+const ReminderConfiguration = require("./models/ReminderConfiguration");
+const IncomingTransaction = require("./models/IncomingTransaction");
+const InvoiceEvent = require("./models/InvoiceEvent");
 
 // Define Database Associations
+Invoice.belongsTo(Client, { foreignKey: "clientId", as: "client" });
+Client.hasMany(Invoice, { foreignKey: "clientId", as: "invoices" });
+
 Payment.belongsTo(Invoice, { foreignKey: "invoiceId", as: "invoice" });
 Invoice.hasMany(Payment, { foreignKey: "invoiceId", as: "payments" });
+
+InvoiceLineItem.belongsTo(Invoice, { foreignKey: "invoiceId", as: "invoice" });
+Invoice.hasMany(InvoiceLineItem, { foreignKey: "invoiceId", as: "lineItems" });
+
+InvoiceEvent.belongsTo(Invoice, { foreignKey: "invoiceId", as: "invoice" });
+Invoice.hasMany(InvoiceEvent, { foreignKey: "invoiceId", as: "events" });
 
 Invoice.belongsTo(Organization, { foreignKey: "organizationId", as: "organization" });
 Organization.hasMany(Invoice, { foreignKey: "organizationId", as: "invoices" });
@@ -34,6 +49,15 @@ Organization.hasMany(Payment, { foreignKey: "organizationId", as: "payments" });
 
 Client.belongsTo(Organization, { foreignKey: "organizationId", as: "organization" });
 Organization.hasMany(Client, { foreignKey: "organizationId", as: "clients" });
+
+ReminderConfiguration.belongsTo(Organization, { foreignKey: "organizationId", as: "organization" });
+Organization.hasMany(ReminderConfiguration, { foreignKey: "organizationId", as: "reminderConfigs" });
+
+IncomingTransaction.belongsTo(Organization, { foreignKey: "organizationId", as: "organization" });
+Organization.hasMany(IncomingTransaction, { foreignKey: "organizationId", as: "incomingTransactions" });
+
+IncomingTransaction.belongsTo(Invoice, { foreignKey: "matchedInvoiceId", as: "matchedInvoice" });
+Invoice.hasMany(IncomingTransaction, { foreignKey: "matchedInvoiceId", as: "incomingTransactions" });
 
 EmailLog.belongsTo(Client, { foreignKey: "clientId", as: "client" });
 Client.hasMany(EmailLog, { foreignKey: "clientId", as: "emailLogs" });
@@ -86,6 +110,8 @@ app.use("/api/v1/dashboard", dashboardRoutes);
 app.use("/api/v1/invoices", invoiceRoutes);
 app.use("/api/v1/clients", clientRoutes);
 app.use("/api/v1/payments", paymentRoutes);
+app.use("/api/v1/reconciliation", reconciliationRoutes);
+app.use("/api/v1/reminders", reminderRoutes);
 
 // 404 handler
 app.use((req, res, next) => {

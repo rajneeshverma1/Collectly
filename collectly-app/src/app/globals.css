@@ -86,19 +86,20 @@ body {
    ========================================================== */
 
 .dashboard-layout-theme {
-  --background: #f3f3f6; /* Low-glare soft warm silver-grey background */
-  --foreground: #18181b; /* Zinc 900 primary text */
-  --primary: #f04e23; /* YC Orange / Coral */
+  font-family: Verdana, Geneva, sans-serif !important;
+  --background: #ffffff; /* White background */
+  --foreground: #000000; /* Black text */
+  --primary: #000000; /* Black primary */
   --primary-foreground: #ffffff;
   --secondary: #ffffff;
-  --secondary-foreground: #18181b;
-  --muted: #f4f4f5; /* Zinc 100 */
-  --muted-foreground: #71717a; /* Zinc 500 */
-  --accent: #f04e23;
+  --secondary-foreground: #000000;
+  --muted: #f4f4f5; 
+  --muted-foreground: #555555; /* Subtle text */
+  --accent: #000000;
   --accent-foreground: #ffffff;
-  --border: #e4e4e7;
-  --input: #e4e4e7;
-  --ring: #f04e23;
+  --border: #000000;
+  --input: #ffffff;
+  --ring: #000000;
   
   background-color: var(--background) !important;
   color: var(--foreground) !important;

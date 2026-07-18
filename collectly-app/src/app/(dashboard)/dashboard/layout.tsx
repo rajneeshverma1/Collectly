@@ -29,7 +29,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   if (!user) return null;
 
   return (
-    <div className="flex h-screen bg-[#fafafa] overflow-hidden dashboard-layout-theme">
+    <div className="flex h-screen bg-white overflow-hidden dashboard-layout-theme">
       <Sidebar />
       <main className="flex-grow overflow-hidden relative">
         {children}

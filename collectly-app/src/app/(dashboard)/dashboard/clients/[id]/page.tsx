@@ -155,8 +155,7 @@ export default function ClientProfilePage() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             className={cn(
-              "fixed top-6 right-6 z-50 px-6 py-4 rounded-2xl flex items-center gap-3 border shadow-[0_24px_48px_rgba(0,0,0,0.4)] backdrop-blur-xl transition-all font-semibold text-sm",
-              toast.type === 'success' ? "bg-emerald-950/80 text-emerald-400 border-emerald-500/30" : "bg-red-950/80 text-red-400 border-red-500/30"
+              "fixed top-6 right-6 z-50 px-6 py-4 rounded-none flex items-center gap-3 border-2 border-black bg-white text-black font-bold text-sm shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-none"
             )}
           >
             {toast.type === 'success' ? <CheckCircle2 size={18} /> : <AlertCircle size={18} />}
@@ -168,28 +167,28 @@ export default function ClientProfilePage() {
       <DashboardHeader />
 
       {loading ? (
-        <div className="flex-grow flex flex-col items-center justify-center py-24 text-white/30">
-          <Loader2 className="animate-spin text-white/10 mb-4" size={32} />
-          <p className="font-bold text-sm">Syncing Client Workspace...</p>
+        <div className="flex-grow flex flex-col items-center justify-center py-24 text-black">
+          <Loader2 className="animate-spin text-black mb-4" size={32} />
+          <p className="font-bold text-sm uppercase tracking-widest">Syncing Client Workspace...</p>
         </div>
       ) : !client ? (
-        <div className="flex-grow flex flex-col items-center justify-center py-24 text-white/30">
-          <AlertCircle className="text-red-400 mb-4" size={48} />
-          <p className="font-bold text-lg text-white mb-2">Client Profile Outage</p>
-          <p className="text-sm text-white/40 mb-6">The requested client record does not exist or has been deleted.</p>
+        <div className="flex-grow flex flex-col items-center justify-center py-24 text-black">
+          <AlertCircle className="text-black mb-4" size={48} />
+          <p className="font-black text-2xl text-black mb-2 uppercase tracking-tight">Client Profile Outage</p>
+          <p className="text-sm text-gray-500 mb-6 font-bold">The requested client record does not exist or has been deleted.</p>
           <button 
             onClick={() => router.push('/dashboard/clients')}
-            className="bg-white/5 border border-white/10 px-5 py-2.5 rounded-xl font-bold text-white text-xs hover:bg-white/10 transition-all"
+            className="bg-white border-2 border-black px-6 py-3 rounded-none font-black text-black text-xs hover:bg-black hover:text-white uppercase tracking-widest transition-none shadow-[4px_4px_0_0_rgba(0,0,0,1)]"
           >
             Return to Clients
           </button>
         </div>
       ) : (
-        <div className="p-8 lg:p-10 flex-grow relative z-10">
+        <div className="p-8 lg:p-10 flex-grow relative z-10 bg-white">
           {/* Back Navigation & Breadcrumbs */}
           <button 
             onClick={() => router.push('/dashboard/clients')}
-            className="flex items-center gap-2 text-white/40 hover:text-white font-bold text-xs mb-8 transition-colors"
+            className="flex items-center gap-2 text-black hover:text-gray-500 font-black text-xs mb-8 uppercase tracking-widest transition-none"
           >
             <ArrowLeft size={14} /> Back to Clients List
           </button>
@@ -198,57 +197,57 @@ export default function ClientProfilePage() {
           <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 mb-8">
             
             {/* Left Box: Client Identity Card */}
-            <div className="xl:col-span-2 p-8 bg-gradient-to-br from-white/[0.04] to-white/[0.01] border border-white/10 rounded-[32px] backdrop-blur-3xl shadow-[0_16px_48px_rgba(0,0,0,0.3)]">
+            <div className="xl:col-span-2 p-8 bg-white border-2 border-black rounded-none shadow-[8px_8px_0_0_rgba(0,0,0,1)]">
               <span className={cn(
-                "inline-block text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-xl mb-4 border shadow-sm",
-                client.status === 'active' ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" : "bg-blue-500/10 text-blue-400 border-blue-500/20"
+                "inline-block text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-none mb-4 border-2 border-black",
+                client.status === 'active' ? "bg-black text-white" : "bg-white text-black"
               )}>
                 {client.status} Client Workspace
               </span>
-              <h2 className="text-3xl lg:text-4xl font-black text-white tracking-tight mb-2">{client.name}</h2>
+              <h2 className="text-4xl lg:text-5xl font-black text-black tracking-tighter mb-2">{client.name}</h2>
               {client.company && (
-                <p className="text-sm text-white/40 font-bold flex items-center gap-1.5 mb-6">
+                <p className="text-sm text-gray-500 font-bold flex items-center gap-1.5 mb-6">
                   <Building size={14} /> {client.company}
                 </p>
               )}
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 pt-6 border-t border-white/5 text-xs font-semibold text-white/60">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 pt-6 border-t-2 border-black text-xs font-bold text-black">
                 <div className="flex flex-col gap-1">
-                  <span className="text-[10px] font-black uppercase text-white/20 tracking-wider">Email Address</span>
-                  <span className="text-white font-bold">{client.email}</span>
+                  <span className="text-[10px] font-black uppercase text-gray-400 tracking-widest">Email Address</span>
+                  <span className="text-black font-black">{client.email}</span>
                 </div>
                 {client.phone && (
                   <div className="flex flex-col gap-1">
-                    <span className="text-[10px] font-black uppercase text-white/20 tracking-wider">Phone Number</span>
-                    <span className="text-white font-bold">{client.phone}</span>
+                    <span className="text-[10px] font-black uppercase text-gray-400 tracking-widest">Phone Number</span>
+                    <span className="text-black font-black">{client.phone}</span>
                   </div>
                 )}
                 {client.address && (
                   <div className="flex flex-col gap-1 sm:col-span-2 md:col-span-1">
-                    <span className="text-[10px] font-black uppercase text-white/20 tracking-wider">Billing Address</span>
-                    <span className="text-white font-bold truncate max-w-[200px]" title={client.address}>{client.address}</span>
+                    <span className="text-[10px] font-black uppercase text-gray-400 tracking-widest">Billing Address</span>
+                    <span className="text-black font-black truncate max-w-[200px]" title={client.address}>{client.address}</span>
                   </div>
                 )}
               </div>
             </div>
 
             {/* Right Box: Total Outstanding Dues */}
-            <div className="p-8 bg-red-950/10 border border-red-500/20 rounded-[32px] flex flex-col justify-between backdrop-blur-3xl shadow-[0_24px_48px_rgba(239,68,68,0.02)]">
+            <div className="p-8 bg-white border-2 border-black rounded-none flex flex-col justify-between shadow-[8px_8px_0_0_rgba(0,0,0,1)]">
               <div>
-                <p className="text-[10px] font-black text-red-400 uppercase tracking-[0.2em] mb-2">Total Outstanding</p>
-                <h3 className="text-5xl font-black text-white tracking-tight drop-shadow-[0_0_20px_rgba(239,68,68,0.1)]">
+                <p className="text-[10px] font-black text-black uppercase tracking-widest mb-2 border-b-2 border-black pb-2">Total Outstanding</p>
+                <h3 className="text-5xl font-black text-black tracking-tighter mt-4">
                   {formatUsd(stats.totalOutstanding)}
                 </h3>
               </div>
 
-              <div className="pt-6 border-t border-red-500/10 mt-6 grid grid-cols-2 gap-4 text-xs font-bold text-white/40">
+              <div className="pt-6 border-t-2 border-black mt-6 grid grid-cols-2 gap-4 text-xs font-black text-black">
                 <div>
-                  <p className="text-[9px] uppercase tracking-wider mb-0.5 text-white/20">Active Invoices</p>
-                  <p className="text-sm font-black text-white">{stats.totalInvoices} created</p>
+                  <p className="text-[9px] uppercase tracking-widest mb-0.5 text-gray-500">Active Invoices</p>
+                  <p className="text-xl font-black text-black">{stats.totalInvoices}</p>
                 </div>
                 <div>
-                  <p className="text-[9px] uppercase tracking-wider mb-0.5 text-white/20">Settled Invoices</p>
-                  <p className="text-sm font-black text-white">{stats.paidInvoicesCount} paid</p>
+                  <p className="text-[9px] uppercase tracking-widest mb-0.5 text-gray-500">Settled Invoices</p>
+                  <p className="text-xl font-black text-black">{stats.paidInvoicesCount}</p>
                 </div>
               </div>
             </div>
@@ -256,7 +255,7 @@ export default function ClientProfilePage() {
           </div>
 
           {/* Workspace Switcher Tabs */}
-          <div className="flex border-b border-white/5 mb-6 text-xs font-black uppercase tracking-widest gap-2">
+          <div className="flex border-b-2 border-black mb-6 text-xs font-black uppercase tracking-widest gap-2 bg-white">
             {[
               { key: 'invoices', label: 'Invoices Linked', count: invoices.length },
               { key: 'payments', label: 'Payments History', count: payments.length },
@@ -266,25 +265,25 @@ export default function ClientProfilePage() {
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key as any)}
                 className={cn(
-                  "px-4 py-3 border-b-2 transition-all flex items-center gap-2",
+                  "px-4 py-3 transition-none flex items-center gap-2",
                   activeTab === tab.key 
-                    ? "border-white text-white font-bold" 
-                    : "border-transparent text-white/40 hover:text-white/80"
+                    ? "bg-black text-white" 
+                    : "bg-white text-black hover:bg-gray-200"
                 )}
               >
                 <span>{tab.label}</span>
-                <span className="px-1.5 py-0.5 rounded-full bg-white/5 text-[9px] text-white/40">{tab.count}</span>
+                <span className={cn("px-1.5 py-0.5 rounded-none text-[9px]", activeTab === tab.key ? "bg-white text-black" : "bg-black text-white")}>{tab.count}</span>
               </button>
             ))}
           </div>
 
           {/* Tab View Contents */}
-          <div className="bg-white/[0.01] border border-white/5 rounded-[32px] p-6 lg:p-8 backdrop-blur-3xl">
+          <div className="bg-white border-2 border-black rounded-none p-6 lg:p-8 shadow-[8px_8px_0_0_rgba(0,0,0,1)]">
             {activeTab === 'invoices' && (
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="border-b border-white/5 text-[10px] font-black tracking-widest text-white/30 uppercase">
+                    <tr className="border-b-2 border-black text-[10px] font-black tracking-widest text-black uppercase">
                       <th className="pb-4">Invoice Number</th>
                       <th className="pb-4">Amount</th>
                       <th className="pb-4">Due Date</th>
@@ -292,31 +291,28 @@ export default function ClientProfilePage() {
                       <th className="pb-4 text-right">Action Trigger</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-white/5 text-xs font-bold text-white/60">
+                  <tbody className="divide-y-2 divide-black text-xs font-bold text-black">
                     {invoices.length === 0 ? (
                       <tr>
-                        <td colSpan={5} className="py-12 text-center text-white/30">
-                          <FileText className="mx-auto text-white/10 mb-3" size={32} />
+                        <td colSpan={5} className="py-12 text-center text-gray-500">
+                          <FileText className="mx-auto text-black mb-3" size={32} />
                           No invoices have been billed to this client's email yet.
                         </td>
                       </tr>
                     ) : (
                       invoices.map((inv) => (
-                        <tr key={inv.id} className="group hover:bg-white/[0.01] transition-colors">
-                          <td className="py-4 font-black text-white group-hover:text-blue-400 transition-colors">
+                        <tr key={inv.id} className="group hover:bg-gray-100 transition-none">
+                          <td className="py-4 font-black text-black">
                             {inv.invoiceNumber}
                           </td>
-                          <td className="py-4 text-white font-extrabold">{formatUsd(Number(inv.amount))}</td>
-                          <td className="py-4 text-white/40 font-semibold">
+                          <td className="py-4 text-black font-extrabold">{formatUsd(Number(inv.amount))}</td>
+                          <td className="py-4 text-gray-600 font-black">
                             {new Date(inv.dueDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
                           </td>
                           <td className="py-4">
                             <span className={cn(
-                              "inline-block px-2.5 py-1 rounded-full text-[9px] font-black uppercase tracking-wider",
-                              inv.status === 'paid' && "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20",
-                              inv.status === 'overdue' && "bg-red-500/10 text-red-400 border border-red-500/20",
-                              inv.status === 'sent' && "bg-blue-500/10 text-blue-400 border border-blue-500/20",
-                              inv.status === 'draft' && "bg-white/5 text-white/40 border border-white/5"
+                              "inline-block px-2 py-0.5 rounded-none text-[9px] font-black uppercase tracking-widest border-2",
+                              inv.status === 'paid' ? "bg-white text-black border-black" : "bg-black text-white border-black"
                             )}>
                               {inv.status}
                             </span>
@@ -326,7 +322,7 @@ export default function ClientProfilePage() {
                               <button
                                 onClick={() => handleSendReminder(inv.id)}
                                 disabled={remindingId === inv.id}
-                                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/5 hover:bg-white/10 text-[10px] font-black uppercase tracking-wider text-white border border-white/10 rounded-lg transition-all"
+                                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-black hover:text-white text-[10px] font-black uppercase tracking-widest text-black border-2 border-black rounded-none transition-none shadow-[2px_2px_0_0_rgba(0,0,0,1)] disabled:opacity-50"
                               >
                                 {remindingId === inv.id ? (
                                   <>
@@ -341,7 +337,7 @@ export default function ClientProfilePage() {
                                 )}
                               </button>
                             ) : (
-                              <span className="text-[10px] font-black uppercase text-emerald-400 flex items-center justify-end gap-1">
+                              <span className="text-[10px] font-black uppercase text-black flex items-center justify-end gap-1">
                                 <CheckCircle2 size={12} /> Settled
                               </span>
                             )}
@@ -358,7 +354,7 @@ export default function ClientProfilePage() {
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="border-b border-white/5 text-[10px] font-black tracking-widest text-white/30 uppercase">
+                    <tr className="border-b-2 border-black text-[10px] font-black tracking-widest text-black uppercase">
                       <th className="pb-4">Transaction ID</th>
                       <th className="pb-4">Invoice Ref</th>
                       <th className="pb-4">Settled Amount</th>
@@ -366,30 +362,30 @@ export default function ClientProfilePage() {
                       <th className="pb-4 text-right">Settlement Date</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-white/5 text-xs font-bold text-white/60">
+                  <tbody className="divide-y-2 divide-black text-xs font-bold text-black">
                     {payments.length === 0 ? (
                       <tr>
-                        <td colSpan={5} className="py-12 text-center text-white/30">
-                          <DollarSign className="mx-auto text-white/10 mb-3" size={32} />
+                        <td colSpan={5} className="py-12 text-center text-gray-500">
+                          <DollarSign className="mx-auto text-black mb-3" size={32} />
                           No payment receipts registered for this client.
                         </td>
                       </tr>
                     ) : (
                       payments.map((p) => (
-                        <tr key={p.id} className="hover:bg-white/[0.01] transition-colors">
-                          <td className="py-4 font-black text-white truncate max-w-[150px]">
+                        <tr key={p.id} className="hover:bg-gray-100 transition-none">
+                          <td className="py-4 font-black text-black truncate max-w-[150px]">
                             {p.id}
                           </td>
-                          <td className="py-4 text-white font-bold">
+                          <td className="py-4 text-black font-black">
                             {p.invoice?.invoiceNumber || 'Workspace Invoice'}
                           </td>
-                          <td className="py-4 text-emerald-400 font-extrabold">{formatUsd(Number(p.amount))}</td>
+                          <td className="py-4 text-black font-extrabold">{formatUsd(Number(p.amount))}</td>
                           <td className="py-4">
-                            <span className="inline-block px-2 py-0.5 rounded bg-white/5 text-[10px] uppercase font-bold text-white/50">
+                            <span className="inline-block px-2 py-0.5 rounded-none border-2 border-black bg-white text-[10px] uppercase font-black text-black">
                               {p.paymentMethod}
                             </span>
                           </td>
-                          <td className="py-4 text-right text-white/40">
+                          <td className="py-4 text-right text-black font-black">
                             {new Date(p.paidAt).toLocaleString(undefined, { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
                           </td>
                         </tr>
@@ -403,9 +399,9 @@ export default function ClientProfilePage() {
             {activeTab === 'reminders' && (
               <div className="space-y-4">
                 {reminders.length === 0 ? (
-                  <div className="py-12 text-center text-white/30 border border-dashed border-white/5 rounded-2xl">
-                    <Send className="mx-auto text-white/10 mb-3" size={32} />
-                    <p className="font-semibold text-xs">No communications have been recorded yet.</p>
+                  <div className="py-12 text-center text-black border-2 border-dashed border-black rounded-none">
+                    <Send className="mx-auto text-black mb-3" size={32} />
+                    <p className="font-black text-xs uppercase tracking-widest">No communications have been recorded yet.</p>
                   </div>
                 ) : (
                   reminders.map((rem, idx) => (
@@ -414,35 +410,35 @@ export default function ClientProfilePage() {
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: idx * 0.05 }}
-                      className="p-4 bg-white/[0.01] border border-white/5 rounded-2xl flex items-center justify-between hover:bg-white/[0.03] transition-all"
+                      className="p-4 bg-white border-2 border-black rounded-none flex items-center justify-between hover:bg-gray-100 transition-none shadow-[4px_4px_0_0_rgba(0,0,0,1)]"
                     >
                       <div className="flex items-center gap-3">
                         <div className={cn(
-                          "w-10 h-10 rounded-xl flex items-center justify-center text-xs font-black",
-                          rem.status === 'sent' ? "bg-emerald-500/10 text-emerald-400" : "bg-red-500/10 text-red-400"
+                          "w-10 h-10 rounded-none flex items-center justify-center text-xs font-black border-2 border-black",
+                          rem.status === 'sent' ? "bg-black text-white" : "bg-white text-black"
                         )}>
                           {rem.status === 'sent' ? <CheckCircle2 size={16} /> : <AlertCircle size={16} />}
                         </div>
                         <div>
-                          <h5 className="font-bold text-xs text-white">
+                          <h5 className="font-black text-xs text-black uppercase tracking-widest">
                             Automatic Workspace Notification
                           </h5>
-                          <p className="text-[10px] text-white/30 mt-0.5">
-                            Type: <span className="font-bold uppercase text-white/50">{rem.emailType}</span> &bull; Sent to {rem.recipientEmail}
+                          <p className="text-[10px] font-bold text-gray-600 mt-0.5 uppercase tracking-wider">
+                            Type: <span className="font-black text-black">{rem.emailType}</span> &bull; Sent to {rem.recipientEmail}
                           </p>
                         </div>
                       </div>
 
                       <div className="text-right">
                         <span className={cn(
-                          "inline-block text-[9px] font-black px-2 py-0.5 rounded border uppercase tracking-wider",
-                          rem.status === 'sent' ? "bg-emerald-500/5 text-emerald-400 border-emerald-500/20" : "bg-red-500/5 text-red-400 border-red-500/20"
+                          "inline-block text-[9px] font-black px-2 py-0.5 rounded-none border-2 border-black uppercase tracking-widest",
+                          rem.status === 'sent' ? "bg-white text-black" : "bg-black text-white"
                         )}>
                           {rem.status}
                         </span>
                         {rem.sentAt && (
-                          <p className="text-[9px] text-white/20 font-bold uppercase mt-1 flex items-center gap-1 justify-end">
-                            <Clock size={8} /> {new Date(rem.sentAt).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                          <p className="text-[9px] text-gray-500 font-black uppercase mt-1 flex items-center gap-1 justify-end">
+                            <Clock size={8} className="text-black" /> {new Date(rem.sentAt).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
                           </p>
                         )}
                       </div>

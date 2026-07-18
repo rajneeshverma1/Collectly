@@ -116,7 +116,7 @@ export const FAQSection = () => {
                 Browse the <span className="font-semibold text-gray-700">Collectly Help Center</span> for guides and FAQs anytime.
               </p>
               
-              <button className="bg-[#2D2D35] hover:bg-[#1a1a1f] text-white text-[13px] font-semibold py-3.5 px-6 rounded-full inline-flex items-center gap-1 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-sm tracking-wide">
+              <button onClick={() => window.dispatchEvent(new Event('open-founder-modal'))} className="bg-[#2D2D35] hover:bg-[#1a1a1f] text-white text-[13px] font-semibold py-3.5 px-6 rounded-full inline-flex items-center gap-1 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-sm tracking-wide">
                 Still have questions? Talk to Founder <span className="ml-1 text-lg leading-none">&rarr;</span>
               </button>
             </motion.div>
