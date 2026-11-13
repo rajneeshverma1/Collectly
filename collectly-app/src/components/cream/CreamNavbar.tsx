@@ -20,18 +20,16 @@ export default function CreamNavbar() {
   return (
     <div className="fixed top-0 left-0 right-0 z-50 pointer-events-none px-4 sm:px-6">
       
-      {/* ── Main Container: Full-width at top, contracts to capsule on scroll ── */}
-      <div className={`mx-auto transition-all duration-300 ease-out pointer-events-auto ${
-        scrolled 
-          ? 'max-w-4xl mt-2.5 sm:mt-3' 
-          : 'max-w-7xl mt-4 sm:mt-6'
+      {/* ── Main Container: Same generous width in both states, smooth capsule transition on scroll ── */}
+      <div className={`mx-auto max-w-5xl transition-all duration-300 ease-out pointer-events-auto ${
+        scrolled ? 'mt-2.5 sm:mt-3' : 'mt-4 sm:mt-5'
       }`}>
         
         <header
           className={`w-full transition-all duration-300 ease-out ${
             scrolled
-              ? 'bg-[#FAF6F0]/95 backdrop-blur-md rounded-full border border-white/90 shadow-[0_16px_40px_rgba(40,25,10,0.18)] px-4 sm:px-7 py-2 sm:py-2.5 text-[#1F1914]'
-              : 'bg-transparent px-2 sm:px-4 py-2 text-[#1F1914]'
+              ? 'bg-[#FAF6F0]/95 backdrop-blur-md rounded-full border border-white/90 shadow-[0_16px_40px_rgba(40,25,10,0.18)] px-5 sm:px-8 py-2 sm:py-2.5 text-[#1F1914]'
+              : 'bg-transparent border border-transparent shadow-none px-4 sm:px-6 py-2 sm:py-2.5 text-[#1F1914]'
           }`}
         >
           <div className="flex items-center justify-between">
@@ -71,8 +69,8 @@ export default function CreamNavbar() {
               </span>
             </Link>
 
-            {/* Center: Desktop Navigation Links */}
-            <nav className="hidden md:flex items-center gap-7 sm:gap-9">
+            {/* Center: Desktop Navigation Links (Only the 3 core links: Features, Pricing, Compare) */}
+            <nav className="hidden md:flex items-center gap-9 sm:gap-12">
               <Link
                 href="#features"
                 className="text-xs sm:text-[13px] font-medium text-[#2C241D] hover:text-black transition-colors"
@@ -91,16 +89,10 @@ export default function CreamNavbar() {
               >
                 Compare
               </Link>
-              <Link
-                href="#faq"
-                className="text-xs sm:text-[13px] font-medium text-[#2C241D] hover:text-black transition-colors"
-              >
-                Changelog
-              </Link>
             </nav>
 
             {/* Right: Actions */}
-            <div className="flex items-center gap-3.5 sm:gap-5">
+            <div className="flex items-center gap-4 sm:gap-6">
               <Link
                 href="/auth"
                 className="hidden sm:inline-block text-xs sm:text-[13px] font-medium text-[#2C241D] hover:text-black transition-colors"
@@ -111,7 +103,7 @@ export default function CreamNavbar() {
               {/* Exact Caramel Pill Button from Reference */}
               <Link
                 href="/auth"
-                className="bg-gradient-to-b from-[#C46B1F] to-[#A35514] hover:from-[#B8621B] hover:to-[#924A0F] active:scale-[0.98] text-white px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-[13px] font-medium tracking-tight shadow-[inset_0_1px_0_rgba(255,255,255,0.3),0_3px_10px_rgba(163,85,20,0.35)] transition-all flex items-center justify-center shrink-0"
+                className="bg-gradient-to-b from-[#C46B1F] to-[#A35514] hover:from-[#B8621B] hover:to-[#924A0F] active:scale-[0.98] text-white px-5 sm:px-6 py-1.5 sm:py-2 rounded-full text-xs sm:text-[13px] font-medium tracking-tight shadow-[inset_0_1px_0_rgba(255,255,255,0.3),0_3px_10px_rgba(163,85,20,0.35)] transition-all flex items-center justify-center shrink-0"
               >
                 <span>Get Started</span>
               </Link>
@@ -152,13 +144,6 @@ export default function CreamNavbar() {
                 className="block py-1.5 text-xs font-medium text-[#2C241D] hover:text-black"
               >
                 Compare
-              </Link>
-              <Link
-                href="#faq"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block py-1.5 text-xs font-medium text-[#2C241D] hover:text-black"
-              >
-                Changelog
               </Link>
               <Link
                 href="/auth"
