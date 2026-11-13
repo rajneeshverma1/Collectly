@@ -7,7 +7,26 @@ import { ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
 export default function CreamFinalCTA() {
   return (
     <section className="py-20 sm:py-28 bg-[#FAF6F0] relative overflow-hidden">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      {/* ── Background: 40% Landscape Painting anchored from bottom of landing page ── */}
+      <div 
+        className="absolute bottom-0 left-0 right-0 h-[380px] sm:h-[480px] z-0 pointer-events-none overflow-hidden opacity-30"
+      >
+        <div
+          className="w-full h-full"
+          style={{
+            backgroundImage: 'url("/hero-painting-40-feathered.jpg")',
+            backgroundSize: '100% 100%',
+            backgroundPosition: 'bottom center',
+            backgroundRepeat: 'no-repeat',
+            maskImage: 'linear-gradient(to top, black 0%, black 50%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to top, black 0%, black 50%, transparent 100%)',
+          }}
+          aria-hidden="true"
+        />
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         <div className="relative rounded-3xl bg-gradient-to-br from-[#2E251E] via-[#241D17] to-[#1A140F] text-white p-8 sm:p-14 md:p-18 overflow-hidden shadow-2xl">
           
@@ -76,4 +95,3 @@ export default function CreamFinalCTA() {
     </section>
   );
 }
-
