@@ -26,7 +26,7 @@ export default function CreamNavbar() {
       }`}>
         
         <header
-          className={`w-full bg-[#FAF6F0]/95 backdrop-blur-md rounded-full border border-white/90 px-4 sm:px-7 py-2 sm:py-2.5 text-[#1F1914] transition-shadow duration-300 ${
+          className={`w-full bg-[#FAF6F0]/95 backdrop-blur-md rounded-full border border-white/90 backdrop-saturate-150 px-4 sm:px-7 py-2 sm:py-2.5 text-[#1F1914] transition-shadow duration-300 ${
             scrolled
               ? 'shadow-[0_16px_40px_rgba(40,25,10,0.18)]'
               : 'shadow-[0_10px_30px_rgba(40,25,10,0.12)]'
