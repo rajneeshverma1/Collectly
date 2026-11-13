@@ -10,7 +10,7 @@ export default function CreamNavbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      setScrolled(window.scrollY > 30);
     };
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -20,16 +20,18 @@ export default function CreamNavbar() {
   return (
     <div className="fixed top-0 left-0 right-0 z-50 pointer-events-none px-4 sm:px-6">
       
-      {/* ── Floating Pill Capsule (Always visible with high contrast) ── */}
-      <div className={`mx-auto max-w-4xl transition-all duration-300 pointer-events-auto ${
-        scrolled ? 'mt-2.5 sm:mt-3' : 'mt-4 sm:mt-5'
+      {/* ── Main Container: Full-width at top, contracts to capsule on scroll ── */}
+      <div className={`mx-auto transition-all duration-300 ease-out pointer-events-auto ${
+        scrolled 
+          ? 'max-w-4xl mt-2.5 sm:mt-3' 
+          : 'max-w-7xl mt-4 sm:mt-6'
       }`}>
         
         <header
-          className={`w-full bg-[#FAF6F0]/95 backdrop-blur-md rounded-full border border-white/90 backdrop-saturate-150 px-4 sm:px-7 py-2 sm:py-2.5 text-[#1F1914] transition-shadow duration-300 ${
+          className={`w-full transition-all duration-300 ease-out ${
             scrolled
-              ? 'shadow-[0_16px_40px_rgba(40,25,10,0.18)]'
-              : 'shadow-[0_10px_30px_rgba(40,25,10,0.12)]'
+              ? 'bg-[#FAF6F0]/95 backdrop-blur-md rounded-full border border-white/90 shadow-[0_16px_40px_rgba(40,25,10,0.18)] px-4 sm:px-7 py-2 sm:py-2.5 text-[#1F1914]'
+              : 'bg-transparent px-2 sm:px-4 py-2 text-[#1F1914]'
           }`}
         >
           <div className="flex items-center justify-between">
