@@ -1,37 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap');
 /* Global Design System Tokens */
 @import "tailwindcss";
 
+/* ==========================================================================
+   Custom Local Fonts from public/font/
+   ========================================================================== */
+
+/* 1. Poppins - 300 (Light) */
 @font-face {
-  font-family: 'Satoshi';
-  src: url('https://useblueprints.ai/fonts/satoshi/satoshi-700.woff2') format('woff2');
-  font-weight: 700;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 300;
   font-display: swap;
-}
-@font-face {
-  font-family: 'Satoshi';
-  src: url('https://useblueprints.ai/fonts/satoshi/satoshi-400.woff2') format('woff2');
-  font-weight: 400;
-  font-display: swap;
+  src: url("/font/c875c6f5d3e977ac-s.p.2hvcnh59x4e6z.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+/* 2. Poppins - 400 (Regular) */
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/font/a218039a3287bcfd-s.p.17e3l4txdrufi.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* 3. Poppins - 500 (Medium, Latin) */
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/font/8e6fa89aa22d24ec-s.p.1bg6trwi21i5q.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* 4. Poppins - 500 (Medium, Devanagari) */
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/font/bdc7e24a509eb931-s.0ewdtdf6ai7o-.woff2") format("woff2");
+  unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
+}
+
+/* 5. Poppins - 600 (SemiBold) */
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/font/e2334d715941921e-s.p.2g9xiodaln20i.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* 6. Poppins - 700 (Bold) */
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/font/47fe1b7cd6e6ed85-s.p.1n2oi-d4a-xww.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* 7. Pixelify Sans - 400..700 */
+@font-face {
+  font-family: "Pixelify Sans";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/font/01d67e7cc17e7674-s.p.0wyelkczeev99.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* 8. Silkscreen - 400 */
+@font-face {
+  font-family: "Silkscreen";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/font/37f34e4fcce0f2d4-s.p.2-db4p8p3l7-q.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* 9. Silkscreen - 700 */
+@font-face {
+  font-family: "Silkscreen";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/font/8ec783ae88469012-s.p.3owr7cxy7kxtq.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* 10. Caveat - 400..700 (Handwritten) */
+@font-face {
+  font-family: "Caveat";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/font/a85fe84266768609-s.p.00hx3ibfyf9qx.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Local alias for legacy Satoshi references */
+@font-face {
+  font-family: "Satoshi";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/font/a218039a3287bcfd-s.p.17e3l4txdrufi.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Satoshi";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/font/47fe1b7cd6e6ed85-s.p.1n2oi-d4a-xww.woff2") format("woff2");
+}
+
+
 :root {
-  --background: #ffffff;
-  --foreground: #000000;
-  --primary: #3b82f6;
-  --primary-foreground: #ffffff;
-  --secondary: #f1f5f9;
-  --secondary-foreground: #0f172a;
-  --muted: #f1f5f9;
-  --muted-foreground: #64748b;
-  --accent: #f1f5f9;
-  --accent-foreground: #0f172a;
-  --border: #e2e8f0;
-  --input: #e2e8f0;
-  --ring: #3b82f6;
+  --brand: #c86524;
+  --brand-light: #e08a3c;
+  --brand-dark: #9e4912;
+  --font-poppins: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-silkscreen: "IBM Plex Mono", monospace;
+  --font-pixelify: "Pixelify Sans", sans-serif;
+  --font-caveat: "Caveat", cursive, sans-serif;
+  --background: #faf6f0;
+  --foreground: #1e1915;
+  --card: #ffffff;
+  --card-foreground: #1e1915;
+  --primary: #1e1915;
+  --primary-foreground: #faf6f0;
+  --secondary: #f3ece2;
+  --secondary-foreground: #1e1915;
+  --muted: #efe8dd;
+  --muted-foreground: #786c60;
+  --accent: #e8dfd3;
+  --accent-foreground: #1e1915;
+  --border: #e5ddd0;
+  --input: #e5ddd0;
+  --ring: #c86524;
   --radius: 0.75rem;
 }
 
 @theme inline {
+  --color-brand: var(--brand);
+  --color-brand-light: var(--brand-light);
+  --color-brand-dark: var(--brand-dark);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
@@ -45,11 +166,41 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
   --radius-xl: calc(var(--radius) + 4px);
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
-  --font-sans: var(--font-ibm), ui-sans-serif, system-ui;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.bg-brand {
+  background-color: var(--brand) !important;
+}
+.text-brand {
+  color: var(--brand) !important;
+}
+.text-brand-light {
+  color: var(--brand-light) !important;
+}
+.border-brand {
+  border-color: var(--brand) !important;
+}
+.bg-card {
+  background-color: var(--card) !important;
+}
+.border-border {
+  border-color: var(--border) !important;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 * {
@@ -57,7 +208,7 @@
 }
 
 body {
-  background: #0B0B0F; /* Landing page base dark background */
+  background: #faf6f0; /* Warm cream base background */
   color: var(--foreground);
   font-feature-settings: "rlig" 1, "calt" 1;
   overflow-x: hidden;
@@ -86,7 +237,7 @@ body {
    ========================================================== */
 
 .dashboard-layout-theme {
-  font-family: Verdana, Geneva, sans-serif !important;
+  font-family: var(--font-poppins), 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
   --background: #ffffff; /* White background */
   --foreground: #000000; /* Black text */
   --primary: #000000; /* Black primary */
