@@ -234,6 +234,7 @@ export default function ClientsPage() {
                   </div>
                   
                   <Link 
+                    href={`/dashboard/clients/${client.id}`}
                     className="w-8 h-8 rounded-none border border-black flex items-center justify-center text-black hover:bg-gray-200 transition-none"
                   >
                     <ArrowUpRight size={16} />

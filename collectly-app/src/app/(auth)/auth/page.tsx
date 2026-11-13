@@ -101,7 +101,7 @@ export default function AuthPage() {
           )}
 
           <button type="submit" disabled={isLoading}
-            className="w-full bg-white text-black font-bold py-2.5 rounded-lg text-sm hover:bg-gray-100 active:scale-[0.98] transition-all disabled:opacity-50 flex items-center justify-center gap-2 mt-1">
+            className="w-full bg-gray-900 text-white font-semibold py-2.5 rounded-lg text-sm hover:bg-black active:scale-[0.98] transition-all disabled:opacity-50 flex items-center justify-center gap-2 mt-2 shadow-sm">
             {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : isLogin ? 'Log in' : 'Create Account'}
           </button>
         </form>
@@ -109,7 +109,7 @@ export default function AuthPage() {
         <button
           type="button"
           onClick={() => { window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/users/auth/google`; }}
-          className="w-full mt-3 bg-transparent border border-white/20 text-white font-medium py-2.5 rounded-lg text-sm hover:bg-white/5 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+          className="w-full mt-3 bg-white border border-gray-200 text-gray-700 font-medium py-2.5 rounded-lg text-sm hover:bg-gray-50 active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-sm">
           <Mail size={16} />
           Log in with Google
         </button>
@@ -117,7 +117,7 @@ export default function AuthPage() {
         <p className="text-center text-gray-500 text-xs mt-6">
           {isLogin ? "Don't have an account?" : 'Already have an account?'}{' '}
           <button onClick={() => { setIsLogin(!isLogin); setError(''); }}
-            className="text-white font-bold hover:text-gray-300 transition-colors">
+            className="text-gray-900 font-semibold hover:underline transition-colors">
             {isLogin ? 'Sign Up' : 'Sign in'}
           </button>
         </p>
