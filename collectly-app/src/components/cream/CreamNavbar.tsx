@@ -20,7 +20,7 @@ export default function CreamNavbar() {
   return (
     <div className="fixed top-0 left-0 right-0 z-50 pointer-events-none px-4 sm:px-6">
       
-      {/* ── Main Container: Exact capsule width (max-w-4xl), capsule shape only appears on scroll ── */}
+      {/* ── Main Container: Simple without any box at top, becomes capsule on scroll ── */}
       <div className={`mx-auto max-w-4xl transition-all duration-300 ease-out pointer-events-auto ${
         scrolled ? 'mt-2.5 sm:mt-3' : 'mt-4 sm:mt-5'
       }`}>
@@ -29,12 +29,13 @@ export default function CreamNavbar() {
           className={`w-full transition-all duration-300 ease-out ${
             scrolled
               ? 'bg-[#FAF6F0]/95 backdrop-blur-md rounded-full border border-white/90 shadow-[0_16px_40px_rgba(40,25,10,0.18)] px-5 sm:px-7 py-2 sm:py-2.5 text-[#1F1914]'
-              : 'bg-transparent border border-transparent shadow-none px-3 sm:px-5 py-2 sm:py-2.5 text-[#1F1914]'
+              : 'bg-transparent border-0 border-none shadow-none rounded-none px-2 sm:px-3 py-2 text-[#1F1914]'
           }`}
+          style={!scrolled ? { border: 'none', background: 'transparent', boxShadow: 'none' } : undefined}
         >
           <div className="flex items-center justify-between">
             
-            {/* Left: Brand Logo with Gold Bullion/Vault Icon matching reference */}
+            {/* Left: Brand Logo with Gold Bullion/Vault Icon */}
             <Link href="/" className="flex items-center gap-2.5 group shrink-0">
               <div className="flex items-center justify-center transition-transform duration-200 group-hover:scale-105 text-[#1F1914]">
                 <svg
