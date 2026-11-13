@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, ArrowRight, ChevronDown, Sparkles } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 export default function CreamNavbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -10,165 +10,195 @@ export default function CreamNavbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      setScrolled(window.scrollY > 25);
     };
-    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-[#FAF6F0]/90 backdrop-blur-md border-b border-[#E7DFD4]/90 shadow-sm py-3 text-[#1F1914]'
-          : 'bg-transparent py-5 text-white'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          
-          {/* Left: Brand Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="relative flex items-center justify-center">
-              <svg
-                width="28"
-                height="28"
-                viewBox="0 0 32 32"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="transition-transform duration-300 group-hover:scale-105"
+    <div className="fixed top-0 left-0 right-0 z-50 pointer-events-none transition-all duration-300 px-4 sm:px-6">
+      
+      {/* ── Main Navbar Wrapper ── */}
+      <div className={`mx-auto transition-all duration-400 ease-out pointer-events-auto ${
+        scrolled 
+          ? 'mt-3 sm:mt-4 max-w-4xl' 
+          : 'mt-4 sm:mt-6 max-w-6xl'
+      }`}>
+        
+        <header
+          className={`w-full transition-all duration-300 ease-out ${
+            scrolled
+              ? 'bg-[#FAF6F0]/95 backdrop-blur-md rounded-full border border-white/80 shadow-[0_12px_36px_rgba(40,25,10,0.16)] px-4 sm:px-7 py-2 sm:py-2.5 text-[#1F1914]'
+              : 'bg-transparent px-2 sm:px-4 py-2 text-white'
+          }`}
+        >
+          <div className="flex items-center justify-between">
+            
+            {/* Left: Brand Logo with Gold Bullion/Vault Icon matching reference */}
+            <Link href="/" className="flex items-center gap-2.5 group shrink-0">
+              <div className="flex items-center justify-center transition-transform duration-200 group-hover:scale-105">
+                <svg
+                  width="22"
+                  height="16"
+                  viewBox="0 0 24 18"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={scrolled ? 'text-[#1F1914]' : 'text-white'}
+                >
+                  {/* Top Bullion Bar */}
+                  <path
+                    d="M4 6L8 2H18L22 6L18 10H8L4 6Z"
+                    fill="currentColor"
+                    fillOpacity="0.95"
+                    stroke="currentColor"
+                    strokeWidth="1.2"
+                    strokeLinejoin="round"
+                  />
+                  {/* Bottom Bullion Bar */}
+                  <path
+                    d="M1 12L5 8H15L19 12L15 16H5L1 12Z"
+                    fill="currentColor"
+                    fillOpacity="0.85"
+                    stroke="currentColor"
+                    strokeWidth="1.2"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+              <span className={`font-semibold text-sm sm:text-base tracking-tight ${
+                scrolled ? 'text-[#1F1914]' : 'text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.3)]'
+              }`}>
+                Collectly
+              </span>
+            </Link>
+
+            {/* Center: Desktop Navigation Links */}
+            <nav className="hidden md:flex items-center gap-7 sm:gap-9">
+              <Link
+                href="#features"
+                className={`text-xs sm:text-[13px] font-medium transition-colors ${
+                  scrolled
+                    ? 'text-[#2C241D] hover:text-[#000000]'
+                    : 'text-white/85 hover:text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.3)]'
+                }`}
               >
-                <circle cx="12" cy="16" r="9" stroke="currentColor" strokeWidth="2.2" className="opacity-90" />
-                <circle cx="20" cy="16" r="9" stroke="currentColor" strokeWidth="2.2" className="opacity-70" />
-                <path d="M16 11.5L16 20.5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
-              </svg>
+                Features
+              </Link>
+              <Link
+                href="#pricing"
+                className={`text-xs sm:text-[13px] font-medium transition-colors ${
+                  scrolled
+                    ? 'text-[#2C241D] hover:text-[#000000]'
+                    : 'text-white/85 hover:text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.3)]'
+                }`}
+              >
+                Pricing
+              </Link>
+              <Link
+                href="#compare"
+                className={`text-xs sm:text-[13px] font-medium transition-colors ${
+                  scrolled
+                    ? 'text-[#2C241D] hover:text-[#000000]'
+                    : 'text-white/85 hover:text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.3)]'
+                }`}
+              >
+                Compare
+              </Link>
+              <Link
+                href="#faq"
+                className={`text-xs sm:text-[13px] font-medium transition-colors ${
+                  scrolled
+                    ? 'text-[#2C241D] hover:text-[#000000]'
+                    : 'text-white/85 hover:text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.3)]'
+                }`}
+              >
+                Changelog
+              </Link>
+            </nav>
+
+            {/* Right: Actions */}
+            <div className="flex items-center gap-3.5 sm:gap-5">
+              <Link
+                href="/auth"
+                className={`hidden sm:inline-block text-xs sm:text-[13px] font-medium transition-colors ${
+                  scrolled
+                    ? 'text-[#2C241D] hover:text-[#000000]'
+                    : 'text-white/90 hover:text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.3)]'
+                }`}
+              >
+                Log in
+              </Link>
+
+              {/* Exact Caramel Pill Button from Reference */}
+              <Link
+                href="/auth"
+                className="bg-gradient-to-b from-[#C46B1F] to-[#A35514] hover:from-[#B8621B] hover:to-[#924A0F] active:scale-[0.98] text-white px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-[13px] font-medium tracking-tight shadow-[inset_0_1px_0_rgba(255,255,255,0.3),0_3px_10px_rgba(163,85,20,0.35)] transition-all flex items-center justify-center shrink-0"
+              >
+                <span>Get Started</span>
+              </Link>
+
+              {/* Mobile Menu Toggle Button */}
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className={`md:hidden p-1.5 rounded-full transition-colors ${
+                  scrolled ? 'text-[#1F1914] hover:bg-black/5' : 'text-white hover:bg-white/10'
+                }`}
+                aria-label="Toggle navigation menu"
+              >
+                {mobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+              </button>
             </div>
-            <span className="font-semibold text-lg tracking-tight">
-              Collectly
-            </span>
-          </Link>
 
-          {/* Center: Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-8">
-            <Link
-              href="#features"
-              className={`text-sm font-medium transition-colors hover:opacity-100 ${
-                scrolled ? 'text-[#65594E] hover:text-[#1F1914]' : 'text-white/80 hover:text-white'
-              }`}
-            >
-              Features
-            </Link>
-            <Link
-              href="#pricing"
-              className={`text-sm font-medium transition-colors hover:opacity-100 ${
-                scrolled ? 'text-[#65594E] hover:text-[#1F1914]' : 'text-white/80 hover:text-white'
-              }`}
-            >
-              Pricing
-            </Link>
-            <Link
-              href="#compare"
-              className={`text-sm font-medium transition-colors hover:opacity-100 ${
-                scrolled ? 'text-[#65594E] hover:text-[#1F1914]' : 'text-white/80 hover:text-white'
-              }`}
-            >
-              Compare
-            </Link>
-            <Link
-              href="#faq"
-              className={`text-sm font-medium transition-colors hover:opacity-100 ${
-                scrolled ? 'text-[#65594E] hover:text-[#1F1914]' : 'text-white/80 hover:text-white'
-              }`}
-            >
-              Changelog
-            </Link>
-          </nav>
-
-          {/* Right: Actions */}
-          <div className="hidden md:flex items-center gap-5">
-            <Link
-              href="/auth"
-              className={`text-sm font-medium transition-colors ${
-                scrolled ? 'text-[#4A3F35] hover:text-[#1F1914]' : 'text-white/90 hover:text-white'
-              }`}
-            >
-              Log in
-            </Link>
-
-            <Link
-              href="/auth"
-              className="bg-[#C86524] hover:bg-[#B35519] active:scale-[0.98] text-white px-5 py-2.5 rounded-full text-sm font-medium tracking-tight shadow-[0_4px_16px_rgba(200,101,36,0.35)] transition-all flex items-center gap-1.5"
-            >
-              <span>Get Started</span>
-            </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            type="button"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`md:hidden p-2 rounded-lg transition-colors ${
-              scrolled ? 'text-[#1F1914] hover:bg-black/5' : 'text-white hover:bg-white/10'
-            }`}
-            aria-label="Toggle navigation menu"
-          >
-            {mobileMenuOpen ? <X className="size-6" /> : <Menu className="size-6" />}
-          </button>
-        </div>
+          {/* Mobile Collapsible Dropdown */}
+          {mobileMenuOpen && (
+            <div className="md:hidden mt-3 pt-3 border-t border-[#E7DFD4]/80 text-[#1F1914] space-y-2 animate-in fade-in duration-200">
+              <Link
+                href="#features"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-1.5 text-xs font-medium text-[#2C241D] hover:text-black"
+              >
+                Features
+              </Link>
+              <Link
+                href="#pricing"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-1.5 text-xs font-medium text-[#2C241D] hover:text-black"
+              >
+                Pricing
+              </Link>
+              <Link
+                href="#compare"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-1.5 text-xs font-medium text-[#2C241D] hover:text-black"
+              >
+                Compare
+              </Link>
+              <Link
+                href="#faq"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-1.5 text-xs font-medium text-[#2C241D] hover:text-black"
+              >
+                Changelog
+              </Link>
+              <Link
+                href="/auth"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-1.5 text-xs font-medium text-[#2C241D] hover:text-black sm:hidden"
+              >
+                Log in
+              </Link>
+            </div>
+          )}
+
+        </header>
+
       </div>
 
-      {/* Mobile Menu Dropdown */}
-      {mobileMenuOpen && (
-        <div className="md:hidden bg-[#FAF6F0] border-b border-[#E7DFD4] px-5 py-6 space-y-4 text-[#1F1914] shadow-xl">
-          <nav className="flex flex-col space-y-3 font-medium text-base">
-            <Link
-              href="#features"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-[#52463C] hover:text-[#1F1914] py-1"
-            >
-              Features
-            </Link>
-            <Link
-              href="#pricing"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-[#52463C] hover:text-[#1F1914] py-1"
-            >
-              Pricing
-            </Link>
-            <Link
-              href="#compare"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-[#52463C] hover:text-[#1F1914] py-1"
-            >
-              Compare
-            </Link>
-            <Link
-              href="#faq"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-[#52463C] hover:text-[#1F1914] py-1"
-            >
-              Changelog
-            </Link>
-          </nav>
-          <div className="pt-4 border-t border-[#E7DFD4] flex flex-col gap-3">
-            <Link
-              href="/auth"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-center py-2.5 font-medium text-sm text-[#4A3F35]"
-            >
-              Log in
-            </Link>
-            <Link
-              href="/auth"
-              onClick={() => setMobileMenuOpen(false)}
-              className="bg-[#C86524] hover:bg-[#B35519] text-white text-center py-3 rounded-full text-sm font-medium shadow-md"
-            >
-              Get Started
-            </Link>
-          </div>
-        </div>
-      )}
-    </header>
+    </div>
   );
 }
-
