@@ -88,11 +88,11 @@ export default function CreamDashboardCard() {
             <div className="flex items-center justify-between px-2 pt-1">
               <div className="flex items-center gap-2">
                 <div className="flex items-center justify-center">
-                  <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
-                    <circle cx="12" cy="16" r="9" stroke="#241D17" strokeWidth="2.4" />
-                    <circle cx="20" cy="16" r="9" stroke="#241D17" strokeWidth="2.4" strokeOpacity="0.75" />
-                    <path d="M16 11.5L16 20.5" stroke="#241D17" strokeWidth="2.4" strokeLinecap="round" />
-                  </svg>
+                  <img
+                    src="/images/logo.png"
+                    alt="Collectly Logo"
+                    className="size-5 sm:size-6 object-contain"
+                  />
                 </div>
                 <span className="font-semibold text-sm tracking-tight text-[#241D17]">
                   Collectly

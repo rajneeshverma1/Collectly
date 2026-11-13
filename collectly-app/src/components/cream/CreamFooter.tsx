@@ -13,17 +13,11 @@ export default function CreamFooter() {
           {/* Brand Col */}
           <div className="md:col-span-2 space-y-4">
             <Link href="/" className="flex items-center gap-2 text-[#1F1914] group">
-              <svg
-                width="26"
-                height="26"
-                viewBox="0 0 32 32"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle cx="12" cy="16" r="9" stroke="currentColor" strokeWidth="2.2" />
-                <circle cx="20" cy="16" r="9" stroke="currentColor" strokeWidth="2.2" strokeOpacity="0.75" />
-                <path d="M16 11.5L16 20.5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
-              </svg>
+              <img
+                src="/images/logo.png"
+                alt="Collectly Logo"
+                className="size-6 sm:size-7 object-contain"
+              />
               <span className="font-semibold text-base tracking-tight">
                 Collectly
               </span>

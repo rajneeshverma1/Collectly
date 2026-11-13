@@ -35,35 +35,14 @@ export default function CreamNavbar() {
         >
           <div className="flex items-center justify-between">
             
-            {/* Left: Brand Logo with Gold Bullion/Vault Icon */}
+            {/* Left: Brand Logo with new official logo */}
             <Link href="/" className="flex items-center gap-2.5 group shrink-0">
-              <div className="flex items-center justify-center transition-transform duration-200 group-hover:scale-105 text-[#1F1914]">
-                <svg
-                  width="22"
-                  height="16"
-                  viewBox="0 0 24 18"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  {/* Top Bullion Bar */}
-                  <path
-                    d="M4 6L8 2H18L22 6L18 10H8L4 6Z"
-                    fill="currentColor"
-                    fillOpacity="0.95"
-                    stroke="currentColor"
-                    strokeWidth="1.2"
-                    strokeLinejoin="round"
-                  />
-                  {/* Bottom Bullion Bar */}
-                  <path
-                    d="M1 12L5 8H15L19 12L15 16H5L1 12Z"
-                    fill="currentColor"
-                    fillOpacity="0.85"
-                    stroke="currentColor"
-                    strokeWidth="1.2"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+              <div className="flex items-center justify-center transition-transform duration-200 group-hover:scale-105">
+                <img
+                  src="/images/logo.png"
+                  alt="Collectly Logo"
+                  className="size-6 sm:size-7 object-contain"
+                />
               </div>
               <span className="font-semibold text-sm sm:text-base tracking-tight text-[#1F1914]">
                 Collectly
