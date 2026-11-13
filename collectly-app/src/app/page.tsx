@@ -1,40 +1,28 @@
-import Navbar from "@/components/Navbar";
-import { Hero } from "@/components/Hero";
-import { AutomateBillingSection } from "@/components/AutomateBillingSection";
-import { AutopilotSection } from "@/components/AutopilotSection";
-
-import { EverythingElseSection } from "@/components/EverythingElseSection";
-import Features from "@/components/Features";
-import { ConfigurableSection } from "@/components/ConfigurableSection";
-import { WhoWeServeSection } from "@/components/WhoWeServeSection";
-import { AboutSection } from "@/components/AboutSection";
-import { FinalCTA } from "@/components/final-cta";
-import { FAQSection } from "@/components/FAQSection";
-import { LLMCTASection } from "@/components/LLMCTASection";
-import { WordmarkSection } from "@/components/wordmark-section";
-import { SubFooter } from "@/components/sub-footer";
-import Footer from "@/components/Footer";
+import CreamNavbar from "@/components/cream/CreamNavbar";
+import CreamHero from "@/components/cream/CreamHero";
+import CreamLogos from "@/components/cream/CreamLogos";
+import CreamFeatures from "@/components/cream/CreamFeatures";
+import CreamComparison from "@/components/cream/CreamComparison";
+import CreamTestimonials from "@/components/cream/CreamTestimonials";
+import CreamPricing from "@/components/cream/CreamPricing";
+import CreamFAQ from "@/components/cream/CreamFAQ";
+import CreamFinalCTA from "@/components/cream/CreamFinalCTA";
+import CreamFooter from "@/components/cream/CreamFooter";
 import { FounderModal } from "@/components/FounderModal";
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
-      <Navbar />
-      <Hero />
-      <AutomateBillingSection />
-      <AutopilotSection />
-
-      <EverythingElseSection />
-      <Features id="features" />
-      <ConfigurableSection />
-      <WhoWeServeSection id="solutions" />
-      <AboutSection id="about" />
-      <FinalCTA />
-      <FAQSection />
-      <LLMCTASection />
-      <Footer />
-      <WordmarkSection />
-      <SubFooter />
+    <main id="hero" className="min-h-screen bg-[#FAF6F0] text-[#1E1915] antialiased selection:bg-[#C86524] selection:text-white">
+      <CreamNavbar />
+      <CreamHero />
+      <CreamLogos />
+      <CreamFeatures />
+      <CreamComparison />
+      <CreamTestimonials />
+      <CreamPricing />
+      <CreamFAQ />
+      <CreamFinalCTA />
+      <CreamFooter />
       <FounderModal />
     </main>
   );

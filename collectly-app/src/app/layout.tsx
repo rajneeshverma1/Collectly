@@ -1,15 +1,5 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
-
-import { IBM_Plex_Sans } from "next/font/google";
-
-const ibmPlexSans = IBM_Plex_Sans({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-ibm",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "Collectly | AI Billing Automation for B2B",
@@ -27,7 +17,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" className="scroll-smooth">
-        <body className={`${ibmPlexSans.variable} font-sans antialiased`}>
+        <body className="font-sans antialiased">
           <AuthProvider>
             {children}
           </AuthProvider>
