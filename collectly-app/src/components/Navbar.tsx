@@ -323,7 +323,6 @@ const Navbar = () => {
                           exit={{ opacity: 0, y: 15, scale: 0.98 }}
                           transition={{ duration: 0.25, ease: "easeOut" }}
                           className="absolute left-[-20px] top-[calc(100%-8px)] pt-10 w-[750px] z-50"
-                          style={{ fontFamily: 'Satoshi, sans-serif' }}
                         >
                           <div className="bg-white border !border-gray-200 rounded-[24px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hidden md:grid grid-cols-2 gap-x-8 gap-y-0">
                             <div>

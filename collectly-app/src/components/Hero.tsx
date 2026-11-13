@@ -36,7 +36,7 @@ export const Hero = () => {
                     transition={{ duration: 0.6, delay: 0.1 }}
                     className="text-5xl md:text-7xl font-normal text-gray-900 leading-tight max-w-[850px] mx-auto tracking-tight"
                 >
-                    Billing <span className="font-bold" style={{ fontFamily: 'Satoshi, sans-serif' }}>Automation for<br />B2B</span> that actually works
+                    Billing <span className="font-bold">Automation for<br />B2B</span> that actually works
                 </motion.h1>
 
                 <motion.p
