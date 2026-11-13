@@ -10,7 +10,7 @@ export default function CreamNavbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 25);
+      setScrolled(window.scrollY > 20);
     };
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -18,34 +18,31 @@ export default function CreamNavbar() {
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 pointer-events-none transition-all duration-300 px-4 sm:px-6">
+    <div className="fixed top-0 left-0 right-0 z-50 pointer-events-none px-4 sm:px-6">
       
-      {/* ── Main Navbar Wrapper ── */}
-      <div className={`mx-auto transition-all duration-400 ease-out pointer-events-auto ${
-        scrolled 
-          ? 'mt-3 sm:mt-4 max-w-4xl' 
-          : 'mt-4 sm:mt-6 max-w-6xl'
+      {/* ── Floating Pill Capsule (Always visible with high contrast) ── */}
+      <div className={`mx-auto max-w-4xl transition-all duration-300 pointer-events-auto ${
+        scrolled ? 'mt-2.5 sm:mt-3' : 'mt-4 sm:mt-5'
       }`}>
         
         <header
-          className={`w-full transition-all duration-300 ease-out ${
+          className={`w-full bg-[#FAF6F0]/95 backdrop-blur-md rounded-full border border-white/90 px-4 sm:px-7 py-2 sm:py-2.5 text-[#1F1914] transition-shadow duration-300 ${
             scrolled
-              ? 'bg-[#FAF6F0]/95 backdrop-blur-md rounded-full border border-white/80 shadow-[0_12px_36px_rgba(40,25,10,0.16)] px-4 sm:px-7 py-2 sm:py-2.5 text-[#1F1914]'
-              : 'bg-transparent px-2 sm:px-4 py-2 text-white'
+              ? 'shadow-[0_16px_40px_rgba(40,25,10,0.18)]'
+              : 'shadow-[0_10px_30px_rgba(40,25,10,0.12)]'
           }`}
         >
           <div className="flex items-center justify-between">
             
             {/* Left: Brand Logo with Gold Bullion/Vault Icon matching reference */}
             <Link href="/" className="flex items-center gap-2.5 group shrink-0">
-              <div className="flex items-center justify-center transition-transform duration-200 group-hover:scale-105">
+              <div className="flex items-center justify-center transition-transform duration-200 group-hover:scale-105 text-[#1F1914]">
                 <svg
                   width="22"
                   height="16"
                   viewBox="0 0 24 18"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  className={scrolled ? 'text-[#1F1914]' : 'text-white'}
                 >
                   {/* Top Bullion Bar */}
                   <path
@@ -67,9 +64,7 @@ export default function CreamNavbar() {
                   />
                 </svg>
               </div>
-              <span className={`font-semibold text-sm sm:text-base tracking-tight ${
-                scrolled ? 'text-[#1F1914]' : 'text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.3)]'
-              }`}>
+              <span className="font-semibold text-sm sm:text-base tracking-tight text-[#1F1914]">
                 Collectly
               </span>
             </Link>
@@ -78,41 +73,25 @@ export default function CreamNavbar() {
             <nav className="hidden md:flex items-center gap-7 sm:gap-9">
               <Link
                 href="#features"
-                className={`text-xs sm:text-[13px] font-medium transition-colors ${
-                  scrolled
-                    ? 'text-[#2C241D] hover:text-[#000000]'
-                    : 'text-white/85 hover:text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.3)]'
-                }`}
+                className="text-xs sm:text-[13px] font-medium text-[#2C241D] hover:text-black transition-colors"
               >
                 Features
               </Link>
               <Link
                 href="#pricing"
-                className={`text-xs sm:text-[13px] font-medium transition-colors ${
-                  scrolled
-                    ? 'text-[#2C241D] hover:text-[#000000]'
-                    : 'text-white/85 hover:text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.3)]'
-                }`}
+                className="text-xs sm:text-[13px] font-medium text-[#2C241D] hover:text-black transition-colors"
               >
                 Pricing
               </Link>
               <Link
                 href="#compare"
-                className={`text-xs sm:text-[13px] font-medium transition-colors ${
-                  scrolled
-                    ? 'text-[#2C241D] hover:text-[#000000]'
-                    : 'text-white/85 hover:text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.3)]'
-                }`}
+                className="text-xs sm:text-[13px] font-medium text-[#2C241D] hover:text-black transition-colors"
               >
                 Compare
               </Link>
               <Link
                 href="#faq"
-                className={`text-xs sm:text-[13px] font-medium transition-colors ${
-                  scrolled
-                    ? 'text-[#2C241D] hover:text-[#000000]'
-                    : 'text-white/85 hover:text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.3)]'
-                }`}
+                className="text-xs sm:text-[13px] font-medium text-[#2C241D] hover:text-black transition-colors"
               >
                 Changelog
               </Link>
@@ -122,11 +101,7 @@ export default function CreamNavbar() {
             <div className="flex items-center gap-3.5 sm:gap-5">
               <Link
                 href="/auth"
-                className={`hidden sm:inline-block text-xs sm:text-[13px] font-medium transition-colors ${
-                  scrolled
-                    ? 'text-[#2C241D] hover:text-[#000000]'
-                    : 'text-white/90 hover:text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.3)]'
-                }`}
+                className="hidden sm:inline-block text-xs sm:text-[13px] font-medium text-[#2C241D] hover:text-black transition-colors"
               >
                 Log in
               </Link>
@@ -143,9 +118,7 @@ export default function CreamNavbar() {
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className={`md:hidden p-1.5 rounded-full transition-colors ${
-                  scrolled ? 'text-[#1F1914] hover:bg-black/5' : 'text-white hover:bg-white/10'
-                }`}
+                className="md:hidden p-1.5 rounded-full transition-colors text-[#1F1914] hover:bg-black/5"
                 aria-label="Toggle navigation menu"
               >
                 {mobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
