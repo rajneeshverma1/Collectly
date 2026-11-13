@@ -7,7 +7,7 @@ import CreamDashboardCard from './CreamDashboardCard';
 
 export default function CreamHero() {
   return (
-    <section className="relative min-h-screen pt-32 sm:pt-40 pb-20 overflow-hidden flex flex-col items-center justify-start text-center bg-[#FAF6F0]">
+    <section className="relative min-h-screen pt-32 sm:pt-36 pb-20 overflow-hidden flex flex-col items-center justify-start text-center bg-[#FAF6F0]">
       
       {/* ── Background: Only the user-provided Landscape Painting (40% of actual image, anchored from the bottom) ── */}
       <div
