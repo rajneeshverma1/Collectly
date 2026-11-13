@@ -48,7 +48,7 @@ export default function CreamHero() {
         </p>
 
         {/* CTA Button */}
-        <div className="mt-8 sm:mt-10 flex flex-col items-center gap-2">
+        <div className="mt-8 sm:mt-9 flex flex-col items-center gap-2">
           <Link
             href="/auth"
             className="group bg-gradient-to-b from-[#C46B1F] to-[#A35514] hover:from-[#B8621B] hover:to-[#924A0F] active:scale-[0.98] text-white px-8 py-3.5 rounded-full text-sm font-medium tracking-tight shadow-[inset_0_1px_0_rgba(255,255,255,0.3),0_6px_20px_rgba(163,85,20,0.35)] hover:scale-[1.02] transition-all flex items-center gap-2"
