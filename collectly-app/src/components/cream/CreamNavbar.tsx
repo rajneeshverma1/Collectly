@@ -31,7 +31,7 @@ export default function CreamNavbar() {
           className={`w-full transition-all duration-300 ease-out ${
             scrolled
               ? 'bg-[#FAF6F0]/95 backdrop-blur-md rounded-full border border-white/80 shadow-[0_12px_36px_rgba(40,25,10,0.16)] px-4 sm:px-7 py-2 sm:py-2.5 text-[#1F1914]'
-              : 'bg-transparent px-2 sm:px-4 py-2 text-white'
+              : 'bg-white/60 backdrop-blur-sm rounded-full border border-white/50 shadow-sm px-4 sm:px-6 py-2 text-[#1F1914]'
           }`}
         >
           <div className="flex items-center justify-between">
@@ -45,7 +45,7 @@ export default function CreamNavbar() {
                   viewBox="0 0 24 18"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  className={scrolled ? 'text-[#1F1914]' : 'text-white'}
+                  className="text-[#1F1914]"
                 >
                   {/* Top Bullion Bar */}
                   <path
@@ -67,9 +67,7 @@ export default function CreamNavbar() {
                   />
                 </svg>
               </div>
-              <span className={`font-semibold text-sm sm:text-base tracking-tight ${
-                scrolled ? 'text-[#1F1914]' : 'text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.3)]'
-              }`}>
+              <span className="font-semibold text-sm sm:text-base tracking-tight text-[#1F1914]">
                 Collectly
               </span>
             </Link>
@@ -78,41 +76,25 @@ export default function CreamNavbar() {
             <nav className="hidden md:flex items-center gap-7 sm:gap-9">
               <Link
                 href="#features"
-                className={`text-xs sm:text-[13px] font-medium transition-colors ${
-                  scrolled
-                    ? 'text-[#2C241D] hover:text-[#000000]'
-                    : 'text-white/85 hover:text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.3)]'
-                }`}
+                className="text-xs sm:text-[13px] font-medium transition-colors text-[#2C241D] hover:text-[#000000]"
               >
                 Features
               </Link>
               <Link
                 href="#pricing"
-                className={`text-xs sm:text-[13px] font-medium transition-colors ${
-                  scrolled
-                    ? 'text-[#2C241D] hover:text-[#000000]'
-                    : 'text-white/85 hover:text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.3)]'
-                }`}
+                className="text-xs sm:text-[13px] font-medium transition-colors text-[#2C241D] hover:text-[#000000]"
               >
                 Pricing
               </Link>
               <Link
                 href="#compare"
-                className={`text-xs sm:text-[13px] font-medium transition-colors ${
-                  scrolled
-                    ? 'text-[#2C241D] hover:text-[#000000]'
-                    : 'text-white/85 hover:text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.3)]'
-                }`}
+                className="text-xs sm:text-[13px] font-medium transition-colors text-[#2C241D] hover:text-[#000000]"
               >
                 Compare
               </Link>
               <Link
                 href="#faq"
-                className={`text-xs sm:text-[13px] font-medium transition-colors ${
-                  scrolled
-                    ? 'text-[#2C241D] hover:text-[#000000]'
-                    : 'text-white/85 hover:text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.3)]'
-                }`}
+                className="text-xs sm:text-[13px] font-medium transition-colors text-[#2C241D] hover:text-[#000000]"
               >
                 Changelog
               </Link>
@@ -122,11 +104,7 @@ export default function CreamNavbar() {
             <div className="flex items-center gap-3.5 sm:gap-5">
               <Link
                 href="/auth"
-                className={`hidden sm:inline-block text-xs sm:text-[13px] font-medium transition-colors ${
-                  scrolled
-                    ? 'text-[#2C241D] hover:text-[#000000]'
-                    : 'text-white/90 hover:text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.3)]'
-                }`}
+                className="hidden sm:inline-block text-xs sm:text-[13px] font-medium transition-colors text-[#2C241D] hover:text-[#000000]"
               >
                 Log in
               </Link>
@@ -143,9 +121,7 @@ export default function CreamNavbar() {
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className={`md:hidden p-1.5 rounded-full transition-colors ${
-                  scrolled ? 'text-[#1F1914] hover:bg-black/5' : 'text-white hover:bg-white/10'
-                }`}
+                className="md:hidden p-1.5 rounded-full transition-colors text-[#1F1914] hover:bg-black/5"
                 aria-label="Toggle navigation menu"
               >
                 {mobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
