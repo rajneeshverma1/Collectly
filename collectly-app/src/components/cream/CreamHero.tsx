@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Star, Smartphone, Landmark } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import CreamDashboardCard from './CreamDashboardCard';
 
 export default function CreamHero() {
@@ -47,31 +47,11 @@ export default function CreamHero() {
           Track everything. Uncover missed opportunities. Get more from your money.
         </p>
 
-        {/* 3 Translucent Pill Badges */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mt-6 sm:mt-8">
-          
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/85 backdrop-blur-md border border-[#E7DFD4] text-[#2C241D] text-xs font-medium shadow-sm">
-            <Star className="size-3.5 fill-amber-500 text-amber-500" />
-            <span>4.9 on Trustpilot</span>
-          </div>
-
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/85 backdrop-blur-md border border-[#E7DFD4] text-[#2C241D] text-xs font-medium shadow-sm">
-            <Smartphone className="size-3.5 text-[#5A4E44]" />
-            <span>iPhone, iPad and web</span>
-          </div>
-
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/85 backdrop-blur-md border border-[#E7DFD4] text-[#2C241D] text-xs font-medium shadow-sm">
-            <Landmark className="size-3.5 text-[#5A4E44]" />
-            <span>Works with 12,000+ banks</span>
-          </div>
-
-        </div>
-
         {/* CTA Button */}
-        <div className="mt-7 sm:mt-8 flex flex-col items-center gap-2">
+        <div className="mt-8 sm:mt-10 flex flex-col items-center gap-2">
           <Link
             href="/auth"
-            className="group bg-gradient-to-b from-[#C46B1F] to-[#A35514] hover:from-[#B8621B] hover:to-[#924A0F] active:scale-[0.98] text-white px-8 py-3 rounded-full text-sm font-medium tracking-tight shadow-[inset_0_1px_0_rgba(255,255,255,0.3),0_6px_20px_rgba(163,85,20,0.35)] hover:scale-[1.02] transition-all flex items-center gap-2"
+            className="group bg-gradient-to-b from-[#C46B1F] to-[#A35514] hover:from-[#B8621B] hover:to-[#924A0F] active:scale-[0.98] text-white px-8 py-3.5 rounded-full text-sm font-medium tracking-tight shadow-[inset_0_1px_0_rgba(255,255,255,0.3),0_6px_20px_rgba(163,85,20,0.35)] hover:scale-[1.02] transition-all flex items-center gap-2"
           >
             <span>Start free trial</span>
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
